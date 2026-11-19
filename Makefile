@@ -15,9 +15,13 @@ console:
 	@echo "Building Console binary to './console'"
 	@(GO111MODULE=on CGO_ENABLED=0 go build -trimpath --tags=kqueue --ldflags "-s -w" -o console ./cmd/console)
 
+# Pinned to the last v1 release: .golangci.yml is in the v1 format, which
+# golangci-lint v2 rejects, and install.sh from master installs the newest v2.
+GOLANGCI_VERSION ?= v1.64.8
+
 getdeps:
 	@mkdir -p ${GOPATH}/bin
-	@echo "Installing golangci-lint" && curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(GOPATH)/bin
+	@echo "Installing golangci-lint" && curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/$(GOLANGCI_VERSION)/install.sh | sh -s -- -b $(GOPATH)/bin $(GOLANGCI_VERSION)
 
 verifiers: getdeps fmt lint
 
