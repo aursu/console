@@ -24,10 +24,13 @@ import {
   DeleteIcon,
   DownloadIcon,
   Grid,
+  InspectMenuIcon,
+  LegalHoldIcon,
   Loader,
   MetadataIcon,
   ObjectInfoIcon,
   PreviewIcon,
+  RetentionIcon,
   ShareIcon,
   SimpleHeader,
   TagsIcon,
@@ -62,8 +65,11 @@ import { displayFileIconName } from "./utils";
 import PreviewFileModal from "../Preview/PreviewFileModal";
 import ObjectMetaData from "../ObjectDetails/ObjectMetaData";
 import ShareFile from "../ObjectDetails/ShareFile";
+import SetRetention from "../ObjectDetails/SetRetention";
 import DeleteObject from "../ListObjects/DeleteObject";
+import SetLegalHoldModal from "../ObjectDetails/SetLegalHoldModal";
 import TagsModal from "../ObjectDetails/TagsModal";
+import InspectObject from "./InspectObject";
 import RenameLongFileName from "../../../../ObjectBrowser/RenameLongFilename";
 import TooltipWrapper from "../../../../Common/TooltipWrapper/TooltipWrapper";
 
@@ -83,6 +89,7 @@ interface IObjectDetailPanelProps {
   internalPaths: string;
   bucketName: string;
   versioningInfo: BucketVersioningResponse;
+  locking: boolean | undefined;
   onClosePanel: (hardRefresh: boolean) => void;
 }
 
@@ -90,6 +97,7 @@ const ObjectDetailPanel = ({
   internalPaths,
   bucketName,
   versioningInfo,
+  locking,
   onClosePanel,
 }: IObjectDetailPanelProps) => {
   const dispatch = useAppDispatch();
@@ -106,7 +114,10 @@ const ObjectDetailPanel = ({
   );
 
   const [shareFileModalOpen, setShareFileModalOpen] = useState<boolean>(false);
+  const [retentionModalOpen, setRetentionModalOpen] = useState<boolean>(false);
   const [tagModalOpen, setTagModalOpen] = useState<boolean>(false);
+  const [legalholdOpen, setLegalholdOpen] = useState<boolean>(false);
+  const [inspectModalOpen, setInspectModalOpen] = useState<boolean>(false);
   const [actualInfo, setActualInfo] = useState<BucketObject | null>(null);
   const [allInfoElements, setAllInfoElements] = useState<BucketObject[]>([]);
   const [objectToShare, setObjectToShare] = useState<BucketObject | null>(null);
@@ -114,8 +125,6 @@ const ObjectDetailPanel = ({
   const [deleteOpen, setDeleteOpen] = useState<boolean>(false);
   const [previewOpen, setPreviewOpen] = useState<boolean>(false);
   const [totalVersionsSize, setTotalVersionsSize] = useState<number>(0);
-  const [moreVersionsThanLimit, setMoreVersionsThanLimit] =
-    useState<boolean>(false);
   const [longFileOpen, setLongFileOpen] = useState<boolean>(false);
   const [metaData, setMetaData] = useState<any | null>(null);
   const [loadMetadata, setLoadingMetadata] = useState<boolean>(false);
@@ -156,14 +165,10 @@ const ObjectDetailPanel = ({
         .listObjects(bucketName, {
           prefix: internalPaths,
           with_versions: distributedSetup,
-          limit: 21,
         })
         .then((res) => {
           const result: BucketObject[] = res.data.objects || [];
           if (distributedSetup) {
-            setMoreVersionsThanLimit(result.length > 20);
-            result.splice(20);
-
             setAllInfoElements(result);
             setVersions(result);
 
@@ -231,6 +236,17 @@ const ObjectDetailPanel = ({
     tagKeys = Object.keys(actualInfo.tags);
   }
 
+  const openRetentionModal = () => {
+    setRetentionModalOpen(true);
+  };
+
+  const closeRetentionModal = (updateInfo: boolean) => {
+    setRetentionModalOpen(false);
+    if (updateInfo) {
+      dispatch(setLoadingObjectInfo(true));
+    }
+  };
+
   const shareObject = () => {
     setShareFileModalOpen(true);
   };
@@ -263,6 +279,20 @@ const ObjectDetailPanel = ({
     }
   };
 
+  const closeInspectModal = (reloadObjectData: boolean) => {
+    setInspectModalOpen(false);
+    if (reloadObjectData) {
+      dispatch(setLoadingObjectInfo(true));
+    }
+  };
+
+  const closeLegalholdModal = (reload: boolean) => {
+    setLegalholdOpen(false);
+    if (reload) {
+      dispatch(setLoadingObjectInfo(true));
+    }
+  };
+
   const loaderForContainer = (
     <div style={{ textAlign: "center", marginTop: 35 }}>
       <Loader />
@@ -287,9 +317,27 @@ const ObjectDetailPanel = ({
     currentItem,
     [bucketName, actualInfo.name].join("/"),
   ];
+  const canSetLegalHold = hasPermission(bucketName, [
+    IAM_SCOPES.S3_PUT_OBJECT_LEGAL_HOLD,
+    IAM_SCOPES.S3_PUT_ACTIONS,
+  ]);
   const canSetTags = hasPermission(objectResources, [
     IAM_SCOPES.S3_PUT_OBJECT_TAGGING,
     IAM_SCOPES.S3_PUT_ACTIONS,
+  ]);
+
+  const canChangeRetention = hasPermission(
+    objectResources,
+    [
+      IAM_SCOPES.S3_GET_OBJECT_RETENTION,
+      IAM_SCOPES.S3_PUT_OBJECT_RETENTION,
+      IAM_SCOPES.S3_GET_ACTIONS,
+      IAM_SCOPES.S3_PUT_ACTIONS,
+    ],
+    true,
+  );
+  const canInspect = hasPermission(objectResources, [
+    IAM_SCOPES.ADMIN_INSPECT_DATA,
   ]);
   const canChangeVersioning = hasPermission(objectResources, [
     IAM_SCOPES.S3_GET_BUCKET_VERSIONING,
@@ -304,7 +352,7 @@ const ObjectDetailPanel = ({
   ]);
   const canDelete = hasPermission(
     [bucketName, currentItem, [bucketName, actualInfo.name].join("/")],
-    [IAM_SCOPES.S3_DELETE_OBJECT, IAM_SCOPES.S3_DELETE_ACTIONS],
+    [IAM_SCOPES.S3_DELETE_OBJECT],
   );
 
   let objectType: AllowedPreviews = previewObjectType(metaData, currentItem);
@@ -356,6 +404,51 @@ const ObjectDetailPanel = ({
     },
     {
       action: () => {
+        setLegalholdOpen(true);
+      },
+      label: "Legal Hold",
+      disabled:
+        !locking ||
+        !distributedSetup ||
+        !!actualInfo.is_delete_marker ||
+        !canSetLegalHold ||
+        selectedVersion !== "",
+      icon: <LegalHoldIcon />,
+      tooltip: canSetLegalHold
+        ? locking
+          ? "Change Legal Hold rules for this File"
+          : "Object Locking must be enabled on this bucket in order to set Legal Hold"
+        : permissionTooltipHelper(
+            [IAM_SCOPES.S3_PUT_OBJECT_LEGAL_HOLD, IAM_SCOPES.S3_PUT_ACTIONS],
+            "change legal hold settings for this object",
+          ),
+    },
+    {
+      action: openRetentionModal,
+      label: "Retention",
+      disabled:
+        !distributedSetup ||
+        !!actualInfo.is_delete_marker ||
+        !canChangeRetention ||
+        selectedVersion !== "" ||
+        !locking,
+      icon: <RetentionIcon />,
+      tooltip: canChangeRetention
+        ? locking
+          ? "Change Retention rules for this File"
+          : "Object Locking must be enabled on this bucket in order to set Retention Rules"
+        : permissionTooltipHelper(
+            [
+              IAM_SCOPES.S3_GET_OBJECT_RETENTION,
+              IAM_SCOPES.S3_PUT_OBJECT_RETENTION,
+              IAM_SCOPES.S3_GET_ACTIONS,
+              IAM_SCOPES.S3_PUT_ACTIONS,
+            ],
+            "change Retention Rules for this object",
+          ),
+    },
+    {
+      action: () => {
         setTagModalOpen(true);
       },
       label: "Tags",
@@ -372,6 +465,24 @@ const ObjectDetailPanel = ({
               IAM_SCOPES.S3_PUT_ACTIONS,
             ],
             "set Tags on this object",
+          ),
+    },
+    {
+      action: () => {
+        setInspectModalOpen(true);
+      },
+      label: "Inspect",
+      disabled:
+        !distributedSetup ||
+        !!actualInfo.is_delete_marker ||
+        selectedVersion !== "" ||
+        !canInspect,
+      icon: <InspectMenuIcon />,
+      tooltip: canInspect
+        ? "Inspect this file"
+        : permissionTooltipHelper(
+            [IAM_SCOPES.ADMIN_INSPECT_DATA],
+            "inspect this file",
           ),
     },
     {
@@ -427,6 +538,15 @@ const ObjectDetailPanel = ({
           dataObject={objectToShare || actualInfo}
         />
       )}
+      {retentionModalOpen && actualInfo && (
+        <SetRetention
+          open={retentionModalOpen}
+          closeModalAndRefresh={closeRetentionModal}
+          objectName={currentItem}
+          objectInfo={actualInfo}
+          bucketName={bucketName}
+        />
+      )}
       {deleteOpen && (
         <DeleteObject
           deleteOpen={deleteOpen}
@@ -435,6 +555,15 @@ const ObjectDetailPanel = ({
           closeDeleteModalAndRefresh={closeDeleteModal}
           versioningInfo={distributedSetup ? versioningInfo : undefined}
           selectedVersion={selectedVersion}
+        />
+      )}
+      {legalholdOpen && actualInfo && (
+        <SetLegalHoldModal
+          open={legalholdOpen}
+          closeModalAndRefresh={closeLegalholdModal}
+          objectName={actualInfo.name || ""}
+          bucketName={bucketName}
+          actualInfo={actualInfo}
         />
       )}
       {previewOpen && actualInfo && (
@@ -453,6 +582,14 @@ const ObjectDetailPanel = ({
           bucketName={bucketName}
           actualInfo={actualInfo}
           onCloseAndUpdate={closeAddTagModal}
+        />
+      )}
+      {inspectModalOpen && actualInfo && (
+        <InspectObject
+          inspectOpen={inspectModalOpen}
+          volumeName={bucketName}
+          inspectPath={actualInfo.name || ""}
+          closeInspectModalAndRefresh={closeInspectModal}
         />
       )}
       {longFileOpen && actualInfo && (
@@ -512,7 +649,7 @@ const ObjectDetailPanel = ({
               canDelete
                 ? ""
                 : permissionTooltipHelper(
-                    [IAM_SCOPES.S3_DELETE_OBJECT, IAM_SCOPES.S3_DELETE_ACTIONS],
+                    [IAM_SCOPES.S3_DELETE_OBJECT],
                     "delete this object",
                   )
             }
@@ -528,10 +665,7 @@ const ObjectDetailPanel = ({
                   currentItem,
                   [bucketName, actualInfo.name].join("/"),
                 ]}
-                scopes={[
-                  IAM_SCOPES.S3_DELETE_OBJECT,
-                  IAM_SCOPES.S3_DELETE_ACTIONS,
-                ]}
+                scopes={[IAM_SCOPES.S3_DELETE_OBJECT]}
                 errorProps={{ disabled: true }}
               >
                 <Button
@@ -579,11 +713,8 @@ const ObjectDetailPanel = ({
               <Box className={"detailContainer"}>
                 <strong>Versions:</strong>
                 <br />
-                {versions.length}
-                {moreVersionsThanLimit ? "+" : ""} version
-                {versions.length !== 1 ? "s" : ""},{" "}
+                {versions.length} version{versions.length !== 1 ? "s" : ""},{" "}
                 {niceBytesInt(totalVersionsSize)}
-                {moreVersionsThanLimit ? "+" : ""}
               </Box>
             )}
           {selectedVersion === "" && (

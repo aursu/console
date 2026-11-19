@@ -14,10 +14,31 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+export interface IStorageFactors {
+  erasureCode: string;
+  storageFactor: number;
+  maxCapacity: string;
+  maxFailureTolerations: number;
+}
+
+export interface IErasureCodeCalc {
+  error: number;
+  maxEC: string;
+  erasureCodeSet: number;
+  rawCapacity: string;
+  defaultEC: string;
+  storageFactors: IStorageFactors[];
+}
+
 export interface ErrorResponseHandler {
   errorMessage: string;
   detailedError: string;
   statusCode?: number;
+}
+
+export interface IBytesCalc {
+  total: number;
+  unit: string;
 }
 
 interface IEmbeddedCustomButton {
@@ -75,4 +96,9 @@ export interface IEmbeddedCustomStyles {
   regularButtonStyles: IEmbeddedCustomButton;
   inputBox: IEmbeddedInputBox;
   switch: IEmbeddedSwitch;
+}
+
+export interface SelectorTypes {
+  label: any;
+  value: string;
 }

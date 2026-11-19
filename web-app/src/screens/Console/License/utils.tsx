@@ -41,80 +41,79 @@ interface PlansFeatures {
 
 export const FEATURE_ITEMS: PlansFeatures[] = [
   {
-    featureLabel: "License",
+    featureLabel: "",
     featurePlans: {
-      openSource: {
-        content: "GNU AGPL v3 License",
-      },
       eosPlus: {
-        content: "Enterprise License",
+        content: "Commercial License",
       },
     },
   },
   {
-    featureLabel: "Intended Use",
+    featureLabel: "",
     featurePlans: {
-      openSource: {
-        content: <div>Test and Dev Use</div>,
-      },
       eosPlus: {
-        content: (
-          <div>
-            Production Use <br /> (Site-Replication, Enterprise Grade Security,
-            Encryption and Key Management)
-          </div>
-        ),
+        content: "Enterprise Stable Release",
       },
     },
   },
   {
-    featureLabel: "Features",
+    featureLabel: "Additional Features",
     featurePlans: {
-      openSource: {
-        content: "Basic Features",
-      },
       eosPlus: {
         content:
-          "Basic Features, S3 Express, Non-Disruptive Upgrade, QoS, Catalog, Monitoring, Audit Logs, Health-Diagnostics, RDMA, GPU Direct, AI Features",
+          "Global Console, Observability, Cache, Data Firewall, Key Management Server Catalog",
       },
     },
   },
   {
-    featureLabel: "Support",
+    featureLabel: "Long Term Release Support",
     featurePlans: {
-      openSource: {
-        content: "Community Support",
-      },
       eosPlus: {
-        content:
-          "SLA backed - 24/7/365, <4 hr response time, Instant SLA for P0 issues ",
+        content: "5 years LTS",
       },
     },
   },
   {
-    featureLabel: "Regulatory Compliance",
+    featureLabel: "Support SLA",
     featurePlans: {
-      openSource: {
-        content: "N/A",
-      },
       eosPlus: {
-        content:
-          "FIPS 140-a Compliant, Pentest\n" +
-          "SOC2, ISO 27001, \n" +
-          "SEC 17a-4(f), FINRA 4511(c) and CFTC 1.31(c)-(d)\n" +
-          "\n",
+        content: "Less than 4 Hours",
       },
     },
   },
   {
-    featureLabel: "Optimizations",
+    featureLabel: "Panic button",
     featurePlans: {
-      openSource: {
-        content: "N/A",
-      },
       eosPlus: {
-        content:
-          "Optimizations for Small Objects, Bulk Deletes, List Operations, Low TTFB, Distributed Cache",
+        content: "Unlimited Panic Buttons Per Year",
+      },
+    },
+  },
+  {
+    featureLabel:
+      "Call Home Diagnostics, Health Check, Performance Benchmark, Security and Critical Vulnerabilities Notifications",
+    featurePlans: {
+      eosPlus: {
+        content: "",
+        isCheck: true,
+      },
+    },
+  },
+  {
+    featureLabel: "Indemnification",
+    featurePlans: {
+      eosPlus: {
+        content: "",
+        isCheck: true,
+      },
+    },
+  },
+  {
+    featureLabel: "Annual Review of Architecture, Performance and Security",
+    featurePlans: {
+      eosPlus: {
+        content: "",
+        isCheck: true,
       },
     },
   },
@@ -122,22 +121,20 @@ export const FEATURE_ITEMS: PlansFeatures[] = [
 
 export const LICENSE_PLANS_INFORMATION: LicensePlanOption[] = [
   {
-    planId: "openSource",
-    planName: "Community",
-    planType: "open-source",
-    planIcon: (
-      <ApplicationLogo applicationName={"console"} subVariant={"AGPL"} />
-    ),
-    planDescription: "",
-  },
-  {
     planId: "eosPlus",
     planName: "Enterprise",
     planType: "commercial",
     planIcon: (
-      <ApplicationLogo applicationName={"aistor"} subVariant={"enterprise"} />
+      <ApplicationLogo applicationName={"minio"} subVariant={"enterpriseos"} />
     ),
-    planDescription: "",
+    planDescription: (
+      <span>
+        Designed for customers where a commercial license and the
+        strictest,engineer-backed SLA are required. It offers additional
+        features and operational capabilities, more interaction options and more
+        enterprise deliverables.
+      </span>
+    ),
   },
 ];
 

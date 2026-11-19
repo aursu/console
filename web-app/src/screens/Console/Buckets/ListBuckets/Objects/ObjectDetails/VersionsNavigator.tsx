@@ -94,8 +94,6 @@ const VersionsNavigator = ({
   const [actualInfo, setActualInfo] = useState<BucketObject | null>(null);
   const [objectToShare, setObjectToShare] = useState<BucketObject | null>(null);
   const [versions, setVersions] = useState<BucketObject[]>([]);
-  const [moreVersionsThanLimit, setMoreVersionsThanLimit] =
-    useState<boolean>(false);
   const [restoreVersionOpen, setRestoreVersionOpen] = useState<boolean>(false);
   const [restoreVersion, setRestoreVersion] = useState<BucketObject | null>(
     null,
@@ -126,13 +124,9 @@ const VersionsNavigator = ({
         .listObjects(bucketName, {
           prefix: internalPaths,
           with_versions: distributedSetup,
-          limit: 21,
         })
         .then((res) => {
           const result = get(res.data, "objects", []);
-
-          setMoreVersionsThanLimit(result.length > 20);
-          result.splice(20);
 
           // Filter the results prefixes as API can return more files than expected.
           const filteredPrefixes = result.filter(
@@ -429,16 +423,12 @@ const VersionsNavigator = ({
                   <Fragment>
                     <span className={"detailsSpacer"}>
                       <strong>
-                        {versions.length}
-                        {moreVersionsThanLimit ? "+" : ""} Version
+                        {versions.length} Version
                         {versions.length === 1 ? "" : "s"}&nbsp;&nbsp;&nbsp;
                       </strong>
                     </span>
                     <span className={"detailsSpacer"}>
-                      <strong>
-                        {niceBytesInt(totalSpace)}
-                        {moreVersionsThanLimit ? "+" : ""}
-                      </strong>
+                      <strong>{niceBytesInt(totalSpace)}</strong>
                     </span>
                   </Fragment>
                 }
