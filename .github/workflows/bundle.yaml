@@ -1,0 +1,58 @@
+name: UI bundle
+
+# The committed web-app/build is what the console binary serves (go:embed).
+# This job proves it is built from the committed sources, and shows what
+# changed in it in readable form (Job Summary).
+on:
+  pull_request:
+    branches:
+      - master
+    paths:
+      - "web-app/**"
+      - ".nvmrc"
+      - "fork/bin/bundle_diff.py"
+      - "fork/test/test_bundle_diff.py"
+      - ".github/workflows/bundle.yaml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref }}
+  cancel-in-progress: true
+
+jobs:
+  bundle:
+    name: Bundle matches sources
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Unit tests of the diff tool
+        run: python3 -I -m unittest discover -s fork/test -v
+      - name: Read .nvmrc
+        run: echo "NVMRC=$(cat .nvmrc)" >> "$GITHUB_ENV"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NVMRC }}
+      - name: Enable Corepack
+        run: corepack enable
+      - name: Install modules
+        working-directory: ./web-app
+        run: yarn install --immutable
+      - name: Rebuild the bundle
+        working-directory: ./web-app
+        run: yarn build
+      - name: Committed bundle equals the rebuild
+        run: |
+          if [ -n "$(git status --porcelain -- web-app/build)" ]; then
+            echo "::error::web-app/build does not match a rebuild of the committed sources"
+            git status --porcelain -- web-app/build
+            exit 1
+          fi
+      - name: Readable bundle diff
+        if: always()
+        env:
+          BASE_REF: ${{ github.base_ref }}
+        run: python3 -I fork/bin/bundle_diff.py --markdown "origin/$BASE_REF" HEAD >> "$GITHUB_STEP_SUMMARY"
