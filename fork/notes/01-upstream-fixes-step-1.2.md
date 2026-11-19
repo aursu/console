@@ -102,14 +102,22 @@ The advisory picture (OSV, 2026-11-19) explains why this matters:
 The shipped jsPDF 1.5.3 is old and vulnerable, but it is **not reachable**:
 the console calls only the PNG export of its own dashboard widgets, and every
 jsPDF advisory needs attacker input passed to jsPDF's PDF APIs. It is still
-dead, vulnerable code in the bundle, and scanners will flag it. The real fix
-is upstream's later commit `7e5f4f3` "Fixed UI security issues and updated
-project dependencies (#3556)". It removes `react-component-export-image`
-together with its jsPDF, and it is part of plan step 1.4.
+dead, vulnerable code in the bundle, and scanners will flag it.
+
+**Correction (2026-11-19, step 1.4).** An earlier version of this note said
+upstream's `7e5f4f3` "Fixed UI security issues and updated project
+dependencies (#3556)" removes `react-component-export-image`. It does not:
+`7e5f4f3` only bumps dependencies (react-router 6.30.1, `@babel/runtime`,
+`swagger-typescript-api`, `tar-fs`/`prebuilt-install` resolutions). Upstream
+removed the package in `63c6d89`, the "simplified Console" commit, together
+with the dashboard that used it. The full console keeps the dashboard, so
+getting rid of the shipped jsPDF 1.5.3 is **our own change**: replace the PNG
+export with a maintained library, or drop the button. That is a step 1.5
+decision.
 
 We keep the resolution anyway. It is upstream's own change, it keeps the
 lockfile free of the older jsPDF/DOMPurify for any future direct use, and
-`7e5f4f3` builds on it.
+upstream's later dependency commits build on it.
 
 ## Commit 2 — `33a7fbb` "Fix regex pattern in webhook management (#3512)"
 
@@ -185,4 +193,4 @@ Both fixes were also located in the built files: the regex with `_` in chunk
   change.
 - **Bump jsPDF further to a clean version.** It would not help either: the
   shipped copy comes from `react-component-export-image`, whatever the lockfile
-  says. Removing that package (`7e5f4f3`, step 1.4) is the fix.
+  says. Removing or replacing that package (our change, step 1.5) is the fix.
