@@ -180,9 +180,9 @@ const PreviewFile = ({
                 path={path}
                 onLoad={iframeLoaded}
                 loading={loading}
-                downloadFile={() => {
-                  downloadObject(dispatch, bucketName, objectName, actualInfo);
-                }}
+                downloadFile={() =>
+                  downloadObject(dispatch, bucketName, path, actualInfo)
+                }
               />
             </Fragment>
           )}

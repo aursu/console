@@ -96,8 +96,8 @@ export const download = (
     path = path.concat(`&version_id=${versionID}`);
   }
 
-  // If file is greater than 5GiB then we force browser download, if not then we use HTTP Request for Object Manager
-  if (fileSize > 5368709120) {
+  // If file is greater than 50GiB then we force browser download, if not then we use HTTP Request for Object Manager
+  if (fileSize > 53687091200) {
     return new BrowserDownload(path, id, completeCallback, toastCallback);
   }
 
