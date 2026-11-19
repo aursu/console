@@ -1,7 +1,12 @@
 import type { KnipConfig } from "knip";
 
 export default {
-  entry: ["src/**/{index,main}.{ts,tsx}", "e2e/**/*.ts", "test/**/*.ts"],
+  entry: [
+    "src/**/{index,main}.{ts,tsx}",
+    "src/setupTests.ts", // loaded by react-scripts' Jest config, by name
+    "e2e/**/*.ts",
+    "test/**/*.ts",
+  ],
   project: [
     "src/**/*.{ts,tsx}",
     "!src/api/**/*",
