@@ -19,11 +19,11 @@ concurrency:
 jobs:
   lint-job:
     name: Checking Lint
-    runs-on: [ubuntu-latest]
+    runs-on: [ubuntu-24.04]
     strategy:
       matrix:
         go-version: [1.23.x]
-        os: [ubuntu-latest]
+        os: [ubuntu-24.04]
     steps:
       - name: Check out code
         uses: actions/checkout@v4
@@ -43,10 +43,10 @@ jobs:
 
   semgrep-static-code-analysis:
     name: "semgrep checks"
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     strategy:
       matrix:
-        os: [ubuntu-latest]
+        os: [ubuntu-24.04]
     steps:
       - name: Check out source code
         uses: actions/checkout@v3
@@ -61,11 +61,11 @@ jobs:
 
   ui-assets:
     name: "React Code Has No Warnings & Prettified"
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     strategy:
       matrix:
         go-version: [1.23.x]
-        os: [ubuntu-latest]
+        os: [ubuntu-24.04]
     steps:
       - name: Check out code
         uses: actions/checkout@v3
@@ -109,7 +109,7 @@ jobs:
 
   latest-minio:
     name: Build latest MinIO
-    runs-on: [ubuntu-latest]
+    runs-on: [ubuntu-24.04]
     strategy:
       matrix:
         go-version: [1.23.x]
@@ -151,7 +151,7 @@ jobs:
     strategy:
       matrix:
         go-version: [1.23.x]
-        os: [ubuntu-latest]
+        os: [ubuntu-24.04]
     steps:
       - name: Check out code
         uses: actions/checkout@v3
@@ -185,12 +185,12 @@ jobs:
     name: Test Subpath with Nginx
     needs:
       - compile-binary
-    runs-on: [ubuntu-latest]
+    runs-on: [ubuntu-24.04]
     timeout-minutes: 10
     strategy:
       matrix:
         go-version: [1.23.x]
-        os: [ubuntu-latest]
+        os: [ubuntu-24.04]
     steps:
       - name: Check out code
         uses: actions/checkout@v3
@@ -239,12 +239,12 @@ jobs:
     name: Permissions Tests Part 1
     needs:
       - compile-binary
-    runs-on: [ubuntu-latest]
+    runs-on: [ubuntu-24.04]
     timeout-minutes: 10
     strategy:
       matrix:
         go-version: [1.23.x]
-        os: [ubuntu-latest]
+        os: [ubuntu-24.04]
     steps:
       - name: Check out code
         uses: actions/checkout@v3
@@ -292,12 +292,12 @@ jobs:
     name: Permissions Tests Part 2
     needs:
       - compile-binary
-    runs-on: [ubuntu-latest]
+    runs-on: [ubuntu-24.04]
     timeout-minutes: 10
     strategy:
       matrix:
         go-version: [1.23.x]
-        os: [ubuntu-latest]
+        os: [ubuntu-24.04]
     steps:
       - name: Check out code
         uses: actions/checkout@v3
@@ -344,12 +344,12 @@ jobs:
     name: Permissions Tests Part 3
     needs:
       - compile-binary
-    runs-on: [ubuntu-latest]
+    runs-on: [ubuntu-24.04]
     timeout-minutes: 10
     strategy:
       matrix:
         go-version: [1.23.x]
-        os: [ubuntu-latest]
+        os: [ubuntu-24.04]
     steps:
       - name: Check out code
         uses: actions/checkout@v3
@@ -396,12 +396,12 @@ jobs:
     name: Permissions Tests Part 4
     needs:
       - compile-binary
-    runs-on: [ubuntu-latest]
+    runs-on: [ubuntu-24.04]
     timeout-minutes: 15
     strategy:
       matrix:
         go-version: [1.23.x]
-        os: [ubuntu-latest]
+        os: [ubuntu-24.04]
     steps:
       - name: Check out code
         uses: actions/checkout@v3
@@ -445,11 +445,11 @@ jobs:
     name: Permissions Tests Part 5
     needs:
       - compile-binary
-    runs-on: [ubuntu-latest]
+    runs-on: [ubuntu-24.04]
     strategy:
       matrix:
         go-version: [1.23.x]
-        os: [ubuntu-latest]
+        os: [ubuntu-24.04]
     steps:
       - name: Check out code
         uses: actions/checkout@v3
@@ -493,11 +493,11 @@ jobs:
     name: Permissions Tests Part 6
     needs:
       - compile-binary
-    runs-on: [ubuntu-latest]
+    runs-on: [ubuntu-24.04]
     strategy:
       matrix:
         go-version: [1.23.x]
-        os: [ubuntu-latest]
+        os: [ubuntu-24.04]
     steps:
       - name: Check out code
         uses: actions/checkout@v3
@@ -541,11 +541,11 @@ jobs:
     name: Permissions Tests Part A
     needs:
       - compile-binary
-    runs-on: [ubuntu-latest]
+    runs-on: [ubuntu-24.04]
     strategy:
       matrix:
         go-version: [1.23.x]
-        os: [ubuntu-latest]
+        os: [ubuntu-24.04]
     steps:
       - name: Check out code
         uses: actions/checkout@v3
@@ -592,11 +592,11 @@ jobs:
     name: Permissions Tests Part B
     needs:
       - compile-binary
-    runs-on: [ubuntu-latest]
+    runs-on: [ubuntu-24.04]
     strategy:
       matrix:
         go-version: [1.23.x]
-        os: [ubuntu-latest]
+        os: [ubuntu-24.04]
     steps:
       - name: Check out code
         uses: actions/checkout@v3
@@ -649,7 +649,7 @@ jobs:
     strategy:
       matrix:
         go-version: [1.23.x]
-        os: [ubuntu-latest]
+        os: [ubuntu-24.04]
     steps:
       - name: Check out code
         uses: actions/checkout@v3
@@ -684,7 +684,7 @@ jobs:
     strategy:
       matrix:
         go-version: [1.23.x]
-        os: [ubuntu-latest]
+        os: [ubuntu-24.04]
     steps:
       - name: Check out code
         uses: actions/checkout@v3
@@ -716,7 +716,7 @@ jobs:
       - ui-assets
       - semgrep-static-code-analysis
       - latest-minio
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
 
     strategy:
       matrix:
@@ -794,7 +794,7 @@ jobs:
       - lint-job
       - ui-assets
       - semgrep-static-code-analysis
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v3
       - name: Enable Corepack
@@ -813,7 +813,7 @@ jobs:
       - ui-assets
       - semgrep-static-code-analysis
       - latest-minio
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
 
     strategy:
       matrix:
@@ -902,7 +902,7 @@ jobs:
     strategy:
       matrix:
         go-version: [1.23.x]
-        os: [ubuntu-latest]
+        os: [ubuntu-24.04]
     steps:
       - name: Check out code
         uses: actions/checkout@v3
@@ -1024,11 +1024,11 @@ jobs:
 
   ui-assets-istanbul-coverage:
     name: "Assets with Istanbul Plugin for coverage"
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     strategy:
       matrix:
         go-version: [1.23.x]
-        os: [ubuntu-latest]
+        os: [ubuntu-24.04]
     steps:
       - name: Check out code
         uses: actions/checkout@v3
@@ -1070,7 +1070,7 @@ jobs:
     strategy:
       matrix:
         go-version: [1.23.x]
-        os: [ubuntu-latest]
+        os: [ubuntu-24.04]
     steps:
       - name: Check out code
         uses: actions/checkout@v3
@@ -1110,7 +1110,7 @@ jobs:
     strategy:
       matrix:
         go-version: [1.23.x]
-        os: [ubuntu-latest]
+        os: [ubuntu-24.04]
     steps:
       - name: Check out code
         uses: actions/checkout@v3
@@ -1138,7 +1138,7 @@ jobs:
     strategy:
       matrix:
         go-version: [1.23.x]
-        os: [ubuntu-latest]
+        os: [ubuntu-24.04]
     steps:
       - name: Check out code
         uses: actions/checkout@v3
@@ -1165,7 +1165,7 @@ jobs:
     strategy:
       matrix:
         go-version: [1.23.x]
-        os: [ubuntu-latest]
+        os: [ubuntu-24.04]
     steps:
       - name: Check out code
         uses: actions/checkout@v3
@@ -1193,7 +1193,7 @@ jobs:
     strategy:
       matrix:
         go-version: [1.23.x]
-        os: [ubuntu-latest]
+        os: [ubuntu-24.04]
     steps:
       - name: Check out code
         uses: actions/checkout@v3
@@ -1221,7 +1221,7 @@ jobs:
     strategy:
       matrix:
         go-version: [1.23.x]
-        os: [ubuntu-latest]
+        os: [ubuntu-24.04]
     steps:
       - name: Check out code
         uses: actions/checkout@v3
@@ -1243,7 +1243,7 @@ jobs:
     needs:
       - compile-binary-istanbul-coverage
     timeout-minutes: 60
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v3
       - name: Enable Corepack
