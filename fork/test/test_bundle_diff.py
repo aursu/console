@@ -1,4 +1,5 @@
-"""Unit tests for fork/bin/bundle_diff.py: pairing, noise filtering, output.
+"""Unit tests for fork/bin/bundle_diff.py: pairing, noise filtering, output,
+and the size-limited PR comment.
 
 They need neither git nor node. Run from the repository root:
     python3 -I -m unittest discover -s fork/test -v
@@ -10,7 +11,15 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "bin"))
 
-from bundle_diff import BundleFile, FileChange, pair_changes, readable_diff, render
+from bundle_diff import (
+    COMMENT_MARKER,
+    BundleFile,
+    FileChange,
+    pair_changes,
+    readable_diff,
+    render,
+    render_comment,
+)
 
 JS = "web-app/build/static/js/"
 
@@ -54,7 +63,7 @@ class ReadableDiffTest(unittest.TestCase):
         old = 'a: "x",\n182: "6e133743",\n//# sourceMappingURL=main.45669c2e.js.map\n'
         new = 'a: "y",\n182: "7256c0d0",\n//# sourceMappingURL=main.8f3a6a8e.js.map\n'
         lines = readable_diff(old, new, "old", "new")
-        changed = [l for l in lines if l[:1] in "+-" and not l.startswith(("---", "+++"))]
+        changed = [line for line in lines if line[:1] in "+-" and not line.startswith(("---", "+++"))]
         self.assertEqual(changed, ['-a: "x",', '+a: "y",'])
 
     def test_noise_only_change_gives_no_diff(self):
@@ -66,7 +75,7 @@ class ReadableDiffTest(unittest.TestCase):
         old = "real_old();\n" + "same();\n" * 20 + "//# sourceMappingURL=a.11111111.js.map\n"
         new = "real_new();\n" + "same();\n" * 20 + "//# sourceMappingURL=a.22222222.js.map\n"
         lines = readable_diff(old, new, "old", "new")
-        self.assertEqual(sum(1 for l in lines if l.startswith("@@")), 1)
+        self.assertEqual(sum(1 for line in lines if line.startswith("@@")), 1)
         self.assertIn("+real_new();", lines)
 
 
@@ -88,6 +97,53 @@ class RenderTest(unittest.TestCase):
         text = render([added, removed], {}, "a", "b", markdown=False)
         self.assertIn("added: " + JS + "7.aaaaaaaa.chunk.js", text)
         self.assertIn("removed: " + JS + "9.bbbbbbbb.chunk.js", text)
+
+    def test_markdown_added_removed_are_list_items(self):
+        added = FileChange("js/7.chunk.js", None, BundleFile(JS + "7.aaaaaaaa.chunk.js"))
+        text = render([added], {}, "a", "b", markdown=True)
+        self.assertIn("- added: `" + JS + "7.aaaaaaaa.chunk.js`", text)
+
+
+def _changed(key: str, lines: int) -> tuple[FileChange, list[str]]:
+    """A changed file whose diff has `lines` lines of 10 characters."""
+    name = key.removeprefix("js/").removesuffix(".js")
+    change = FileChange(key, BundleFile(f"{JS}{name}.11111111.js"), BundleFile(f"{JS}{name}.22222222.js"))
+    return change, ["+123456789"] * lines
+
+
+class RenderCommentTest(unittest.TestCase):
+    URL = "https://github.com/aursu/console/actions/runs/1"
+
+    def test_marker_first_run_url_last(self):
+        change, diff = _changed("js/main.js", 3)
+        text = render_comment([change], {change.key: diff}, "a", "b", self.URL, 60000)
+        self.assertTrue(text.startswith(COMMENT_MARKER + "\n"))
+        self.assertTrue(text.rstrip().endswith(self.URL))
+        self.assertNotIn("Too long", text)
+
+    def test_unchanged(self):
+        text = render_comment([], {}, "a", "b", self.URL, 60000)
+        self.assertIn("bundle unchanged", text)
+        self.assertIn(self.URL, text)
+
+    def test_files_that_do_not_fit_are_named(self):
+        small, small_diff = _changed("js/main.js", 3)
+        big, big_diff = _changed("js/182.chunk.js", 1000)  # about 11 000 characters
+        diffs = {small.key: small_diff, big.key: big_diff}
+        text = render_comment([small, big], diffs, "a", "b", self.URL, 2000)
+        self.assertLessEqual(len(text), 2000)
+        self.assertIn("<code>js/main.js</code>", text)
+        self.assertNotIn("<code>js/182.chunk.js</code>", text)
+        self.assertIn("see the run summary:** `js/182.chunk.js`", text)
+
+    def test_smaller_file_after_one_that_does_not_fit_is_shown(self):
+        big, big_diff = _changed("js/182.chunk.js", 1000)
+        small, small_diff = _changed("js/main.js", 3)
+        diffs = {small.key: small_diff, big.key: big_diff}
+        text = render_comment([big, small], diffs, "a", "b", self.URL, 2000)
+        self.assertLessEqual(len(text), 2000)
+        self.assertIn("<code>js/main.js</code>", text)
+        self.assertIn("see the run summary:** `js/182.chunk.js`\n", text)
 
 
 if __name__ == "__main__":

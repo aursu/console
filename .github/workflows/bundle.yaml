@@ -2,7 +2,7 @@ name: UI bundle
 
 # The committed web-app/build is what the console binary serves (go:embed).
 # This job proves it is built from the committed sources, and shows what
-# changed in it in readable form (Job Summary).
+# changed in it in readable form (Job Summary and a PR comment).
 on:
   pull_request:
     branches:
@@ -25,6 +25,9 @@ jobs:
   bundle:
     name: Bundle matches sources
     runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+      pull-requests: write # the readable-diff comment
     steps:
       - uses: actions/checkout@v4
         with:
@@ -55,4 +58,30 @@ jobs:
         if: always()
         env:
           BASE_REF: ${{ github.base_ref }}
-        run: python3 -I fork/bin/bundle_diff.py --markdown "origin/$BASE_REF" HEAD >> "$GITHUB_STEP_SUMMARY"
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: >-
+          python3 -I fork/bin/bundle_diff.py --markdown
+          --comment "$RUNNER_TEMP/bundle-diff-comment.md" --run-url "$RUN_URL"
+          "origin/$BASE_REF" HEAD >> "$GITHUB_STEP_SUMMARY"
+      # One comment per PR, found by its hidden marker and updated on every
+      # push. Skipped for PRs from forks: their token cannot write.
+      - name: Post the readable diff on the PR
+        if: always() && github.event.pull_request.head.repo.full_name == github.repository
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          PR: ${{ github.event.pull_request.number }}
+        run: |
+          body="$RUNNER_TEMP/bundle-diff-comment.md"
+          if [ ! -s "$body" ]; then
+            echo "no comment body (the diff step failed); nothing to post"
+            exit 0
+          fi
+          ids=$(gh api --paginate "repos/$REPO/issues/$PR/comments" \
+            --jq '.[] | select(.user.login == "github-actions[bot]" and (.body | startswith("<!-- bundle-diff -->"))) | .id')
+          id=${ids%%$'\n'*}
+          if [ -n "$id" ]; then
+            gh api --method PATCH "repos/$REPO/issues/comments/$id" -F "body=@$body" --silent
+          else
+            gh api --method POST "repos/$REPO/issues/$PR/comments" -F "body=@$body" --silent
+          fi
