@@ -28,7 +28,7 @@ That raises two questions a reviewer could not answer:
 |---|---|
 | `.gitattributes`: `web-app/build/** linguist-generated=true` | GitHub collapses bundle files in PR diffs; the review starts from the sources |
 | `fork/bin/bundle_diff.py` (+ `fork/test/test_bundle_diff.py`) | readable diff of the bundle between two refs; unit-tested |
-| `.github/workflows/bundle.yaml` ("UI bundle") | on every PR touching `web-app/`: rebuild the bundle and **fail if it differs** from the committed one; put the readable diff in the Job Summary |
+| `.github/workflows/bundle.yaml` ("UI bundle") | on every PR touching `web-app/`: rebuild the bundle and **fail if it differs** from the committed one; put the readable diff in the Job Summary and in a PR comment (see below) |
 
 ### How the readable diff works
 
@@ -72,6 +72,40 @@ rebuild removed it.
 The job uses Node from `.nvmrc` and `yarn install --immutable`, so a toolchain
 change is itself a reviewed change.
 
+## The diff as a PR comment (added after #7)
+
+On #7 the readable diff existed, but only in the Job Summary, on the run's
+page (Checks → UI bundle → Summary). From the PR's "Files changed" tab, where a
+reviewer looks, it could not be found. GitHub always shows committed files
+there as they are; `linguist-generated` only collapses them.
+
+So the job now also keeps **one comment on the PR** with the same diff:
+
+- `bundle_diff.py --comment PATH --run-url URL` writes the comment body next
+  to the normal output, from the same run (prettier runs once).
+- The body starts with a hidden marker, `<!-- bundle-diff -->`. The workflow
+  looks for a comment by `github-actions[bot]` with that marker and edits it;
+  if there is none, it creates one. A push updates the comment, it does not add
+  another.
+- GitHub rejects comments over 65,536 characters. The body is kept under
+  60,000: whole file sections are kept when they fit, a file that does not fit
+  is listed by name, and smaller files after it are still shown. The footer
+  links to the run, whose summary always has the full diff.
+- The job gets `pull-requests: write`, job-level only; the workflow default
+  stays `contents: read`.
+- PRs from forks are skipped: GitHub gives them a read-only token. All PRs
+  here come from branches of aursu/console.
+
+**Correction.** The first version of this note rejected a PR comment because
+it "needs a token with write access in CI". That was wrong: the workflow's
+built-in `GITHUB_TOKEN` can comment once the job is granted
+`pull-requests: write`. No stored secret or app is involved.
+
+Why the shell calls `gh api` instead of a marketplace "sticky comment" action:
+the token can write to the PR, and a third-party action would get that
+access. `gh` is preinstalled on the runner, and the lookup-and-update is five
+lines.
+
 ## Why Python and not a shell script
 
 The first version was bash. Its job is mostly pairing and filtering data,
@@ -91,8 +125,6 @@ repository's tooling for no gain over Python's standard library.
   Without them, the server build would need Node.js.
 - **Keep source maps out of the repo.** They are part of what upstream
   shipped. Dropping them changes the artifact and is a separate decision.
-- **Post the readable diff as a PR comment.** That needs a token with write
-  access in CI. The Job Summary needs none and appears on the run's page.
 - **`-diff` in `.gitattributes`.** It would hide bundle changes from local
   `git diff` too, while `linguist-generated` only collapses them on GitHub.
 
@@ -110,3 +142,19 @@ repository's tooling for no gain over Python's standard library.
 - The rebuild check, simulated locally on `master`: `yarn build`, then
   `git status --porcelain -- web-app/build` is empty.
 - The workflow runs on its own PR (its path filter includes itself).
+
+Tests of the PR comment:
+
+- 5 more unit tests (16 in all): the marker first and the run link last; the
+  unchanged bundle; a file too large for the limit is named and the result
+  stays under it; a smaller file after it is still shown; in Markdown, added
+  and removed files are list items.
+- ruff: clean. Two `l` variable names in the #6 tests were renamed; the note
+  above called them clean, but they were not.
+- On #7's real change (`64ed2db7d` → `35ec5295f`): the comment is 28 KB and
+  carries both files. With the limit forced to 3,000 characters, it is 1,016
+  characters long: `main.js` is shown, and `182.chunk.js` is named with a
+  pointer to the run.
+- actionlint 1.7.7 (with shellcheck): clean.
+- The workflow posts on its own PR, so the PR itself shows the comment (in
+  this case "bundle unchanged", since the PR does not touch the bundle).
