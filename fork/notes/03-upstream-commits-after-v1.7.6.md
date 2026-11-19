@@ -32,8 +32,8 @@ How taken commits are applied:
 | 5 | `71b1b70` | Clean-up after PR 3509 | not taken: removes admin APIs left after #4 |
 | 6 | `6499469` | Update jwt package | step 1.6 (Go modules); applies cleanly |
 | 7 | `f5ad4de` | Updated Packages & versions | superseded by step 1.5 |
-| 8 | `ff2b72f` | Bump http-proxy-middleware 2.0.7 → 2.0.9 | **next PR** (applies cleanly) |
-| 9 | `6df2db8` | Bump formidable 3.5.2 → 3.5.4 | **next PR** (applies cleanly) |
+| 8 | `ff2b72f` | Bump http-proxy-middleware 2.0.7 → 2.0.9 | **taken**, #9 |
+| 9 | `6df2db8` | Bump formidable 3.5.2 → 3.5.4 | **taken**, #9, with our Jest setup fix (note 04) |
 | 10 | `28b0801` | Fixed vulnerabilities in go packages | step 1.6 (conflicts in `go.mod`) |
 | 11 | `40c4ce7` | License Comparisson updates | not taken: commercial licence comparison page |
 | 12 | `ee974a5` | Release v2.0.0 | not taken: release commit of the simplified line |
@@ -93,7 +93,9 @@ does the same job once, with current versions:
 - target: no high or critical advisory in the shipped bundle.
 
 The two Dependabot bumps (`ff2b72f`, `6df2db8`) apply cleanly with their
-lockfile hunks, so they are taken as upstream made them, in the next PR.
+lockfile hunks, so they are taken as upstream made them, in #9. The formidable
+bump broke `yarn test` here, because upstream had already deleted its tests.
+The fix is ours, see note 04.
 
 **Correction recorded in note 01:** `7e5f4f3` does not remove
 `react-component-export-image`. Upstream removed it in `63c6d89` together with
