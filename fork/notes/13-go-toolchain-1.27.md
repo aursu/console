@@ -100,3 +100,38 @@ Go 1.27.4:
 | actionlint | no new findings |
 
 "Analysis" stays red until the module PRs land.
+
+## First CI run: govulncheck could not load packages (fixed here)
+
+The first run of "Analysis" did not report the 13 findings. govulncheck
+**failed to load the packages**:
+
+```
+.../toolchain@v0.0.1-go1.27.4.linux-amd64/src/math/rand/v2/rand.go:213:18:
+  generic method requires go1.27 or later
+```
+
+Reproduced locally by mirroring the runner. The official `golang` images
+set `GOTOOLCHAIN=local`, which had hidden the problem in the checks above;
+the runners use Go's default, `auto`.
+
+1. `setup-go` v5 with `go-version-file: go.mod` installs the **`go`** line,
+   1.23, not the `toolchain` line. The `go` command then switches to
+   go1.27.4 by itself, so every job really runs 1.27.4 (CI logs:
+   `go: downloading go1.27.4`).
+2. `go install govulncheck@v1.10.0` ignores the module's toolchain.
+   govulncheck needs Go ≥ 1.26, so it was built with go1.26.11.
+3. govulncheck loads packages through the `go` on `PATH`, which is the
+   forwarding 1.23 binary. The standard library of go1.27.4 is then
+   type-checked at language 1.23, and fails. Building govulncheck with
+   go1.27.4 alone does not help.
+
+The fix, verified locally: right after `setup-go`, the "Analysis" job puts
+the toolchain's own `go` (`$(go env GOROOT)/bin`) first on `PATH`.
+govulncheck then exits 3 with exactly the 13 module findings.
+
+The broader fix is `actions/setup-go` v6+, whose release notes describe
+reworked toolchain handling ("more reliable and consistent toolchain
+selection", PR #460). That would install go1.27.4 directly in every job and
+drop the double download. It changes every Go job and can only be verified
+in CI, so it is a separate PR.
