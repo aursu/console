@@ -62,7 +62,10 @@ __init__() {
   *) ;;
   esac
 
-  curl -sLO "https://dl.min.io/client/mc/release/$OS-$ARCH/mc" -o mc
+  # dl.min.io no longer serves mc (HTTP 410). The server image ships it, so
+  # take it from the "minio" container the Makefile has just started: the
+  # client then always matches the server under test.
+  docker cp minio:/usr/bin/mc mc
   chmod +x mc
   mv mc /usr/local/bin
 

@@ -69,7 +69,9 @@ __init__() {
   export GOPATH=/tmp/gopath
   export PATH=${PATH}:${GOPATH}/bin
 
-  wget https://dl.min.io/client/mc/release/linux-amd64/mc
+  # dl.min.io no longer serves mc; copy it from the running "minio"
+  # container, as initialize-env.sh does.
+  docker cp minio:/usr/bin/mc mc
   chmod +x mc
 
   add_alias
