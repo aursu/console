@@ -2,7 +2,7 @@
  * @licstart The following is the entire license notice for the
  * JavaScript code in this page
  *
- * Copyright 2023 Mozilla Foundation
+ * Copyright 2024 Mozilla Foundation
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -46,13 +46,14 @@ const t = !(
   C = 8,
   h = 16,
   l = 64,
-  Q = 256,
-  E = "pdfjs_internal_editor_",
-  u = 3,
-  d = 9,
-  f = 13,
-  p = 15,
-  m = {
+  Q = 128,
+  E = 256,
+  u = "pdfjs_internal_editor_",
+  d = 3,
+  f = 9,
+  p = 13,
+  m = 15,
+  y = {
     PRINT: 4,
     MODIFY_CONTENTS: 8,
     COPY: 16,
@@ -62,55 +63,55 @@ const t = !(
     ASSEMBLE: 1024,
     PRINT_HIGH_QUALITY: 2048,
   },
-  y = 0,
-  w = 4,
-  D = 1,
-  b = 2,
-  F = 3,
-  S = 1,
-  k = 2,
-  R = 3,
-  N = 4,
-  G = 5,
-  x = 6,
-  U = 7,
-  M = 8,
-  L = 9,
-  H = 10,
-  J = 11,
-  Y = 12,
-  v = 13,
-  K = 14,
-  T = 15,
-  q = 16,
-  O = 17,
-  W = 20,
-  j = "Group",
-  X = "R",
-  Z = 1,
-  V = 2,
-  z = 4,
-  _ = 16,
-  $ = 32,
-  AA = 128,
-  eA = 512,
-  tA = 1,
-  iA = 2,
-  aA = 4096,
-  sA = 8192,
-  rA = 32768,
-  nA = 65536,
-  gA = 131072,
-  oA = 1048576,
-  IA = 2097152,
-  cA = 8388608,
-  CA = 16777216,
-  hA = 1,
+  w = 0,
+  D = 4,
+  b = 1,
+  F = 2,
+  S = 3,
+  k = 1,
+  R = 2,
+  N = 3,
+  G = 4,
+  x = 5,
+  U = 6,
+  M = 7,
+  L = 8,
+  H = 9,
+  J = 10,
+  Y = 11,
+  v = 12,
+  K = 13,
+  T = 14,
+  q = 15,
+  O = 16,
+  W = 17,
+  j = 20,
+  X = "Group",
+  Z = "R",
+  V = 1,
+  z = 2,
+  _ = 4,
+  $ = 16,
+  AA = 32,
+  eA = 128,
+  tA = 512,
+  iA = 1,
+  aA = 2,
+  sA = 4096,
+  rA = 8192,
+  nA = 32768,
+  gA = 65536,
+  oA = 131072,
+  IA = 1048576,
+  cA = 2097152,
+  CA = 8388608,
+  hA = 16777216,
+  lA = 1,
   BA = 2,
-  lA = 3,
-  QA = 4,
-  EA = 5,
-  uA = {
+  QA = 3,
+  EA = 4,
+  uA = 5,
+  dA = {
     E: "Mouse Enter",
     X: "Mouse Exit",
     D: "Mouse Down",
@@ -126,16 +127,15 @@ const t = !(
     V: "Validate",
     C: "Calculate",
   },
-  dA = {
+  fA = {
     WC: "WillClose",
     WS: "WillSave",
     DS: "DidSave",
     WP: "WillPrint",
     DP: "DidPrint",
   },
-  fA = { O: "PageOpen", C: "PageClose" },
-  pA = { ERRORS: 0, WARNINGS: 1, INFOS: 5 },
-  mA = { NONE: 0, BINARY: 1 },
+  pA = { O: "PageOpen", C: "PageClose" },
+  mA = { ERRORS: 0, WARNINGS: 1, INFOS: 5 },
   yA = 1,
   wA = 2,
   DA = 3,
@@ -181,8 +181,8 @@ const t = !(
   ce = 43,
   Ce = 44,
   he = 45,
-  Be = 46,
-  le = 47,
+  le = 46,
+  Be = 47,
   Qe = 48,
   Ee = 49,
   ue = 50,
@@ -224,17 +224,19 @@ const t = !(
   At = 89,
   et = 90,
   tt = 91,
-  it = 1,
-  at = 2;
-let st = pA.WARNINGS;
+  it = 92,
+  at = 93,
+  st = 1,
+  rt = 2;
+let nt = mA.WARNINGS;
 function getVerbosityLevel() {
-  return st;
+  return nt;
 }
 function info(e) {
-  st >= pA.INFOS && console.log(`Info: ${e}`);
+  nt >= mA.INFOS && console.log(`Info: ${e}`);
 }
 function warn(e) {
-  st >= pA.WARNINGS && console.log(`Warning: ${e}`);
+  nt >= mA.WARNINGS && console.log(`Warning: ${e}`);
 }
 function unreachable(e) {
   throw new Error(e);
@@ -283,10 +285,8 @@ function shadow(e, t, i, a = !1) {
   });
   return i;
 }
-const rt = (function BaseExceptionClosure() {
+const gt = (function BaseExceptionClosure() {
   function BaseException(e, t) {
-    this.constructor === BaseException &&
-      unreachable("Cannot initialize BaseException.");
     this.message = e;
     this.name = t;
   }
@@ -294,40 +294,40 @@ const rt = (function BaseExceptionClosure() {
   BaseException.constructor = BaseException;
   return BaseException;
 })();
-class PasswordException extends rt {
+class PasswordException extends gt {
   constructor(e, t) {
     super(e, "PasswordException");
     this.code = t;
   }
 }
-class UnknownErrorException extends rt {
+class UnknownErrorException extends gt {
   constructor(e, t) {
     super(e, "UnknownErrorException");
     this.details = t;
   }
 }
-class InvalidPDFException extends rt {
+class InvalidPDFException extends gt {
   constructor(e) {
     super(e, "InvalidPDFException");
   }
 }
-class MissingPDFException extends rt {
+class MissingPDFException extends gt {
   constructor(e) {
     super(e, "MissingPDFException");
   }
 }
-class UnexpectedResponseException extends rt {
+class UnexpectedResponseException extends gt {
   constructor(e, t) {
     super(e, "UnexpectedResponseException");
     this.status = t;
   }
 }
-class FormatError extends rt {
+class FormatError extends gt {
   constructor(e) {
     super(e, "FormatError");
   }
 }
-class AbortException extends rt {
+class AbortException extends gt {
   constructor(e) {
     super(e, "AbortException");
   }
@@ -400,8 +400,14 @@ class FeatureTest {
   static get platform() {
     return "undefined" != typeof navigator &&
       "string" == typeof navigator?.platform
-      ? shadow(this, "platform", { isMac: navigator.platform.includes("Mac") })
-      : shadow(this, "platform", { isMac: !1 });
+      ? shadow(this, "platform", {
+          isMac: navigator.platform.includes("Mac"),
+          isWindows: navigator.platform.includes("Win"),
+          isFirefox:
+            "string" == typeof navigator?.userAgent &&
+            navigator.userAgent.includes("Firefox"),
+        })
+      : shadow(this, "platform", { isMac: !1, isWindows: !1, isFirefox: !1 });
   }
   static get isCSSRoundSupported() {
     return shadow(
@@ -411,12 +417,12 @@ class FeatureTest {
     );
   }
 }
-const nt = Array.from(Array(256).keys(), (e) =>
+const ot = Array.from(Array(256).keys(), (e) =>
   e.toString(16).padStart(2, "0"),
 );
 class Util {
   static makeHexColor(e, t, i) {
-    return `#${nt[e]}${nt[t]}${nt[i]}`;
+    return `#${ot[e]}${ot[t]}${ot[i]}`;
   }
   static scaleMinMax(e, t) {
     let i;
@@ -599,7 +605,7 @@ class Util {
     return o;
   }
 }
-const gt = [
+const It = [
   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 728,
   711, 710, 729, 733, 731, 730, 732, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -636,7 +642,7 @@ function stringToPDFString(e) {
       for (; ++i < a && 27 !== e.charCodeAt(i); );
       continue;
     }
-    const r = gt[s];
+    const r = It[s];
     t.push(r ? String.fromCharCode(r) : e.charAt(i));
   }
   return t.join("");
@@ -662,28 +668,33 @@ function getModificationDate(e = new Date()) {
     e.getUTCSeconds().toString().padStart(2, "0"),
   ].join("");
 }
-let ot = null,
-  It = null;
-const ct = 0,
-  Ct = 1,
-  ht = 2,
-  Bt = 3,
-  lt = 4,
-  Qt = 5,
-  Et = 6,
-  ut = 7,
-  dt = 8,
-  ft = Symbol("CIRCULAR_REF"),
-  pt = Symbol("EOF");
-let mt = Object.create(null),
-  yt = Object.create(null),
-  wt = Object.create(null);
+let ct = null,
+  Ct = null;
+const ht = 0,
+  lt = 1,
+  Bt = 2,
+  Qt = 3,
+  Et = 4,
+  ut = 5,
+  dt = 6,
+  ft = 7,
+  pt = 8;
+function toHexUtil(e) {
+  return Uint8Array.prototype.toHex
+    ? e.toHex()
+    : Array.from(e, (e) => ot[e]).join("");
+}
+const mt = Symbol("CIRCULAR_REF"),
+  yt = Symbol("EOF");
+let wt = Object.create(null),
+  Dt = Object.create(null),
+  bt = Object.create(null);
 class Name {
   constructor(e) {
     this.name = e;
   }
   static get(e) {
-    return (yt[e] ||= new Name(e));
+    return (Dt[e] ||= new Name(e));
   }
 }
 class Cmd {
@@ -691,11 +702,11 @@ class Cmd {
     this.cmd = e;
   }
   static get(e) {
-    return (mt[e] ||= new Cmd(e));
+    return (wt[e] ||= new Cmd(e));
   }
 }
-const Dt = function nonSerializableClosure() {
-  return Dt;
+const Ft = function nonSerializableClosure() {
+  return Ft;
 };
 class Dict {
   constructor(e = null) {
@@ -703,7 +714,7 @@ class Dict {
     this.xref = e;
     this.objId = null;
     this.suppressEncryption = !1;
-    this.__nonSerializable__ = Dt;
+    this.__nonSerializable__ = Ft;
   }
   assignXref(e) {
     this.xref = e;
@@ -806,6 +817,9 @@ class Dict {
     for (const t of this.getKeys()) e.set(t, this.getRaw(t));
     return e;
   }
+  delete(e) {
+    delete this._map[e];
+  }
 }
 class Ref {
   constructor(e, t) {
@@ -816,16 +830,16 @@ class Ref {
     return 0 === this.gen ? `${this.num}R` : `${this.num}R${this.gen}`;
   }
   static fromString(e) {
-    const t = wt[e];
+    const t = bt[e];
     if (t) return t;
     const i = /^(\d+)R(\d*)$/.exec(e);
     return i && "0" !== i[1]
-      ? (wt[e] = new Ref(parseInt(i[1]), i[2] ? parseInt(i[2]) : 0))
+      ? (bt[e] = new Ref(parseInt(i[1]), i[2] ? parseInt(i[2]) : 0))
       : null;
   }
   static get(e, t) {
     const i = 0 === t ? `${e}R` : `${e}R${t}`;
-    return (wt[i] ||= new Ref(e, t));
+    return (bt[i] ||= new Ref(e, t));
   }
 }
 class RefSet {
@@ -890,10 +904,6 @@ function isRefsEqual(e, t) {
   return e.num === t.num && e.gen === t.gen;
 }
 class BaseStream {
-  constructor() {
-    this.constructor === BaseStream &&
-      unreachable("Cannot initialize BaseStream.");
-  }
   get length() {
     unreachable("Abstract getter `length` accessed");
   }
@@ -920,6 +930,9 @@ class BaseStream {
   }
   get canAsyncDecodeImageFromBuffer() {
     return !1;
+  }
+  async getTransferableImage() {
+    return null;
   }
   peekByte() {
     const e = this.getByte();
@@ -966,7 +979,7 @@ class BaseStream {
     return null;
   }
 }
-const bt = /^[1-9]\.\d$/;
+const St = /^[1-9]\.\d$/;
 function getLookupTableFactory(e) {
   let t;
   return function () {
@@ -978,24 +991,24 @@ function getLookupTableFactory(e) {
     return t;
   };
 }
-class MissingDataException extends rt {
+class MissingDataException extends gt {
   constructor(e, t) {
     super(`Missing data [${e}, ${t})`, "MissingDataException");
     this.begin = e;
     this.end = t;
   }
 }
-class ParserEOFException extends rt {
+class ParserEOFException extends gt {
   constructor(e) {
     super(e, "ParserEOFException");
   }
 }
-class XRefEntryException extends rt {
+class XRefEntryException extends gt {
   constructor(e) {
     super(e, "XRefEntryException");
   }
 }
-class XRefParseException extends rt {
+class XRefParseException extends gt {
   constructor(e) {
     super(e, "XRefParseException");
   }
@@ -1034,7 +1047,7 @@ function getInheritableProperty({
   }
   return s;
 }
-const Ft = [
+const kt = [
   "",
   "C",
   "CC",
@@ -1079,11 +1092,11 @@ function toRomanNumerals(e, t = !1) {
   }
   a = (e / 100) | 0;
   e %= 100;
-  i.push(Ft[a]);
+  i.push(kt[a]);
   a = (e / 10) | 0;
   e %= 10;
-  i.push(Ft[10 + a]);
-  i.push(Ft[20 + e]);
+  i.push(kt[10 + a]);
+  i.push(kt[20 + e]);
   const s = i.join("");
   return t ? s.toLowerCase() : s;
 }
@@ -1103,11 +1116,11 @@ function isWhiteSpace(e) {
   return 32 === e || 9 === e || 13 === e || 10 === e;
 }
 function isNumberArray(e, t) {
-  return (
-    Array.isArray(e) &&
-    (null === t || e.length === t) &&
-    e.every((e) => "number" == typeof e)
-  );
+  return Array.isArray(e)
+    ? (null === t || e.length === t) && e.every((e) => "number" == typeof e)
+    : ArrayBuffer.isView(e) &&
+        (0 === e.length || "number" == typeof e[0]) &&
+        (null === t || e.length === t);
 }
 function lookupMatrix(e, t) {
   return isNumberArray(e, 6) ? e : t;
@@ -1205,7 +1218,7 @@ function collectActions(e, t, i) {
   }
   return objectSize(a) > 0 ? a : null;
 }
-const St = { 60: "&lt;", 62: "&gt;", 38: "&amp;", 34: "&quot;", 39: "&apos;" };
+const Rt = { 60: "&lt;", 62: "&gt;", 38: "&amp;", 34: "&quot;", 39: "&apos;" };
 function* codePointIter(e) {
   for (let t = 0, i = e.length; t < i; t++) {
     const i = e.codePointAt(t);
@@ -1219,7 +1232,7 @@ function encodeToXmlString(e) {
   for (let a = 0, s = e.length; a < s; a++) {
     const s = e.codePointAt(a);
     if (32 <= s && s <= 126) {
-      const r = St[s];
+      const r = Rt[s];
       if (r) {
         i < a && t.push(e.substring(i, a));
         t.push(r);
@@ -1306,7 +1319,7 @@ function getNewAnnotationsMap(e) {
   if (!e) return null;
   const t = new Map();
   for (const [i, a] of e) {
-    if (!i.startsWith(E)) continue;
+    if (!i.startsWith(u)) continue;
     let e = t.get(a.pageIndex);
     if (!e) {
       e = [];
@@ -1316,17 +1329,18 @@ function getNewAnnotationsMap(e) {
   }
   return t.size > 0 ? t : null;
 }
-function isAscii(e) {
-  return /^[\x00-\x7F]*$/.test(e);
+function stringToAsciiOrUTF16BE(e) {
+  return (function isAscii(e) {
+    return /^[\x00-\x7F]*$/.test(e);
+  })(e)
+    ? e
+    : stringToUTF16String(e, !0);
 }
 function stringToUTF16HexString(e) {
   const t = [];
   for (let i = 0, a = e.length; i < a; i++) {
     const a = e.charCodeAt(i);
-    t.push(
-      ((a >> 8) & 255).toString(16).padStart(2, "0"),
-      (255 & a).toString(16).padStart(2, "0"),
-    );
+    t.push(ot[(a >> 8) & 255], ot[255 & a]);
   }
   return t.join("");
 }
@@ -1727,8 +1741,6 @@ class ChunkedStreamManager {
 }
 class ColorSpace {
   constructor(e, t) {
-    this.constructor === ColorSpace &&
-      unreachable("Cannot initialize ColorSpace.");
     this.name = e;
     this.numComps = t;
   }
@@ -1916,7 +1928,8 @@ class ColorSpace {
               }
             }
           }
-          throw new FormatError(`Unrecognized ColorSpace: ${e.name}`);
+          warn(`Unrecognized ColorSpace: ${e.name}`);
+          return this.singletons.gray;
       }
     if (Array.isArray(e)) {
       const s = t.fetchIfRef(e[0]).name;
@@ -1964,7 +1977,7 @@ class ColorSpace {
         case "I":
         case "Indexed":
           g = this._parse(e[1], t, i, a);
-          const E = t.fetchIfRef(e[2]) + 1,
+          const E = Math.max(0, Math.min(t.fetchIfRef(e[2]), 255)),
             u = t.fetchIfRef(e[3]);
           return new IndexedCS(g, E, u);
         case "Separation":
@@ -1981,10 +1994,12 @@ class ColorSpace {
           const p = r.getArray("Range");
           return new LabCS(o, c, p);
         default:
-          throw new FormatError(`Unimplemented ColorSpace object: ${s}`);
+          warn(`Unimplemented ColorSpace object: ${s}`);
+          return this.singletons.gray;
       }
     }
-    throw new FormatError(`Unrecognized ColorSpace object: ${e}`);
+    warn(`Unrecognized ColorSpace object: ${e}`);
+    return this.singletons.gray;
   }
   static isDefaultDecode(e, t) {
     if (!Array.isArray(e)) return !0;
@@ -2069,8 +2084,7 @@ class IndexedCS extends ColorSpace {
   constructor(e, t, i) {
     super("Indexed", 1);
     this.base = e;
-    this.highVal = t;
-    const a = e.numComps * t;
+    const a = e.numComps * (t + 1);
     this.lookup = new Uint8Array(a);
     if (i instanceof BaseStream) {
       const e = i.getBytes(a);
@@ -2177,6 +2191,53 @@ class DeviceRgbaCS extends ColorSpace {
   }
   isPassthrough(e) {
     return 8 === e;
+  }
+  fillRgb(e, t, i, a, s, r, n, g, o) {
+    i !== s || t !== a
+      ? (function resizeRgbaImage(e, t, i, a, s, r, n) {
+          const g = i / s,
+            o = a / r;
+          let c = 0;
+          const C = new Uint16Array(s);
+          if (1 === n) {
+            for (let e = 0; e < s; e++) C[e] = Math.floor(e * g);
+            const a = new Uint32Array(e.buffer),
+              n = new Uint32Array(t.buffer),
+              h = FeatureTest.isLittleEndian ? 16777215 : 4294967040;
+            for (let e = 0; e < r; e++) {
+              const t = a.subarray(Math.floor(e * o) * i);
+              for (let e = 0; e < s; e++) n[c++] |= t[C[e]] & h;
+            }
+          } else {
+            const a = 4,
+              n = i * a;
+            for (let e = 0; e < s; e++) C[e] = Math.floor(e * g) * a;
+            for (let i = 0; i < r; i++) {
+              const a = e.subarray(Math.floor(i * o) * n);
+              for (let e = 0; e < s; e++) {
+                const i = C[e];
+                t[c++] = a[i];
+                t[c++] = a[i + 1];
+                t[c++] = a[i + 2];
+              }
+            }
+          }
+        })(g, e, t, i, a, s, o)
+      : (function copyRgbaImage(e, t, i) {
+          if (1 === i) {
+            const i = new Uint32Array(e.buffer),
+              a = new Uint32Array(t.buffer),
+              s = FeatureTest.isLittleEndian ? 16777215 : 4294967040;
+            for (let e = 0, t = i.length; e < t; e++) a[e] |= i[e] & s;
+          } else {
+            let i = 0;
+            for (let a = 0, s = e.length; a < s; a += 4) {
+              t[i++] = e[a];
+              t[i++] = e[a + 1];
+              t[i++] = e[a + 2];
+            }
+          }
+        })(g, e, o);
   }
 }
 class DeviceCmykCS extends ColorSpace {
@@ -2374,14 +2435,14 @@ class CalRGBCS extends ColorSpace {
     i[1] = (1 * t[1]) / e[1];
     i[2] = (1.08883 * t[2]) / e[2];
   }
-  #B(e) {
+  #l(e) {
     return e <= 0.0031308
-      ? this.#l(0, 1, 12.92 * e)
+      ? this.#B(0, 1, 12.92 * e)
       : e >= 0.99554525
         ? 1
-        : this.#l(0, 1, 1.055 * e ** (1 / 2.4) - 0.055);
+        : this.#B(0, 1, 1.055 * e ** (1 / 2.4) - 0.055);
   }
-  #l(e, t, i) {
+  #B(e, t, i) {
     return Math.max(e, Math.min(t, i));
   }
   #Q(e) {
@@ -2430,9 +2491,9 @@ class CalRGBCS extends ColorSpace {
     this.#c(CalRGBCS.#a, s, i);
   }
   #t(e, t, i, a, s) {
-    const r = this.#l(0, 1, e[t] * s),
-      n = this.#l(0, 1, e[t + 1] * s),
-      g = this.#l(0, 1, e[t + 2] * s),
+    const r = this.#B(0, 1, e[t] * s),
+      n = this.#B(0, 1, e[t + 1] * s),
+      g = this.#B(0, 1, e[t + 2] * s),
       o = 1 === r ? 1 : r ** this.GR,
       c = 1 === n ? 1 : n ** this.GG,
       C = 1 === g ? 1 : g ** this.GB,
@@ -2451,9 +2512,9 @@ class CalRGBCS extends ColorSpace {
     this.#d(CalRGBCS.#r, d, f);
     const p = CalRGBCS.#g;
     this.#c(CalRGBCS.#s, f, p);
-    i[a] = 255 * this.#B(p[0]);
-    i[a + 1] = 255 * this.#B(p[1]);
-    i[a + 2] = 255 * this.#B(p[2]);
+    i[a] = 255 * this.#l(p[0]);
+    i[a + 1] = 255 * this.#l(p[1]);
+    i[a + 2] = 255 * this.#l(p[2]);
   }
   getRgbItem(e, t, i, a) {
     this.#t(e, t, i, a, 1);
@@ -2582,7 +2643,7 @@ function incHex(e, t) {
     i >>= 8;
   }
 }
-const kt = 16;
+const Nt = 16;
 class BinaryCMapStream {
   constructor(e) {
     this.buffer = e;
@@ -2658,11 +2719,11 @@ class BinaryCMapReader {
       s = a.readByte();
     t.vertical = !!(1 & s);
     let r = null;
-    const n = new Uint8Array(kt),
-      g = new Uint8Array(kt),
-      o = new Uint8Array(kt),
-      c = new Uint8Array(kt),
-      C = new Uint8Array(kt);
+    const n = new Uint8Array(Nt),
+      g = new Uint8Array(Nt),
+      o = new Uint8Array(Nt),
+      c = new Uint8Array(Nt),
+      C = new Uint8Array(Nt);
     let h, l;
     for (; (l = a.readByte()) >= 0; ) {
       const e = l >> 5;
@@ -2678,7 +2739,7 @@ class BinaryCMapReader {
       }
       const i = !!(16 & l),
         s = 15 & l;
-      if (s + 1 > kt)
+      if (s + 1 > Nt)
         throw new Error("BinaryCMapReader.process: Invalid dataSize.");
       const Q = 1,
         E = a.readNumber();
@@ -2786,7 +2847,7 @@ class BinaryCMapReader {
     return r ? i(r) : t;
   }
 }
-const Rt = new Uint8Array(0);
+const Gt = new Uint8Array(0);
 class DecodeStream extends BaseStream {
   constructor(e) {
     super();
@@ -2794,7 +2855,7 @@ class DecodeStream extends BaseStream {
     this.pos = 0;
     this.bufferLength = 0;
     this.eof = !1;
-    this.buffer = Rt;
+    this.buffer = Gt;
     this.minBufferLength = 512;
     if (e) for (; this.minBufferLength < e; ) this.minBufferLength *= 2;
   }
@@ -2857,6 +2918,7 @@ class DecodeStream extends BaseStream {
 }
 class StreamsSequenceStream extends DecodeStream {
   constructor(e, t = null) {
+    e = e.filter((e) => e instanceof BaseStream);
     let i = 0;
     for (const t of e)
       i += t instanceof DecodeStream ? t._rawMinBufferLength : t.length;
@@ -2986,8 +3048,8 @@ class AsciiHexStream extends DecodeStream {
     this.bufferLength = a;
   }
 }
-const Nt = -1,
-  Gt = [
+const xt = -1,
+  Ut = [
     [-1, -1],
     [-1, -1],
     [7, 8],
@@ -3117,7 +3179,7 @@ const Nt = -1,
     [1, 2],
     [1, 2],
   ],
-  xt = [
+  Mt = [
     [-1, -1],
     [12, -2],
     [-1, -1],
@@ -3151,7 +3213,7 @@ const Nt = -1,
     [12, 2496],
     [12, 2560],
   ],
-  Ut = [
+  Lt = [
     [-1, -1],
     [-1, -1],
     [-1, -1],
@@ -3665,7 +3727,7 @@ const Nt = -1,
     [4, 7],
     [4, 7],
   ],
-  Mt = [
+  Ht = [
     [-1, -1],
     [-1, -1],
     [12, -2],
@@ -3795,7 +3857,7 @@ const Nt = -1,
     [10, 64],
     [10, 64],
   ],
-  Lt = [
+  Jt = [
     [8, 13],
     [8, 13],
     [8, 13],
@@ -3989,7 +4051,7 @@ const Nt = -1,
     [7, 12],
     [7, 12],
   ],
-  Ht = [
+  Yt = [
     [-1, -1],
     [-1, -1],
     [-1, -1],
@@ -4190,7 +4252,7 @@ class CCITTFaxDecoder {
                 for (; e[a] <= t[this.codingPos] && e[a] < i; ) a += 2;
               }
               break;
-            case Nt:
+            case xt:
               this._addPixels(i, 0);
               this.eof = !0;
               break;
@@ -4223,7 +4285,7 @@ class CCITTFaxDecoder {
       if (this.eoblock || this.row !== this.rows - 1) {
         r = this._lookBits(12);
         if (this.eoline)
-          for (; r !== Nt && 1 !== r; ) {
+          for (; r !== xt && 1 !== r; ) {
             this._eatBits(1);
             r = this._lookBits(12);
           }
@@ -4235,7 +4297,7 @@ class CCITTFaxDecoder {
         if (1 === r) {
           this._eatBits(12);
           c = !0;
-        } else r === Nt && (this.eof = !0);
+        } else r === xt && (this.eof = !0);
       } else this.rowsDone = !0;
       if (!this.eof && this.encoding > 0 && !this.rowsDone) {
         this.nextLine2D = !this._lookBits(1);
@@ -4264,7 +4326,7 @@ class CCITTFaxDecoder {
       } else if (this.err && this.eoline) {
         for (;;) {
           r = this._lookBits(13);
-          if (r === Nt) {
+          if (r === xt) {
             this.eof = !0;
             return -1;
           }
@@ -4359,7 +4421,7 @@ class CCITTFaxDecoder {
     const s = a || 0;
     for (let a = e; a <= t; ++a) {
       let e = this._lookBits(a);
-      if (e === Nt) return [!0, 1, !1];
+      if (e === xt) return [!0, 1, !1];
       a < t && (e <<= t - a);
       if (!s || e >= s) {
         const t = i[e - s];
@@ -4376,33 +4438,33 @@ class CCITTFaxDecoder {
       t = 0;
     if (this.eoblock) {
       t = this._lookBits(7);
-      e = Gt[t];
+      e = Ut[t];
       if (e?.[0] > 0) {
         this._eatBits(e[0]);
         return e[1];
       }
     } else {
-      const e = this._findTableCode(1, 7, Gt);
+      const e = this._findTableCode(1, 7, Ut);
       if (e[0] && e[2]) return e[1];
     }
     info("Bad two dim code");
-    return Nt;
+    return xt;
   }
   _getWhiteCode() {
     let e,
       t = 0;
     if (this.eoblock) {
       t = this._lookBits(12);
-      if (t === Nt) return 1;
-      e = t >> 5 == 0 ? xt[t] : Ut[t >> 3];
+      if (t === xt) return 1;
+      e = t >> 5 == 0 ? Mt[t] : Lt[t >> 3];
       if (e[0] > 0) {
         this._eatBits(e[0]);
         return e[1];
       }
     } else {
-      let e = this._findTableCode(1, 9, Ut);
+      let e = this._findTableCode(1, 9, Lt);
       if (e[0]) return e[1];
-      e = this._findTableCode(11, 12, xt);
+      e = this._findTableCode(11, 12, Mt);
       if (e[0]) return e[1];
     }
     info("bad white code");
@@ -4413,23 +4475,23 @@ class CCITTFaxDecoder {
     let e, t;
     if (this.eoblock) {
       e = this._lookBits(13);
-      if (e === Nt) return 1;
+      if (e === xt) return 1;
       t =
         e >> 7 == 0
-          ? Mt[e]
+          ? Ht[e]
           : e >> 9 == 0 && e >> 7 != 0
-            ? Lt[(e >> 1) - 64]
-            : Ht[e >> 7];
+            ? Jt[(e >> 1) - 64]
+            : Yt[e >> 7];
       if (t[0] > 0) {
         this._eatBits(t[0]);
         return t[1];
       }
     } else {
-      let e = this._findTableCode(2, 6, Ht);
+      let e = this._findTableCode(2, 6, Yt);
       if (e[0]) return e[1];
-      e = this._findTableCode(7, 12, Lt, 64);
+      e = this._findTableCode(7, 12, Jt, 64);
       if (e[0]) return e[1];
-      e = this._findTableCode(10, 13, Mt);
+      e = this._findTableCode(10, 13, Ht);
       if (e[0]) return e[1];
     }
     info("bad black code");
@@ -4441,7 +4503,7 @@ class CCITTFaxDecoder {
     for (; this.inputBits < e; ) {
       if (-1 === (t = this.source.next()))
         return 0 === this.inputBits
-          ? Nt
+          ? xt
           : (this.inputBuf << (e - this.inputBits)) & (65535 >> (16 - e));
       this.inputBuf = (this.inputBuf << 8) | t;
       this.inputBits += 8;
@@ -4481,20 +4543,20 @@ class CCITTFaxStream extends DecodeStream {
     }
   }
 }
-const Jt = new Int32Array([
+const vt = new Int32Array([
     16, 17, 18, 0, 8, 7, 9, 6, 10, 5, 11, 4, 12, 3, 13, 2, 14, 1, 15,
   ]),
-  Yt = new Int32Array([
+  Kt = new Int32Array([
     3, 4, 5, 6, 7, 8, 9, 10, 65547, 65549, 65551, 65553, 131091, 131095, 131099,
     131103, 196643, 196651, 196659, 196667, 262211, 262227, 262243, 262259,
     327811, 327843, 327875, 327907, 258, 258, 258,
   ]),
-  vt = new Int32Array([
+  Tt = new Int32Array([
     1, 2, 3, 4, 65541, 65543, 131081, 131085, 196625, 196633, 262177, 262193,
     327745, 327777, 393345, 393409, 459009, 459137, 524801, 525057, 590849,
     591361, 657409, 658433, 724993, 727041, 794625, 798721, 868353, 876545,
   ]),
-  Kt = [
+  qt = [
     new Int32Array([
       459008, 524368, 524304, 524568, 459024, 524400, 524336, 590016, 459016,
       524384, 524320, 589984, 524288, 524416, 524352, 590048, 459012, 524376,
@@ -4556,7 +4618,7 @@ const Jt = new Int32Array([
     ]),
     9,
   ],
-  Tt = [
+  Ot = [
     new Int32Array([
       327680, 327696, 327688, 327704, 327684, 327700, 327692, 327708, 327682,
       327698, 327690, 327706, 327686, 327702, 327694, 0, 327681, 327697, 327689,
@@ -4595,8 +4657,13 @@ class FlateStream extends DecodeStream {
     try {
       const { readable: t, writable: i } = new DecompressionStream("deflate"),
         a = i.getWriter();
-      a.write(e);
-      a.close();
+      await a.ready;
+      a.write(e)
+        .then(async () => {
+          await a.ready;
+          await a.close();
+        })
+        .catch(() => {});
       const s = [];
       let r = 0;
       for await (const e of t) {
@@ -4730,17 +4797,17 @@ class FlateStream extends DecodeStream {
     }
     let s, r;
     if (1 === t) {
-      s = Kt;
-      r = Tt;
+      s = qt;
+      r = Ot;
     } else {
       if (2 !== t) throw new FormatError("Unknown block type in flate stream");
       {
         const e = this.getBits(5) + 257,
           t = this.getBits(5) + 1,
           a = this.getBits(4) + 4,
-          n = new Uint8Array(Jt.length);
+          n = new Uint8Array(vt.length);
         let g;
-        for (g = 0; g < a; ++g) n[Jt[g]] = this.getBits(3);
+        for (g = 0; g < a; ++g) n[vt[g]] = this.getBits(3);
         const o = this.generateHuffmanTable(n);
         i = 0;
         g = 0;
@@ -4791,12 +4858,12 @@ class FlateStream extends DecodeStream {
         return;
       }
       t -= 257;
-      t = Yt[t];
+      t = Kt[t];
       let a = t >> 16;
       a > 0 && (a = this.getBits(a));
       i = (65535 & t) + a;
       t = this.getCode(r);
-      t = vt[t];
+      t = Tt[t];
       a = t >> 16;
       a > 0 && (a = this.getBits(a));
       const o = (65535 & t) + a;
@@ -4808,7 +4875,7 @@ class FlateStream extends DecodeStream {
     }
   }
 }
-const qt = [
+const Pt = [
   { qe: 22017, nmps: 1, nlps: 1, switchFlag: 1 },
   { qe: 13313, nmps: 2, nlps: 6, switchFlag: 0 },
   { qe: 6145, nmps: 3, nlps: 9, switchFlag: 0 },
@@ -4897,7 +4964,7 @@ class ArithmeticDecoder {
   readBit(e, t) {
     let i = e[t] >> 1,
       a = 1 & e[t];
-    const s = qt[i],
+    const s = Pt[i],
       r = s.qe;
     let n,
       g = this.a - r;
@@ -4939,7 +5006,7 @@ class ArithmeticDecoder {
     return n;
   }
 }
-class Jbig2Error extends rt {
+class Jbig2Error extends gt {
   constructor(e) {
     super(e, "Jbig2Error");
   }
@@ -4966,8 +5033,8 @@ class DecodingContext {
     return shadow(this, "contextCache", new ContextCache());
   }
 }
-const Ot = 2 ** 31 - 1,
-  Pt = -(2 ** 31);
+const Wt = 2 ** 31 - 1,
+  jt = -(2 ** 31);
 function decodeInteger(e, t, i) {
   const a = e.getContexts(t);
   let s = 1;
@@ -4994,7 +5061,7 @@ function decodeInteger(e, t, i) {
       : readBits(2);
   let g;
   0 === r ? (g = n) : n > 0 && (g = -n);
-  return g >= Pt && g <= Ot ? g : null;
+  return g >= jt && g <= Wt ? g : null;
 }
 function decodeIAID(e, t, i) {
   const a = e.getContexts("IAID");
@@ -5004,7 +5071,7 @@ function decodeIAID(e, t, i) {
   }
   return i < 31 ? s & ((1 << i) - 1) : 2147483647 & s;
 }
-const Wt = [
+const Xt = [
     "SymbolDictionary",
     null,
     null,
@@ -5069,7 +5136,7 @@ const Wt = [
     null,
     "Extension",
   ],
-  jt = [
+  Zt = [
     [
       { x: -1, y: -2 },
       { x: 0, y: -2 },
@@ -5121,7 +5188,7 @@ const Wt = [
       { x: -1, y: 0 },
     ],
   ],
-  Xt = [
+  Vt = [
     {
       coding: [
         { x: 0, y: -1 },
@@ -5156,8 +5223,8 @@ const Wt = [
       ],
     },
   ],
-  Zt = [39717, 1941, 229, 405],
-  Vt = [32, 8];
+  zt = [39717, 1941, 229, 405],
+  _t = [32, 8];
 function decodeBitmap(e, t, i, a, s, r, n, g) {
   if (e) {
     return decodeMMRBitmap(new Reader(g.data, g.start, g.end), t, i, !1);
@@ -5205,7 +5272,7 @@ function decodeBitmap(e, t, i, a, s, r, n, g) {
       return r;
     })(t, i, g);
   const o = !!r,
-    c = jt[a].concat(n);
+    c = Zt[a].concat(n);
   c.sort(function (e, t) {
     return e.y - t.y || e.x - t.x;
   });
@@ -5242,7 +5309,7 @@ function decodeBitmap(e, t, i, a, s, r, n, g) {
   const F = -f,
     S = -m,
     k = t - p,
-    R = Zt[a];
+    R = zt[a];
   let N = new Uint8Array(t);
   const G = [],
     x = g.decoder,
@@ -5301,7 +5368,7 @@ function decodeBitmap(e, t, i, a, s, r, n, g) {
   return G;
 }
 function decodeRefinement(e, t, i, a, s, r, n, g, o) {
-  let c = Xt[i].coding;
+  let c = Vt[i].coding;
   0 === i && (c = c.concat([g[0]]));
   const C = c.length,
     h = new Int32Array(C),
@@ -5311,7 +5378,7 @@ function decodeRefinement(e, t, i, a, s, r, n, g, o) {
     h[Q] = c[Q].x;
     l[Q] = c[Q].y;
   }
-  let E = Xt[i].reference;
+  let E = Vt[i].reference;
   0 === i && (E = E.concat([g[1]]));
   const u = E.length,
     d = new Int32Array(u),
@@ -5322,7 +5389,7 @@ function decodeRefinement(e, t, i, a, s, r, n, g, o) {
   }
   const p = a[0].length,
     m = a.length,
-    y = Vt[i],
+    y = _t[i],
     w = [],
     D = o.decoder,
     b = o.contextCache.getContexts("GR");
@@ -5478,9 +5545,9 @@ function readSegmentHeader(e, t) {
   i.number = readUint32(e, t);
   const a = e[t + 4],
     s = 63 & a;
-  if (!Wt[s]) throw new Jbig2Error("invalid segment type: " + s);
+  if (!Xt[s]) throw new Jbig2Error("invalid segment type: " + s);
   i.type = s;
-  i.typeName = Wt[s];
+  i.typeName = Xt[s];
   i.deferredNonRetain = !!(128 & a);
   const r = !!(64 & a),
     n = e[t + 5];
@@ -5517,7 +5584,7 @@ function readSegmentHeader(e, t) {
     if (38 !== s) throw new Jbig2Error("invalid unknown segment length");
     {
       const t = readRegionSegmentInformation(e, c),
-        a = !!(1 & e[c + zt]),
+        a = !!(1 & e[c + $t]),
         s = 6,
         r = new Uint8Array(s);
       if (!a) {
@@ -5575,7 +5642,7 @@ function readRegionSegmentInformation(e, t) {
     combinationOperator: 7 & e[t + 16],
   };
 }
-const zt = 17;
+const $t = 17;
 function processSegment(e, t) {
   const i = e.header,
     a = e.data,
@@ -5627,7 +5694,7 @@ function processSegment(e, t) {
     case 7:
       const C = {};
       C.info = readRegionSegmentInformation(a, c);
-      c += zt;
+      c += $t;
       const h = readUint16(a, c);
       c += 2;
       C.huffman = !!(1 & h);
@@ -5679,7 +5746,7 @@ function processSegment(e, t) {
     case 23:
       const E = {};
       E.info = readRegionSegmentInformation(a, c);
-      c += zt;
+      c += $t;
       const u = a[c++];
       E.mmr = !!(1 & u);
       E.template = (u >> 1) & 3;
@@ -5704,7 +5771,7 @@ function processSegment(e, t) {
     case 39:
       const d = {};
       d.info = readRegionSegmentInformation(a, c);
-      c += zt;
+      c += $t;
       const f = a[c++];
       d.mmr = !!(1 & f);
       d.template = (f >> 1) & 3;
@@ -6430,10 +6497,10 @@ class HuffmanTable {
     }
   }
 }
-const _t = {};
+const Ai = {};
 function getStandardTable(e) {
   let t,
-    i = _t[e];
+    i = Ai[e];
   if (i) return i;
   switch (e) {
     case 1:
@@ -6685,7 +6752,7 @@ function getStandardTable(e) {
   }
   for (let e = 0, i = t.length; e < i; e++) t[e] = new HuffmanLine(t[e]);
   i = new HuffmanTable(t, !0);
-  _t[e] = i;
+  Ai[e] = i;
   return i;
 }
 class Reader {
@@ -6833,9 +6900,9 @@ class Jbig2Stream extends DecodeStream {
 }
 function convertToRGBA(e) {
   switch (e.kind) {
-    case D:
-      return convertBlackAndWhiteToRGBA(e);
     case b:
+      return convertBlackAndWhiteToRGBA(e);
+    case F:
       return (function convertRGBToRGBA({
         src: e,
         srcPos: t = 0,
@@ -6911,36 +6978,36 @@ function convertBlackAndWhiteToRGBA({
   }
   return { srcPos: t, destPos: Q };
 }
-class JpegError extends rt {
+class JpegError extends gt {
   constructor(e) {
     super(e, "JpegError");
   }
 }
-class DNLMarkerError extends rt {
+class DNLMarkerError extends gt {
   constructor(e, t) {
     super(e, "DNLMarkerError");
     this.scanLines = t;
   }
 }
-class EOIMarkerError extends rt {
+class EOIMarkerError extends gt {
   constructor(e) {
     super(e, "EOIMarkerError");
   }
 }
-const $t = new Uint8Array([
+const ei = new Uint8Array([
     0, 1, 8, 16, 9, 2, 3, 10, 17, 24, 32, 25, 18, 11, 4, 5, 12, 19, 26, 33, 40,
     48, 41, 34, 27, 20, 13, 6, 7, 14, 21, 28, 35, 42, 49, 56, 57, 50, 43, 36,
     29, 22, 15, 23, 30, 37, 44, 51, 58, 59, 52, 45, 38, 31, 39, 46, 53, 60, 61,
     54, 47, 55, 62, 63,
   ]),
-  Ai = 4017,
-  ei = 799,
-  ti = 3406,
-  ii = 2276,
-  ai = 1567,
-  si = 3784,
-  ri = 5793,
-  ni = 2896;
+  ti = 4017,
+  ii = 799,
+  ai = 3406,
+  si = 2276,
+  ri = 1567,
+  ni = 3784,
+  gi = 5793,
+  oi = 2896;
 function buildHuffmanTable(e, t) {
   let i,
     a,
@@ -7092,7 +7159,7 @@ function decodeScan(e, t, i, a, s, r, n, g, o, c = !1) {
                 continue;
               }
               i += r;
-              const n = $t[i];
+              const n = ei[i];
               e.blockData[t + n] = receiveAndExtend(s) * (1 << o);
               i++;
             }
@@ -7104,7 +7171,7 @@ function decodeScan(e, t, i, a, s, r, n, g, o, c = !1) {
               g,
               c = 0;
             for (; i <= a; ) {
-              const a = t + $t[i],
+              const a = t + ei[i],
                 r = e.blockData[a] < 0 ? -1 : 1;
               switch (f) {
                 case 0:
@@ -7165,7 +7232,7 @@ function decodeScan(e, t, i, a, s, r, n, g, o, c = !1) {
             continue;
           }
           s += r;
-          const n = $t[s];
+          const n = ei[s];
           e.blockData[t + n] = receiveAndExtend(a);
           s++;
         }
@@ -7235,18 +7302,18 @@ function quantizeAndInverse(e, t, i) {
       p *= a[e + 5];
       m *= a[e + 6];
       y *= a[e + 7];
-      r = (ri * Q + 128) >> 8;
-      n = (ri * f + 128) >> 8;
+      r = (gi * Q + 128) >> 8;
+      n = (gi * f + 128) >> 8;
       g = u;
       o = m;
-      c = (ni * (E - y) + 128) >> 8;
-      l = (ni * (E + y) + 128) >> 8;
+      c = (oi * (E - y) + 128) >> 8;
+      l = (oi * (E + y) + 128) >> 8;
       C = d << 4;
       h = p << 4;
       r = (r + n + 1) >> 1;
       n = r - n;
-      w = (g * si + o * ai + 128) >> 8;
-      g = (g * ai - o * si + 128) >> 8;
+      w = (g * ni + o * ri + 128) >> 8;
+      g = (g * ri - o * ni + 128) >> 8;
       o = w;
       c = (c + h + 1) >> 1;
       h = c - h;
@@ -7256,11 +7323,11 @@ function quantizeAndInverse(e, t, i) {
       o = r - o;
       n = (n + g + 1) >> 1;
       g = n - g;
-      w = (c * ii + l * ti + 2048) >> 12;
-      c = (c * ti - l * ii + 2048) >> 12;
+      w = (c * si + l * ai + 2048) >> 12;
+      c = (c * ai - l * si + 2048) >> 12;
       l = w;
-      w = (C * ei + h * Ai + 2048) >> 12;
-      C = (C * Ai - h * ei + 2048) >> 12;
+      w = (C * ii + h * ti + 2048) >> 12;
+      C = (C * ti - h * ii + 2048) >> 12;
       h = w;
       i[e] = r + l;
       i[e + 7] = r - l;
@@ -7271,7 +7338,7 @@ function quantizeAndInverse(e, t, i) {
       i[e + 3] = o + c;
       i[e + 4] = o - c;
     } else {
-      w = (ri * Q + 512) >> 10;
+      w = (gi * Q + 512) >> 10;
       i[e] = w;
       i[e + 1] = w;
       i[e + 2] = w;
@@ -7292,18 +7359,18 @@ function quantizeAndInverse(e, t, i) {
     m = i[e + 48];
     y = i[e + 56];
     if (0 != (E | u | d | f | p | m | y)) {
-      r = (ri * Q + 2048) >> 12;
-      n = (ri * f + 2048) >> 12;
+      r = (gi * Q + 2048) >> 12;
+      n = (gi * f + 2048) >> 12;
       g = u;
       o = m;
-      c = (ni * (E - y) + 2048) >> 12;
-      l = (ni * (E + y) + 2048) >> 12;
+      c = (oi * (E - y) + 2048) >> 12;
+      l = (oi * (E + y) + 2048) >> 12;
       C = d;
       h = p;
       r = 4112 + ((r + n + 1) >> 1);
       n = r - n;
-      w = (g * si + o * ai + 2048) >> 12;
-      g = (g * ai - o * si + 2048) >> 12;
+      w = (g * ni + o * ri + 2048) >> 12;
+      g = (g * ri - o * ni + 2048) >> 12;
       o = w;
       c = (c + h + 1) >> 1;
       h = c - h;
@@ -7313,11 +7380,11 @@ function quantizeAndInverse(e, t, i) {
       o = r - o;
       n = (n + g + 1) >> 1;
       g = n - g;
-      w = (c * ii + l * ti + 2048) >> 12;
-      c = (c * ti - l * ii + 2048) >> 12;
+      w = (c * si + l * ai + 2048) >> 12;
+      c = (c * ai - l * si + 2048) >> 12;
       l = w;
-      w = (C * ei + h * Ai + 2048) >> 12;
-      C = (C * Ai - h * ei + 2048) >> 12;
+      w = (C * ii + h * ti + 2048) >> 12;
+      C = (C * ti - h * ii + 2048) >> 12;
       h = w;
       Q = r + l;
       y = r - l;
@@ -7344,7 +7411,7 @@ function quantizeAndInverse(e, t, i) {
       s[t + e + 48] = m;
       s[t + e + 56] = y;
     } else {
-      w = (ri * Q + 8192) >> 14;
+      w = (gi * Q + 8192) >> 14;
       w = w < -2040 ? 0 : w >= 2024 ? 255 : (w + 2056) >> 4;
       s[t + e] = w;
       s[t + e + 8] = w;
@@ -7380,42 +7447,68 @@ function findNextFileMarker(e, t, i = t) {
   }
   return { invalid: r.toString(16), marker: n, offset: s };
 }
+function prepareComponents(e) {
+  const t = Math.ceil(e.samplesPerLine / 8 / e.maxH),
+    i = Math.ceil(e.scanLines / 8 / e.maxV);
+  for (const a of e.components) {
+    const s = Math.ceil((Math.ceil(e.samplesPerLine / 8) * a.h) / e.maxH),
+      r = Math.ceil((Math.ceil(e.scanLines / 8) * a.v) / e.maxV),
+      n = t * a.h,
+      g = 64 * (i * a.v) * (n + 1);
+    a.blockData = new Int16Array(g);
+    a.blocksPerLine = s;
+    a.blocksPerColumn = r;
+  }
+  e.mcusPerLine = t;
+  e.mcusPerColumn = i;
+}
+function readDataBlock(e, t) {
+  const i = readUint16(e, t);
+  let a = (t += 2) + i - 2;
+  const s = findNextFileMarker(e, a, t);
+  if (s?.invalid) {
+    warn("readDataBlock - incorrect length, current marker is: " + s.invalid);
+    a = s.offset;
+  }
+  const r = e.subarray(t, a);
+  return { appData: r, newOffset: (t += r.length) };
+}
+function skipData(e, t) {
+  const i = readUint16(e, t),
+    a = (t += 2) + i - 2,
+    s = findNextFileMarker(e, a, t);
+  return s?.invalid ? s.offset : a;
+}
 class JpegImage {
   constructor({ decodeTransform: e = null, colorTransform: t = -1 } = {}) {
     this._decodeTransform = e;
     this._colorTransform = t;
   }
+  static canUseImageDecoder(e, t = -1) {
+    let i = 0,
+      a = null,
+      s = readUint16(e, i);
+    i += 2;
+    if (65496 !== s) throw new JpegError("SOI not found");
+    s = readUint16(e, i);
+    i += 2;
+    A: for (; 65497 !== s; ) {
+      switch (s) {
+        case 65472:
+        case 65473:
+        case 65474:
+          a = e[i + 7];
+          break A;
+        case 65535:
+          255 !== e[i] && i--;
+      }
+      i = skipData(e, i);
+      s = readUint16(e, i);
+      i += 2;
+    }
+    return 4 !== a && (3 !== a || 0 !== t);
+  }
   parse(e, { dnlScanLines: t = null } = {}) {
-    function readDataBlock() {
-      const t = readUint16(e, s);
-      s += 2;
-      let i = s + t - 2;
-      const a = findNextFileMarker(e, i, s);
-      if (a?.invalid) {
-        warn(
-          "readDataBlock - incorrect length, current marker is: " + a.invalid,
-        );
-        i = a.offset;
-      }
-      const r = e.subarray(s, i);
-      s += r.length;
-      return r;
-    }
-    function prepareComponents(e) {
-      const t = Math.ceil(e.samplesPerLine / 8 / e.maxH),
-        i = Math.ceil(e.scanLines / 8 / e.maxV);
-      for (const a of e.components) {
-        const s = Math.ceil((Math.ceil(e.samplesPerLine / 8) * a.h) / e.maxH),
-          r = Math.ceil((Math.ceil(e.scanLines / 8) * a.v) / e.maxV),
-          n = t * a.h,
-          g = 64 * (i * a.v) * (n + 1);
-        a.blockData = new Int16Array(g);
-        a.blocksPerLine = s;
-        a.blocksPerColumn = r;
-      }
-      e.mcusPerLine = t;
-      e.mcusPerColumn = i;
-    }
     let i,
       a,
       s = 0,
@@ -7450,7 +7543,8 @@ class JpegImage {
         case 65518:
         case 65519:
         case 65534:
-          const u = readDataBlock();
+          const { appData: u, newOffset: d } = readDataBlock(e, s);
+          s = d;
           65504 === h &&
             74 === u[0] &&
             70 === u[1] &&
@@ -7480,23 +7574,23 @@ class JpegImage {
             });
           break;
         case 65499:
-          const d = readUint16(e, s);
+          const f = readUint16(e, s);
           s += 2;
-          const f = d + s - 2;
-          let p;
-          for (; s < f; ) {
+          const p = f + s - 2;
+          let m;
+          for (; s < p; ) {
             const t = e[s++],
               i = new Uint16Array(64);
             if (t >> 4 == 0)
               for (Q = 0; Q < 64; Q++) {
-                p = $t[Q];
-                i[p] = e[s++];
+                m = ei[Q];
+                i[m] = e[s++];
               }
             else {
               if (t >> 4 != 1) throw new JpegError("DQT - invalid table spec");
               for (Q = 0; Q < 64; Q++) {
-                p = $t[Q];
-                i[p] = readUint16(e, s);
+                m = ei[Q];
+                i[m] = readUint16(e, s);
                 s += 2;
               }
             }
@@ -7512,22 +7606,22 @@ class JpegImage {
           i.extended = 65473 === h;
           i.progressive = 65474 === h;
           i.precision = e[s++];
-          const m = readUint16(e, s);
+          const y = readUint16(e, s);
           s += 2;
-          i.scanLines = t || m;
+          i.scanLines = t || y;
           i.samplesPerLine = readUint16(e, s);
           s += 2;
           i.components = [];
           i.componentIds = {};
-          const y = e[s++];
-          let w = 0,
-            D = 0;
-          for (l = 0; l < y; l++) {
+          const w = e[s++];
+          let D = 0,
+            b = 0;
+          for (l = 0; l < w; l++) {
             const t = e[s],
               a = e[s + 1] >> 4,
               r = 15 & e[s + 1];
-            w < a && (w = a);
-            D < r && (D = r);
+            D < a && (D = a);
+            b < r && (b = r);
             const n = e[s + 2];
             E = i.components.push({
               h: a,
@@ -7538,14 +7632,14 @@ class JpegImage {
             i.componentIds[t] = E - 1;
             s += 3;
           }
-          i.maxH = w;
-          i.maxV = D;
+          i.maxH = D;
+          i.maxV = b;
           prepareComponents(i);
           break;
         case 65476:
-          const b = readUint16(e, s);
+          const F = readUint16(e, s);
           s += 2;
-          for (l = 2; l < b; ) {
+          for (l = 2; l < F; ) {
             const t = e[s++],
               i = new Uint8Array(16);
             let a = 0;
@@ -7562,11 +7656,11 @@ class JpegImage {
           s += 2;
           break;
         case 65498:
-          const F = 1 == ++g && !t;
+          const S = 1 == ++g && !t;
           s += 2;
-          const S = e[s++],
-            k = [];
-          for (l = 0; l < S; l++) {
+          const k = e[s++],
+            R = [];
+          for (l = 0; l < k; l++) {
             const t = e[s++],
               a = i.componentIds[t],
               r = i.components[a];
@@ -7574,14 +7668,13 @@ class JpegImage {
             const n = e[s++];
             r.huffmanTableDC = C[n >> 4];
             r.huffmanTableAC = c[15 & n];
-            k.push(r);
+            R.push(r);
           }
-          const R = e[s++],
-            N = e[s++],
-            G = e[s++];
+          const N = e[s++],
+            G = e[s++],
+            x = e[s++];
           try {
-            const t = decodeScan(e, s, i, k, a, R, N, G >> 4, 15 & G, F);
-            s += t;
+            s += decodeScan(e, s, i, R, a, N, G, x >> 4, 15 & x, S);
           } catch (t) {
             if (t instanceof DNLMarkerError) {
               warn(`${t.message} -- attempting to re-parse the JPEG image.`);
@@ -7601,16 +7694,16 @@ class JpegImage {
           255 !== e[s] && s--;
           break;
         default:
-          const x = findNextFileMarker(e, s - 2, s - 3);
-          if (x?.invalid) {
+          const U = findNextFileMarker(e, s - 2, s - 3);
+          if (U?.invalid) {
             warn(
               "JpegImage.parse - unexpected data, current marker is: " +
-                x.invalid,
+                U.invalid,
             );
-            s = x.offset;
+            s = U.offset;
             break;
           }
-          if (!x || s >= e.length - 1) {
+          if (!U || s >= e.length - 1) {
             warn(
               "JpegImage.parse - reached the end of the image data without finding an EOI marker (0xFFD9).",
             );
@@ -8066,6 +8159,15 @@ class JpegStream extends DecodeStream {
     this.maybeLength = t;
     this.params = i;
   }
+  static get canUseImageDecoder() {
+    return shadow(
+      this,
+      "canUseImageDecoder",
+      "undefined" == typeof ImageDecoder
+        ? Promise.resolve(!1)
+        : ImageDecoder.isTypeSupported("image/jpeg"),
+    );
+  }
   get bytes() {
     return shadow(this, "bytes", this.stream.getBytes(this.maybeLength));
   }
@@ -8073,54 +8175,86 @@ class JpegStream extends DecodeStream {
   readBlock() {
     this.decodeImage();
   }
-  decodeImage(e) {
-    if (this.eof) return this.buffer;
-    e ||= this.bytes;
+  get jpegOptions() {
+    const e = { decodeTransform: void 0, colorTransform: void 0 },
+      t = this.dict.getArray("D", "Decode");
+    if ((this.forceRGBA || this.forceRGB) && Array.isArray(t)) {
+      const i = this.dict.get("BPC", "BitsPerComponent") || 8,
+        a = t.length,
+        s = new Int32Array(a);
+      let r = !1;
+      const n = (1 << i) - 1;
+      for (let e = 0; e < a; e += 2) {
+        s[e] = (256 * (t[e + 1] - t[e])) | 0;
+        s[e + 1] = (t[e] * n) | 0;
+        (256 === s[e] && 0 === s[e + 1]) || (r = !0);
+      }
+      r && (e.decodeTransform = s);
+    }
+    if (this.params instanceof Dict) {
+      const t = this.params.get("ColorTransform");
+      Number.isInteger(t) && (e.colorTransform = t);
+    }
+    return shadow(this, "jpegOptions", e);
+  }
+  #y(e) {
     for (let t = 0, i = e.length - 1; t < i; t++)
       if (255 === e[t] && 216 === e[t + 1]) {
         t > 0 && (e = e.subarray(t));
         break;
       }
-    const t = { decodeTransform: void 0, colorTransform: void 0 },
-      i = this.dict.getArray("D", "Decode");
-    if ((this.forceRGBA || this.forceRGB) && Array.isArray(i)) {
-      const e = this.dict.get("BPC", "BitsPerComponent") || 8,
-        a = i.length,
-        s = new Int32Array(a);
-      let r = !1;
-      const n = (1 << e) - 1;
-      for (let e = 0; e < a; e += 2) {
-        s[e] = (256 * (i[e + 1] - i[e])) | 0;
-        s[e + 1] = (i[e] * n) | 0;
-        (256 === s[e] && 0 === s[e + 1]) || (r = !0);
-      }
-      r && (t.decodeTransform = s);
-    }
-    if (this.params instanceof Dict) {
-      const e = this.params.get("ColorTransform");
-      Number.isInteger(e) && (t.colorTransform = e);
-    }
-    const a = new JpegImage(t);
-    a.parse(e);
-    const s = a.getData({
+    return e;
+  }
+  decodeImage(e) {
+    if (this.eof) return this.buffer;
+    e = this.#y(e || this.bytes);
+    const t = new JpegImage(this.jpegOptions);
+    t.parse(e);
+    const i = t.getData({
       width: this.drawWidth,
       height: this.drawHeight,
       forceRGBA: this.forceRGBA,
       forceRGB: this.forceRGB,
       isSourcePDF: !0,
     });
-    this.buffer = s;
-    this.bufferLength = s.length;
+    this.buffer = i;
+    this.bufferLength = i.length;
     this.eof = !0;
     return this.buffer;
   }
   get canAsyncDecodeImageFromBuffer() {
     return this.stream.isAsync;
   }
+  async getTransferableImage() {
+    if (!(await JpegStream.canUseImageDecoder)) return null;
+    const e = this.jpegOptions;
+    if (e.decodeTransform) return null;
+    let t;
+    try {
+      const i =
+        (this.canAsyncDecodeImageFromBuffer &&
+          (await this.stream.asyncGetBytes())) ||
+        this.bytes;
+      if (!i) return null;
+      const a = this.#y(i);
+      if (!JpegImage.canUseImageDecoder(a, e.colorTransform)) return null;
+      t = new ImageDecoder({
+        data: a,
+        type: "image/jpeg",
+        preferAnimation: !1,
+      });
+      return (await t.decode()).image;
+    } catch (e) {
+      warn(`getTransferableImage - failed: "${e}".`);
+      return null;
+    } finally {
+      t?.close();
+    }
+  }
 }
-var gi,
-  oi =
-    ((gi =
+var Ii,
+  ci =
+    ((Ii =
       "undefined" != typeof document ? document.currentScript?.src : void 0),
     function (e = {}) {
       var t,
@@ -8162,7 +8296,7 @@ var gi,
       "undefined" != typeof document &&
         document.currentScript &&
         (g = document.currentScript.src);
-      gi && (g = gi);
+      Ii && (g = Ii);
       g = g.startsWith("blob:")
         ? ""
         : g.substr(0, g.replace(/[?#].*/, "").lastIndexOf("/") + 1);
@@ -8537,23 +8671,23 @@ var gi,
       run();
       return a;
     });
-const Ii = oi;
-class JpxError extends rt {
+const Ci = ci;
+class JpxError extends gt {
   constructor(e) {
     super(e, "JpxError");
   }
 }
 class JpxImage {
-  static #y = null;
+  static #w = null;
   static decode(e, t) {
     t ||= {};
-    this.#y ||= Ii({ warn });
-    const i = this.#y.decode(e, t);
+    this.#w ||= Ci({ warn });
+    const i = this.#w.decode(e, t);
     if ("string" == typeof i) throw new JpxError(i);
     return i;
   }
   static cleanup() {
-    this.#y = null;
+    this.#w = null;
   }
   static parseImageProperties(e) {
     let t = e.getByte();
@@ -8944,9 +9078,9 @@ class Parser {
           return this.makeInlineImage(e);
         case "[":
           const i = [];
-          for (; !isCmd(this.buf1, "]") && this.buf1 !== pt; )
+          for (; !isCmd(this.buf1, "]") && this.buf1 !== yt; )
             i.push(this.getObj(e));
-          if (this.buf1 === pt) {
+          if (this.buf1 === yt) {
             if (this.recoveryMode) return i;
             throw new ParserEOFException("End of file inside array.");
           }
@@ -8954,7 +9088,7 @@ class Parser {
           return i;
         case "<<":
           const a = new Dict(this.xref);
-          for (; !isCmd(this.buf1, ">>") && this.buf1 !== pt; ) {
+          for (; !isCmd(this.buf1, ">>") && this.buf1 !== yt; ) {
             if (!(this.buf1 instanceof Name)) {
               info("Malformed dictionary: key must be a name object");
               this.shift();
@@ -8962,10 +9096,10 @@ class Parser {
             }
             const t = this.buf1.name;
             this.shift();
-            if (this.buf1 === pt) break;
+            if (this.buf1 === yt) break;
             a.set(t, this.getObj(e));
           }
-          if (this.buf1 === pt) {
+          if (this.buf1 === yt) {
             if (this.recoveryMode) return a;
             throw new ParserEOFException("End of file inside dictionary.");
           }
@@ -9025,7 +9159,7 @@ class Parser {
         let o = 0;
         for (;;) {
           const e = g.getObj();
-          if (e === pt) {
+          if (e === yt) {
             r = 0;
             break;
           }
@@ -9186,12 +9320,12 @@ class Parser {
       i = t.stream,
       a = Object.create(null);
     let s;
-    for (; !isCmd(this.buf1, "ID") && this.buf1 !== pt; ) {
+    for (; !isCmd(this.buf1, "ID") && this.buf1 !== yt; ) {
       if (!(this.buf1 instanceof Name))
         throw new FormatError("Dictionary key must be a name object");
       const t = this.buf1.name;
       this.shift();
-      if (this.buf1 === pt) break;
+      if (this.buf1 === yt) break;
       a[t] = this.getObj(e);
     }
     -1 !== t.beginInlineImagePos && (s = i.pos - t.beginInlineImagePos);
@@ -9254,7 +9388,7 @@ class Parser {
     this.shift();
     return h;
   }
-  #w(e) {
+  #D(e) {
     const { stream: t } = this.lexer;
     t.pos = e;
     const i = new Uint8Array([101, 110, 100]),
@@ -9318,7 +9452,7 @@ class Parser {
     i.nextChar();
     if (this.tryShift() && isCmd(this.buf2, "endstream")) this.shift();
     else {
-      r = this.#w(s);
+      r = this.#D(s);
       if (r < 0) throw new FormatError("Missing endstream command.");
       i.nextChar();
       this.shift();
@@ -9405,7 +9539,7 @@ class Parser {
     }
   }
 }
-const ci = [
+const hi = [
   1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
   0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 2, 0, 0, 2, 2, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0,
   0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -9586,10 +9720,10 @@ class Lexer {
     let e, t;
     const i = this.strBuf;
     i.length = 0;
-    for (; (e = this.nextChar()) >= 0 && !ci[e]; )
+    for (; (e = this.nextChar()) >= 0 && !hi[e]; )
       if (35 === e) {
         e = this.nextChar();
-        if (ci[e]) {
+        if (hi[e]) {
           warn(
             "Lexer_getName: NUMBER SIGN (#) should be followed by a hexadecimal number.",
           );
@@ -9606,7 +9740,7 @@ class Lexer {
               `Lexer_getName: Illegal digit (${String.fromCharCode(e)}) in hexadecimal number.`,
             );
             i.push("#", String.fromCharCode(t));
-            if (ci[e]) break;
+            if (hi[e]) break;
             i.push(String.fromCharCode(e));
             continue;
           }
@@ -9626,51 +9760,41 @@ class Lexer {
   getHexString() {
     const e = this.strBuf;
     e.length = 0;
-    let t,
-      i,
-      a = this.currentChar,
-      s = !0;
+    let t = this.currentChar,
+      i = -1,
+      a = -1;
     this._hexStringNumWarn = 0;
     for (;;) {
-      if (a < 0) {
+      if (t < 0) {
         warn("Unterminated hex string");
         break;
       }
-      if (62 === a) {
+      if (62 === t) {
         this.nextChar();
         break;
       }
-      if (1 !== ci[a]) {
-        if (s) {
-          t = toHexDigit(a);
-          if (-1 === t) {
-            this._hexStringWarn(a);
-            a = this.nextChar();
-            continue;
-          }
-        } else {
-          i = toHexDigit(a);
-          if (-1 === i) {
-            this._hexStringWarn(a);
-            a = this.nextChar();
-            continue;
-          }
-          e.push(String.fromCharCode((t << 4) | i));
+      if (1 !== hi[t]) {
+        a = toHexDigit(t);
+        if (-1 === a) this._hexStringWarn(t);
+        else if (-1 === i) i = a;
+        else {
+          e.push(String.fromCharCode((i << 4) | a));
+          i = -1;
         }
-        s = !s;
-        a = this.nextChar();
-      } else a = this.nextChar();
+        t = this.nextChar();
+      } else t = this.nextChar();
     }
+    -1 !== i && e.push(String.fromCharCode(i << 4));
     return e.join("");
   }
   getObj() {
     let e = !1,
       t = this.currentChar;
     for (;;) {
-      if (t < 0) return pt;
+      if (t < 0) return yt;
       if (e) (10 !== t && 13 !== t) || (e = !1);
       else if (37 === t) e = !0;
-      else if (1 !== ci[t]) break;
+      else if (1 !== hi[t]) break;
       t = this.nextChar();
     }
     switch (0 | t) {
@@ -9732,7 +9856,7 @@ class Lexer {
     }
     const a = this.knownCommands;
     let s = void 0 !== a?.[i];
-    for (; (t = this.nextChar()) >= 0 && !ci[t]; ) {
+    for (; (t = this.nextChar()) >= 0 && !hi[t]; ) {
       const e = i + String.fromCharCode(t);
       if (s && void 0 === a[e]) break;
       if (128 === i.length)
@@ -9819,7 +9943,7 @@ class Linearization {
     };
   }
 }
-const Ci = [
+const li = [
     "Adobe-GB1-UCS2",
     "Adobe-CNS1-UCS2",
     "Adobe-Japan1-UCS2",
@@ -9989,7 +10113,7 @@ const Ci = [
     "V",
     "WP-Symbol",
   ],
-  hi = 2 ** 24 - 1;
+  Bi = 2 ** 24 - 1;
 class CMap {
   constructor(e = !1) {
     this.codespaceRanges = [[], [], [], []];
@@ -10005,12 +10129,12 @@ class CMap {
     this.numCodespaceRanges++;
   }
   mapCidRange(e, t, i) {
-    if (t - e > hi)
+    if (t - e > Bi)
       throw new Error("mapCidRange - ignoring data above MAX_MAP_RANGE.");
     for (; e <= t; ) this._map[e++] = i++;
   }
   mapBfRange(e, t, i) {
-    if (t - e > hi)
+    if (t - e > Bi)
       throw new Error("mapBfRange - ignoring data above MAX_MAP_RANGE.");
     const a = i.length - 1;
     for (; e <= t; ) {
@@ -10025,7 +10149,7 @@ class CMap {
     }
   }
   mapBfRangeToArray(e, t, i) {
-    if (t - e > hi)
+    if (t - e > Bi)
       throw new Error("mapBfRangeToArray - ignoring data above MAX_MAP_RANGE.");
     const a = i.length;
     let s = 0;
@@ -10157,7 +10281,7 @@ function expectInt(e) {
 function parseBfChar(e, t) {
   for (;;) {
     let i = t.getObj();
-    if (i === pt) break;
+    if (i === yt) break;
     if (isCmd(i, "endbfchar")) return;
     expectString(i);
     const a = strToInt(i);
@@ -10170,7 +10294,7 @@ function parseBfChar(e, t) {
 function parseBfRange(e, t) {
   for (;;) {
     let i = t.getObj();
-    if (i === pt) break;
+    if (i === yt) break;
     if (isCmd(i, "endbfrange")) return;
     expectString(i);
     const a = strToInt(i);
@@ -10186,7 +10310,7 @@ function parseBfRange(e, t) {
       {
         i = t.getObj();
         const r = [];
-        for (; !isCmd(i, "]") && i !== pt; ) {
+        for (; !isCmd(i, "]") && i !== yt; ) {
           r.push(i);
           i = t.getObj();
         }
@@ -10199,7 +10323,7 @@ function parseBfRange(e, t) {
 function parseCidChar(e, t) {
   for (;;) {
     let i = t.getObj();
-    if (i === pt) break;
+    if (i === yt) break;
     if (isCmd(i, "endcidchar")) return;
     expectString(i);
     const a = strToInt(i);
@@ -10212,7 +10336,7 @@ function parseCidChar(e, t) {
 function parseCidRange(e, t) {
   for (;;) {
     let i = t.getObj();
-    if (i === pt) break;
+    if (i === yt) break;
     if (isCmd(i, "endcidrange")) return;
     expectString(i);
     const a = strToInt(i);
@@ -10228,7 +10352,7 @@ function parseCidRange(e, t) {
 function parseCodespaceRange(e, t) {
   for (;;) {
     let i = t.getObj();
-    if (i === pt) break;
+    if (i === yt) break;
     if (isCmd(i, "endcodespacerange")) return;
     if ("string" != typeof i) break;
     const a = strToInt(i);
@@ -10252,7 +10376,7 @@ async function parseCMap(e, t, i, a) {
   A: for (;;)
     try {
       const i = t.getObj();
-      if (i === pt) break;
+      if (i === yt) break;
       if (i instanceof Name) {
         "WMode" === i.name
           ? parseWMode(e, t)
@@ -10303,17 +10427,14 @@ async function extendCMap(e, t, i) {
 async function createBuiltInCMap(e, t) {
   if ("Identity-H" === e) return new IdentityCMap(!1, 2);
   if ("Identity-V" === e) return new IdentityCMap(!0, 2);
-  if (!Ci.includes(e)) throw new Error("Unknown CMap name: " + e);
+  if (!li.includes(e)) throw new Error("Unknown CMap name: " + e);
   if (!t) throw new Error("Built-in CMap parameters are not provided.");
-  const { cMapData: i, compressionType: a } = await t(e),
+  const { cMapData: i, isCompressed: a } = await t(e),
     s = new CMap(!0);
-  if (a === mA.BINARY)
+  if (a)
     return new BinaryCMapReader().process(i, s, (e) => extendCMap(s, t, e));
-  if (a === mA.NONE) {
-    const e = new Lexer(new Stream(i));
-    return parseCMap(s, e, t, null);
-  }
-  throw new Error(`Invalid CMap "compressionType" value: ${a}`);
+  const r = new Lexer(new Stream(i));
+  return parseCMap(s, r, t, null);
 }
 class CMapFactory {
   static async create({ encoding: e, fetchBuiltInCMap: t, useCMap: i }) {
@@ -10325,7 +10446,7 @@ class CMapFactory {
     throw new Error("Encoding required.");
   }
 }
-const Bi = [
+const Qi = [
     ".notdef",
     "space",
     "exclam",
@@ -10556,300 +10677,11 @@ const Bi = [
     "ydieresis",
     "zcaron",
   ],
-  li = [
-    ".notdef",
-    "space",
-    "exclamsmall",
-    "Hungarumlautsmall",
-    "dollaroldstyle",
-    "dollarsuperior",
-    "ampersandsmall",
-    "Acutesmall",
-    "parenleftsuperior",
-    "parenrightsuperior",
-    "twodotenleader",
-    "onedotenleader",
-    "comma",
-    "hyphen",
-    "period",
-    "fraction",
-    "zerooldstyle",
-    "oneoldstyle",
-    "twooldstyle",
-    "threeoldstyle",
-    "fouroldstyle",
-    "fiveoldstyle",
-    "sixoldstyle",
-    "sevenoldstyle",
-    "eightoldstyle",
-    "nineoldstyle",
-    "colon",
-    "semicolon",
-    "commasuperior",
-    "threequartersemdash",
-    "periodsuperior",
-    "questionsmall",
-    "asuperior",
-    "bsuperior",
-    "centsuperior",
-    "dsuperior",
-    "esuperior",
-    "isuperior",
-    "lsuperior",
-    "msuperior",
-    "nsuperior",
-    "osuperior",
-    "rsuperior",
-    "ssuperior",
-    "tsuperior",
-    "ff",
-    "fi",
-    "fl",
-    "ffi",
-    "ffl",
-    "parenleftinferior",
-    "parenrightinferior",
-    "Circumflexsmall",
-    "hyphensuperior",
-    "Gravesmall",
-    "Asmall",
-    "Bsmall",
-    "Csmall",
-    "Dsmall",
-    "Esmall",
-    "Fsmall",
-    "Gsmall",
-    "Hsmall",
-    "Ismall",
-    "Jsmall",
-    "Ksmall",
-    "Lsmall",
-    "Msmall",
-    "Nsmall",
-    "Osmall",
-    "Psmall",
-    "Qsmall",
-    "Rsmall",
-    "Ssmall",
-    "Tsmall",
-    "Usmall",
-    "Vsmall",
-    "Wsmall",
-    "Xsmall",
-    "Ysmall",
-    "Zsmall",
-    "colonmonetary",
-    "onefitted",
-    "rupiah",
-    "Tildesmall",
-    "exclamdownsmall",
-    "centoldstyle",
-    "Lslashsmall",
-    "Scaronsmall",
-    "Zcaronsmall",
-    "Dieresissmall",
-    "Brevesmall",
-    "Caronsmall",
-    "Dotaccentsmall",
-    "Macronsmall",
-    "figuredash",
-    "hypheninferior",
-    "Ogoneksmall",
-    "Ringsmall",
-    "Cedillasmall",
-    "onequarter",
-    "onehalf",
-    "threequarters",
-    "questiondownsmall",
-    "oneeighth",
-    "threeeighths",
-    "fiveeighths",
-    "seveneighths",
-    "onethird",
-    "twothirds",
-    "zerosuperior",
-    "onesuperior",
-    "twosuperior",
-    "threesuperior",
-    "foursuperior",
-    "fivesuperior",
-    "sixsuperior",
-    "sevensuperior",
-    "eightsuperior",
-    "ninesuperior",
-    "zeroinferior",
-    "oneinferior",
-    "twoinferior",
-    "threeinferior",
-    "fourinferior",
-    "fiveinferior",
-    "sixinferior",
-    "seveninferior",
-    "eightinferior",
-    "nineinferior",
-    "centinferior",
-    "dollarinferior",
-    "periodinferior",
-    "commainferior",
-    "Agravesmall",
-    "Aacutesmall",
-    "Acircumflexsmall",
-    "Atildesmall",
-    "Adieresissmall",
-    "Aringsmall",
-    "AEsmall",
-    "Ccedillasmall",
-    "Egravesmall",
-    "Eacutesmall",
-    "Ecircumflexsmall",
-    "Edieresissmall",
-    "Igravesmall",
-    "Iacutesmall",
-    "Icircumflexsmall",
-    "Idieresissmall",
-    "Ethsmall",
-    "Ntildesmall",
-    "Ogravesmall",
-    "Oacutesmall",
-    "Ocircumflexsmall",
-    "Otildesmall",
-    "Odieresissmall",
-    "OEsmall",
-    "Oslashsmall",
-    "Ugravesmall",
-    "Uacutesmall",
-    "Ucircumflexsmall",
-    "Udieresissmall",
-    "Yacutesmall",
-    "Thornsmall",
-    "Ydieresissmall",
-  ],
-  Qi = [
-    ".notdef",
-    "space",
-    "dollaroldstyle",
-    "dollarsuperior",
-    "parenleftsuperior",
-    "parenrightsuperior",
-    "twodotenleader",
-    "onedotenleader",
-    "comma",
-    "hyphen",
-    "period",
-    "fraction",
-    "zerooldstyle",
-    "oneoldstyle",
-    "twooldstyle",
-    "threeoldstyle",
-    "fouroldstyle",
-    "fiveoldstyle",
-    "sixoldstyle",
-    "sevenoldstyle",
-    "eightoldstyle",
-    "nineoldstyle",
-    "colon",
-    "semicolon",
-    "commasuperior",
-    "threequartersemdash",
-    "periodsuperior",
-    "asuperior",
-    "bsuperior",
-    "centsuperior",
-    "dsuperior",
-    "esuperior",
-    "isuperior",
-    "lsuperior",
-    "msuperior",
-    "nsuperior",
-    "osuperior",
-    "rsuperior",
-    "ssuperior",
-    "tsuperior",
-    "ff",
-    "fi",
-    "fl",
-    "ffi",
-    "ffl",
-    "parenleftinferior",
-    "parenrightinferior",
-    "hyphensuperior",
-    "colonmonetary",
-    "onefitted",
-    "rupiah",
-    "centoldstyle",
-    "figuredash",
-    "hypheninferior",
-    "onequarter",
-    "onehalf",
-    "threequarters",
-    "oneeighth",
-    "threeeighths",
-    "fiveeighths",
-    "seveneighths",
-    "onethird",
-    "twothirds",
-    "zerosuperior",
-    "onesuperior",
-    "twosuperior",
-    "threesuperior",
-    "foursuperior",
-    "fivesuperior",
-    "sixsuperior",
-    "sevensuperior",
-    "eightsuperior",
-    "ninesuperior",
-    "zeroinferior",
-    "oneinferior",
-    "twoinferior",
-    "threeinferior",
-    "fourinferior",
-    "fiveinferior",
-    "sixinferior",
-    "seveninferior",
-    "eightinferior",
-    "nineinferior",
-    "centinferior",
-    "dollarinferior",
-    "periodinferior",
-    "commainferior",
-  ],
   Ei = [
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
+    ".notdef",
     "space",
     "exclamsmall",
     "Hungarumlautsmall",
-    "",
     "dollaroldstyle",
     "dollarsuperior",
     "ampersandsmall",
@@ -10878,35 +10710,25 @@ const Bi = [
     "threequartersemdash",
     "periodsuperior",
     "questionsmall",
-    "",
     "asuperior",
     "bsuperior",
     "centsuperior",
     "dsuperior",
     "esuperior",
-    "",
-    "",
-    "",
     "isuperior",
-    "",
-    "",
     "lsuperior",
     "msuperior",
     "nsuperior",
     "osuperior",
-    "",
-    "",
     "rsuperior",
     "ssuperior",
     "tsuperior",
-    "",
     "ff",
     "fi",
     "fl",
     "ffi",
     "ffl",
     "parenleftinferior",
-    "",
     "parenrightinferior",
     "Circumflexsmall",
     "hyphensuperior",
@@ -10941,67 +10763,21 @@ const Bi = [
     "onefitted",
     "rupiah",
     "Tildesmall",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
     "exclamdownsmall",
     "centoldstyle",
     "Lslashsmall",
-    "",
-    "",
     "Scaronsmall",
     "Zcaronsmall",
     "Dieresissmall",
     "Brevesmall",
     "Caronsmall",
-    "",
     "Dotaccentsmall",
-    "",
-    "",
     "Macronsmall",
-    "",
-    "",
     "figuredash",
     "hypheninferior",
-    "",
-    "",
     "Ogoneksmall",
     "Ringsmall",
     "Cedillasmall",
-    "",
-    "",
-    "",
     "onequarter",
     "onehalf",
     "threequarters",
@@ -11012,8 +10788,6 @@ const Bi = [
     "seveneighths",
     "onethird",
     "twothirds",
-    "",
-    "",
     "zerosuperior",
     "onesuperior",
     "twosuperior",
@@ -11072,6 +10846,353 @@ const Bi = [
     "Ydieresissmall",
   ],
   ui = [
+    ".notdef",
+    "space",
+    "dollaroldstyle",
+    "dollarsuperior",
+    "parenleftsuperior",
+    "parenrightsuperior",
+    "twodotenleader",
+    "onedotenleader",
+    "comma",
+    "hyphen",
+    "period",
+    "fraction",
+    "zerooldstyle",
+    "oneoldstyle",
+    "twooldstyle",
+    "threeoldstyle",
+    "fouroldstyle",
+    "fiveoldstyle",
+    "sixoldstyle",
+    "sevenoldstyle",
+    "eightoldstyle",
+    "nineoldstyle",
+    "colon",
+    "semicolon",
+    "commasuperior",
+    "threequartersemdash",
+    "periodsuperior",
+    "asuperior",
+    "bsuperior",
+    "centsuperior",
+    "dsuperior",
+    "esuperior",
+    "isuperior",
+    "lsuperior",
+    "msuperior",
+    "nsuperior",
+    "osuperior",
+    "rsuperior",
+    "ssuperior",
+    "tsuperior",
+    "ff",
+    "fi",
+    "fl",
+    "ffi",
+    "ffl",
+    "parenleftinferior",
+    "parenrightinferior",
+    "hyphensuperior",
+    "colonmonetary",
+    "onefitted",
+    "rupiah",
+    "centoldstyle",
+    "figuredash",
+    "hypheninferior",
+    "onequarter",
+    "onehalf",
+    "threequarters",
+    "oneeighth",
+    "threeeighths",
+    "fiveeighths",
+    "seveneighths",
+    "onethird",
+    "twothirds",
+    "zerosuperior",
+    "onesuperior",
+    "twosuperior",
+    "threesuperior",
+    "foursuperior",
+    "fivesuperior",
+    "sixsuperior",
+    "sevensuperior",
+    "eightsuperior",
+    "ninesuperior",
+    "zeroinferior",
+    "oneinferior",
+    "twoinferior",
+    "threeinferior",
+    "fourinferior",
+    "fiveinferior",
+    "sixinferior",
+    "seveninferior",
+    "eightinferior",
+    "nineinferior",
+    "centinferior",
+    "dollarinferior",
+    "periodinferior",
+    "commainferior",
+  ],
+  di = [
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "space",
+    "exclamsmall",
+    "Hungarumlautsmall",
+    "",
+    "dollaroldstyle",
+    "dollarsuperior",
+    "ampersandsmall",
+    "Acutesmall",
+    "parenleftsuperior",
+    "parenrightsuperior",
+    "twodotenleader",
+    "onedotenleader",
+    "comma",
+    "hyphen",
+    "period",
+    "fraction",
+    "zerooldstyle",
+    "oneoldstyle",
+    "twooldstyle",
+    "threeoldstyle",
+    "fouroldstyle",
+    "fiveoldstyle",
+    "sixoldstyle",
+    "sevenoldstyle",
+    "eightoldstyle",
+    "nineoldstyle",
+    "colon",
+    "semicolon",
+    "commasuperior",
+    "threequartersemdash",
+    "periodsuperior",
+    "questionsmall",
+    "",
+    "asuperior",
+    "bsuperior",
+    "centsuperior",
+    "dsuperior",
+    "esuperior",
+    "",
+    "",
+    "",
+    "isuperior",
+    "",
+    "",
+    "lsuperior",
+    "msuperior",
+    "nsuperior",
+    "osuperior",
+    "",
+    "",
+    "rsuperior",
+    "ssuperior",
+    "tsuperior",
+    "",
+    "ff",
+    "fi",
+    "fl",
+    "ffi",
+    "ffl",
+    "parenleftinferior",
+    "",
+    "parenrightinferior",
+    "Circumflexsmall",
+    "hyphensuperior",
+    "Gravesmall",
+    "Asmall",
+    "Bsmall",
+    "Csmall",
+    "Dsmall",
+    "Esmall",
+    "Fsmall",
+    "Gsmall",
+    "Hsmall",
+    "Ismall",
+    "Jsmall",
+    "Ksmall",
+    "Lsmall",
+    "Msmall",
+    "Nsmall",
+    "Osmall",
+    "Psmall",
+    "Qsmall",
+    "Rsmall",
+    "Ssmall",
+    "Tsmall",
+    "Usmall",
+    "Vsmall",
+    "Wsmall",
+    "Xsmall",
+    "Ysmall",
+    "Zsmall",
+    "colonmonetary",
+    "onefitted",
+    "rupiah",
+    "Tildesmall",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "exclamdownsmall",
+    "centoldstyle",
+    "Lslashsmall",
+    "",
+    "",
+    "Scaronsmall",
+    "Zcaronsmall",
+    "Dieresissmall",
+    "Brevesmall",
+    "Caronsmall",
+    "",
+    "Dotaccentsmall",
+    "",
+    "",
+    "Macronsmall",
+    "",
+    "",
+    "figuredash",
+    "hypheninferior",
+    "",
+    "",
+    "Ogoneksmall",
+    "Ringsmall",
+    "Cedillasmall",
+    "",
+    "",
+    "",
+    "onequarter",
+    "onehalf",
+    "threequarters",
+    "questiondownsmall",
+    "oneeighth",
+    "threeeighths",
+    "fiveeighths",
+    "seveneighths",
+    "onethird",
+    "twothirds",
+    "",
+    "",
+    "zerosuperior",
+    "onesuperior",
+    "twosuperior",
+    "threesuperior",
+    "foursuperior",
+    "fivesuperior",
+    "sixsuperior",
+    "sevensuperior",
+    "eightsuperior",
+    "ninesuperior",
+    "zeroinferior",
+    "oneinferior",
+    "twoinferior",
+    "threeinferior",
+    "fourinferior",
+    "fiveinferior",
+    "sixinferior",
+    "seveninferior",
+    "eightinferior",
+    "nineinferior",
+    "centinferior",
+    "dollarinferior",
+    "periodinferior",
+    "commainferior",
+    "Agravesmall",
+    "Aacutesmall",
+    "Acircumflexsmall",
+    "Atildesmall",
+    "Adieresissmall",
+    "Aringsmall",
+    "AEsmall",
+    "Ccedillasmall",
+    "Egravesmall",
+    "Eacutesmall",
+    "Ecircumflexsmall",
+    "Edieresissmall",
+    "Igravesmall",
+    "Iacutesmall",
+    "Icircumflexsmall",
+    "Idieresissmall",
+    "Ethsmall",
+    "Ntildesmall",
+    "Ogravesmall",
+    "Oacutesmall",
+    "Ocircumflexsmall",
+    "Otildesmall",
+    "Odieresissmall",
+    "OEsmall",
+    "Oslashsmall",
+    "Ugravesmall",
+    "Uacutesmall",
+    "Ucircumflexsmall",
+    "Udieresissmall",
+    "Yacutesmall",
+    "Thornsmall",
+    "Ydieresissmall",
+  ],
+  fi = [
     "",
     "",
     "",
@@ -11329,7 +11450,7 @@ const Bi = [
     "",
     "",
   ],
-  di = [
+  pi = [
     "",
     "",
     "",
@@ -11587,7 +11708,7 @@ const Bi = [
     "ogonek",
     "caron",
   ],
-  fi = [
+  mi = [
     "",
     "",
     "",
@@ -11845,7 +11966,7 @@ const Bi = [
     "",
     "",
   ],
-  pi = [
+  yi = [
     "",
     "",
     "",
@@ -12103,7 +12224,7 @@ const Bi = [
     "thorn",
     "ydieresis",
   ],
-  mi = [
+  wi = [
     "",
     "",
     "",
@@ -12361,7 +12482,7 @@ const Bi = [
     "bracerightbt",
     "",
   ],
-  yi = [
+  Di = [
     "",
     "",
     "",
@@ -12622,24 +12743,24 @@ const Bi = [
 function getEncoding(e) {
   switch (e) {
     case "WinAnsiEncoding":
-      return pi;
-    case "StandardEncoding":
-      return fi;
-    case "MacRomanEncoding":
-      return di;
-    case "SymbolSetEncoding":
-      return mi;
-    case "ZapfDingbatsEncoding":
       return yi;
+    case "StandardEncoding":
+      return mi;
+    case "MacRomanEncoding":
+      return pi;
+    case "SymbolSetEncoding":
+      return wi;
+    case "ZapfDingbatsEncoding":
+      return Di;
     case "ExpertEncoding":
-      return Ei;
+      return di;
     case "MacExpertEncoding":
-      return ui;
+      return fi;
     default:
       return null;
   }
 }
-const wi = [
+const bi = [
     ".notdef",
     "space",
     "exclam",
@@ -13032,8 +13153,8 @@ const wi = [
     "Roman",
     "Semibold",
   ],
-  Di = 391,
-  bi = [
+  Fi = 391,
+  Si = [
     null,
     { id: "hstem", min: 2, stackClearing: !0, stem: !0 },
     null,
@@ -13067,7 +13188,7 @@ const wi = [
     { id: "vhcurveto", min: 4, resetStack: !0 },
     { id: "hvcurveto", min: 4, resetStack: !0 },
   ],
-  Fi = [
+  ki = [
     null,
     null,
     null,
@@ -13357,7 +13478,7 @@ class CFFParser {
           t[g - 2] = 139;
           t[g - 1] = 22;
           s = 0;
-        } else c = Fi[e];
+        } else c = ki[e];
       } else if (28 === o) {
         r[s] = ((t[g] << 24) | (t[g + 1] << 16)) >> 16;
         g += 2;
@@ -13370,7 +13491,7 @@ class CFFParser {
             return !1;
           }
         }
-        c = bi[o];
+        c = Si[o];
       } else if (o >= 32 && o <= 246) {
         r[s] = o - 139;
         s++;
@@ -13397,12 +13518,12 @@ class CFFParser {
         }
         g += (e.hints + 7) >> 3;
         s %= 2;
-        c = bi[o];
+        c = Si[o];
       } else {
         if (10 === o || 29 === o) {
           const t = 10 === o ? i : a;
           if (!t) {
-            c = bi[o];
+            c = Si[o];
             warn("Missing subrsIndex for " + c.id);
             return !1;
           }
@@ -13410,7 +13531,7 @@ class CFFParser {
           t.count < 1240 ? (n = 107) : t.count < 33900 && (n = 1131);
           const g = r[--s] + n;
           if (g < 0 || g >= t.count || isNaN(g)) {
-            c = bi[o];
+            c = Si[o];
             warn("Out of bounds subrIndex for " + c.id);
             return !1;
           }
@@ -13427,7 +13548,7 @@ class CFFParser {
         }
         if (0 === o && g === t.length) {
           t[g - 1] = 14;
-          c = bi[14];
+          c = Si[14];
         } else {
           if (9 === o) {
             t.copyWithin(g - 1, g, -1);
@@ -13435,7 +13556,7 @@ class CFFParser {
             n -= 1;
             continue;
           }
-          c = bi[o];
+          c = Si[o];
         }
       }
       if (c) {
@@ -13583,9 +13704,9 @@ class CFFParser {
     g.subrsIndex = C.obj;
   }
   parseCharsets(e, t, i, a) {
-    if (0 === e) return new CFFCharset(!0, Ri.ISO_ADOBE, Bi);
-    if (1 === e) return new CFFCharset(!0, Ri.EXPERT, li);
-    if (2 === e) return new CFFCharset(!0, Ri.EXPERT_SUBSET, Qi);
+    if (0 === e) return new CFFCharset(!0, Gi.ISO_ADOBE, Qi);
+    if (1 === e) return new CFFCharset(!0, Gi.EXPERT, Ei);
+    if (2 === e) return new CFFCharset(!0, Gi.EXPERT_SUBSET, ui);
     const s = this.bytes,
       r = e,
       n = s[e++],
@@ -13631,7 +13752,7 @@ class CFFParser {
     if (0 === e || 1 === e) {
       c = !0;
       n = e;
-      const t = e ? Ei : fi;
+      const t = e ? di : mi;
       for (g = 0, o = a.length; g < o; g++) {
         const e = t.indexOf(a[g]);
         -1 !== e && (s[e] = g);
@@ -13751,16 +13872,16 @@ class CFFStrings {
   }
   get(e) {
     return e >= 0 && e <= 390
-      ? wi[e]
-      : e - Di <= this.strings.length
-        ? this.strings[e - Di]
-        : wi[0];
+      ? bi[e]
+      : e - Fi <= this.strings.length
+        ? this.strings[e - Fi]
+        : bi[0];
   }
   getSID(e) {
-    let t = wi.indexOf(e);
+    let t = bi.indexOf(e);
     if (-1 !== t) return t;
     t = this.strings.indexOf(e);
-    return -1 !== t ? t + Di : -1;
+    return -1 !== t ? t + Fi : -1;
   }
   add(e) {
     this.strings.push(e);
@@ -13851,7 +13972,7 @@ class CFFDict {
     return t;
   }
 }
-const Si = [
+const Ri = [
   [[12, 30], "ROS", ["sid", "sid", "num"], null],
   [[12, 20], "SyntheticBase", "num", null],
   [0, "version", "sid", null],
@@ -13894,14 +14015,14 @@ const Si = [
 ];
 class CFFTopDict extends CFFDict {
   static get tables() {
-    return shadow(this, "tables", this.createTables(Si));
+    return shadow(this, "tables", this.createTables(Ri));
   }
   constructor(e) {
     super(CFFTopDict.tables, e);
     this.privateDict = null;
   }
 }
-const ki = [
+const Ni = [
   [6, "BlueValues", "delta", null],
   [7, "OtherBlues", "delta", null],
   [8, "FamilyBlues", "delta", null],
@@ -13923,14 +14044,14 @@ const ki = [
 ];
 class CFFPrivateDict extends CFFDict {
   static get tables() {
-    return shadow(this, "tables", this.createTables(ki));
+    return shadow(this, "tables", this.createTables(Ni));
   }
   constructor(e) {
     super(CFFPrivateDict.tables, e);
     this.subrsIndex = null;
   }
 }
-const Ri = { ISO_ADOBE: 0, EXPERT: 1, EXPERT_SUBSET: 2 };
+const Gi = { ISO_ADOBE: 0, EXPERT: 1, EXPERT_SUBSET: 2 };
 class CFFCharset {
   constructor(e, t, i, a) {
     this.predefined = e;
@@ -14339,7 +14460,7 @@ class CFFCompiler {
     return s;
   }
 }
-const Ni = getLookupTableFactory(function (e) {
+const xi = getLookupTableFactory(function (e) {
     e.A = 65;
     e.AE = 198;
     e.AEacute = 508;
@@ -18669,7 +18790,7 @@ const Ni = getLookupTableFactory(function (e) {
     e.vextenddouble = 8741;
     e.vextendsingle = 8739;
   }),
-  Gi = getLookupTableFactory(function (e) {
+  Mi = getLookupTableFactory(function (e) {
     e.space = 32;
     e.a1 = 9985;
     e.a2 = 9986;
@@ -18874,7 +18995,7 @@ const Ni = getLookupTableFactory(function (e) {
     e.a96 = 10101;
     e[".notdef"] = 0;
   }),
-  xi = getLookupTableFactory(function (e) {
+  Hi = getLookupTableFactory(function (e) {
     e[63721] = 169;
     e[63193] = 169;
     e[63720] = 174;
@@ -18919,7 +19040,7 @@ function getUnicodeForGlyph(e, t) {
   }
   return -1;
 }
-const Mi = [
+const Ji = [
   [0, 127],
   [128, 255],
   [256, 383],
@@ -19049,25 +19170,25 @@ const Mi = [
 ];
 function getUnicodeRangeFor(e, t = -1) {
   if (-1 !== t) {
-    const i = Mi[t];
+    const i = Ji[t];
     for (let a = 0, s = i.length; a < s; a += 2)
       if (e >= i[a] && e <= i[a + 1]) return t;
   }
-  for (let t = 0, i = Mi.length; t < i; t++) {
-    const i = Mi[t];
+  for (let t = 0, i = Ji.length; t < i; t++) {
+    const i = Ji[t];
     for (let a = 0, s = i.length; a < s; a += 2)
       if (e >= i[a] && e <= i[a + 1]) return t;
   }
   return -1;
 }
-const Hi = new RegExp("^(\\s)|(\\p{Mn})|(\\p{Cf})$", "u"),
-  Ji = new Map();
-const Yi = !0,
-  vi = 1,
-  Ki = 2,
-  Ti = 4,
-  qi = 32,
-  Oi = [
+const Yi = new RegExp("^(\\s)|(\\p{Mn})|(\\p{Cf})$", "u"),
+  vi = new Map();
+const Ki = !0,
+  Ti = 1,
+  qi = 2,
+  Oi = 4,
+  Pi = 32,
+  Wi = [
     ".notdef",
     ".null",
     "nonmarkingreturn",
@@ -19337,7 +19458,7 @@ function recoverGlyphName(e, t) {
 function type1FontGlyphMapping(e, t, i) {
   const a = Object.create(null);
   let s, r, n;
-  const g = !!(e.flags & Ti);
+  const g = !!(e.flags & Oi);
   if (e.isInternalFont) {
     n = t;
     for (r = 0; r < n.length; r++) {
@@ -19352,7 +19473,7 @@ function type1FontGlyphMapping(e, t, i) {
     }
   } else if (g) for (r in t) a[r] = t[r];
   else {
-    n = fi;
+    n = mi;
     for (r = 0; r < n.length; r++) {
       s = i.indexOf(n[r]);
       a[r] = s >= 0 ? s : 0;
@@ -19365,7 +19486,7 @@ function type1FontGlyphMapping(e, t, i) {
       const e = o[r];
       s = i.indexOf(e);
       if (-1 === s) {
-        c || (c = Ni());
+        c || (c = xi());
         const t = recoverGlyphName(e, c);
         t !== e && (s = i.indexOf(t));
       }
@@ -19376,7 +19497,42 @@ function type1FontGlyphMapping(e, t, i) {
 function normalizeFontName(e) {
   return e.replaceAll(/[,_]/g, "-").replaceAll(/\s/g, "");
 }
-const Pi = getLookupTableFactory(function (e) {
+const ji = getLookupTableFactory((e) => {
+    e[8211] = 65074;
+    e[8212] = 65073;
+    e[8229] = 65072;
+    e[8230] = 65049;
+    e[12289] = 65041;
+    e[12290] = 65042;
+    e[12296] = 65087;
+    e[12297] = 65088;
+    e[12298] = 65085;
+    e[12299] = 65086;
+    e[12300] = 65089;
+    e[12301] = 65090;
+    e[12302] = 65091;
+    e[12303] = 65092;
+    e[12304] = 65083;
+    e[12305] = 65084;
+    e[12308] = 65081;
+    e[12309] = 65082;
+    e[12310] = 65047;
+    e[12311] = 65048;
+    e[65103] = 65076;
+    e[65281] = 65045;
+    e[65288] = 65077;
+    e[65289] = 65078;
+    e[65292] = 65040;
+    e[65306] = 65043;
+    e[65307] = 65044;
+    e[65311] = 65046;
+    e[65339] = 65095;
+    e[65341] = 65096;
+    e[65343] = 65075;
+    e[65371] = 65079;
+    e[65373] = 65080;
+  }),
+  Xi = getLookupTableFactory(function (e) {
     e["Times-Roman"] = "Times-Roman";
     e.Helvetica = "Helvetica";
     e.Courier = "Courier";
@@ -19449,7 +19605,7 @@ const Pi = getLookupTableFactory(function (e) {
     e["TimesNewRomanPSMT-BoldItalic"] = "Times-BoldItalic";
     e["TimesNewRomanPSMT-Italic"] = "Times-Italic";
   }),
-  Wi = getLookupTableFactory(function (e) {
+  Zi = getLookupTableFactory(function (e) {
     e.Courier = "FoxitFixed.pfb";
     e["Courier-Bold"] = "FoxitFixedBold.pfb";
     e["Courier-BoldOblique"] = "FoxitFixedBoldItalic.pfb";
@@ -19469,7 +19625,7 @@ const Pi = getLookupTableFactory(function (e) {
     e["LiberationSans-Italic"] = "LiberationSans-Italic.ttf";
     e["LiberationSans-BoldItalic"] = "LiberationSans-BoldItalic.ttf";
   }),
-  ji = getLookupTableFactory(function (e) {
+  Vi = getLookupTableFactory(function (e) {
     e.Calibri = "Helvetica";
     e["Calibri-Bold"] = "Helvetica-Bold";
     e["Calibri-BoldItalic"] = "Helvetica-BoldOblique";
@@ -19482,6 +19638,10 @@ const Pi = getLookupTableFactory(function (e) {
     e["ComicSansMS-Bold"] = "Comic Sans MS-Bold";
     e["ComicSansMS-BoldItalic"] = "Comic Sans MS-BoldItalic";
     e["ComicSansMS-Italic"] = "Comic Sans MS-Italic";
+    e.GillSansMT = "Helvetica";
+    e["GillSansMT-Bold"] = "Helvetica-Bold";
+    e["GillSansMT-BoldItalic"] = "Helvetica-BoldOblique";
+    e["GillSansMT-Italic"] = "Helvetica-Oblique";
     e.Impact = "Helvetica";
     e["ItcSymbol-Bold"] = "Helvetica-Bold";
     e["ItcSymbol-BoldItalic"] = "Helvetica-BoldOblique";
@@ -19513,7 +19673,7 @@ const Pi = getLookupTableFactory(function (e) {
     e.NuptialScript = "Times-Italic";
     e.SegoeUISymbol = "Helvetica";
   }),
-  Xi = getLookupTableFactory(function (e) {
+  zi = getLookupTableFactory(function (e) {
     e["Adobe Jenson"] = !0;
     e["Adobe Text"] = !0;
     e.Albertus = !0;
@@ -19649,7 +19809,7 @@ const Pi = getLookupTableFactory(function (e) {
     e.Windsor = !0;
     e.XITS = !0;
   }),
-  Zi = getLookupTableFactory(function (e) {
+  _i = getLookupTableFactory(function (e) {
     e.Dingbats = !0;
     e.Symbol = !0;
     e.ZapfDingbats = !0;
@@ -19657,7 +19817,7 @@ const Pi = getLookupTableFactory(function (e) {
     e["Wingdings-Bold"] = !0;
     e["Wingdings-Regular"] = !0;
   }),
-  Vi = getLookupTableFactory(function (e) {
+  $i = getLookupTableFactory(function (e) {
     e[2] = 10;
     e[3] = 32;
     e[4] = 33;
@@ -20091,12 +20251,12 @@ const Pi = getLookupTableFactory(function (e) {
     e[3393] = 1159;
     e[3416] = 8377;
   }),
-  zi = getLookupTableFactory(function (e) {
+  Aa = getLookupTableFactory(function (e) {
     e[227] = 322;
     e[264] = 261;
     e[291] = 346;
   }),
-  _i = getLookupTableFactory(function (e) {
+  ea = getLookupTableFactory(function (e) {
     e[1] = 32;
     e[4] = 65;
     e[5] = 192;
@@ -20216,11 +20376,11 @@ const Pi = getLookupTableFactory(function (e) {
   });
 function getStandardFontName(e) {
   const t = normalizeFontName(e);
-  return Pi()[t];
+  return Xi()[t];
 }
 function isKnownFontName(e) {
   const t = normalizeFontName(e);
-  return !!(Pi()[t] || ji()[t] || Xi()[t] || Zi()[t]);
+  return !!(Xi()[t] || Vi()[t] || zi()[t] || _i()[t]);
 }
 class ToUnicodeMap {
   constructor(e = []) {
@@ -20278,7 +20438,7 @@ class IdentityToUnicodeMap {
 class CFFFont {
   constructor(e, t) {
     this.properties = t;
-    const i = new CFFParser(e, t, Yi);
+    const i = new CFFParser(e, t, Ki);
     this.cff = i.parse();
     this.cff.duplicateFirstGlyph();
     const a = new CFFCompiler(this.cff);
@@ -20442,13 +20602,13 @@ function lookupCmap(e, t) {
 }
 function compileGlyf(e, t, i) {
   function moveTo(e, i) {
-    t.add(Ct, [e, i]);
+    t.add(lt, [e, i]);
   }
   function lineTo(e, i) {
-    t.add(ht, [e, i]);
+    t.add(Bt, [e, i]);
   }
   function quadraticCurveTo(e, i, a, s) {
-    t.add(Bt, [e, i, a, s]);
+    t.add(Qt, [e, i, a, s]);
   }
   let a = 0;
   const s = getInt16(e, a);
@@ -20505,10 +20665,10 @@ function compileGlyf(e, t, i) {
       }
       const E = i.glyphs[s];
       if (E) {
-        t.add(Qt);
-        t.add(ut, [C, l, Q, h, n, g]);
+        t.add(ut);
+        t.add(ft, [C, l, Q, h, n, g]);
         compileGlyf(E, t, i);
-        t.add(lt);
+        t.add(Et);
       }
     } while (32 & r);
   else {
@@ -20589,13 +20749,13 @@ function compileGlyf(e, t, i) {
 }
 function compileCharString(e, t, i, a) {
   function moveTo(e, i) {
-    t.add(Ct, [e, i]);
+    t.add(lt, [e, i]);
   }
   function lineTo(e, i) {
-    t.add(ht, [e, i]);
+    t.add(Bt, [e, i]);
   }
   function bezierCurveTo(e, i, a, s, r, n) {
-    t.add(ct, [e, i, a, s, r, n]);
+    t.add(ht, [e, i, a, s, r, n]);
   }
   const s = [];
   let r = 0,
@@ -20759,15 +20919,15 @@ function compileCharString(e, t, i, a) {
               a = s.pop();
             n = s.pop();
             r = s.pop();
-            t.add(Qt);
-            t.add(dt, [r, n]);
+            t.add(ut);
+            t.add(pt, [r, n]);
             let g = lookupCmap(
               i.cmap,
-              String.fromCharCode(i.glyphNameMap[fi[e]]),
+              String.fromCharCode(i.glyphNameMap[mi[e]]),
             );
             compileCharString(i.glyphs[g.glyphId], t, i, g.glyphId);
-            t.add(lt);
-            g = lookupCmap(i.cmap, String.fromCharCode(i.glyphNameMap[fi[a]]));
+            t.add(Et);
+            g = lookupCmap(i.cmap, String.fromCharCode(i.glyphNameMap[mi[a]]));
             compileCharString(i.glyphs[g.glyphId], t, i, g.glyphId);
           }
           return;
@@ -20904,7 +21064,7 @@ function compileCharString(e, t, i, a) {
     }
   })(e);
 }
-const $i = [];
+const ta = [];
 class Commands {
   cmds = [];
   add(e, t) {
@@ -20920,8 +21080,6 @@ class Commands {
 }
 class CompiledFont {
   constructor(e) {
-    this.constructor === CompiledFont &&
-      unreachable("Cannot initialize CompiledFont.");
     this.fontMatrix = e;
     this.compiledGlyphs = Object.create(null);
     this.compiledCharCodeToGlyphId = Object.create(null);
@@ -20934,7 +21092,7 @@ class CompiledFont {
       try {
         s = this.compileGlyph(this.glyphs[i], i);
       } catch (e) {
-        s = $i;
+        s = ta;
         a = e;
       }
       this.compiledGlyphs[i] = s;
@@ -20944,7 +21102,7 @@ class CompiledFont {
     return s;
   }
   compileGlyph(e, t) {
-    if (!e || 0 === e.length || 14 === e[0]) return $i;
+    if (!e || 0 === e.length || 14 === e[0]) return ta;
     let i = this.fontMatrix;
     if (this.isCFFCIDFont) {
       const e = this.fdSelect.getFDIndex(t);
@@ -20953,11 +21111,11 @@ class CompiledFont {
       } else warn("Invalid fd index for glyph index.");
     }
     const s = new Commands();
-    s.add(Qt);
-    s.add(ut, i.slice());
-    s.add(Et);
+    s.add(ut);
+    s.add(ft, i.slice());
+    s.add(dt);
     this.compileGlyphImpl(e, s, t);
-    s.add(lt);
+    s.add(Et);
     return s.cmds;
   }
   compileGlyphImpl() {
@@ -20988,7 +21146,7 @@ class Type2Compiled extends CompiledFont {
     this.gsubrs = e.gsubrs || [];
     this.subrs = e.subrs || [];
     this.cmap = t;
-    this.glyphNameMap = a || Ni();
+    this.glyphNameMap = a || xi();
     this.gsubrsBias = getSubroutineBias(this.gsubrs);
     this.subrsBias = getSubroutineBias(this.subrs);
     this.isCFFCIDFont = e.isCFFCIDFont;
@@ -21054,7 +21212,7 @@ class FontRendererFactory {
     return new Type2Compiled(n, a, e.fontMatrix, e.glyphNameMap);
   }
 }
-const Aa = getLookupTableFactory(function (e) {
+const ia = getLookupTableFactory(function (e) {
     e.Courier = 600;
     e["Courier-Bold"] = 600;
     e["Courier-BoldOblique"] = 600;
@@ -23992,7 +24150,7 @@ const Aa = getLookupTableFactory(function (e) {
       e.a191 = 918;
     });
   }),
-  ea = getLookupTableFactory(function (e) {
+  aa = getLookupTableFactory(function (e) {
     e.Courier = { ascent: 629, descent: -157, capHeight: 562, xHeight: -426 };
     e["Courier-Bold"] = {
       ascent: 629,
@@ -24611,17 +24769,17 @@ class OpenTypeFileBuilder {
     this.tables[e] = t;
   }
 }
-const ta = [4],
-  ia = [5],
-  aa = [6],
-  sa = [7],
-  ra = [8],
-  na = [12, 35],
-  ga = [14],
-  oa = [21],
-  Ia = [22],
-  ca = [30],
-  Ca = [31];
+const sa = [4],
+  ra = [5],
+  na = [6],
+  ga = [7],
+  oa = [8],
+  Ia = [12, 35],
+  ca = [14],
+  Ca = [21],
+  ha = [22],
+  la = [30],
+  Ba = [31];
 class Type1CharString {
   constructor() {
     this.width = 0;
@@ -24660,19 +24818,19 @@ class Type1CharString {
               this.stack.push(0, e);
               break;
             }
-            g = this.executeCommand(1, ta);
-            break;
-          case 5:
-            g = this.executeCommand(2, ia);
-            break;
-          case 6:
-            g = this.executeCommand(1, aa);
-            break;
-          case 7:
             g = this.executeCommand(1, sa);
             break;
+          case 5:
+            g = this.executeCommand(2, ra);
+            break;
+          case 6:
+            g = this.executeCommand(1, na);
+            break;
+          case 7:
+            g = this.executeCommand(1, ga);
+            break;
           case 8:
-            g = this.executeCommand(6, ra);
+            g = this.executeCommand(6, oa);
             break;
           case 10:
             if (this.stack.length < 1) {
@@ -24698,35 +24856,35 @@ class Type1CharString {
             this.lsb = r;
             this.width = s;
             this.stack.push(s, r);
-            g = this.executeCommand(2, Ia);
+            g = this.executeCommand(2, ha);
             break;
           case 14:
-            this.output.push(ga[0]);
+            this.output.push(ca[0]);
             break;
           case 21:
             if (this.flexing) break;
-            g = this.executeCommand(2, oa);
+            g = this.executeCommand(2, Ca);
             break;
           case 22:
             if (this.flexing) {
               this.stack.push(0);
               break;
             }
-            g = this.executeCommand(1, Ia);
+            g = this.executeCommand(1, ha);
             break;
           case 30:
-            g = this.executeCommand(4, ca);
+            g = this.executeCommand(4, la);
             break;
           case 31:
-            g = this.executeCommand(4, Ca);
+            g = this.executeCommand(4, Ba);
             break;
           case 3078:
             if (i) {
               const e = this.stack.at(-5);
               this.seac = this.stack.splice(-4, 4);
               this.seac[0] += this.lsb - e;
-              g = this.executeCommand(0, ga);
-            } else g = this.executeCommand(4, ga);
+              g = this.executeCommand(0, ca);
+            } else g = this.executeCommand(4, ca);
             break;
           case 3079:
             if (this.stack.length < 4) {
@@ -24740,7 +24898,7 @@ class Type1CharString {
             this.lsb = r;
             this.width = s;
             this.stack.push(s, r, e);
-            g = this.executeCommand(3, oa);
+            g = this.executeCommand(3, Ca);
             break;
           case 3084:
             if (this.stack.length < 2) {
@@ -24775,7 +24933,7 @@ class Type1CharString {
                 e[13],
                 e[14],
               );
-              g = this.executeCommand(13, na, !0);
+              g = this.executeCommand(13, Ia, !0);
               this.flexing = !1;
               this.stack.push(e[15], e[16]);
             } else 1 === n && 0 === C && (this.flexing = !0);
@@ -25153,7 +25311,7 @@ class Type1Font {
       );
       return { stream: new Stream(e.getBytes(t)), length: t };
     })(t, a);
-    new Type1Parser(g.stream, !1, Yi).extractFontHeader(i);
+    new Type1Parser(g.stream, !1, Ki).extractFontHeader(i);
     if (n) {
       r = t.getBytes(6);
       s = (r[5] << 24) | (r[4] << 16) | (r[3] << 8) | r[2];
@@ -25164,7 +25322,7 @@ class Type1Font {
           throw new FormatError("getEexecBlock - no font program found.");
         return { stream: new Stream(i), length: i.length };
       })(t),
-      c = new Type1Parser(o.stream, !0, Yi).extractFontProgram(i);
+      c = new Type1Parser(o.stream, !0, Ki).extractFontProgram(i);
     for (const e in c.properties) i[e] = c.properties[e];
     const C = c.charstrings,
       h = this.getType2Charstrings(C),
@@ -25261,7 +25419,7 @@ class Type1Font {
     let C, h;
     for (C = 0; C < o; C++) {
       const e = i[C].glyphName;
-      -1 === wi.indexOf(e) && g.add(e);
+      -1 === bi.indexOf(e) && g.add(e);
       c.push(e);
     }
     r.charset = new CFFCharset(!1, 0, c);
@@ -25302,12 +25460,12 @@ class Type1Font {
     return new CFFCompiler(r).compile();
   }
 }
-const ha = [
+const Qa = [
     [57344, 63743],
     [1048576, 1114109],
   ],
-  Ba = 1e3,
-  la = [
+  Ea = 1e3,
+  ua = [
     "ascent",
     "bbox",
     "black",
@@ -25334,7 +25492,7 @@ const ha = [
     "type",
     "vertical",
   ],
-  Qa = [
+  da = [
     "cMap",
     "defaultEncoding",
     "differences",
@@ -25380,15 +25538,15 @@ class fonts_Glyph {
       this,
       "category",
       (function getCharUnicodeCategory(e) {
-        const t = Ji.get(e);
+        const t = vi.get(e);
         if (t) return t;
-        const i = e.match(Hi),
+        const i = e.match(Yi),
           a = {
             isWhitespace: !!i?.[1],
             isZeroWidthDiacritic: !!i?.[2],
             isInvisibleFormatMark: !!i?.[3],
           };
-        Ji.set(e, a);
+        vi.set(e, a);
         return a;
       })(this.unicode),
       !0,
@@ -25499,19 +25657,19 @@ function adjustMapping(e, t, i, a) {
     n = [],
     g = new Set();
   let o = 0;
-  let c = ha[o][0],
-    C = ha[o][1];
+  let c = Qa[o][0],
+    C = Qa[o][1];
   for (const l in e) {
     let Q = e[l];
     if (!t(Q)) continue;
     if (c > C) {
       o++;
-      if (o >= ha.length) {
+      if (o >= Qa.length) {
         warn("Ran out of space in font private use area.");
         break;
       }
-      c = ha[o][0];
-      C = ha[o][1];
+      c = Qa[o][0];
+      C = Qa[o][1];
     }
     const E = c++;
     0 === Q && (Q = i);
@@ -25520,7 +25678,7 @@ function adjustMapping(e, t, i, a) {
     if (
       u &&
       !((h = u),
-      (ha[0][0] <= h && h <= ha[0][1]) || (ha[1][0] <= h && h <= ha[1][1])) &&
+      (Qa[0][0] <= h && h <= Qa[0][1]) || (Qa[1][0] <= h && h <= Qa[1][1])) &&
       !g.has(Q)
     ) {
       r.set(u, Q);
@@ -25694,7 +25852,7 @@ function createOS2Table(e, t, i) {
       (e.fontMatrix
         ? 1 / Math.max(...e.fontMatrix.slice(0, 4).map(Math.abs))
         : 1e3),
-    l = e.ascentScaled ? 1 : h / Ba,
+    l = e.ascentScaled ? 1 : h / Ea,
     Q = i.ascent || Math.round(l * (e.ascent || C[3]));
   let E = i.descent || Math.round(l * (e.descent || C[1]));
   E > 0 && e.descent > 0 && C[1] < 0 && (E = -E);
@@ -25789,10 +25947,10 @@ class Font {
     this.cssFontInfo = i.cssFontInfo;
     this._charsCache = Object.create(null);
     this._glyphCache = Object.create(null);
-    let a = !!(i.flags & Ki);
+    let a = !!(i.flags & qi);
     if (!a && !i.isSimulatedFlags) {
       const t = e.replaceAll(/[,_]/g, "-").split("-", 1)[0],
-        i = Xi();
+        i = zi();
       for (const e of t.split("+"))
         if (i[e]) {
           a = !0;
@@ -25800,8 +25958,8 @@ class Font {
         }
     }
     this.isSerifFont = a;
-    this.isSymbolicFont = !!(i.flags & Ti);
-    this.isMonospace = !!(i.flags & vi);
+    this.isSymbolicFont = !!(i.flags & Oi);
+    this.isMonospace = !!(i.flags & Ti);
     let { type: s, subtype: r } = i;
     this.type = s;
     this.subtype = r;
@@ -25824,9 +25982,9 @@ class Font {
     this.defaultWidth = i.defaultWidth;
     this.composite = i.composite;
     this.cMap = i.cMap;
-    this.capHeight = i.capHeight / Ba;
-    this.ascent = i.ascent / Ba;
-    this.descent = i.descent / Ba;
+    this.capHeight = i.capHeight / Ea;
+    this.ascent = i.ascent / Ea;
+    this.descent = i.descent / Ea;
     this.lineHeight = this.ascent - this.descent;
     this.fontMatrix = i.fontMatrix;
     this.bbox = i.bbox;
@@ -25898,10 +26056,10 @@ class Font {
     this.seacMap = i.seacMap;
   }
   get renderer() {
-    return shadow(this, "renderer", FontRendererFactory.create(this, Yi));
+    return shadow(this, "renderer", FontRendererFactory.create(this, Ki));
   }
   exportData(e = !1) {
-    const t = e ? [...la, ...Qa] : la,
+    const t = e ? [...ua, ...da] : ua,
       i = Object.create(null);
     let a, s;
     for (a of t) {
@@ -25914,16 +26072,16 @@ class Font {
     this.missingFile = !0;
     const { name: t, type: i } = this;
     let a = normalizeFontName(t);
-    const s = Pi(),
-      r = ji(),
+    const s = Xi(),
+      r = Vi(),
       n = !!s[a],
       g = !(!r[a] || !s[r[a]]);
     a = s[a] || r[a] || a;
-    const o = ea()[a];
+    const o = aa()[a];
     if (o) {
-      isNaN(this.ascent) && (this.ascent = o.ascent / Ba);
-      isNaN(this.descent) && (this.descent = o.descent / Ba);
-      isNaN(this.capHeight) && (this.capHeight = o.capHeight / Ba);
+      isNaN(this.ascent) && (this.ascent = o.ascent / Ea);
+      isNaN(this.descent) && (this.descent = o.descent / Ea);
+      isNaN(this.capHeight) && (this.capHeight = o.capHeight / Ea);
     }
     this.bold = /bold/gi.test(a);
     this.italic = /oblique|italic/gi.test(a);
@@ -25937,10 +26095,10 @@ class Font {
     ) {
       const i = e.cidToGidMap,
         a = [];
-      applyStandardFontGlyphMap(a, Vi());
+      applyStandardFontGlyphMap(a, $i());
       /Arial-?Black/i.test(t)
-        ? applyStandardFontGlyphMap(a, zi())
-        : /Calibri/i.test(t) && applyStandardFontGlyphMap(a, _i());
+        ? applyStandardFontGlyphMap(a, Aa())
+        : /Calibri/i.test(t) && applyStandardFontGlyphMap(a, ea());
       if (i) {
         for (const e in a) {
           const t = a[e];
@@ -25961,11 +26119,11 @@ class Font {
       this.toFontChar = a;
       this.toUnicode = new ToUnicodeMap(a);
     } else if (/Symbol/i.test(a))
-      this.toFontChar = buildToFontChar(mi, Ni(), this.differences);
+      this.toFontChar = buildToFontChar(wi, xi(), this.differences);
     else if (/Dingbats/i.test(a))
-      this.toFontChar = buildToFontChar(yi, Gi(), this.differences);
-    else if (n) {
-      const e = buildToFontChar(this.defaultEncoding, Ni(), this.differences);
+      this.toFontChar = buildToFontChar(Di, Mi(), this.differences);
+    else if (n || g) {
+      const e = buildToFontChar(this.defaultEncoding, xi(), this.differences);
       "CIDFontType2" !== i ||
         this.cidEncoding.startsWith("Identity-") ||
         this.toUnicode instanceof IdentityToUnicodeMap ||
@@ -25974,7 +26132,7 @@ class Font {
         });
       this.toFontChar = e;
     } else {
-      const e = Ni(),
+      const e = xi(),
         i = [];
       this.toUnicode.forEach((t, a) => {
         if (!this.composite) {
@@ -25989,7 +26147,7 @@ class Font {
       this.composite &&
         this.toUnicode instanceof IdentityToUnicodeMap &&
         /Tahoma|Verdana/i.test(t) &&
-        applyStandardFontGlyphMap(i, Vi());
+        applyStandardFontGlyphMap(i, $i());
       this.toFontChar = i;
     }
     amendFallbackToUnicode(e);
@@ -26216,7 +26374,7 @@ class Font {
           else
             for (i = 0; i < a; i++) {
               r = o[c++];
-              l.push((r << 8) | o[c++]);
+              l.push(signedInt16(r, o[c++]));
             }
         } else if (43 !== e || u)
           if (44 !== e || u) {
@@ -26747,7 +26905,7 @@ class Font {
           c = !0;
         switch (n) {
           case 65536:
-            g = Oi;
+            g = Wi;
             break;
           case 131072:
             const e = t.getUint16();
@@ -26776,7 +26934,7 @@ class Font {
             g = [];
             for (o = 0; o < e; ++o) {
               const e = s[o];
-              e < 258 ? g.push(Oi[e]) : g.push(C[e - 258]);
+              e < 258 ? g.push(Wi[e]) : g.push(C[e - 258]);
             }
             break;
           case 196608:
@@ -26998,7 +27156,7 @@ class Font {
         !this.isSymbolicFont &&
         ((3 === a && 1 === s) || (1 === a && 0 === s))
       ) {
-        const e = Ni();
+        const e = xi();
         for (let t = 0; t < 256; t++) {
           let n;
           n =
@@ -27006,13 +27164,13 @@ class Font {
               ? this.differences[t]
               : g.length && "" !== g[t]
                 ? g[t]
-                : fi[t];
+                : mi[t];
           if (!n) continue;
           const o = recoverGlyphName(n, e);
           let c;
           3 === a && 1 === s
             ? (c = e[o])
-            : 1 === a && 0 === s && (c = di.indexOf(o));
+            : 1 === a && 0 === s && (c = pi.indexOf(o));
           if (void 0 === c) {
             if (
               !i.glyphNames &&
@@ -27080,7 +27238,7 @@ class Font {
     if (!c)
       try {
         o = new Stream(n["CFF "].data);
-        g = new CFFParser(o, i, Yi).parse();
+        g = new CFFParser(o, i, Ki).parse();
         g.duplicateFirstGlyph();
         const e = new CFFCompiler(g);
         n["CFF "].data = e.compile();
@@ -27099,11 +27257,11 @@ class Font {
           if (e.toUnicode instanceof IdentityToUnicodeMap) return;
           if (!t) return;
           if (0 === i.length) return;
-          if (e.defaultEncoding === pi) return;
+          if (e.defaultEncoding === yi) return;
           for (const e of i) if (!isWinNameRecord(e)) return;
-          const a = pi,
+          const a = yi,
             s = [],
-            r = Ni();
+            r = xi();
           for (const e in a) {
             const t = a[e];
             if ("" === t) continue;
@@ -27126,7 +27284,7 @@ class Font {
         if (t === e.defaultEncoding) return;
         if (e.toUnicode instanceof IdentityToUnicodeMap) return;
         const i = [],
-          a = Ni();
+          a = xi();
         for (const s in t) {
           if (
             e.hasEncoding &&
@@ -27169,8 +27327,8 @@ class Font {
       for (let t in C) {
         t |= 0;
         const i = C[t],
-          a = fi[i[2]],
-          o = fi[i[3]],
+          a = mi[i[2]],
+          o = mi[i[3]],
           c = s.indexOf(a),
           h = s.indexOf(o);
         if (c < 0 || h < 0) continue;
@@ -27244,6 +27402,27 @@ class Font {
     l.addTable("post", createPostTable(i));
     return l.toArray();
   }
+  get _spaceWidth() {
+    const e = ["space", "minus", "one", "i", "I"];
+    let t;
+    for (const i of e) {
+      if (i in this.widths) {
+        t = this.widths[i];
+        break;
+      }
+      const e = xi()[i];
+      let a = 0;
+      if (this.composite && this.cMap.contains(e)) {
+        a = this.cMap.lookup(e);
+        "string" == typeof a && (a = convertCidString(e, a));
+      }
+      !a && this.toUnicode && (a = this.toUnicode.charCodeOf(e));
+      a <= 0 && (a = e);
+      t = this.widths[a];
+      if (t) break;
+    }
+    return shadow(this, "_spaceWidth", t || this.defaultWidth);
+  }
   _charToGlyph(e, t = !1) {
     let i,
       a,
@@ -27264,12 +27443,18 @@ class Font {
     i = this.toFontChar[e] || e;
     if (this.missingFile) {
       const t = this.differences[e] || this.defaultEncoding[e];
-      (".notdef" !== t && "" !== t) || "Type1" !== this.type || (i = 32);
+      if ((".notdef" === t || "" === t) && "Type1" === this.type) {
+        i = 32;
+        if ("" === t) {
+          a ||= this._spaceWidth;
+          o = String.fromCharCode(i);
+        }
+      }
       i = (function mapSpecialUnicodeValues(e) {
         return e >= 65520 && e <= 65535
           ? 0
           : e >= 62976 && e <= 63743
-            ? xi()[e] || e
+            ? Hi()[e] || e
             : 173 === e
               ? 45
               : e;
@@ -27291,6 +27476,10 @@ class Font {
       (i <= 1114111
         ? (h = String.fromCodePoint(i))
         : warn(`charToGlyph - invalid fontCharCode: ${i}`));
+    if (this.missingFile && this.vertical && 1 === h.length) {
+      const e = ji()[h.charCodeAt(0)];
+      e && (h = o = String.fromCharCode(e));
+    }
     r = new fonts_Glyph(e, h, o, C, a, g, s, t, c);
     return (this._glyphCache[e] = r);
   }
@@ -27387,12 +27576,12 @@ class ErrorFont {
     return { error: this.error };
   }
 }
-const Ea = 2,
-  ua = 3,
-  da = 4,
-  fa = 5,
-  pa = 6,
-  ma = 7;
+const fa = 2,
+  pa = 3,
+  ma = 4,
+  ya = 5,
+  wa = 6,
+  Da = 7;
 class Pattern {
   constructor() {
     unreachable("Cannot initialize Pattern.");
@@ -27402,13 +27591,13 @@ class Pattern {
       n = r.get("ShadingType");
     try {
       switch (n) {
-        case Ea:
-        case ua:
-          return new RadialAxialShading(r, t, i, a, s);
-        case da:
         case fa:
         case pa:
+          return new RadialAxialShading(r, t, i, a, s);
         case ma:
+        case ya:
+        case wa:
+        case Da:
           return new MeshShading(e, t, i, a, s);
         default:
           throw new FormatError("Unsupported ShadingType: " + n);
@@ -27422,10 +27611,6 @@ class Pattern {
 }
 class BaseShading {
   static SMALL_NUMBER = 1e-6;
-  constructor() {
-    this.constructor === BaseShading &&
-      unreachable("Cannot initialize BaseShading.");
-  }
   getIR() {
     unreachable("Abstract method `getIR` called.");
   }
@@ -27435,7 +27620,7 @@ class RadialAxialShading extends BaseShading {
     super();
     this.shadingType = e.get("ShadingType");
     let r = 0;
-    this.shadingType === Ea ? (r = 4) : this.shadingType === ua && (r = 6);
+    this.shadingType === fa ? (r = 4) : this.shadingType === pa && (r = 6);
     this.coordsArr = e.getArray("Coords");
     if (!isNumberArray(this.coordsArr, r))
       throw new FormatError("RadialAxialShading: Invalid /Coords array.");
@@ -27461,7 +27646,7 @@ class RadialAxialShading extends BaseShading {
         e.every((e) => "boolean" == typeof e)
       );
     })(l, 2) && ([C, h] = l);
-    if (!(this.shadingType !== ua || (C && h))) {
+    if (!(this.shadingType !== pa || (C && h))) {
       const [e, t, i, a, s, r] = this.coordsArr,
         n = Math.hypot(e - a, t - s);
       i <= r + n && r <= i + n && warn("Unsupported radial gradient.");
@@ -27541,13 +27726,13 @@ class RadialAxialShading extends BaseShading {
   getIR() {
     const { coordsArr: e, shadingType: t } = this;
     let i, a, s, r, n;
-    if (t === Ea) {
+    if (t === fa) {
       a = [e[0], e[1]];
       s = [e[2], e[3]];
       r = null;
       n = null;
       i = "axial";
-    } else if (t === ua) {
+    } else if (t === pa) {
       a = [e[0], e[1]];
       s = [e[3], e[4]];
       r = e[2];
@@ -27638,9 +27823,9 @@ class MeshStreamReader {
     return this.context.colorSpace.getRgb(r, 0);
   }
 }
-let ya = Object.create(null);
+let ba = Object.create(null);
 function getB(e) {
-  return (ya[e] ||= (function buildB(e) {
+  return (ba[e] ||= (function buildB(e) {
     const t = [];
     for (let i = 0; i <= e; i++) {
       const a = i / e,
@@ -27690,19 +27875,19 @@ class MeshShading extends BaseShading {
       C = new MeshStreamReader(e, c);
     let h = !1;
     switch (this.shadingType) {
-      case da:
+      case ma:
         this._decodeType4Shading(C);
         break;
-      case fa:
+      case ya:
         const e = 0 | r.get("VerticesPerRow");
         if (e < 2) throw new FormatError("Invalid VerticesPerRow");
         this._decodeType5Shading(C, e);
         break;
-      case pa:
+      case wa:
         this._decodeType6Shading(C);
         h = !0;
         break;
-      case ma:
+      case Da:
         this._decodeType7Shading(C);
         h = !0;
         break;
@@ -28224,7 +28409,7 @@ function getTilingPatternIR(e, t, a) {
     throw new FormatError("Invalid getTilingPatternIR /TilingType value.");
   return ["TilingPattern", a, e, s, r, n, g, o, c];
 }
-const wa = [
+const Fa = [
     1.3877, 1, 1, 1, 0.97801, 0.92482, 0.89552, 0.91133, 0.81988, 0.97566,
     0.98152, 0.93548, 0.93548, 1.2798, 0.85284, 0.92794, 1, 0.96134, 1.54657,
     0.91133, 0.91133, 0.91133, 0.91133, 0.91133, 0.91133, 0.91133, 0.91133,
@@ -28292,8 +28477,8 @@ const wa = [
     1, 1, 1.08004, 0.91027, 1, 1, 1, 0.99862, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
     1, 0.90727, 0.90727, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
   ],
-  Da = { lineHeight: 1.2207, lineGap: 0.2207 },
-  ba = [
+  Sa = { lineHeight: 1.2207, lineGap: 0.2207 },
+  ka = [
     1.3877, 1, 1, 1, 0.97801, 0.92482, 0.89552, 0.91133, 0.81988, 0.97566,
     0.98152, 0.93548, 0.93548, 1.2798, 0.85284, 0.92794, 1, 0.96134, 1.56239,
     0.91133, 0.91133, 0.91133, 0.91133, 0.91133, 0.91133, 0.91133, 0.91133,
@@ -28362,8 +28547,8 @@ const wa = [
     1, 1, 1.08004, 0.91027, 1, 1, 1, 0.99862, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
     1, 0.90727, 0.90727, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
   ],
-  Fa = { lineHeight: 1.2207, lineGap: 0.2207 },
-  Sa = [
+  Ra = { lineHeight: 1.2207, lineGap: 0.2207 },
+  Na = [
     1.3877, 1, 1, 1, 1.17223, 1.1293, 0.89552, 0.91133, 0.80395, 1.02269,
     1.15601, 0.91056, 0.91056, 1.2798, 0.85284, 0.89807, 1, 0.90861, 1.39543,
     0.91133, 0.91133, 0.91133, 0.91133, 0.91133, 0.91133, 0.91133, 0.91133,
@@ -28431,8 +28616,8 @@ const wa = [
     0.99862, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1.05859, 1.05859, 1, 1, 1, 1,
     1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
   ],
-  ka = { lineHeight: 1.2207, lineGap: 0.2207 },
-  Ra = [
+  Ga = { lineHeight: 1.2207, lineGap: 0.2207 },
+  xa = [
     1.3877, 1, 1, 1, 1.17223, 1.1293, 0.89552, 0.91133, 0.80395, 1.02269,
     1.15601, 0.91056, 0.91056, 1.2798, 0.85284, 0.89807, 1, 0.90861, 1.39016,
     0.91133, 0.91133, 0.91133, 0.91133, 0.91133, 0.91133, 0.91133, 0.91133,
@@ -28501,8 +28686,8 @@ const wa = [
     1, 1, 1, 1, 1, 1, 1, 1, 1, 1.05859, 1.05859, 1, 1, 1, 1.07185, 0.99413,
     0.96334, 1.08065, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
   ],
-  Na = { lineHeight: 1.2207, lineGap: 0.2207 },
-  Ga = [
+  Ua = { lineHeight: 1.2207, lineGap: 0.2207 },
+  Ma = [
     0.76116, 1, 1, 1.0006, 0.99998, 0.99974, 0.99973, 0.99973, 0.99982, 0.99977,
     1.00087, 0.99998, 0.99998, 0.99959, 1.00003, 1.0006, 0.99998, 1.0006,
     1.0006, 0.99973, 0.99973, 0.99973, 0.99973, 0.99973, 0.99973, 0.99973,
@@ -28582,8 +28767,8 @@ const wa = [
     0.99977, 1.00054, 1, 1, 0.99953, 0.99962, 1.00042, 0.9995, 1, 1, 1, 1, 1, 1,
     1, 1, 0.99998, 0.99998, 0.99998, 0.99998, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
   ],
-  xa = { lineHeight: 1.2, lineGap: 0.2 },
-  Ua = [
+  La = { lineHeight: 1.2, lineGap: 0.2 },
+  Ha = [
     0.76116, 1, 1, 1.0006, 0.99998, 0.99974, 0.99973, 0.99973, 0.99982, 0.99977,
     1.00087, 0.99998, 0.99998, 0.99959, 1.00003, 1.0006, 0.99998, 1.0006,
     1.0006, 0.99973, 0.99973, 0.99973, 0.99973, 0.99973, 0.99973, 0.99973,
@@ -28664,8 +28849,8 @@ const wa = [
     0.9995, 1, 1, 1, 1, 1, 1, 1, 1, 0.99998, 0.99998, 0.99998, 0.99998, 1, 1, 1,
     1, 1, 1, 1, 1, 1, 1, 1,
   ],
-  Ma = { lineHeight: 1.35, lineGap: 0.2 },
-  La = [
+  Ja = { lineHeight: 1.35, lineGap: 0.2 },
+  Ya = [
     0.76116, 1, 1, 1.0006, 1.0006, 1.00006, 0.99973, 0.99973, 0.99982, 1.00001,
     1.00043, 0.99998, 0.99998, 0.99959, 1.00003, 1.0006, 0.99998, 1.0006,
     1.0006, 0.99973, 0.99973, 0.99973, 0.99973, 0.99973, 0.99973, 0.99973,
@@ -28744,8 +28929,8 @@ const wa = [
     1, 1, 1, 1, 1, 1, 0.99998, 0.99998, 0.99998, 0.99998, 1, 1, 1, 1, 1, 1, 1,
     1, 1, 1, 1,
   ],
-  Ha = { lineHeight: 1.35, lineGap: 0.2 },
-  Ja = [
+  va = { lineHeight: 1.35, lineGap: 0.2 },
+  Ka = [
     0.76116, 1, 1, 1.0006, 1.0006, 1.00006, 0.99973, 0.99973, 0.99982, 1.00001,
     1.00043, 0.99998, 0.99998, 0.99959, 1.00003, 1.0006, 0.99998, 1.0006,
     1.0006, 0.99973, 0.99973, 0.99973, 0.99973, 0.99973, 0.99973, 0.99973,
@@ -28823,8 +29008,8 @@ const wa = [
     0.99962, 1.00042, 0.9995, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
     1, 1, 1, 1, 1, 1,
   ],
-  Ya = { lineHeight: 1.2, lineGap: 0.2 },
-  va = [
+  Ta = { lineHeight: 1.2, lineGap: 0.2 },
+  qa = [
     365, 0, 333, 278, 333, 474, 556, 556, 889, 722, 238, 333, 333, 389, 584,
     278, 333, 278, 278, 556, 556, 556, 556, 556, 556, 556, 556, 556, 556, 333,
     333, 584, 584, 584, 611, 975, 722, 722, 722, 722, 667, 611, 778, 722, 278,
@@ -28872,7 +29057,7 @@ const wa = [
     750, 750, 611, 611, 333, 333, 333, 333, 333, 333, 333, 333, 222, 222, 333,
     333, 333, 333, 333, 333, 333, 333,
   ],
-  Ka = [
+  Oa = [
     -1, -1, -1, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47,
     48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66,
     67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85,
@@ -28923,7 +29108,7 @@ const wa = [
     9835, 9836, 61441, 61442, 61445, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
     -1, -1, -1, -1, -1, -1,
   ],
-  Ta = [
+  Pa = [
     365, 0, 333, 278, 333, 474, 556, 556, 889, 722, 238, 333, 333, 389, 584,
     278, 333, 278, 278, 556, 556, 556, 556, 556, 556, 556, 556, 556, 556, 333,
     333, 584, 584, 584, 611, 975, 722, 722, 722, 722, 667, 611, 778, 722, 278,
@@ -28971,7 +29156,7 @@ const wa = [
     750, 611, 611, 333, 333, 333, 333, 333, 333, 333, 333, 222, 222, 333, 333,
     333, 333, 333, 333, 333, 333,
   ],
-  qa = [
+  Wa = [
     -1, -1, -1, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47,
     48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66,
     67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85,
@@ -29022,7 +29207,7 @@ const wa = [
     9835, 9836, 61441, 61442, 61445, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
     -1, -1, -1, -1, -1, -1,
   ],
-  Oa = [
+  ja = [
     365, 0, 333, 278, 278, 355, 556, 556, 889, 667, 191, 333, 333, 389, 584,
     278, 333, 278, 278, 556, 556, 556, 556, 556, 556, 556, 556, 556, 556, 278,
     278, 584, 584, 584, 556, 1015, 667, 667, 722, 722, 667, 611, 778, 722, 278,
@@ -29070,7 +29255,7 @@ const wa = [
     750, 500, 500, 333, 333, 333, 333, 333, 333, 333, 333, 222, 222, 294, 294,
     324, 324, 316, 328, 398, 285,
   ],
-  Pa = [
+  Xa = [
     -1, -1, -1, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47,
     48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66,
     67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85,
@@ -29121,7 +29306,7 @@ const wa = [
     9835, 9836, 61441, 61442, 61445, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
     -1, -1, -1, -1, -1, -1,
   ],
-  Wa = [
+  Za = [
     365, 0, 333, 278, 278, 355, 556, 556, 889, 667, 191, 333, 333, 389, 584,
     278, 333, 278, 278, 556, 556, 556, 556, 556, 556, 556, 556, 556, 556, 278,
     278, 584, 584, 584, 556, 1015, 667, 667, 722, 722, 667, 611, 778, 722, 278,
@@ -29169,7 +29354,7 @@ const wa = [
     750, 500, 500, 333, 333, 333, 333, 333, 333, 333, 333, 222, 222, 294, 294,
     324, 324, 316, 328, 398, 285,
   ],
-  ja = [
+  Va = [
     -1, -1, -1, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47,
     48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66,
     67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85,
@@ -29220,7 +29405,7 @@ const wa = [
     9835, 9836, 61441, 61442, 61445, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
     -1, -1, -1, -1, -1, -1,
   ],
-  Xa = [
+  za = [
     1.36898, 1, 1, 0.72706, 0.80479, 0.83734, 0.98894, 0.99793, 0.9897, 0.93884,
     0.86209, 0.94292, 0.94292, 1.16661, 1.02058, 0.93582, 0.96694, 0.93582,
     1.19137, 0.99793, 0.99793, 0.99793, 0.99793, 0.99793, 0.99793, 0.99793,
@@ -29284,8 +29469,8 @@ const wa = [
     1.16161, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
     1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
   ],
-  Za = { lineHeight: 1.2, lineGap: 0.2 },
-  Va = [
+  _a = { lineHeight: 1.2, lineGap: 0.2 },
+  $a = [
     1.36898, 1, 1, 0.66227, 0.80779, 0.81625, 0.97276, 0.97276, 0.97733,
     0.92222, 0.83266, 0.94292, 0.94292, 1.16148, 1.02058, 0.93582, 0.96694,
     0.93582, 1.17337, 0.97276, 0.97276, 0.97276, 0.97276, 0.97276, 0.97276,
@@ -29350,8 +29535,8 @@ const wa = [
     1.20006, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
     1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
   ],
-  za = { lineHeight: 1.2, lineGap: 0.2 },
-  _a = [
+  As = { lineHeight: 1.2, lineGap: 0.2 },
+  es = [
     1.36898, 1, 1, 0.65507, 0.84943, 0.85639, 0.88465, 0.88465, 0.86936,
     0.88307, 0.86948, 0.85283, 0.85283, 1.06383, 1.02058, 0.75945, 0.9219,
     0.75945, 1.17337, 0.88465, 0.88465, 0.88465, 0.88465, 0.88465, 0.88465,
@@ -29415,8 +29600,8 @@ const wa = [
     1, 1, 1.05233, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
     1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
   ],
-  $a = { lineHeight: 1.2, lineGap: 0.2 },
-  As = [
+  ts = { lineHeight: 1.2, lineGap: 0.2 },
+  is = [
     1.36898, 1, 1, 0.76305, 0.82784, 0.94935, 0.89364, 0.92241, 0.89073,
     0.90706, 0.98472, 0.85283, 0.85283, 1.0664, 1.02058, 0.74505, 0.9219,
     0.74505, 1.23456, 0.92241, 0.92241, 0.92241, 0.92241, 0.92241, 0.92241,
@@ -29480,8 +29665,8 @@ const wa = [
     1, 1.05638, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
     1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
   ],
-  es = { lineHeight: 1.2, lineGap: 0.2 },
-  ts = [
+  as = { lineHeight: 1.2, lineGap: 0.2 },
+  ss = [
     1.76738, 1, 1, 0.99297, 0.9824, 1.04016, 1.06497, 1.03424, 0.97529, 1.17647,
     1.23203, 1.1085, 1.1085, 1.16939, 1.2107, 0.9754, 1.21408, 0.9754, 1.59578,
     1.03424, 1.03424, 1.03424, 1.03424, 1.03424, 1.03424, 1.03424, 1.03424,
@@ -29550,8 +29735,8 @@ const wa = [
     1, 1, 1, 1.09193, 1.09193, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
     1, 1,
   ],
-  is = { lineHeight: 1.33008, lineGap: 0 },
-  as = [
+  rs = { lineHeight: 1.33008, lineGap: 0 },
+  ns = [
     1.76738, 1, 1, 0.98946, 1.03959, 1.04016, 1.02809, 1.036, 0.97639, 1.10953,
     1.23203, 1.11144, 1.11144, 1.16939, 1.21237, 0.9754, 1.21261, 0.9754,
     1.59754, 1.036, 1.036, 1.036, 1.036, 1.036, 1.036, 1.036, 1.036, 1.036,
@@ -29620,8 +29805,8 @@ const wa = [
     1.34163, 1, 1, 1, 1.13269, 1.13269, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
     1, 1, 1, 1, 1,
   ],
-  ss = { lineHeight: 1.33008, lineGap: 0 },
-  rs = [
+  gs = { lineHeight: 1.33008, lineGap: 0 },
+  os = [
     1.76738, 1, 1, 0.98946, 1.14763, 1.05365, 1.06234, 0.96927, 0.92586,
     1.15373, 1.18414, 0.91349, 0.91349, 1.07403, 1.17308, 0.78383, 1.20088,
     0.78383, 1.42531, 0.96927, 0.96927, 0.96927, 0.96927, 0.96927, 0.96927,
@@ -29690,8 +29875,8 @@ const wa = [
     1, 1, 1, 1, 1, 1.2886, 1.04315, 1.15296, 1.34163, 1, 1, 1, 1.10742, 1.10742,
     1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
   ],
-  ns = { lineHeight: 1.33008, lineGap: 0 },
-  gs = [
+  Is = { lineHeight: 1.33008, lineGap: 0 },
+  cs = [
     1.76738, 1, 1, 0.98594, 1.02285, 1.10454, 1.06234, 0.96927, 0.92037,
     1.19985, 1.2046, 0.90616, 0.90616, 1.07152, 1.1714, 0.78032, 1.20088,
     0.78032, 1.40246, 0.96927, 0.96927, 0.96927, 0.96927, 0.96927, 0.96927,
@@ -29760,149 +29945,149 @@ const wa = [
     1, 1, 1, 1.10938, 1.10938, 1, 1, 1, 1.05425, 1.09971, 1.09971, 1.09971, 1,
     1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
   ],
-  os = { lineHeight: 1.33008, lineGap: 0 },
-  Is = getLookupTableFactory(function (e) {
+  Cs = { lineHeight: 1.33008, lineGap: 0 },
+  hs = getLookupTableFactory(function (e) {
     e["MyriadPro-Regular"] = e["PdfJS-Fallback-Regular"] = {
       name: "LiberationSans-Regular",
-      factors: As,
-      baseWidths: Wa,
-      baseMapping: ja,
-      metrics: es,
+      factors: is,
+      baseWidths: Za,
+      baseMapping: Va,
+      metrics: as,
     };
     e["MyriadPro-Bold"] = e["PdfJS-Fallback-Bold"] = {
       name: "LiberationSans-Bold",
-      factors: Xa,
-      baseWidths: va,
-      baseMapping: Ka,
-      metrics: Za,
+      factors: za,
+      baseWidths: qa,
+      baseMapping: Oa,
+      metrics: _a,
     };
     e["MyriadPro-It"] =
       e["MyriadPro-Italic"] =
       e["PdfJS-Fallback-Italic"] =
         {
           name: "LiberationSans-Italic",
-          factors: _a,
-          baseWidths: Oa,
-          baseMapping: Pa,
-          metrics: $a,
+          factors: es,
+          baseWidths: ja,
+          baseMapping: Xa,
+          metrics: ts,
         };
     e["MyriadPro-BoldIt"] =
       e["MyriadPro-BoldItalic"] =
       e["PdfJS-Fallback-BoldItalic"] =
         {
           name: "LiberationSans-BoldItalic",
-          factors: Va,
-          baseWidths: Ta,
-          baseMapping: qa,
-          metrics: za,
+          factors: $a,
+          baseWidths: Pa,
+          baseMapping: Wa,
+          metrics: As,
         };
     e.ArialMT =
       e.Arial =
       e["Arial-Regular"] =
-        { name: "LiberationSans-Regular", baseWidths: Wa, baseMapping: ja };
+        { name: "LiberationSans-Regular", baseWidths: Za, baseMapping: Va };
     e["Arial-BoldMT"] = e["Arial-Bold"] = {
       name: "LiberationSans-Bold",
-      baseWidths: va,
-      baseMapping: Ka,
+      baseWidths: qa,
+      baseMapping: Oa,
     };
     e["Arial-ItalicMT"] = e["Arial-Italic"] = {
       name: "LiberationSans-Italic",
-      baseWidths: Oa,
-      baseMapping: Pa,
+      baseWidths: ja,
+      baseMapping: Xa,
     };
     e["Arial-BoldItalicMT"] = e["Arial-BoldItalic"] = {
       name: "LiberationSans-BoldItalic",
-      baseWidths: Ta,
-      baseMapping: qa,
+      baseWidths: Pa,
+      baseMapping: Wa,
     };
     e["Calibri-Regular"] = {
       name: "LiberationSans-Regular",
-      factors: Ra,
-      baseWidths: Wa,
-      baseMapping: ja,
-      metrics: Na,
+      factors: xa,
+      baseWidths: Za,
+      baseMapping: Va,
+      metrics: Ua,
     };
     e["Calibri-Bold"] = {
       name: "LiberationSans-Bold",
-      factors: wa,
-      baseWidths: va,
-      baseMapping: Ka,
-      metrics: Da,
+      factors: Fa,
+      baseWidths: qa,
+      baseMapping: Oa,
+      metrics: Sa,
     };
     e["Calibri-Italic"] = {
       name: "LiberationSans-Italic",
-      factors: Sa,
-      baseWidths: Oa,
-      baseMapping: Pa,
-      metrics: ka,
+      factors: Na,
+      baseWidths: ja,
+      baseMapping: Xa,
+      metrics: Ga,
     };
     e["Calibri-BoldItalic"] = {
       name: "LiberationSans-BoldItalic",
-      factors: ba,
-      baseWidths: Ta,
-      baseMapping: qa,
-      metrics: Fa,
+      factors: ka,
+      baseWidths: Pa,
+      baseMapping: Wa,
+      metrics: Ra,
     };
     e["Segoeui-Regular"] = {
       name: "LiberationSans-Regular",
-      factors: gs,
-      baseWidths: Wa,
-      baseMapping: ja,
-      metrics: os,
+      factors: cs,
+      baseWidths: Za,
+      baseMapping: Va,
+      metrics: Cs,
     };
     e["Segoeui-Bold"] = {
       name: "LiberationSans-Bold",
-      factors: ts,
-      baseWidths: va,
-      baseMapping: Ka,
-      metrics: is,
+      factors: ss,
+      baseWidths: qa,
+      baseMapping: Oa,
+      metrics: rs,
     };
     e["Segoeui-Italic"] = {
       name: "LiberationSans-Italic",
-      factors: rs,
-      baseWidths: Oa,
-      baseMapping: Pa,
-      metrics: ns,
+      factors: os,
+      baseWidths: ja,
+      baseMapping: Xa,
+      metrics: Is,
     };
     e["Segoeui-BoldItalic"] = {
       name: "LiberationSans-BoldItalic",
-      factors: as,
-      baseWidths: Ta,
-      baseMapping: qa,
-      metrics: ss,
+      factors: ns,
+      baseWidths: Pa,
+      baseMapping: Wa,
+      metrics: gs,
     };
     e["Helvetica-Regular"] = e.Helvetica = {
       name: "LiberationSans-Regular",
-      factors: Ja,
-      baseWidths: Wa,
-      baseMapping: ja,
-      metrics: Ya,
+      factors: Ka,
+      baseWidths: Za,
+      baseMapping: Va,
+      metrics: Ta,
     };
     e["Helvetica-Bold"] = {
       name: "LiberationSans-Bold",
-      factors: Ga,
-      baseWidths: va,
-      baseMapping: Ka,
-      metrics: xa,
+      factors: Ma,
+      baseWidths: qa,
+      baseMapping: Oa,
+      metrics: La,
     };
     e["Helvetica-Italic"] = {
       name: "LiberationSans-Italic",
-      factors: La,
-      baseWidths: Oa,
-      baseMapping: Pa,
-      metrics: Ha,
+      factors: Ya,
+      baseWidths: ja,
+      baseMapping: Xa,
+      metrics: va,
     };
     e["Helvetica-BoldItalic"] = {
       name: "LiberationSans-BoldItalic",
-      factors: Ua,
-      baseWidths: Ta,
-      baseMapping: qa,
-      metrics: Ma,
+      factors: Ha,
+      baseWidths: Pa,
+      baseMapping: Wa,
+      metrics: Ja,
     };
   });
 function getXfaFontName(e) {
   const t = normalizeFontName(e);
-  return Is()[t];
+  return hs()[t];
 }
 function getXfaFontDict(e) {
   const t = (function getXfaFontWidths(e) {
@@ -29969,17 +30154,17 @@ class PostScriptParser {
   }
   parse() {
     this.nextToken();
-    this.expect(cs.LBRACE);
+    this.expect(ls.LBRACE);
     this.parseBlock();
-    this.expect(cs.RBRACE);
+    this.expect(ls.RBRACE);
     return this.operators;
   }
   parseBlock() {
     for (;;)
-      if (this.accept(cs.NUMBER)) this.operators.push(this.prev.value);
-      else if (this.accept(cs.OPERATOR)) this.operators.push(this.prev.value);
+      if (this.accept(ls.NUMBER)) this.operators.push(this.prev.value);
+      else if (this.accept(ls.OPERATOR)) this.operators.push(this.prev.value);
       else {
-        if (!this.accept(cs.LBRACE)) return;
+        if (!this.accept(ls.LBRACE)) return;
         this.parseCondition();
       }
   }
@@ -29987,20 +30172,20 @@ class PostScriptParser {
     const e = this.operators.length;
     this.operators.push(null, null);
     this.parseBlock();
-    this.expect(cs.RBRACE);
-    if (this.accept(cs.IF)) {
+    this.expect(ls.RBRACE);
+    if (this.accept(ls.IF)) {
       this.operators[e] = this.operators.length;
       this.operators[e + 1] = "jz";
     } else {
-      if (!this.accept(cs.LBRACE))
+      if (!this.accept(ls.LBRACE))
         throw new FormatError("PS Function: error parsing conditional.");
       {
         const t = this.operators.length;
         this.operators.push(null, null);
         const i = this.operators.length;
         this.parseBlock();
-        this.expect(cs.RBRACE);
-        this.expect(cs.IFELSE);
+        this.expect(ls.RBRACE);
+        this.expect(ls.IFELSE);
         this.operators[t] = this.operators.length;
         this.operators[t + 1] = "j";
         this.operators[e] = i;
@@ -30009,7 +30194,7 @@ class PostScriptParser {
     }
   }
 }
-const cs = { LBRACE: 0, RBRACE: 1, NUMBER: 2, OPERATOR: 3, IF: 4, IFELSE: 5 };
+const ls = { LBRACE: 0, RBRACE: 1, NUMBER: 2, OPERATOR: 3, IF: 4, IFELSE: 5 };
 class PostScriptToken {
   static get opCache() {
     return shadow(this, "opCache", Object.create(null));
@@ -30019,19 +30204,19 @@ class PostScriptToken {
     this.value = t;
   }
   static getOperator(e) {
-    return (PostScriptToken.opCache[e] ||= new PostScriptToken(cs.OPERATOR, e));
+    return (PostScriptToken.opCache[e] ||= new PostScriptToken(ls.OPERATOR, e));
   }
   static get LBRACE() {
-    return shadow(this, "LBRACE", new PostScriptToken(cs.LBRACE, "{"));
+    return shadow(this, "LBRACE", new PostScriptToken(ls.LBRACE, "{"));
   }
   static get RBRACE() {
-    return shadow(this, "RBRACE", new PostScriptToken(cs.RBRACE, "}"));
+    return shadow(this, "RBRACE", new PostScriptToken(ls.RBRACE, "}"));
   }
   static get IF() {
-    return shadow(this, "IF", new PostScriptToken(cs.IF, "IF"));
+    return shadow(this, "IF", new PostScriptToken(ls.IF, "IF"));
   }
   static get IFELSE() {
-    return shadow(this, "IFELSE", new PostScriptToken(cs.IFELSE, "IFELSE"));
+    return shadow(this, "IFELSE", new PostScriptToken(ls.IFELSE, "IFELSE"));
   }
 }
 class PostScriptLexer {
@@ -30047,7 +30232,7 @@ class PostScriptLexer {
     let e = !1,
       t = this.currentChar;
     for (;;) {
-      if (t < 0) return pt;
+      if (t < 0) return yt;
       if (e) (10 !== t && 13 !== t) || (e = !1);
       else if (37 === t) e = !0;
       else if (!isWhiteSpace(t)) break;
@@ -30067,7 +30252,7 @@ class PostScriptLexer {
       case 43:
       case 45:
       case 46:
-        return new PostScriptToken(cs.NUMBER, this.getNumber());
+        return new PostScriptToken(ls.NUMBER, this.getNumber());
       case 123:
         this.nextChar();
         return PostScriptToken.LBRACE;
@@ -30114,8 +30299,6 @@ class PostScriptLexer {
 }
 class BaseLocalCache {
   constructor(e) {
-    this.constructor === BaseLocalCache &&
-      unreachable("Cannot initialize BaseLocalCache.");
     this._onlyRefs = !0 === e?.onlyRefs;
     if (!this._onlyRefs) {
       this._nameRefMap = new Map();
@@ -30204,20 +30387,20 @@ class GlobalImageCache {
   static NUM_PAGES_THRESHOLD = 2;
   static MIN_IMAGES_TO_CACHE = 10;
   static MAX_BYTE_SIZE = 5e7;
-  #D = new RefSet();
+  #b = new RefSet();
   constructor() {
     this._refCache = new RefSetCache();
     this._imageCache = new RefSetCache();
   }
-  get #b() {
+  get #F() {
     let e = 0;
     for (const t of this._imageCache) e += t.byteSize;
     return e;
   }
-  get #F() {
+  get #S() {
     return (
       !(this._imageCache.size < GlobalImageCache.MIN_IMAGES_TO_CACHE) &&
-      !(this.#b < GlobalImageCache.MAX_BYTE_SIZE)
+      !(this.#F < GlobalImageCache.MAX_BYTE_SIZE)
     );
   }
   shouldCache(e, t) {
@@ -30229,14 +30412,14 @@ class GlobalImageCache {
     i.add(t);
     return (
       !(i.size < GlobalImageCache.NUM_PAGES_THRESHOLD) &&
-      !(!this._imageCache.has(e) && this.#F)
+      !(!this._imageCache.has(e) && this.#S)
     );
   }
   addDecodeFailed(e) {
-    this.#D.put(e);
+    this.#b.put(e);
   }
   hasDecodeFailed(e) {
-    return this.#D.has(e);
+    return this.#b.has(e);
   }
   addByteSize(e, t) {
     const i = this._imageCache.get(e);
@@ -30257,13 +30440,13 @@ class GlobalImageCache {
         'GlobalImageCache.setData - expected "shouldCache" to have been called.',
       );
     this._imageCache.has(e) ||
-      (this.#F
+      (this.#S
         ? warn("GlobalImageCache.setData - cache limit reached.")
         : this._imageCache.put(e, t));
   }
   clear(e = !1) {
     if (!e) {
-      this.#D.clear();
+      this.#b.clear();
       this._refCache.clear();
     }
     this._imageCache.clear();
@@ -31144,7 +31327,7 @@ class PostScriptCompiler {
     return d.join("\n");
   }
 }
-const Cs = [
+const Bs = [
     "BN",
     "BN",
     "BN",
@@ -31402,7 +31585,7 @@ const Cs = [
     "L",
     "L",
   ],
-  hs = [
+  Qs = [
     "AN",
     "AN",
     "AN",
@@ -31686,25 +31869,25 @@ function createBidiText(e, t, i = !1) {
   i ? (a = "ttb") : t || (a = "rtl");
   return { str: e, dir: a };
 }
-const Bs = [],
-  ls = [];
+const Es = [],
+  us = [];
 function bidi(e, t = -1, i = !1) {
   let a = !0;
   const s = e.length;
   if (0 === s || i) return createBidiText(e, a, i);
-  Bs.length = s;
-  ls.length = s;
+  Es.length = s;
+  us.length = s;
   let r,
     n,
     g = 0;
   for (r = 0; r < s; ++r) {
-    Bs[r] = e.charAt(r);
+    Es[r] = e.charAt(r);
     const t = e.charCodeAt(r);
     let i = "L";
-    if (t <= 255) i = Cs[t];
+    if (t <= 255) i = Bs[t];
     else if (1424 <= t && t <= 1524) i = "R";
     else if (1536 <= t && t <= 1791) {
-      i = hs[255 & t];
+      i = Qs[255 & t];
       i || warn("Bidi: invalid Unicode character " + t.toString(16));
     } else
       ((1792 <= t && t <= 2220) ||
@@ -31712,7 +31895,7 @@ function bidi(e, t = -1, i = !1) {
         (65136 <= t && t <= 65279)) &&
         (i = "AL");
     ("R" !== i && "AL" !== i && "AN" !== i) || g++;
-    ls[r] = i;
+    us[r] = i;
   }
   if (0 === g) {
     a = !0;
@@ -31733,59 +31916,59 @@ function bidi(e, t = -1, i = !1) {
     h = C;
   let l,
     Q = C;
-  for (r = 0; r < s; ++r) "NSM" === ls[r] ? (ls[r] = Q) : (Q = ls[r]);
+  for (r = 0; r < s; ++r) "NSM" === us[r] ? (us[r] = Q) : (Q = us[r]);
   Q = C;
   for (r = 0; r < s; ++r) {
-    l = ls[r];
+    l = us[r];
     "EN" === l
-      ? (ls[r] = "AL" === Q ? "AN" : "EN")
+      ? (us[r] = "AL" === Q ? "AN" : "EN")
       : ("R" !== l && "L" !== l && "AL" !== l) || (Q = l);
   }
   for (r = 0; r < s; ++r) {
-    l = ls[r];
-    "AL" === l && (ls[r] = "R");
+    l = us[r];
+    "AL" === l && (us[r] = "R");
   }
   for (r = 1; r < s - 1; ++r) {
-    "ES" === ls[r] &&
-      "EN" === ls[r - 1] &&
-      "EN" === ls[r + 1] &&
-      (ls[r] = "EN");
-    "CS" !== ls[r] ||
-      ("EN" !== ls[r - 1] && "AN" !== ls[r - 1]) ||
-      ls[r + 1] !== ls[r - 1] ||
-      (ls[r] = ls[r - 1]);
+    "ES" === us[r] &&
+      "EN" === us[r - 1] &&
+      "EN" === us[r + 1] &&
+      (us[r] = "EN");
+    "CS" !== us[r] ||
+      ("EN" !== us[r - 1] && "AN" !== us[r - 1]) ||
+      us[r + 1] !== us[r - 1] ||
+      (us[r] = us[r - 1]);
   }
   for (r = 0; r < s; ++r)
-    if ("EN" === ls[r]) {
-      for (let e = r - 1; e >= 0 && "ET" === ls[e]; --e) ls[e] = "EN";
-      for (let e = r + 1; e < s && "ET" === ls[e]; ++e) ls[e] = "EN";
+    if ("EN" === us[r]) {
+      for (let e = r - 1; e >= 0 && "ET" === us[e]; --e) us[e] = "EN";
+      for (let e = r + 1; e < s && "ET" === us[e]; ++e) us[e] = "EN";
     }
   for (r = 0; r < s; ++r) {
-    l = ls[r];
-    ("WS" !== l && "ES" !== l && "ET" !== l && "CS" !== l) || (ls[r] = "ON");
+    l = us[r];
+    ("WS" !== l && "ES" !== l && "ET" !== l && "CS" !== l) || (us[r] = "ON");
   }
   Q = C;
   for (r = 0; r < s; ++r) {
-    l = ls[r];
+    l = us[r];
     "EN" === l
-      ? (ls[r] = "L" === Q ? "L" : "EN")
+      ? (us[r] = "L" === Q ? "L" : "EN")
       : ("R" !== l && "L" !== l) || (Q = l);
   }
   for (r = 0; r < s; ++r)
-    if ("ON" === ls[r]) {
-      const e = findUnequal(ls, r + 1, "ON");
+    if ("ON" === us[r]) {
+      const e = findUnequal(us, r + 1, "ON");
       let t = C;
-      r > 0 && (t = ls[r - 1]);
+      r > 0 && (t = us[r - 1]);
       let i = h;
-      e + 1 < s && (i = ls[e + 1]);
+      e + 1 < s && (i = us[e + 1]);
       "L" !== t && (t = "R");
       "L" !== i && (i = "R");
-      t === i && setValues(ls, r, e, t);
+      t === i && setValues(us, r, e, t);
       r = e - 1;
     }
-  for (r = 0; r < s; ++r) "ON" === ls[r] && (ls[r] = c);
+  for (r = 0; r < s; ++r) "ON" === us[r] && (us[r] = c);
   for (r = 0; r < s; ++r) {
-    l = ls[r];
+    l = us[r];
     isEven(o[r])
       ? "R" === l
         ? (o[r] += 1)
@@ -31805,23 +31988,23 @@ function bidi(e, t = -1, i = !1) {
     for (r = 0, n = o.length; r < n; ++r)
       if (o[r] < E) {
         if (e >= 0) {
-          reverseValues(Bs, e, r);
+          reverseValues(Es, e, r);
           e = -1;
         }
       } else e < 0 && (e = r);
-    e >= 0 && reverseValues(Bs, e, o.length);
+    e >= 0 && reverseValues(Es, e, o.length);
   }
-  for (r = 0, n = Bs.length; r < n; ++r) {
-    const e = Bs[r];
-    ("<" !== e && ">" !== e) || (Bs[r] = "");
+  for (r = 0, n = Es.length; r < n; ++r) {
+    const e = Es[r];
+    ("<" !== e && ">" !== e) || (Es[r] = "");
   }
-  return createBidiText(Bs.join(""), a);
+  return createBidiText(Es.join(""), a);
 }
-const Qs = { style: "normal", weight: "normal" },
-  Es = { style: "normal", weight: "bold" },
-  us = { style: "italic", weight: "normal" },
-  ds = { style: "italic", weight: "bold" },
-  fs = new Map([
+const ds = { style: "normal", weight: "normal" },
+  fs = { style: "normal", weight: "bold" },
+  ps = { style: "italic", weight: "normal" },
+  ms = { style: "italic", weight: "bold" },
+  ys = new Map([
     [
       "Times-Roman",
       {
@@ -31842,15 +32025,15 @@ const Qs = { style: "normal", weight: "normal" },
           "Bitstream Vera Serif",
           "Ubuntu",
         ],
-        style: Qs,
+        style: ds,
         ultimate: "serif",
       },
     ],
-    ["Times-Bold", { alias: "Times-Roman", style: Es, ultimate: "serif" }],
-    ["Times-Italic", { alias: "Times-Roman", style: us, ultimate: "serif" }],
+    ["Times-Bold", { alias: "Times-Roman", style: fs, ultimate: "serif" }],
+    ["Times-Italic", { alias: "Times-Roman", style: ps, ultimate: "serif" }],
     [
       "Times-BoldItalic",
-      { alias: "Times-Roman", style: ds, ultimate: "serif" },
+      { alias: "Times-Roman", style: ms, ultimate: "serif" },
     ],
     [
       "Helvetica",
@@ -31876,7 +32059,7 @@ const Qs = { style: "normal", weight: "normal" },
           "Cantarell",
         ],
         path: "LiberationSans-Regular.ttf",
-        style: Qs,
+        style: ds,
         ultimate: "sans-serif",
       },
     ],
@@ -31885,7 +32068,7 @@ const Qs = { style: "normal", weight: "normal" },
       {
         alias: "Helvetica",
         path: "LiberationSans-Bold.ttf",
-        style: Es,
+        style: fs,
         ultimate: "sans-serif",
       },
     ],
@@ -31894,7 +32077,7 @@ const Qs = { style: "normal", weight: "normal" },
       {
         alias: "Helvetica",
         path: "LiberationSans-Italic.ttf",
-        style: us,
+        style: ps,
         ultimate: "sans-serif",
       },
     ],
@@ -31903,7 +32086,7 @@ const Qs = { style: "normal", weight: "normal" },
       {
         alias: "Helvetica",
         path: "LiberationSans-BoldItalic.ttf",
-        style: ds,
+        style: ms,
         ultimate: "sans-serif",
       },
     ],
@@ -31923,15 +32106,15 @@ const Qs = { style: "normal", weight: "normal" },
           "Linux Libertine Mono O",
           "Libertinus Mono",
         ],
-        style: Qs,
+        style: ds,
         ultimate: "monospace",
       },
     ],
-    ["Courier-Bold", { alias: "Courier", style: Es, ultimate: "monospace" }],
-    ["Courier-Oblique", { alias: "Courier", style: us, ultimate: "monospace" }],
+    ["Courier-Bold", { alias: "Courier", style: fs, ultimate: "monospace" }],
+    ["Courier-Oblique", { alias: "Courier", style: ps, ultimate: "monospace" }],
     [
       "Courier-BoldOblique",
-      { alias: "Courier", style: ds, ultimate: "monospace" },
+      { alias: "Courier", style: ms, ultimate: "monospace" },
     ],
     [
       "ArialBlack",
@@ -31961,43 +32144,43 @@ const Qs = { style: "normal", weight: "normal" },
           "Nimbus Sans Narrow",
           "TeX Gyre Heros Cn",
         ],
-        style: Qs,
+        style: ds,
         fallback: "Helvetica",
       },
     ],
     [
       "ArialNarrow-Bold",
-      { alias: "ArialNarrow", style: Es, fallback: "Helvetica-Bold" },
+      { alias: "ArialNarrow", style: fs, fallback: "Helvetica-Bold" },
     ],
     [
       "ArialNarrow-Italic",
-      { alias: "ArialNarrow", style: us, fallback: "Helvetica-Oblique" },
+      { alias: "ArialNarrow", style: ps, fallback: "Helvetica-Oblique" },
     ],
     [
       "ArialNarrow-BoldItalic",
-      { alias: "ArialNarrow", style: ds, fallback: "Helvetica-BoldOblique" },
+      { alias: "ArialNarrow", style: ms, fallback: "Helvetica-BoldOblique" },
     ],
     [
       "Calibri",
-      { local: ["Calibri", "Carlito"], style: Qs, fallback: "Helvetica" },
+      { local: ["Calibri", "Carlito"], style: ds, fallback: "Helvetica" },
     ],
     [
       "Calibri-Bold",
-      { alias: "Calibri", style: Es, fallback: "Helvetica-Bold" },
+      { alias: "Calibri", style: fs, fallback: "Helvetica-Bold" },
     ],
     [
       "Calibri-Italic",
-      { alias: "Calibri", style: us, fallback: "Helvetica-Oblique" },
+      { alias: "Calibri", style: ps, fallback: "Helvetica-Oblique" },
     ],
     [
       "Calibri-BoldItalic",
-      { alias: "Calibri", style: ds, fallback: "Helvetica-BoldOblique" },
+      { alias: "Calibri", style: ms, fallback: "Helvetica-BoldOblique" },
     ],
-    ["Wingdings", { local: ["Wingdings", "URW Dingbats"], style: Qs }],
+    ["Wingdings", { local: ["Wingdings", "URW Dingbats"], style: ds }],
     ["Wingdings-Regular", { alias: "Wingdings" }],
     ["Wingdings-Bold", { alias: "Wingdings" }],
   ]),
-  ps = new Map([["Arial-Black", "ArialBlack"]]);
+  ws = new Map([["Arial-Black", "ArialBlack"]]);
 function getFamilyName(e) {
   const t = new Set([
     "thin",
@@ -32052,16 +32235,16 @@ function generateFont(
     for (const i of t) n.push(`local(${i}${e})`);
   }
   if (e) {
-    const t = fs.get(e),
+    const t = ys.get(e),
       r =
         C ||
         (function getStyleToAppend(e) {
           switch (e) {
-            case Es:
+            case fs:
               return "Bold";
-            case us:
+            case ps:
               return "Italic";
-            case ds:
+            case ms:
               return "Bold Italic";
             default:
               if ("bold" === e?.weight) return "Bold";
@@ -32074,7 +32257,7 @@ function generateFont(
   s && (h.style = s);
   r && (h.ultimate = r);
   if (o && a) {
-    const e = fs.get(a),
+    const e = ys.get(a),
       { ultimate: t } = generateFont(e, n, g, o, c && !i, C);
     h.ultimate ||= t;
   }
@@ -32089,17 +32272,17 @@ function getFontSubstitution(e, t, i, a, s, r) {
   const n = (a = normalizeFontName(a));
   let g = e.get(n);
   if (g) return g;
-  let o = fs.get(a);
+  let o = ys.get(a);
   if (!o)
-    for (const [e, t] of ps)
+    for (const [e, t] of ws)
       if (a.startsWith(e)) {
         a = `${t}${a.substring(e.length)}`;
-        o = fs.get(a);
+        o = ys.get(a);
         break;
       }
   let c = !1;
   if (!o) {
-    o = fs.get(s);
+    o = ys.get(s);
     c = !0;
   }
   const C = `${t.getDocId()}_s${t.createFontId()}`;
@@ -32111,7 +32294,7 @@ function getFontSubstitution(e, t, i, a, s, r) {
     }
     const t = /bold/gi.test(a),
       i = /oblique|italic/gi.test(a),
-      s = (t && i && ds) || (t && Es) || (i && us) || Qs;
+      s = (t && i && ms) || (t && fs) || (i && ps) || ds;
     g = {
       css: `"${getFamilyName(a)}",${C}`,
       guessFallback: !0,
@@ -32140,26 +32323,34 @@ function getFontSubstitution(e, t, i, a, s, r) {
   return g;
 }
 class ImageResizer {
+  static #k = 2048;
+  static #R = !1;
   constructor(e, t) {
     this._imgData = e;
     this._isMask = t;
   }
+  static get canUseImageDecoder() {
+    return shadow(
+      this,
+      "canUseImageDecoder",
+      this.#R || "undefined" == typeof ImageDecoder
+        ? Promise.resolve(!1)
+        : ImageDecoder.isTypeSupported("image/bmp"),
+    );
+  }
   static needsToBeResized(e, t) {
-    if (e <= this._goodSquareLength && t <= this._goodSquareLength) return !1;
+    if (e <= this.#k && t <= this.#k) return !1;
     const { MAX_DIM: i } = this;
     if (e > i || t > i) return !0;
     const a = e * t;
     if (this._hasMaxArea) return a > this.MAX_AREA;
-    if (a < this._goodSquareLength ** 2) return !1;
+    if (a < this.#k ** 2) return !1;
     if (this._areGoodDims(e, t)) {
-      this._goodSquareLength = Math.max(
-        this._goodSquareLength,
-        Math.floor(Math.sqrt(e * t)),
-      );
+      this.#k = Math.max(this.#k, Math.floor(Math.sqrt(e * t)));
       return !1;
     }
-    this._goodSquareLength = this._guessMax(this._goodSquareLength, i, 128, 0);
-    return a > (this.MAX_AREA = this._goodSquareLength ** 2);
+    this.#k = this._guessMax(this.#k, i, 128, 0);
+    return a > (this.MAX_AREA = this.#k ** 2);
   }
   static get MAX_DIM() {
     return shadow(this, "MAX_DIM", this._guessMax(2048, 65537, 0, 1));
@@ -32169,7 +32360,7 @@ class ImageResizer {
     return shadow(
       this,
       "MAX_AREA",
-      this._guessMax(ImageResizer._goodSquareLength, this.MAX_DIM, 128, 0) ** 2,
+      this._guessMax(this.#k, this.MAX_DIM, 128, 0) ** 2,
     );
   }
   static set MAX_AREA(e) {
@@ -32180,6 +32371,10 @@ class ImageResizer {
   }
   static setMaxArea(e) {
     this._hasMaxArea || (this.MAX_AREA = e >> 2);
+  }
+  static setOptions(e) {
+    this.setMaxArea(e.maxArea ?? -1);
+    this.#R = e.isChrome ?? !1;
   }
   static _areGoodDims(e, t) {
     try {
@@ -32205,10 +32400,28 @@ class ImageResizer {
     return new ImageResizer(e, t)._createImage();
   }
   async _createImage() {
-    const e = this._encodeBMP(),
-      t = new Blob([e.buffer], { type: "image/bmp" }),
-      i = createImageBitmap(t),
-      { MAX_AREA: a, MAX_DIM: s } = ImageResizer,
+    const e = this._encodeBMP();
+    let t, i;
+    if (await ImageResizer.canUseImageDecoder) {
+      t = new ImageDecoder({
+        data: e,
+        type: "image/bmp",
+        preferAnimation: !1,
+        transfer: [e.buffer],
+      });
+      i = t
+        .decode()
+        .catch((e) => {
+          warn(`BMP image decoding failed: ${e}`);
+          return createImageBitmap(
+            new Blob([this._encodeBMP().buffer], { type: "image/bmp" }),
+          );
+        })
+        .finally(() => {
+          t.close();
+        });
+    } else i = createImageBitmap(new Blob([e.buffer], { type: "image/bmp" }));
+    const { MAX_AREA: a, MAX_DIM: s } = ImageResizer,
       { _imgData: r } = this,
       { width: n, height: g } = r,
       o = Math.max(n / s, g / s, Math.sqrt((n * g) / a)),
@@ -32219,19 +32432,21 @@ class ImageResizer {
     l[0] = c;
     l.splice(-1, 1, C / (1 << h));
     let Q = n,
-      E = g,
-      u = await i;
+      E = g;
+    const u = await i;
+    let d = u.image || u;
     for (const e of l) {
       const t = Q,
         i = E;
       Q = Math.floor(Q / e) - 1;
       E = Math.floor(E / e) - 1;
       const a = new OffscreenCanvas(Q, E);
-      a.getContext("2d").drawImage(u, 0, 0, t, i, 0, 0, Q, E);
-      u = a.transferToImageBitmap();
+      a.getContext("2d").drawImage(d, 0, 0, t, i, 0, 0, Q, E);
+      d.close();
+      d = a.transferToImageBitmap();
     }
     r.data = null;
-    r.bitmap = u;
+    r.bitmap = d;
     r.width = Q;
     r.height = E;
     return r;
@@ -32244,7 +32459,7 @@ class ImageResizer {
       n = r,
       g = 0;
     switch (i) {
-      case D: {
+      case b: {
         a = 1;
         r = new Uint8Array(
           this._isMask
@@ -32262,7 +32477,7 @@ class ImageResizer {
         }
         break;
       }
-      case b:
+      case F:
         a = 24;
         if (3 & e) {
           const i = 3 * e,
@@ -32287,7 +32502,7 @@ class ImageResizer {
             s[e + 2] = t;
           }
         break;
-      case F:
+      case S:
         a = 32;
         g = 3;
         n = new Uint8Array(68);
@@ -32350,14 +32565,13 @@ class ImageResizer {
     return h;
   }
 }
-ImageResizer._goodSquareLength = 2048;
-const ms = 3285377520,
-  ys = 4294901760,
-  ws = 65535;
+const Ds = 3285377520,
+  bs = 4294901760,
+  Fs = 65535;
 class MurmurHash3_64 {
   constructor(e) {
-    this.h1 = e ? 4294967295 & e : ms;
-    this.h2 = e ? 4294967295 & e : ms;
+    this.h1 = e ? 4294967295 & e : Ds;
+    this.h2 = e ? 4294967295 & e : Ds;
   }
   update(e) {
     let t, i;
@@ -32392,17 +32606,17 @@ class MurmurHash3_64 {
     for (let e = 0; e < a; e++)
       if (1 & e) {
         n = r[e];
-        n = ((n * C) & ys) | ((n * l) & ws);
+        n = ((n * C) & bs) | ((n * l) & Fs);
         n = (n << 15) | (n >>> 17);
-        n = ((n * h) & ys) | ((n * Q) & ws);
+        n = ((n * h) & bs) | ((n * Q) & Fs);
         o ^= n;
         o = (o << 13) | (o >>> 19);
         o = 5 * o + 3864292196;
       } else {
         g = r[e];
-        g = ((g * C) & ys) | ((g * l) & ws);
+        g = ((g * C) & bs) | ((g * l) & Fs);
         g = (g << 15) | (g >>> 17);
-        g = ((g * h) & ys) | ((g * Q) & ws);
+        g = ((g * h) & bs) | ((g * Q) & Fs);
         c ^= g;
         c = (c << 13) | (c >>> 19);
         c = 5 * c + 3864292196;
@@ -32415,9 +32629,9 @@ class MurmurHash3_64 {
         n ^= t[4 * a + 1] << 8;
       case 1:
         n ^= t[4 * a];
-        n = ((n * C) & ys) | ((n * l) & ws);
+        n = ((n * C) & bs) | ((n * l) & Fs);
         n = (n << 15) | (n >>> 17);
-        n = ((n * h) & ys) | ((n * Q) & ws);
+        n = ((n * h) & bs) | ((n * Q) & Fs);
         1 & a ? (o ^= n) : (c ^= n);
     }
     this.h1 = o;
@@ -32427,15 +32641,15 @@ class MurmurHash3_64 {
     let e = this.h1,
       t = this.h2;
     e ^= t >>> 1;
-    e = ((3981806797 * e) & ys) | ((36045 * e) & ws);
+    e = ((3981806797 * e) & bs) | ((36045 * e) & Fs);
     t =
-      ((4283543511 * t) & ys) |
-      (((2950163797 * ((t << 16) | (e >>> 16))) & ys) >>> 16);
+      ((4283543511 * t) & bs) |
+      (((2950163797 * ((t << 16) | (e >>> 16))) & bs) >>> 16);
     e ^= t >>> 1;
-    e = ((444984403 * e) & ys) | ((60499 * e) & ws);
+    e = ((444984403 * e) & bs) | ((60499 * e) & Fs);
     t =
-      ((3301882366 * t) & ys) |
-      (((3120437893 * ((t << 16) | (e >>> 16))) & ys) >>> 16);
+      ((3301882366 * t) & bs) |
+      (((3120437893 * ((t << 16) | (e >>> 16))) & bs) >>> 16);
     e ^= t >>> 1;
     return (
       (e >>> 0).toString(16).padStart(8, "0") +
@@ -32451,9 +32665,9 @@ function addState(e, t, i, a, s) {
   }
   r[t.at(-1)] = { checkFn: i, iterateFn: a, processFn: s };
 }
-const Ds = [];
+const Ss = [];
 addState(
-  Ds,
+  Ss,
   [GA, UA, ze, xA],
   null,
   function iterateInlineImageGroup(e, t) {
@@ -32537,7 +32751,7 @@ addState(
       p.bitmap = e.transferToImageBitmap();
       p.data = null;
     } else {
-      p.kind = F;
+      p.kind = S;
       p.data = d;
     }
     i.splice(r, 4 * o, _e);
@@ -32546,7 +32760,7 @@ addState(
   },
 );
 addState(
-  Ds,
+  Ss,
   [GA, UA, Xe, xA],
   null,
   function iterateImageMaskGroup(e, t) {
@@ -32632,7 +32846,7 @@ addState(
   },
 );
 addState(
-  Ds,
+  Ss,
   [GA, UA, Ve, xA],
   function (e) {
     const t = e.argsArray,
@@ -32686,7 +32900,7 @@ addState(
   },
 );
 addState(
-  Ds,
+  Ss,
   [$A, se, Ie, Ce, Ae],
   null,
   function iterateShowTextGroup(e, t) {
@@ -32781,7 +32995,7 @@ class QueueOptimizer extends NullOptimizer {
       i = e.length,
       a = this.state,
       s = this.match;
-    if (!a && !s && t + 1 === i && !Ds[e[t]]) {
+    if (!a && !s && t + 1 === i && !Ss[e[t]]) {
       this.lastProcessed = i;
       return;
     }
@@ -32798,7 +33012,7 @@ class QueueOptimizer extends NullOptimizer {
         a = null;
         if (t >= i) break;
       }
-      a = (a || Ds)[e[t]];
+      a = (a || Ss)[e[t]];
       if (a && !Array.isArray(a)) {
         r.iCurr = t;
         t++;
@@ -32835,7 +33049,7 @@ class OperatorList {
     this.fnArray = [];
     this.argsArray = [];
     this.optimizer =
-      !t || e & Q ? new NullOptimizer(this) : new QueueOptimizer(this);
+      !t || e & E ? new NullOptimizer(this) : new QueueOptimizer(this);
     this.dependencies = new Set();
     this._totalLength = 0;
     this.weight = 0;
@@ -33188,7 +33402,7 @@ class PDFImage {
           inverseDecode: s,
         });
         return ImageResizer.createImage({
-          kind: F,
+          kind: S,
           data: a,
           width: t,
           height: i,
@@ -33400,30 +33614,32 @@ class PDFImage {
       o = this.bpc,
       c = (n * r * o + 7) >> 3,
       C = t && ImageResizer.needsToBeResized(i, a);
-    if ("DeviceRGBA" === this.colorSpace.name) {
-      s.kind = F;
+    if (!this.smask && !this.mask && "DeviceRGBA" === this.colorSpace.name) {
+      s.kind = S;
       const e = (s.data = await this.getImageBytes(g * n * 4, {}));
       return t
         ? C
           ? ImageResizer.createImage(s, !1)
-          : this.createBitmap(F, i, a, e)
+          : this.createBitmap(S, i, a, e)
         : s;
     }
     if (!e) {
       let e;
       "DeviceGray" === this.colorSpace.name && 1 === o
-        ? (e = D)
+        ? (e = b)
         : "DeviceRGB" !== this.colorSpace.name ||
           8 !== o ||
           this.needsDecode ||
-          (e = b);
+          (e = F);
       if (e && !this.smask && !this.mask && i === n && a === g) {
-        const r = await this.getImageBytes(g * c, {});
+        const r = await this.#N(n, g);
+        if (r) return r;
+        const o = await this.getImageBytes(g * c, {});
         if (t)
           return C
             ? ImageResizer.createImage(
                 {
-                  data: r,
+                  data: o,
                   kind: e,
                   width: i,
                   height: a,
@@ -33431,12 +33647,12 @@ class PDFImage {
                 },
                 this.needsDecode,
               )
-            : this.createBitmap(e, n, g, r);
+            : this.createBitmap(e, n, g, o);
         s.kind = e;
-        s.data = r;
+        s.data = o;
         if (this.needsDecode) {
           assert(
-            e === D,
+            e === b,
             "PDFImage.createImageData: The image must be grayscale.",
           );
           const t = s.data;
@@ -33466,12 +33682,14 @@ class PDFImage {
               t = !0;
           }
           if (t) {
-            const t = await this.getImageBytes(e, {
+            const t = await this.#N(i, a);
+            if (t) return t;
+            const s = await this.getImageBytes(e, {
               drawWidth: i,
               drawHeight: a,
               forceRGBA: !0,
             });
-            return this.createBitmap(F, i, a, t);
+            return this.createBitmap(S, i, a, s);
           }
         } else
           switch (this.colorSpace.name) {
@@ -33479,7 +33697,7 @@ class PDFImage {
               e *= 3;
             case "DeviceRGB":
             case "DeviceCMYK":
-              s.kind = b;
+              s.kind = F;
               s.data = await this.getImageBytes(e, {
                 drawWidth: i,
                 drawHeight: a,
@@ -33499,7 +33717,7 @@ class PDFImage {
       p = f.createImageData(i, a);
       m = p.data;
     }
-    s.kind = F;
+    s.kind = S;
     if (e || this.smask || this.mask) {
       (t && !C) || (m = new Uint8ClampedArray(i * a * 4));
       E = 1;
@@ -33507,7 +33725,7 @@ class PDFImage {
       await this.fillOpacity(m, i, a, l, Q);
     } else {
       if (!t || C) {
-        s.kind = b;
+        s.kind = F;
         m = new Uint8ClampedArray(i * a * 3);
         E = 0;
       } else {
@@ -33560,7 +33778,7 @@ class PDFImage {
     const s = new OffscreenCanvas(t, i),
       r = s.getContext("2d");
     let n;
-    if (e === F) n = new ImageData(a, t, i);
+    if (e === S) n = new ImageData(a, t, i);
     else {
       n = r.createImageData(t, i);
       convertToRGBA({
@@ -33580,6 +33798,18 @@ class PDFImage {
       bitmap: s.transferToImageBitmap(),
       interpolate: this.interpolate,
     };
+  }
+  async #N(e, t) {
+    const i = await this.image.getTransferableImage();
+    return i
+      ? {
+          data: null,
+          width: e,
+          height: t,
+          bitmap: i,
+          interpolate: this.interpolate,
+        }
+      : null;
   }
   async getImageBytes(
     e,
@@ -33605,21 +33835,22 @@ class PDFImage {
     return new Uint8Array(n);
   }
 }
-const bs = Object.freeze({
+const ks = Object.freeze({
     maxImageSize: -1,
     disableFontFace: !1,
     ignoreErrors: !1,
     isEvalSupported: !0,
     isOffscreenCanvasSupported: !1,
+    isChrome: !1,
     canvasMaxAreaInBytes: -1,
     fontExtraProperties: !1,
     useSystemFonts: !0,
     cMapUrl: null,
     standardFontDataUrl: null,
   }),
-  Fs = 1,
-  Ss = 2,
-  ks = Promise.resolve();
+  Rs = 1,
+  Ns = 2,
+  Gs = Promise.resolve();
 function normalizeBlendMode(e, t = !1) {
   if (Array.isArray(e)) {
     for (const t of e) {
@@ -33712,11 +33943,14 @@ class PartialEvaluator {
     this.standardFontDataCache = n;
     this.globalImageCache = g;
     this.systemFontCache = o;
-    this.options = c || bs;
+    this.options = c || ks;
     this.type3FontRefs = null;
     this._regionalImageCache = new RegionalImageCache();
     this._fetchBuiltInCMapBound = this.fetchBuiltInCMap.bind(this);
-    ImageResizer.setMaxArea(this.options.canvasMaxAreaInBytes);
+    ImageResizer.setOptions({
+      isChrome: this.options.isChrome,
+      maxArea: this.options.canvasMaxAreaInBytes,
+    });
   }
   get _pdfFunctionFactory() {
     return shadow(
@@ -33803,13 +34037,10 @@ class PartialEvaluator {
         throw new Error(
           `fetchBuiltInCMap: failed to fetch file "${t}" with "${a.statusText}".`,
         );
-      i = {
-        cMapData: new Uint8Array(await a.arrayBuffer()),
-        compressionType: mA.BINARY,
-      };
+      i = { cMapData: new Uint8Array(await a.arrayBuffer()), isCompressed: !0 };
     } else
       i = await this.handler.sendWithPromise("FetchBuiltInCMap", { name: e });
-    i.compressionType !== mA.NONE && this.builtInCMapCache.set(e, i);
+    this.builtInCMapCache.set(e, i);
     return i;
   }
   async fetchStandardFontData(e) {
@@ -33817,7 +34048,7 @@ class PartialEvaluator {
     if (t) return new Stream(t);
     if (this.options.useSystemFonts && "Symbol" !== e && "ZapfDingbats" !== e)
       return null;
-    const i = Wi()[e];
+    const i = Zi()[e];
     let a;
     if (null !== this.options.standardFontDataUrl) {
       const e = `${this.options.standardFontDataUrl}${i}`,
@@ -34179,7 +34410,7 @@ class PartialEvaluator {
     const i = t.font,
       a = i.charsToGlyphs(e);
     if (i.data) {
-      (!!(t.textRenderingMode & w) ||
+      (!!(t.textRenderingMode & D) ||
         "Pattern" === t.fillColorSpace.name ||
         i.disableFontFace ||
         this.options.disableFontFace) &&
@@ -34483,11 +34714,11 @@ class PartialEvaluator {
       if (Q) {
         const s = Q instanceof BaseStream ? Q.dict : Q,
           C = s.get("PatternType");
-        if (C === Fs) {
+        if (C === Rs) {
           const g = a.base ? a.base.getRgb(i, 0) : null;
           return this.handleTilingType(t, g, r, Q, s, e, n, o);
         }
-        if (C === Ss) {
+        if (C === Ns) {
           const i = s.get("Shading"),
             a = this.parseShading({
               shading: i,
@@ -34747,7 +34978,7 @@ class PartialEvaluator {
             e[0] = N;
             s = Ce;
             break;
-          case Be:
+          case le:
             if (!d.state.font) {
               n.ensureStateFont(d.state);
               continue;
@@ -34756,7 +34987,7 @@ class PartialEvaluator {
             e[0] = n.handleText(e[0], d.state);
             s = Ce;
             break;
-          case le:
+          case Be:
             if (!d.state.font) {
               n.ensureStateFont(d.state);
               continue;
@@ -34784,7 +35015,7 @@ class PartialEvaluator {
                   localColorSpaceCache: C,
                 })
                 .then(function (e) {
-                  e && (d.state.fillColorSpace = e);
+                  d.state.fillColorSpace = e || ColorSpace.singletons.gray;
                 }),
             );
             return;
@@ -34803,7 +35034,7 @@ class PartialEvaluator {
                   localColorSpaceCache: C,
                 })
                 .then(function (e) {
-                  e && (d.state.strokeColorSpace = e);
+                  d.state.strokeColorSpace = e || ColorSpace.singletons.gray;
                 }),
             );
             return;
@@ -34847,7 +35078,17 @@ class PartialEvaluator {
             e = ColorSpace.singletons.rgb.getRgb(e, 0);
             break;
           case ye:
-            b = d.state.fillColorSpace;
+            b = d.state.patternFillColorSpace;
+            if (!b) {
+              if (isNumberArray(e, null)) {
+                e = ColorSpace.singletons.gray.getRgb(e, 0);
+                s = Fe;
+                break;
+              }
+              e = [];
+              s = at;
+              break;
+            }
             if ("Pattern" === b.name) {
               next(n.handleColorN(a, ye, e, b, u, i, t, C, l, Q));
               return;
@@ -34856,7 +35097,17 @@ class PartialEvaluator {
             s = Fe;
             break;
           case pe:
-            b = d.state.strokeColorSpace;
+            b = d.state.patternStrokeColorSpace;
+            if (!b) {
+              if (isNumberArray(e, null)) {
+                e = ColorSpace.singletons.gray.getRgb(e, 0);
+                s = be;
+                break;
+              }
+              e = [];
+              s = it;
+              break;
+            }
             if ("Pattern" === b.name) {
               next(n.handleColorN(a, pe, e, b, u, i, t, C, l, Q));
               return;
@@ -34865,18 +35116,28 @@ class PartialEvaluator {
             s = be;
             break;
           case Re:
-            var x = i.get("Shading");
-            if (!x) throw new FormatError("No shading resource found");
-            var U = x.get(e[0].name);
-            if (!U) throw new FormatError("No shading object found");
-            const f = n.parseShading({
-              shading: U,
+            let f;
+            try {
+              const t = i.get("Shading");
+              if (!t) throw new FormatError("No shading resource found");
+              f = t.get(e[0].name);
+              if (!f) throw new FormatError("No shading object found");
+            } catch (e) {
+              if (e instanceof AbortException) continue;
+              if (n.options.ignoreErrors) {
+                warn(`getOperatorList - ignoring Shading: "${e}".`);
+                continue;
+              }
+              throw e;
+            }
+            const p = n.parseShading({
+              shading: f,
               resources: i,
               localColorSpaceCache: C,
               localShadingPatternCache: Q,
             });
-            if (!f) continue;
-            e = [f];
+            if (!p) continue;
+            e = [p];
             s = Re;
             break;
           case NA:
@@ -34970,7 +35231,7 @@ class PartialEvaluator {
         }
         a.addOp(s, e);
       }
-      if (y) next(ks);
+      if (y) next(Gs);
       else {
         closePendingRestoreOPS();
         e();
@@ -35135,13 +35396,13 @@ class PartialEvaluator {
       let t = e.str.join("");
       l ||
         (t = (function normalizeUnicode(e) {
-          if (!ot) {
-            ot =
+          if (!ct) {
+            ct =
               /([\u00a0\u00b5\u037e\u0eb3\u2000-\u200a\u202f\u2126\ufb00-\ufb04\ufb06\ufb20-\ufb36\ufb38-\ufb3c\ufb3e\ufb40-\ufb41\ufb43-\ufb44\ufb46-\ufba1\ufba4-\ufba9\ufbae-\ufbb1\ufbd3-\ufbdc\ufbde-\ufbe7\ufbea-\ufbf8\ufbfc-\ufbfd\ufc00-\ufc5d\ufc64-\ufcf1\ufcf5-\ufd3d\ufd88\ufdf4\ufdfa-\ufdfb\ufe71\ufe77\ufe79\ufe7b\ufe7d]+)|(\ufb05+)/gu;
-            It = new Map([["ﬅ", "ſt"]]);
+            Ct = new Map([["ﬅ", "ſt"]]);
           }
-          return e.replaceAll(ot, (e, t, i) =>
-            t ? t.normalize("NFKC") : It.get(i),
+          return e.replaceAll(ct, (e, t, i) =>
+            t ? t.normalize("NFKC") : Ct.get(i),
           );
         })(t));
       const i = bidi(t, -1, e.vertical);
@@ -35482,7 +35743,7 @@ class PartialEvaluator {
             }
             buildTextContentItem({ chars: f[0], extraSpacing: 0 });
             break;
-          case Be:
+          case le:
             if (!r.state.font) {
               p.ensureStateFont(r.state);
               continue;
@@ -35490,7 +35751,7 @@ class PartialEvaluator {
             S.carriageReturn();
             buildTextContentItem({ chars: f[0], extraSpacing: 0 });
             break;
-          case le:
+          case Be:
             if (!r.state.font) {
               p.ensureStateFont(r.state);
               continue;
@@ -35652,7 +35913,7 @@ class PartialEvaluator {
           break;
         }
       }
-      if (d) next(ks);
+      if (d) next(Gs);
       else {
         flushTextContentItem();
         enqueueChunk();
@@ -35724,22 +35985,22 @@ class PartialEvaluator {
         (g = null);
     }
     const o = !t.file || t.isInternalFont,
-      c = Zi()[t.name];
+      c = _i()[t.name];
     g && o && c && (g = null);
     if (g) t.defaultEncoding = getEncoding(g);
     else {
-      const e = !!(t.flags & Ti),
-        i = !!(t.flags & qi);
-      n = fi;
-      "TrueType" !== t.type || i || (n = pi);
+      const e = !!(t.flags & Oi),
+        i = !!(t.flags & Pi);
+      n = mi;
+      "TrueType" !== t.type || i || (n = yi);
       if (e || c) {
-        n = di;
+        n = pi;
         o &&
           (/Symbol/i.test(t.name)
-            ? (n = mi)
+            ? (n = wi)
             : /Dingbats/i.test(t.name)
-              ? (n = yi)
-              : /Wingdings/i.test(t.name) && (n = pi));
+              ? (n = Di)
+              : /Wingdings/i.test(t.name) && (n = yi));
       }
       t.defaultEncoding = n;
     }
@@ -35763,7 +36024,7 @@ class PartialEvaluator {
       const t = r[e];
       ".notdef" !== t && (a[e] = t);
     }
-    const n = Ni();
+    const n = xi();
     for (const r in a) {
       let g = a[r];
       if ("" === g) continue;
@@ -35887,6 +36148,7 @@ class PartialEvaluator {
             i[e] = String.fromCodePoint(t);
             return;
           }
+          t.length % 2 != 0 && (t = "\0" + t);
           const a = [];
           for (let e = 0; e < t.length; e += 2) {
             const i = (t.charCodeAt(e) << 8) | t.charCodeAt(e + 1);
@@ -36016,7 +36278,7 @@ class PartialEvaluator {
           }
         } else c = t;
     }
-    o ? (i.flags |= vi) : (i.flags &= ~vi);
+    o ? (i.flags |= Ti) : (i.flags &= ~Ti);
     i.defaultWidth = r;
     i.widths = s;
     i.defaultVMetrics = g;
@@ -36024,14 +36286,14 @@ class PartialEvaluator {
   }
   isSerifFont(e) {
     const t = e.split("-", 1)[0];
-    return t in Xi() || /serif/gi.test(t);
+    return t in zi() || /serif/gi.test(t);
   }
   getBaseFontMetrics(e) {
     let t = 0,
       i = Object.create(null),
       a = !1;
-    let s = Pi()[e] || e;
-    const r = Aa();
+    let s = Xi()[e] || e;
+    const r = ia();
     s in r || (s = this.isSerifFont(e) ? "Times-Roman" : "Helvetica");
     const n = r[s];
     if ("number" == typeof n) {
@@ -36169,9 +36431,9 @@ class PartialEvaluator {
         const a = this.getBaseFontMetrics(e),
           s = e.split("-", 1)[0],
           c =
-            (this.isSerifFont(s) ? Ki : 0) |
-            (a.monospace ? vi : 0) |
-            (Zi()[s] ? Ti : qi),
+            (this.isSerifFont(s) ? qi : 0) |
+            (a.monospace ? Ti : 0) |
+            (_i()[s] ? Oi : Pi),
           h = {
             type: r,
             name: e,
@@ -36245,10 +36507,15 @@ class PartialEvaluator {
     let u, d, f, p, m;
     try {
       u = e.get("FontFile", "FontFile2", "FontFile3");
+      if (u) {
+        if (!(u instanceof BaseStream))
+          throw new FormatError("FontFile should be a stream");
+        if (u.isEmpty) throw new FormatError("FontFile is empty");
+      }
     } catch (e) {
       if (!this.options.ignoreErrors) throw e;
       warn(`translateFont - fetching "${h.name}" font file: "${e}".`);
-      u = new NullStream();
+      u = null;
     }
     let y = !1,
       w = null,
@@ -36383,7 +36650,7 @@ class TranslatedFont {
     this.loadedName = e;
     this.font = t;
     this.dict = i;
-    this._evaluatorOptions = a || bs;
+    this._evaluatorOptions = a || ks;
     this.type3Loaded = null;
     this.type3Dependencies = t.isType3Font ? new Set() : null;
     this.sent = !1;
@@ -36599,9 +36866,23 @@ class EvalState {
   constructor() {
     this.ctm = new Float32Array(i);
     this.font = null;
-    this.textRenderingMode = y;
-    this.fillColorSpace = ColorSpace.singletons.gray;
-    this.strokeColorSpace = ColorSpace.singletons.gray;
+    this.textRenderingMode = w;
+    this._fillColorSpace = ColorSpace.singletons.gray;
+    this._strokeColorSpace = ColorSpace.singletons.gray;
+    this.patternFillColorSpace = null;
+    this.patternStrokeColorSpace = null;
+  }
+  get fillColorSpace() {
+    return this._fillColorSpace;
+  }
+  set fillColorSpace(e) {
+    this._fillColorSpace = this.patternFillColorSpace = e;
+  }
+  get strokeColorSpace() {
+    return this._strokeColorSpace;
+  }
+  set strokeColorSpace(e) {
+    this._strokeColorSpace = this.patternStrokeColorSpace = e;
   }
   clone() {
     return Object.create(this);
@@ -36658,8 +36939,8 @@ class EvaluatorPreprocessor {
         "T*": { id: ce, numArgs: 0, variableArgs: !1 },
         Tj: { id: Ce, numArgs: 1, variableArgs: !1 },
         TJ: { id: he, numArgs: 1, variableArgs: !1 },
-        "'": { id: Be, numArgs: 1, variableArgs: !1 },
-        '"': { id: le, numArgs: 3, variableArgs: !1 },
+        "'": { id: le, numArgs: 1, variableArgs: !1 },
+        '"': { id: Be, numArgs: 3, variableArgs: !1 },
         d0: { id: Qe, numArgs: 2, variableArgs: !1 },
         d1: { id: Ee, numArgs: 6, variableArgs: !1 },
         CS: { id: ue, numArgs: 1, variableArgs: !1 },
@@ -36765,7 +37046,7 @@ class EvaluatorPreprocessor {
         e.args = t;
         return !0;
       }
-      if (i === pt) return !1;
+      if (i === yt) return !1;
       if (null !== i) {
         null === t && (t = []);
         t.push(i);
@@ -36892,8 +37173,8 @@ class AppearanceStreamEvaluator extends EvaluatorPreprocessor {
             break;
           case Ce:
           case he:
-          case Be:
           case le:
+          case Be:
             i = !0;
         }
       }
@@ -37112,8 +37393,6 @@ class FakeUnicodeFont {
 }
 class NameOrNumberTree {
   constructor(e, t, i) {
-    this.constructor === NameOrNumberTree &&
-      unreachable("Cannot initialize NameOrNumberTree.");
     this.root = e;
     this.xref = t;
     this._type = i;
@@ -37146,7 +37425,7 @@ class NameOrNumberTree {
     }
     return e;
   }
-  get(e) {
+  getRaw(e) {
     if (!this.root) return null;
     const t = this.xref;
     let i = t.fetchIfRef(this.root),
@@ -37185,12 +37464,15 @@ class NameOrNumberTree {
           g = t.fetchIfRef(s[n]);
         if (e < g) a = n - 2;
         else {
-          if (!(e > g)) return t.fetchIfRef(s[n + 1]);
+          if (!(e > g)) return s[n + 1];
           i = n + 2;
         }
       }
     }
     return null;
+  }
+  get(e) {
+    return this.xref.fetchIfRef(this.getRaw(e));
   }
 }
 class NameTree extends NameOrNumberTree {
@@ -37205,15 +37487,15 @@ class NumberTree extends NameOrNumberTree {
 }
 function clearGlobalCaches() {
   !(function clearPatternCaches() {
-    ya = Object.create(null);
+    ba = Object.create(null);
   })();
   !(function clearPrimitiveCaches() {
-    mt = Object.create(null);
-    yt = Object.create(null);
     wt = Object.create(null);
+    Dt = Object.create(null);
+    bt = Object.create(null);
   })();
   !(function clearUnicodeCaches() {
-    Ji.clear();
+    vi.clear();
   })();
   JpxImage.cleanup();
 }
@@ -37233,7 +37515,7 @@ function pickPlatformItem(e) {
     : null;
 }
 class FileSpec {
-  #S = !1;
+  #G = !1;
   constructor(e, t, i = !1) {
     if (e instanceof Dict) {
       this.xref = t;
@@ -37242,7 +37524,7 @@ class FileSpec {
       e.has("RF") && warn("Related file specifications are not supported");
       i ||
         (e.has("EF")
-          ? (this.#S = !0)
+          ? (this.#G = !0)
           : warn("Non-embedded file specifications are not supported"));
     }
   }
@@ -37258,7 +37540,7 @@ class FileSpec {
     return shadow(this, "filename", e || "unnamed");
   }
   get content() {
-    if (!this.#S) return null;
+    if (!this.#G) return null;
     this._contentRef ||= pickPlatformItem(this.root?.get("EF"));
     let e = null;
     if (this._contentRef) {
@@ -37287,13 +37569,13 @@ class FileSpec {
     var e;
   }
 }
-const Rs = 0,
-  Ns = -2,
-  Gs = -3,
-  xs = -4,
-  Us = -5,
-  Ms = -6,
-  Ls = -9;
+const xs = 0,
+  Us = -2,
+  Ms = -3,
+  Ls = -4,
+  Hs = -5,
+  Js = -6,
+  Ys = -9;
 function isWhitespace(e, t) {
   const i = e[t];
   return " " === i || "\n" === i || "\r" === i || "\t" === i;
@@ -37389,7 +37671,7 @@ class XMLParserBase {
             ++i;
             t = e.indexOf(">", i);
             if (t < 0) {
-              this.onError(Ls);
+              this.onError(Ys);
               return;
             }
             this.onEndElement(e.substring(i, t));
@@ -37399,7 +37681,7 @@ class XMLParserBase {
             ++i;
             const a = this._parseProcessingInstruction(e, i);
             if ("?>" !== e.substring(i + a.parsed, i + a.parsed + 2)) {
-              this.onError(Gs);
+              this.onError(Ms);
               return;
             }
             this.onPi(a.name, a.value);
@@ -37409,7 +37691,7 @@ class XMLParserBase {
             if ("--" === e.substring(i + 1, i + 3)) {
               t = e.indexOf("--\x3e", i + 3);
               if (t < 0) {
-                this.onError(Us);
+                this.onError(Hs);
                 return;
               }
               this.onComment(e.substring(i + 3, t));
@@ -37417,14 +37699,14 @@ class XMLParserBase {
             } else if ("[CDATA[" === e.substring(i + 1, i + 8)) {
               t = e.indexOf("]]>", i + 8);
               if (t < 0) {
-                this.onError(Ns);
+                this.onError(Us);
                 return;
               }
               this.onCdata(e.substring(i + 8, t));
               i = t + 3;
             } else {
               if ("DOCTYPE" !== e.substring(i + 1, i + 8)) {
-                this.onError(Ms);
+                this.onError(Js);
                 return;
               }
               {
@@ -37432,13 +37714,13 @@ class XMLParserBase {
                 let s = !1;
                 t = e.indexOf(">", i + 8);
                 if (t < 0) {
-                  this.onError(xs);
+                  this.onError(Ls);
                   return;
                 }
                 if (a > 0 && t > a) {
                   t = e.indexOf("]>", i + 8);
                   if (t < 0) {
-                    this.onError(xs);
+                    this.onError(Ls);
                     return;
                   }
                   s = !0;
@@ -37452,13 +37734,13 @@ class XMLParserBase {
           default:
             const s = this._parseContent(e, i);
             if (null === s) {
-              this.onError(Ms);
+              this.onError(Js);
               return;
             }
             let r = !1;
             if ("/>" === e.substring(i + s.parsed, i + s.parsed + 2)) r = !0;
             else if (">" !== e.substring(i + s.parsed, i + s.parsed + 1)) {
-              this.onError(Ls);
+              this.onError(Ys);
               return;
             }
             this.onBeginElement(s.name, s.attributes, r);
@@ -37581,16 +37863,16 @@ class SimpleXMLParser extends XMLParserBase {
     super();
     this._currentFragment = null;
     this._stack = null;
-    this._errorCode = Rs;
+    this._errorCode = xs;
     this._hasAttributes = e;
     this._lowerCaseName = t;
   }
   parseFromString(e) {
     this._currentFragment = [];
     this._stack = [];
-    this._errorCode = Rs;
+    this._errorCode = xs;
     this.parseXml(e);
-    if (this._errorCode !== Rs) return;
+    if (this._errorCode !== xs) return;
     const [t] = this._currentFragment;
     return t ? { documentElement: t } : void 0;
   }
@@ -37784,7 +38066,7 @@ class ARCFourCipher {
     return this.encryptBlock(e);
   }
 }
-const Hs = (function calculateMD5Closure() {
+const vs = (function calculateMD5Closure() {
   const e = new Uint8Array([
       7, 12, 17, 22, 7, 12, 17, 22, 7, 12, 17, 22, 7, 12, 17, 22, 5, 9, 14, 20,
       5, 9, 14, 20, 5, 9, 14, 20, 5, 9, 14, 20, 4, 11, 16, 23, 4, 11, 16, 23, 4,
@@ -37955,7 +38237,7 @@ class Word64 {
     this.low = e.low;
   }
 }
-const Js = (function calculateSHA256Closure() {
+const Ks = (function calculateSHA256Closure() {
     function rotr(e, t) {
       return (e >>> t) | (e << (32 - t));
     }
@@ -38092,7 +38374,7 @@ const Js = (function calculateSHA256Closure() {
       ]);
     };
   })(),
-  Ys = (function calculateSHA512Closure() {
+  Ts = (function calculateSHA512Closure() {
     function ch(e, t, i, a, s) {
       e.assign(t);
       e.and(i);
@@ -38381,8 +38663,6 @@ class NullCipher {
 }
 class AESBaseCipher {
   constructor() {
-    this.constructor === AESBaseCipher &&
-      unreachable("Cannot initialize AESBaseCipher.");
     this._s = new Uint8Array([
       99, 124, 119, 123, 242, 107, 111, 197, 48, 1, 103, 43, 254, 215, 171, 118,
       202, 130, 201, 125, 250, 89, 71, 240, 173, 212, 162, 175, 156, 164, 114,
@@ -38797,33 +39077,33 @@ class PDF17 {
     s.set(e, 0);
     s.set(t, e.length);
     s.set(i, e.length + t.length);
-    return isArrayEqual(Js(s, 0, s.length), a);
+    return isArrayEqual(Ks(s, 0, s.length), a);
   }
   checkUserPassword(e, t, i) {
     const a = new Uint8Array(e.length + 8);
     a.set(e, 0);
     a.set(t, e.length);
-    return isArrayEqual(Js(a, 0, a.length), i);
+    return isArrayEqual(Ks(a, 0, a.length), i);
   }
   getOwnerKey(e, t, i, a) {
     const s = new Uint8Array(e.length + 56);
     s.set(e, 0);
     s.set(t, e.length);
     s.set(i, e.length + t.length);
-    const r = Js(s, 0, s.length);
+    const r = Ks(s, 0, s.length);
     return new AES256Cipher(r).decryptBlock(a, !1, new Uint8Array(16));
   }
   getUserKey(e, t, i) {
     const a = new Uint8Array(e.length + 8);
     a.set(e, 0);
     a.set(t, e.length);
-    const s = Js(a, 0, a.length);
+    const s = Ks(a, 0, a.length);
     return new AES256Cipher(s).decryptBlock(i, !1, new Uint8Array(16));
   }
 }
 class PDF20 {
   _hash(e, t, i) {
-    let a = Js(t, 0, t.length).subarray(0, 32),
+    let a = Ks(t, 0, t.length).subarray(0, 32),
       s = [0],
       r = 0;
     for (; r < 64 || s.at(-1) > r - 32; ) {
@@ -38840,10 +39120,10 @@ class PDF20 {
       s = new AES128Cipher(a.subarray(0, 16)).encrypt(h, a.subarray(16, 32));
       const l = s.slice(0, 16).reduce((e, t) => e + t, 0) % 3;
       0 === l
-        ? (a = Js(s, 0, s.length))
+        ? (a = Ks(s, 0, s.length))
         : 1 === l
-          ? (a = ((n = s), (g = 0), (o = s.length), Ys(n, g, o, !0)))
-          : 2 === l && (a = Ys(s, 0, s.length));
+          ? (a = ((n = s), (g = 0), (o = s.length), Ts(n, g, o, !0)))
+          : 2 === l && (a = Ts(s, 0, s.length));
       r++;
     }
     var n, g, o;
@@ -38916,11 +39196,11 @@ class CipherTransform {
   }
 }
 class CipherTransformFactory {
-  static #k = new Uint8Array([
+  static #x = new Uint8Array([
     40, 191, 78, 94, 78, 117, 138, 65, 100, 0, 78, 86, 255, 250, 1, 8, 46, 46,
     0, 182, 208, 104, 62, 128, 47, 12, 169, 254, 100, 83, 105, 122,
   ]);
-  #R(e, t, i, a, s, r, n, g, o, c, C, h) {
+  #U(e, t, i, a, s, r, n, g, o, c, C, h) {
     if (t) {
       const e = Math.min(127, t.length);
       t = t.subarray(0, e);
@@ -38932,7 +39212,7 @@ class CipherTransformFactory {
         ? l.getOwnerKey(t, s, r, c)
         : null;
   }
-  #N(e, t, i, a, s, r, n, g) {
+  #M(e, t, i, a, s, r, n, g) {
     const o = 40 + i.length + e.length,
       c = new Uint8Array(o);
     let C,
@@ -38943,7 +39223,7 @@ class CipherTransformFactory {
       for (; l < h; ++l) c[l] = t[l];
     }
     C = 0;
-    for (; l < 32; ) c[l++] = CipherTransformFactory.#k[C++];
+    for (; l < 32; ) c[l++] = CipherTransformFactory.#x[C++];
     for (C = 0, h = i.length; C < h; ++C) c[l++] = i[C];
     c[l++] = 255 & s;
     c[l++] = (s >> 8) & 255;
@@ -38956,16 +39236,16 @@ class CipherTransformFactory {
       c[l++] = 255;
       c[l++] = 255;
     }
-    let Q = Hs(c, 0, l);
+    let Q = vs(c, 0, l);
     const E = n >> 3;
-    if (r >= 3) for (C = 0; C < 50; ++C) Q = Hs(Q, 0, E);
+    if (r >= 3) for (C = 0; C < 50; ++C) Q = vs(Q, 0, E);
     const u = Q.subarray(0, E);
     let d, f;
     if (r >= 3) {
-      for (l = 0; l < 32; ++l) c[l] = CipherTransformFactory.#k[l];
+      for (l = 0; l < 32; ++l) c[l] = CipherTransformFactory.#x[l];
       for (C = 0, h = e.length; C < h; ++C) c[l++] = e[C];
       d = new ARCFourCipher(u);
-      f = d.encryptBlock(Hs(c, 0, l));
+      f = d.encryptBlock(vs(c, 0, l));
       h = u.length;
       const t = new Uint8Array(h);
       for (C = 1; C <= 19; ++C) {
@@ -38976,21 +39256,21 @@ class CipherTransformFactory {
       for (C = 0, h = f.length; C < h; ++C) if (a[C] !== f[C]) return null;
     } else {
       d = new ARCFourCipher(u);
-      f = d.encryptBlock(CipherTransformFactory.#k);
+      f = d.encryptBlock(CipherTransformFactory.#x);
       for (C = 0, h = f.length; C < h; ++C) if (a[C] !== f[C]) return null;
     }
     return u;
   }
-  #G(e, t, i, a) {
+  #L(e, t, i, a) {
     const s = new Uint8Array(32);
     let r = 0;
     const n = Math.min(32, e.length);
     for (; r < n; ++r) s[r] = e[r];
     let g = 0;
-    for (; r < 32; ) s[r++] = CipherTransformFactory.#k[g++];
-    let o = Hs(s, 0, r);
+    for (; r < 32; ) s[r++] = CipherTransformFactory.#x[g++];
+    let o = vs(s, 0, r);
     const c = a >> 3;
-    if (i >= 3) for (g = 0; g < 50; ++g) o = Hs(o, 0, o.length);
+    if (i >= 3) for (g = 0; g < 50; ++g) o = vs(o, 0, o.length);
     let C, h;
     if (i >= 3) {
       h = t;
@@ -39006,7 +39286,7 @@ class CipherTransformFactory {
     }
     return h;
   }
-  #x(e, t, i, a = !1) {
+  #H(e, t, i, a = !1) {
     const s = new Uint8Array(i.length + 9),
       r = i.length;
     let n;
@@ -39022,9 +39302,9 @@ class CipherTransformFactory {
       s[n++] = 108;
       s[n++] = 84;
     }
-    return Hs(s, 0, n).subarray(0, Math.min(i.length + 5, 16));
+    return vs(s, 0, n).subarray(0, Math.min(i.length + 5, 16));
   }
-  #U(e, t, i, a, s) {
+  #J(e, t, i, a, s) {
     if (!(t instanceof Name))
       throw new FormatError("Invalid crypt filter name.");
     const r = this,
@@ -39036,11 +39316,11 @@ class CipherTransformFactory {
       };
     if ("V2" === g.name)
       return function () {
-        return new ARCFourCipher(r.#x(i, a, s, !1));
+        return new ARCFourCipher(r.#H(i, a, s, !1));
       };
     if ("AESV2" === g.name)
       return function () {
-        return new AES128Cipher(r.#x(i, a, s, !0));
+        return new AES128Cipher(r.#H(i, a, s, !0));
       };
     if ("AESV3" === g.name)
       return function () {
@@ -39094,7 +39374,7 @@ class CipherTransformFactory {
         }
       E = stringToBytes(i);
     }
-    if (5 !== s) u = this.#N(Q, E, o, c, C, h, r, l);
+    if (5 !== s) u = this.#M(Q, E, o, c, C, h, r, l);
     else {
       const t = n.subarray(32, 40),
         i = n.subarray(40, 48),
@@ -39104,14 +39384,14 @@ class CipherTransformFactory {
         C = stringToBytes(e.get("OE")),
         l = stringToBytes(e.get("UE")),
         Q = stringToBytes(e.get("Perms"));
-      u = this.#R(h, E, o, t, i, a, c, s, r, C, l, Q);
+      u = this.#U(h, E, o, t, i, a, c, s, r, C, l, Q);
     }
-    if (!u && !i) throw new PasswordException("No password given", it);
+    if (!u && !i) throw new PasswordException("No password given", st);
     if (!u && i) {
-      const e = this.#G(E, o, h, r);
-      u = this.#N(Q, e, o, c, C, h, r, l);
+      const e = this.#L(E, o, h, r);
+      u = this.#M(Q, e, o, c, C, h, r, l);
     }
-    if (!u) throw new PasswordException("Incorrect Password", at);
+    if (!u) throw new PasswordException("Incorrect Password", rt);
     this.encryptionKey = u;
     if (s >= 4) {
       const t = e.get("CF");
@@ -39125,10 +39405,10 @@ class CipherTransformFactory {
   createCipherTransform(e, t) {
     if (4 === this.algorithm || 5 === this.algorithm)
       return new CipherTransform(
-        this.#U(this.cf, this.strf, e, t, this.encryptionKey),
-        this.#U(this.cf, this.stmf, e, t, this.encryptionKey),
+        this.#J(this.cf, this.strf, e, t, this.encryptionKey),
+        this.#J(this.cf, this.stmf, e, t, this.encryptionKey),
       );
-    const i = this.#x(e, t, this.encryptionKey, !1),
+    const i = this.#H(e, t, this.encryptionKey, !1),
       cipherConstructor = function () {
         return new ARCFourCipher(i);
       };
@@ -39169,8 +39449,13 @@ async function writeStream(e, t, i) {
     try {
       const e = new CompressionStream("deflate"),
         t = e.writable.getWriter();
-      t.write(a);
-      t.close();
+      await t.ready;
+      t.write(a)
+        .then(async () => {
+          await t.ready;
+          await t.close();
+        })
+        .catch(() => {});
       const i = await new Response(e.readable).arrayBuffer();
       a = new Uint8Array(i);
       let o, c;
@@ -39289,7 +39574,7 @@ function computeIDs(e, t, i) {
         writeString(e, g, n);
         g += e.length;
       }
-      return bytesToString(Hs(n));
+      return bytesToString(vs(n));
     })(e, t);
     i.set("ID", [t.fileIds[0], a]);
   }
@@ -39436,11 +39721,11 @@ async function incrementalUpdate({
   }
   return f;
 }
-const vs = 1,
-  Ks = 2,
-  Ts = 3,
-  qs = 4,
-  Os = 5;
+const qs = 1,
+  Os = 2,
+  Ws = 3,
+  js = 4,
+  Xs = 5;
 class StructTreeRoot {
   constructor(e, t) {
     this.dict = e;
@@ -39451,7 +39736,7 @@ class StructTreeRoot {
   init() {
     this.readRoleMap();
   }
-  #M(e, t, i) {
+  #Y(e, t, i) {
     if (!(e instanceof Ref) || t < 0) return;
     this.structParentIds ||= new RefSetCache();
     let a = this.structParentIds.get(e);
@@ -39462,7 +39747,7 @@ class StructTreeRoot {
     a.push([t, i]);
   }
   addAnnotationIdToPage(e, t) {
-    this.#M(e, t, qs);
+    this.#Y(e, t, js);
   }
   readRoleMap() {
     const e = this.dict.get("RoleMap");
@@ -39523,13 +39808,15 @@ class StructTreeRoot {
     const h = new Dict(t),
       l = [];
     h.set("Nums", l);
-    const Q = await this.#L({
+    const Q = await this.#v({
       newAnnotationsByPage: e,
       structTreeRootRef: g,
+      structTreeRoot: null,
       kids: C,
       nums: l,
       xref: t,
       pdfManager: a,
+      newRefs: s,
       cache: n,
     });
     o.set("ParentTreeNextKey", Q);
@@ -39578,7 +39865,7 @@ class StructTreeRoot {
     let g = !0;
     for (const [t, s] of i) {
       const { pageDict: i } = await e.getPage(t);
-      StructTreeRoot.#H({
+      StructTreeRoot.#K({
         elements: s,
         xref: this.dict.xref,
         pageDict: i,
@@ -39586,7 +39873,7 @@ class StructTreeRoot {
       });
       for (const e of s)
         if (e.accessibilityData?.type) {
-          e.parentTreeId = a++;
+          e.accessibilityData.structParent >= 0 || (e.parentTreeId = a++);
           g = !1;
         }
     }
@@ -39628,15 +39915,18 @@ class StructTreeRoot {
     }
     c = c.slice();
     C || g.set("Nums", c);
-    const h = await StructTreeRoot.#L({
+    const h = await StructTreeRoot.#v({
       newAnnotationsByPage: e,
       structTreeRootRef: r,
+      structTreeRoot: this,
       kids: null,
       nums: c,
       xref: a,
       pdfManager: t,
+      newRefs: i,
       cache: n,
     });
+    if (-1 === h) return;
     s.set("ParentTreeNextKey", h);
     C && n.put(C, c);
     const l = [];
@@ -39646,65 +39936,85 @@ class StructTreeRoot {
       i.push({ ref: e, data: l.join("") });
     }
   }
-  static async #L({
+  static async #v({
     newAnnotationsByPage: e,
     structTreeRootRef: t,
-    kids: i,
-    nums: a,
-    xref: s,
-    pdfManager: r,
-    cache: n,
+    structTreeRoot: i,
+    kids: a,
+    nums: s,
+    xref: r,
+    pdfManager: n,
+    newRefs: g,
+    cache: o,
   }) {
-    const g = Name.get("OBJR");
-    let o = -1 / 0;
-    for (const [c, C] of e) {
-      const { ref: e } = await r.getPage(c),
-        h = e instanceof Ref;
+    const c = Name.get("OBJR");
+    let C,
+      h = -1;
+    const l = [];
+    for (const [Q, E] of e) {
+      const e = await n.getPage(Q),
+        { ref: u } = e,
+        d = u instanceof Ref;
       for (const {
-        accessibilityData: r,
-        ref: c,
-        parentTreeId: l,
-        structTreeParent: Q,
-      } of C) {
-        if (!r?.type) continue;
-        const {
-          type: C,
-          title: E,
-          lang: u,
-          alt: d,
-          expanded: f,
-          actualText: p,
-        } = r;
-        o = Math.max(o, l);
-        const m = s.getNewTemporaryRef(),
-          y = new Dict(s);
-        y.set("S", Name.get(C));
-        E && y.set("T", E);
-        u && y.set("Lang", u);
-        d && y.set("Alt", d);
-        f && y.set("E", f);
-        p && y.set("ActualText", p);
-        await this.#J({
-          structTreeParent: Q,
-          tagDict: y,
-          newTagRef: m,
+        accessibilityData: n,
+        ref: f,
+        parentTreeId: p,
+        structTreeParent: m,
+      } of E) {
+        if (!n?.type) continue;
+        const { structParent: E } = n;
+        if (i && Number.isInteger(E) && E >= 0) {
+          let t = (C ||= new Map()).get(Q);
+          if (void 0 === t) {
+            t = new StructTreePage(i, e.pageDict).collectObjects(u);
+            C.set(Q, t);
+          }
+          const a = t?.get(E);
+          if (a) {
+            const e = r.fetch(a).clone();
+            StructTreeRoot.#T(e, n);
+            l.length = 0;
+            await writeObject(a, e, l, r);
+            g.push({ ref: a, data: l.join("") });
+            continue;
+          }
+        }
+        h = Math.max(h, p);
+        const y = r.getNewTemporaryRef(),
+          w = new Dict(r);
+        StructTreeRoot.#T(w, n);
+        await this.#q({
+          structTreeParent: m,
+          tagDict: w,
+          newTagRef: y,
           structTreeRootRef: t,
-          fallbackKids: i,
-          xref: s,
-          cache: n,
+          fallbackKids: a,
+          xref: r,
+          cache: o,
         });
-        const w = new Dict(s);
-        y.set("K", w);
-        w.set("Type", g);
-        h && w.set("Pg", e);
-        w.set("Obj", c);
-        n.put(m, y);
-        a.push(l, m);
+        const D = new Dict(r);
+        w.set("K", D);
+        D.set("Type", c);
+        d && D.set("Pg", u);
+        D.set("Obj", f);
+        o.put(y, w);
+        s.push(p, y);
       }
     }
-    return o + 1;
+    return h + 1;
   }
-  static #H({ elements: e, xref: t, pageDict: i, numberTree: a }) {
+  static #T(
+    e,
+    { type: t, title: i, lang: a, alt: s, expanded: r, actualText: n },
+  ) {
+    e.set("S", Name.get(t));
+    i && e.set("T", stringToAsciiOrUTF16BE(i));
+    a && e.set("Lang", stringToAsciiOrUTF16BE(a));
+    s && e.set("Alt", stringToAsciiOrUTF16BE(s));
+    r && e.set("E", stringToAsciiOrUTF16BE(r));
+    n && e.set("ActualText", stringToAsciiOrUTF16BE(n));
+  }
+  static #K({ elements: e, xref: t, pageDict: i, numberTree: a }) {
     const s = new Map();
     for (const t of e)
       if (t.structTreeParentId) {
@@ -39748,7 +40058,7 @@ class StructTreeRoot {
         }
     }
   }
-  static async #J({
+  static async #q({
     structTreeParent: e,
     tagDict: t,
     newTagRef: i,
@@ -39819,7 +40129,7 @@ class StructElementNode {
     if (Number.isInteger(t))
       return this.tree.pageDict.objId !== e
         ? null
-        : new StructElement({ type: vs, mcid: t, pageObjId: e });
+        : new StructElement({ type: qs, mcid: t, pageObjId: e });
     let i = null;
     t instanceof Ref
       ? (i = this.dict.xref.fetch(t))
@@ -39832,7 +40142,7 @@ class StructElementNode {
       if (this.tree.pageDict.objId !== e) return null;
       const t = i.getRaw("Stm");
       return new StructElement({
-        type: Ks,
+        type: Os,
         refObjId: t instanceof Ref ? t.toString() : null,
         pageObjId: e,
         mcid: i.get("MCID"),
@@ -39842,12 +40152,12 @@ class StructElementNode {
       if (this.tree.pageDict.objId !== e) return null;
       const t = i.getRaw("Obj");
       return new StructElement({
-        type: Ts,
+        type: Ws,
         refObjId: t instanceof Ref ? t.toString() : null,
         pageObjId: e,
       });
     }
-    return new StructElement({ type: Os, dict: i });
+    return new StructElement({ type: Xs, dict: i });
   }
 }
 class StructElement {
@@ -39873,12 +40183,26 @@ class StructTreePage {
     this.pageDict = t;
     this.nodes = [];
   }
+  collectObjects(e) {
+    if (!(this.root && this.rootDict && e instanceof Ref)) return null;
+    const t = this.rootDict.get("ParentTree");
+    if (!t) return null;
+    const i = this.root.structParentIds?.get(e);
+    if (!i) return null;
+    const a = new Map(),
+      s = new NumberTree(t, this.rootDict.xref);
+    for (const [e] of i) {
+      const t = s.getRaw(e);
+      t instanceof Ref && a.set(e, t);
+    }
+    return a;
+  }
   parse(e) {
-    if (!this.root || !this.rootDict) return;
+    if (!(this.root && this.rootDict && e instanceof Ref)) return;
     const t = this.rootDict.get("ParentTree");
     if (!t) return;
     const i = this.pageDict.get("StructParents"),
-      a = e instanceof Ref && this.root.structParentIds?.get(e);
+      a = this.root.structParentIds?.get(e);
     if (!Number.isInteger(i) && !a) return;
     const s = new Map(),
       r = new NumberTree(t, this.rootDict.xref);
@@ -39894,7 +40218,7 @@ class StructTreePage {
         if (i) {
           const e = this.addNode(this.rootDict.xref.fetchIfRef(i), s);
           1 === e?.kids?.length &&
-            e.kids[0].type === Ts &&
+            e.kids[0].type === Ws &&
             (e.kids[0].type = t);
         }
       }
@@ -39904,6 +40228,7 @@ class StructTreePage {
       warn("StructTree MAX_DEPTH reached.");
       return null;
     }
+    if (!(e instanceof Dict)) return null;
     if (t.has(e)) return t.get(e);
     const a = new StructElementNode(this, e);
     t.set(e, a);
@@ -39916,7 +40241,7 @@ class StructTreePage {
     if (!r) return a;
     let n = !1;
     for (const t of r.kids)
-      if (t.type === Os && t.dict === e) {
+      if (t.type === Xs && t.dict === e) {
         t.parentNode = a;
         n = !0;
       }
@@ -39952,22 +40277,37 @@ class StructTreePage {
       a.role = e.role;
       a.children = [];
       t.children.push(a);
-      const s = e.dict.get("Alt");
+      let s = e.dict.get("Alt");
+      "string" != typeof s && (s = e.dict.get("ActualText"));
       "string" == typeof s && (a.alt = stringToPDFString(s));
-      const r = e.dict.get("Lang");
-      "string" == typeof r && (a.lang = stringToPDFString(r));
+      const r = e.dict.get("A");
+      if (r instanceof Dict) {
+        const e = lookupNormalRect(r.getArray("BBox"), null);
+        if (e) a.bbox = e;
+        else {
+          const e = r.get("Width"),
+            t = r.get("Height");
+          "number" == typeof e &&
+            e > 0 &&
+            "number" == typeof t &&
+            t > 0 &&
+            (a.bbox = [0, 0, e, t]);
+        }
+      }
+      const n = e.dict.get("Lang");
+      "string" == typeof n && (a.lang = stringToPDFString(n));
       for (const t of e.kids) {
-        const e = t.type === Os ? t.parentNode : null;
+        const e = t.type === Xs ? t.parentNode : null;
         e
           ? nodeToSerializable(e, a, i + 1)
-          : t.type === vs || t.type === Ks
+          : t.type === qs || t.type === Os
             ? a.children.push({
                 type: "content",
                 id: `p${t.pageObjId}_mc${t.mcid}`,
               })
-            : t.type === Ts
+            : t.type === Ws
               ? a.children.push({ type: "object", id: t.refObjId })
-              : t.type === qs &&
+              : t.type === js &&
                 a.children.push({
                   type: "annotation",
                   id: `pdfjs_internal_id_${t.refObjId}`,
@@ -39986,29 +40326,30 @@ function isValidExplicitDest(e) {
   const [t, i, ...a] = e;
   if (!(t instanceof Ref || Number.isInteger(t))) return !1;
   if (!(i instanceof Name)) return !1;
-  let s = !0;
+  const s = a.length;
+  let r = !0;
   switch (i.name) {
     case "XYZ":
-      if (3 !== a.length) return !1;
+      if (s < 2 || s > 3) return !1;
       break;
     case "Fit":
     case "FitB":
-      return 0 === a.length;
+      return 0 === s;
     case "FitH":
     case "FitBH":
     case "FitV":
     case "FitBV":
-      if (1 !== a.length) return !1;
+      if (s > 1) return !1;
       break;
     case "FitR":
-      if (4 !== a.length) return !1;
-      s = !1;
+      if (4 !== s) return !1;
+      r = !1;
       break;
     default:
       return !1;
   }
   for (const e of a)
-    if (!("number" == typeof e || (s && null === e))) return !1;
+    if (!("number" == typeof e || (r && null === e))) return !1;
   return !0;
 }
 function fetchDest(e) {
@@ -40039,6 +40380,7 @@ class Catalog {
     this.globalImageCache = new GlobalImageCache();
     this.pageKidsCountCache = new RefSetCache();
     this.pageIndexCache = new RefSetCache();
+    this.pageDictCache = new RefSetCache();
     this.nonBlendModesSet = new RefSet();
     this.systemFontCache = new Map();
   }
@@ -40048,7 +40390,7 @@ class Catalog {
   get version() {
     const e = this._catDict.get("Version");
     if (e instanceof Name) {
-      if (bt.test(e.name)) return shadow(this, "version", e.name);
+      if (St.test(e.name)) return shadow(this, "version", e.name);
       warn(`Invalid PDF catalog version: ${e.name}`);
     }
     return shadow(this, "version", null);
@@ -40242,8 +40584,8 @@ class Catalog {
     if ("number" != typeof t) return null;
     t += 2 ** 32;
     const i = [];
-    for (const e in m) {
-      const a = m[e];
+    for (const e in y) {
+      const a = y[e];
       t & a && i.push(a);
     }
     return i;
@@ -40257,28 +40599,23 @@ class Catalog {
       if (!i) return shadow(this, "optionalContentConfig", null);
       const a = t.get("OCGs");
       if (!Array.isArray(a)) return shadow(this, "optionalContentConfig", null);
-      const s = [],
-        r = new RefSet();
-      for (const e of a)
-        if (e instanceof Ref && !r.has(e)) {
-          r.put(e);
-          s.push(this.#Y(e));
-        }
-      e = this.#v(i, r);
-      e.groups = s;
+      const s = new RefSetCache();
+      for (const e of a) e instanceof Ref && !s.has(e) && s.put(e, this.#O(e));
+      e = this.#P(i, s);
     } catch (e) {
       if (e instanceof MissingDataException) throw e;
       warn(`Unable to read optional content config: ${e}`);
     }
     return shadow(this, "optionalContentConfig", e);
   }
-  #Y(e) {
+  #O(e) {
     const t = this.xref.fetch(e),
       i = {
         id: e.toString(),
         name: null,
         intent: null,
         usage: { print: null, view: null },
+        rbGroups: [],
       },
       a = t.get("Name");
     "string" == typeof a && (i.name = stringToPDFString(a));
@@ -40310,7 +40647,7 @@ class Catalog {
     }
     return i;
   }
-  #v(e, t) {
+  #P(e, t) {
     function parseOnOff(e) {
       const i = [];
       if (Array.isArray(e))
@@ -40331,7 +40668,7 @@ class Catalog {
       }
       if (i > 0) return s;
       const r = [];
-      for (const e of t) a.has(e) || r.push(e.toString());
+      for (const [e] of t.items()) a.has(e) || r.push(e.toString());
       r.length && s.push({ name: null, order: r });
       return s;
     }
@@ -40350,6 +40687,19 @@ class Catalog {
     const i = this.xref,
       a = new RefSet(),
       s = 10;
+    !(function parseRBGroups(e) {
+      if (Array.isArray(e))
+        for (const a of e) {
+          const e = i.fetchIfRef(a);
+          if (!Array.isArray(e) || !e.length) continue;
+          const s = new Set();
+          for (const i of e)
+            if (i instanceof Ref && t.has(i) && !s.has(i.toString())) {
+              s.add(i.toString());
+              t.get(i).rbGroups.push(s);
+            }
+        }
+    })(e.get("RBGroups"));
     return {
       name:
         "string" == typeof e.get("Name")
@@ -40364,7 +40714,7 @@ class Catalog {
       on: parseOnOff(e.get("ON")),
       off: parseOnOff(e.get("OFF")),
       order: parseOrder(e.get("Order")),
-      groups: null,
+      groups: [...t],
     };
   }
   setActualNumPages(e = null) {
@@ -40694,7 +41044,7 @@ class Catalog {
   }
   get jsActions() {
     const e = this._collectJavaScript();
-    let t = collectActions(this.xref, this._catDict, dA);
+    let t = collectActions(this.xref, this._catDict, fA);
     if (e) {
       t ||= Object.create(null);
       for (const [i, a] of e) i in t ? t[i].push(a) : (t[i] = [a]);
@@ -40714,6 +41064,7 @@ class Catalog {
     this.globalImageCache.clear(e);
     this.pageKidsCountCache.clear();
     this.pageIndexCache.clear();
+    this.pageDictCache.clear();
     this.nonBlendModesSet.clear();
     const t = await Promise.all(this.fontCache);
     for (const { dict: e } of t) delete e.cacheKey;
@@ -40729,61 +41080,69 @@ class Catalog {
     a instanceof Ref && i.put(a);
     const s = this.xref,
       r = this.pageKidsCountCache,
-      n = this.pageIndexCache;
-    let g = 0;
+      n = this.pageIndexCache,
+      g = this.pageDictCache;
+    let o = 0;
     for (; t.length; ) {
       const a = t.pop();
       if (a instanceof Ref) {
-        const o = r.get(a);
-        if (o >= 0 && g + o <= e) {
-          g += o;
+        const c = r.get(a);
+        if (c >= 0 && o + c <= e) {
+          o += c;
           continue;
         }
         if (i.has(a))
           throw new FormatError("Pages tree contains circular reference.");
         i.put(a);
-        const c = await s.fetchAsync(a);
-        if (c instanceof Dict) {
-          let t = c.getRaw("Type");
+        const C = await (g.get(a) || s.fetchAsync(a));
+        if (C instanceof Dict) {
+          let t = C.getRaw("Type");
           t instanceof Ref && (t = await s.fetchAsync(t));
-          if (isName(t, "Page") || !c.has("Kids")) {
+          if (isName(t, "Page") || !C.has("Kids")) {
             r.has(a) || r.put(a, 1);
-            n.has(a) || n.put(a, g);
-            if (g === e) return [c, a];
-            g++;
+            n.has(a) || n.put(a, o);
+            if (o === e) return [C, a];
+            o++;
             continue;
           }
         }
-        t.push(c);
+        t.push(C);
         continue;
       }
       if (!(a instanceof Dict))
         throw new FormatError(
           "Page dictionary kid reference points to wrong type of object.",
         );
-      const { objId: o } = a;
-      let c = a.getRaw("Count");
-      c instanceof Ref && (c = await s.fetchAsync(c));
-      if (Number.isInteger(c) && c >= 0) {
-        o && !r.has(o) && r.put(o, c);
-        if (g + c <= e) {
-          g += c;
+      const { objId: c } = a;
+      let C = a.getRaw("Count");
+      C instanceof Ref && (C = await s.fetchAsync(C));
+      if (Number.isInteger(C) && C >= 0) {
+        c && !r.has(c) && r.put(c, C);
+        if (o + C <= e) {
+          o += C;
           continue;
         }
       }
-      let C = a.getRaw("Kids");
-      C instanceof Ref && (C = await s.fetchAsync(C));
-      if (!Array.isArray(C)) {
+      let h = a.getRaw("Kids");
+      h instanceof Ref && (h = await s.fetchAsync(h));
+      if (!Array.isArray(h)) {
         let t = a.getRaw("Type");
         t instanceof Ref && (t = await s.fetchAsync(t));
         if (isName(t, "Page") || !a.has("Kids")) {
-          if (g === e) return [a, null];
-          g++;
+          if (o === e) return [a, null];
+          o++;
           continue;
         }
         throw new FormatError("Page dictionary kids object is not an array.");
       }
-      for (let e = C.length - 1; e >= 0; e--) t.push(C[e]);
+      for (let e = h.length - 1; e >= 0; e--) {
+        const i = h[e];
+        t.push(i);
+        a === this.toplevelPagesDict &&
+          i instanceof Ref &&
+          !g.has(i) &&
+          g.put(i, s.fetchAsync(i));
+      }
     }
     throw new Error(`Page index ${e} not found.`);
   }
@@ -41153,22 +41512,19 @@ class ObjectLoader {
     this.refSet = null;
   }
 }
-const Ws = Symbol(),
-  js = Symbol(),
-  Xs = Symbol(),
-  Zs = Symbol(),
+const Zs = Symbol(),
   Vs = Symbol(),
   zs = Symbol(),
   _s = Symbol(),
   $s = Symbol(),
   Ar = Symbol(),
-  er = Symbol("content"),
-  tr = Symbol("data"),
+  er = Symbol(),
+  tr = Symbol(),
   ir = Symbol(),
-  ar = Symbol("extra"),
-  sr = Symbol(),
+  ar = Symbol("content"),
+  sr = Symbol("data"),
   rr = Symbol(),
-  nr = Symbol(),
+  nr = Symbol("extra"),
   gr = Symbol(),
   or = Symbol(),
   Ir = Symbol(),
@@ -41198,20 +41554,20 @@ const Ws = Symbol(),
   Mr = Symbol(),
   Lr = Symbol(),
   Hr = Symbol(),
-  Jr = Symbol("namespaceId"),
-  Yr = Symbol("nodeName"),
+  Jr = Symbol(),
+  Yr = Symbol(),
   vr = Symbol(),
-  Kr = Symbol(),
-  Tr = Symbol(),
+  Kr = Symbol("namespaceId"),
+  Tr = Symbol("nodeName"),
   qr = Symbol(),
   Or = Symbol(),
   Pr = Symbol(),
   Wr = Symbol(),
   jr = Symbol(),
-  Xr = Symbol("root"),
+  Xr = Symbol(),
   Zr = Symbol(),
   Vr = Symbol(),
-  zr = Symbol(),
+  zr = Symbol("root"),
   _r = Symbol(),
   $r = Symbol(),
   An = Symbol(),
@@ -41220,9 +41576,12 @@ const Ws = Symbol(),
   an = Symbol(),
   sn = Symbol(),
   rn = Symbol(),
-  nn = Symbol("uid"),
+  nn = Symbol(),
   gn = Symbol(),
-  on = {
+  on = Symbol(),
+  In = Symbol("uid"),
+  cn = Symbol(),
+  Cn = {
     config: {
       id: 0,
       check: (e) => e.startsWith("http://www.xfa.org/schema/xci/"),
@@ -41270,14 +41629,14 @@ const Ws = Symbol(),
     xhtml: { id: 13, check: (e) => "http://www.w3.org/1999/xhtml" === e },
     xmpmeta: { id: 14, check: (e) => "http://ns.adobe.com/xmpmeta/" === e },
   },
-  In = {
+  hn = {
     pt: (e) => e,
     cm: (e) => (e / 2.54) * 72,
     mm: (e) => (e / 25.4) * 72,
     in: (e) => 72 * e,
     px: (e) => e,
   },
-  cn = /([+-]?\d+\.?\d*)(.*)/;
+  ln = /([+-]?\d+\.?\d*)(.*)/;
 function stripQuotes(e) {
   return e.startsWith("'") || e.startsWith('"') ? e.slice(1, -1) : e;
 }
@@ -41306,13 +41665,13 @@ function getStringOption(e, t) {
 function getMeasurement(e, t = "0") {
   t ||= "0";
   if (!e) return getMeasurement(t);
-  const i = e.trim().match(cn);
+  const i = e.trim().match(ln);
   if (!i) return getMeasurement(t);
   const [, a, s] = i,
     r = parseFloat(a);
   if (isNaN(r)) return getMeasurement(t);
   if (0 === r) return 0;
-  const n = In[s];
+  const n = hn[s];
   return n ? n(r) : r;
 }
 function getRatio(e) {
@@ -41635,12 +41994,12 @@ class TextMeasure {
     return { width: 1.02 * a, height: s, isBroken: g };
   }
 }
-const Cn = /^[^.[]+/,
-  hn = /^[^\]]+/,
-  Bn = { dot: 0, dotDot: 1, dotHash: 2, dotBracket: 3, dotParen: 4 },
-  ln = new Map([
+const Bn = /^[^.[]+/,
+  Qn = /^[^\]]+/,
+  En = { dot: 0, dotDot: 1, dotHash: 2, dotBracket: 3, dotParen: 4 },
+  un = new Map([
     ["$data", (e, t) => (e.datasets ? e.datasets.data : e)],
-    ["$record", (e, t) => (e.datasets ? e.datasets.data : e)[Er]()[0]],
+    ["$record", (e, t) => (e.datasets ? e.datasets.data : e)[fr]()[0]],
     ["$template", (e, t) => e.template],
     ["$connectionSet", (e, t) => e.connectionSet],
     ["$form", (e, t) => e.form],
@@ -41653,9 +42012,9 @@ const Cn = /^[^.[]+/,
     ["xfa", (e, t) => e],
     ["$", (e, t) => t],
   ]),
-  Qn = new WeakMap();
+  dn = new WeakMap();
 function parseExpression(e, t, i = !0) {
-  let a = e.match(Cn);
+  let a = e.match(Bn);
   if (!a) return null;
   let [s] = a;
   const r = [
@@ -41665,14 +42024,14 @@ function parseExpression(e, t, i = !0) {
       index: 0,
       js: null,
       formCalc: null,
-      operator: Bn.dot,
+      operator: En.dot,
     },
   ];
   let n = s.length;
   for (; n < e.length; ) {
     const o = n;
     if ("[" === e.charAt(n++)) {
-      a = e.slice(n).match(hn);
+      a = e.slice(n).match(Qn);
       if (!a) {
         warn("XFA - Invalid index in SOM expression");
         return null;
@@ -41687,11 +42046,11 @@ function parseExpression(e, t, i = !0) {
       case ".":
         if (!t) return null;
         n++;
-        c = Bn.dotDot;
+        c = En.dotDot;
         break;
       case "#":
         n++;
-        c = Bn.dotHash;
+        c = En.dotHash;
         break;
       case "[":
         if (i) {
@@ -41700,7 +42059,7 @@ function parseExpression(e, t, i = !0) {
           );
           return null;
         }
-        c = Bn.dotBracket;
+        c = En.dotBracket;
         break;
       case "(":
         if (i) {
@@ -41709,12 +42068,12 @@ function parseExpression(e, t, i = !0) {
           );
           return null;
         }
-        c = Bn.dotParen;
+        c = En.dotParen;
         break;
       default:
-        c = Bn.dot;
+        c = En.dot;
     }
-    a = e.slice(n).match(Cn);
+    a = e.slice(n).match(Bn);
     if (!a) break;
     [s] = a;
     n += s.length;
@@ -41733,7 +42092,7 @@ function parseExpression(e, t, i = !0) {
 function searchNode(e, t, i, a = !0, s = !0) {
   const r = parseExpression(i, a);
   if (!r) return null;
-  const n = ln.get(r[0].name);
+  const n = un.get(r[0].name);
   let g,
     o = 0;
   if (n) {
@@ -41751,23 +42110,23 @@ function searchNode(e, t, i, a = !0, s = !0) {
       if (!t.isXFAObject) continue;
       let e, r;
       if (s) {
-        r = Qn.get(t);
+        r = dn.get(t);
         if (!r) {
           r = new Map();
-          Qn.set(t, r);
+          dn.set(t, r);
         }
         e = r.get(a);
       }
       if (!e) {
         switch (n) {
-          case Bn.dot:
-            e = t[cr](i, !1);
+          case En.dot:
+            e = t[lr](i, !1);
             break;
-          case Bn.dotDot:
-            e = t[cr](i, !0);
+          case En.dotDot:
+            e = t[lr](i, !0);
             break;
-          case Bn.dotHash:
-            e = t[Ir](i);
+          case En.dotHash:
+            e = t[hr](i);
             e = e.isXFAObjectArray ? e.children : [e];
         }
         s && r.set(a, e);
@@ -41779,7 +42138,7 @@ function searchNode(e, t, i, a = !0, s = !0) {
         ? C.filter((e) => c < e.length).map((e) => e[c])
         : C.flat();
     else {
-      const i = t[pr]();
+      const i = t[wr]();
       if (!(t = i)) return null;
       o = -1;
       e = [t];
@@ -41790,8 +42149,8 @@ function searchNode(e, t, i, a = !0, s = !0) {
 function createDataNode(e, t, i) {
   const a = parseExpression(i);
   if (!a) return null;
-  if (a.some((e) => e.operator === Bn.dotDot)) return null;
-  const s = ln.get(a[0].name);
+  if (a.some((e) => e.operator === En.dotDot)) return null;
+  const s = un.get(a[0].name);
   let r = 0;
   if (s) {
     e = s(e, t);
@@ -41805,14 +42164,14 @@ function createDataNode(e, t, i) {
     }
     let n;
     switch (i) {
-      case Bn.dot:
-        n = e[cr](t, !1);
+      case En.dot:
+        n = e[lr](t, !1);
         break;
-      case Bn.dotDot:
-        n = e[cr](t, !0);
+      case En.dotDot:
+        n = e[lr](t, !0);
         break;
-      case Bn.dotHash:
-        n = e[Ir](t);
+      case En.dotHash:
+        n = e[hr](t);
         n = n.isXFAObjectArray ? n.children : [n];
     }
     if (0 === n.length) return e.createNodes(a.slice(r));
@@ -41831,34 +42190,34 @@ function createDataNode(e, t, i) {
   }
   return null;
 }
-const En = Symbol(),
-  un = Symbol(),
-  dn = Symbol(),
-  fn = Symbol("_children"),
+const fn = Symbol(),
   pn = Symbol(),
   mn = Symbol(),
-  yn = Symbol(),
+  yn = Symbol("_children"),
   wn = Symbol(),
   Dn = Symbol(),
   bn = Symbol(),
   Fn = Symbol(),
   Sn = Symbol(),
   kn = Symbol(),
-  Rn = Symbol("parent"),
+  Rn = Symbol(),
   Nn = Symbol(),
   Gn = Symbol(),
-  xn = Symbol();
-let Un = 0;
-const Mn = on.datasets.id;
+  xn = Symbol("parent"),
+  Un = Symbol(),
+  Mn = Symbol(),
+  Ln = Symbol();
+let Hn = 0;
+const Jn = Cn.datasets.id;
 class XFAObject {
   constructor(e, t, i = !1) {
-    this[Jr] = e;
-    this[Yr] = t;
-    this[Fn] = i;
-    this[Rn] = null;
-    this[fn] = [];
-    this[nn] = `${t}${Un++}`;
-    this[yr] = null;
+    this[Kr] = e;
+    this[Tr] = t;
+    this[Rn] = i;
+    this[xn] = null;
+    this[yn] = [];
+    this[In] = `${t}${Hn++}`;
+    this[br] = null;
   }
   get isXFAObject() {
     return !0;
@@ -41871,110 +42230,110 @@ class XFAObject {
       i = null;
     for (const { name: a, index: s } of e) {
       for (let e = 0, r = isFinite(s) ? s : 0; e <= r; e++) {
-        const e = t[Jr] === Mn ? -1 : t[Jr];
+        const e = t[Kr] === Jn ? -1 : t[Kr];
         i = new XmlObject(e, a);
-        t[Xs](i);
+        t[zs](i);
       }
       t = i;
     }
     return i;
   }
-  [Kr](e) {
-    if (!this[Fn] || !this[Tr](e)) return !1;
-    const t = e[Yr],
+  [Or](e) {
+    if (!this[Rn] || !this[Pr](e)) return !1;
+    const t = e[Tr],
       i = this[t];
     if (!(i instanceof XFAObjectArray)) {
-      null !== i && this[jr](i);
+      null !== i && this[Vr](i);
       this[t] = e;
-      this[Xs](e);
+      this[zs](e);
       return !0;
     }
     if (i.push(e)) {
-      this[Xs](e);
+      this[zs](e);
       return !0;
     }
     let a = "";
     this.id
       ? (a = ` (id: ${this.id})`)
       : this.name && (a = ` (name: ${this.name} ${this.h.value})`);
-    warn(`XFA - node "${this[Yr]}"${a} has already enough "${t}"!`);
+    warn(`XFA - node "${this[Tr]}"${a} has already enough "${t}"!`);
     return !1;
   }
-  [Tr](e) {
-    return this.hasOwnProperty(e[Yr]) && e[Jr] === this[Jr];
+  [Pr](e) {
+    return this.hasOwnProperty(e[Tr]) && e[Kr] === this[Kr];
+  }
+  [Mr]() {
+    return !1;
+  }
+  [Zs]() {
+    return !1;
+  }
+  [Nr]() {
+    return !1;
   }
   [Gr]() {
     return !1;
   }
-  [Ws]() {
+  [Xr]() {
+    this.para && this[Dr]()[nr].paraStack.pop();
+  }
+  [Zr]() {
+    this[Dr]()[nr].paraStack.push(this.para);
+  }
+  [An](e) {
+    this.id && this[Kr] === Cn.template.id && e.set(this.id, this);
+  }
+  [Dr]() {
+    return this[br].template;
+  }
+  [Lr]() {
     return !1;
-  }
-  [Sr]() {
-    return !1;
-  }
-  [kr]() {
-    return !1;
-  }
-  [Pr]() {
-    this.para && this[mr]()[ar].paraStack.pop();
-  }
-  [Wr]() {
-    this[mr]()[ar].paraStack.push(this.para);
-  }
-  [zr](e) {
-    this.id && this[Jr] === on.template.id && e.set(this.id, this);
-  }
-  [mr]() {
-    return this[yr].template;
-  }
-  [xr]() {
-    return !1;
-  }
-  [Ur]() {
-    return !1;
-  }
-  [Xs](e) {
-    e[Rn] = this;
-    this[fn].push(e);
-    !e[yr] && this[yr] && (e[yr] = this[yr]);
-  }
-  [jr](e) {
-    const t = this[fn].indexOf(e);
-    this[fn].splice(t, 1);
-  }
-  [wr]() {
-    return this.hasOwnProperty("value");
-  }
-  [$r](e) {}
-  [qr](e) {}
-  [sr]() {}
-  [Vs](e) {
-    delete this[Fn];
-    if (this[_s]) {
-      e.clean(this[_s]);
-      delete this[_s];
-    }
-  }
-  [br](e) {
-    return this[fn].indexOf(e);
-  }
-  [Fr](e, t) {
-    t[Rn] = this;
-    this[fn].splice(e, 0, t);
-    !t[yr] && this[yr] && (t[yr] = this[yr]);
-  }
-  [Mr]() {
-    return !this.name;
   }
   [Hr]() {
+    return !1;
+  }
+  [zs](e) {
+    e[xn] = this;
+    this[yn].push(e);
+    !e[br] && this[br] && (e[br] = this[br]);
+  }
+  [Vr](e) {
+    const t = this[yn].indexOf(e);
+    this[yn].splice(t, 1);
+  }
+  [Fr]() {
+    return this.hasOwnProperty("value");
+  }
+  [tn](e) {}
+  [Wr](e) {}
+  [gr]() {}
+  [$s](e) {
+    delete this[Rn];
+    if (this[er]) {
+      e.clean(this[er]);
+      delete this[er];
+    }
+  }
+  [kr](e) {
+    return this[yn].indexOf(e);
+  }
+  [Rr](e, t) {
+    t[xn] = this;
+    this[yn].splice(e, 0, t);
+    !t[br] && this[br] && (t[br] = this[br]);
+  }
+  [Jr]() {
+    return !this.name;
+  }
+  [vr]() {
     return "";
   }
-  [en]() {
-    return 0 === this[fn].length
-      ? this[er]
-      : this[fn].map((e) => e[en]()).join("");
+  [sn]() {
+    return 0 === this[yn].length
+      ? this[ar]
+      : this[yn].map((e) => e[sn]()).join("");
   }
-  get [dn]() {
+  get [mn]() {
     const e = Object.getPrototypeOf(this);
     if (!e._attributes) {
       const t = (e._attributes = new Set());
@@ -41988,98 +42347,98 @@ class XFAObject {
         t.add(e);
       }
     }
-    return shadow(this, dn, e._attributes);
+    return shadow(this, mn, e._attributes);
   }
-  [Nr](e) {
+  [Ur](e) {
     let t = this;
     for (; t; ) {
       if (t === e) return !0;
-      t = t[pr]();
+      t = t[wr]();
     }
     return !1;
   }
-  [pr]() {
-    return this[Rn];
+  [wr]() {
+    return this[xn];
   }
-  [fr]() {
-    return this[pr]();
+  [yr]() {
+    return this[wr]();
   }
-  [Er](e = null) {
-    return e ? this[e] : this[fn];
+  [fr](e = null) {
+    return e ? this[e] : this[yn];
   }
-  [ir]() {
+  [rr]() {
     const e = Object.create(null);
-    this[er] && (e.$content = this[er]);
+    this[ar] && (e.$content = this[ar]);
     for (const t of Object.getOwnPropertyNames(this)) {
       const i = this[t];
       null !== i &&
         (i instanceof XFAObject
-          ? (e[t] = i[ir]())
+          ? (e[t] = i[rr]())
           : i instanceof XFAObjectArray
             ? i.isEmpty() || (e[t] = i.dump())
             : (e[t] = i));
     }
     return e;
   }
-  [rn]() {
+  [on]() {
     return null;
   }
-  [an]() {
+  [nn]() {
     return HTMLResult.EMPTY;
   }
-  *[ur]() {
-    for (const e of this[Er]()) yield e;
+  *[pr]() {
+    for (const e of this[fr]()) yield e;
   }
-  *[wn](e, t) {
-    for (const i of this[ur]())
-      if (!e || t === e.has(i[Yr])) {
-        const e = this[or](),
-          t = i[an](e);
-        t.success || (this[ar].failingNode = i);
+  *[Fn](e, t) {
+    for (const i of this[pr]())
+      if (!e || t === e.has(i[Tr])) {
+        const e = this[Cr](),
+          t = i[nn](e);
+        t.success || (this[nr].failingNode = i);
         yield t;
       }
   }
-  [rr]() {
+  [or]() {
     return null;
   }
-  [js](e, t) {
-    this[ar].children.push(e);
+  [Vs](e, t) {
+    this[nr].children.push(e);
   }
-  [or]() {}
-  [Zs]({ filter: e = null, include: t = !0 }) {
-    if (this[ar].generator) {
-      const e = this[or](),
-        t = this[ar].failingNode[an](e);
+  [Cr]() {}
+  [_s]({ filter: e = null, include: t = !0 }) {
+    if (this[nr].generator) {
+      const e = this[Cr](),
+        t = this[nr].failingNode[nn](e);
       if (!t.success) return t;
-      t.html && this[js](t.html, t.bbox);
-      delete this[ar].failingNode;
-    } else this[ar].generator = this[wn](e, t);
+      t.html && this[Vs](t.html, t.bbox);
+      delete this[nr].failingNode;
+    } else this[nr].generator = this[Fn](e, t);
     for (;;) {
-      const e = this[ar].generator.next();
+      const e = this[nr].generator.next();
       if (e.done) break;
       const t = e.value;
       if (!t.success) return t;
-      t.html && this[js](t.html, t.bbox);
+      t.html && this[Vs](t.html, t.bbox);
     }
-    this[ar].generator = null;
+    this[nr].generator = null;
     return HTMLResult.EMPTY;
   }
-  [_r](e) {
-    this[Gn] = new Set(Object.keys(e));
+  [en](e) {
+    this[Mn] = new Set(Object.keys(e));
   }
-  [bn](e) {
-    const t = this[dn],
-      i = this[Gn];
+  [kn](e) {
+    const t = this[mn],
+      i = this[Mn];
     return [...e].filter((e) => t.has(e) && !i.has(e));
   }
-  [Zr](e, t = new Set()) {
-    for (const i of this[fn]) i[Nn](e, t);
+  [_r](e, t = new Set()) {
+    for (const i of this[yn]) i[Un](e, t);
   }
-  [Nn](e, t) {
-    const i = this[Dn](e, t);
-    i ? this[En](i, e, t) : this[Zr](e, t);
+  [Un](e, t) {
+    const i = this[Sn](e, t);
+    i ? this[fn](i, e, t) : this[_r](e, t);
   }
-  [Dn](e, t) {
+  [Sn](e, t) {
     const { use: i, usehref: a } = this;
     if (!i && !a) return null;
     let s = null,
@@ -42099,15 +42458,15 @@ class XFAObject {
     this.use = this.usehref = "";
     if (n) s = e.get(n);
     else {
-      s = searchNode(e.get(Xr), this, r, !0, !1);
+      s = searchNode(e.get(zr), this, r, !0, !1);
       s && (s = s[0]);
     }
     if (!s) {
       warn(`XFA - Invalid prototype reference: ${g}.`);
       return null;
     }
-    if (s[Yr] !== this[Yr]) {
-      warn(`XFA - Incompatible prototype: ${s[Yr]} !== ${this[Yr]}.`);
+    if (s[Tr] !== this[Tr]) {
+      warn(`XFA - Incompatible prototype: ${s[Tr]} !== ${this[Tr]}.`);
       return null;
     }
     if (t.has(s)) {
@@ -42115,58 +42474,58 @@ class XFAObject {
       return null;
     }
     t.add(s);
-    const o = s[Dn](e, t);
-    o && s[En](o, e, t);
-    s[Zr](e, t);
+    const o = s[Sn](e, t);
+    o && s[fn](o, e, t);
+    s[_r](e, t);
     t.delete(s);
     return s;
   }
-  [En](e, t, i) {
+  [fn](e, t, i) {
     if (i.has(e)) {
       warn("XFA - Cycle detected in prototypes use.");
       return;
     }
-    !this[er] && e[er] && (this[er] = e[er]);
+    !this[ar] && e[ar] && (this[ar] = e[ar]);
     new Set(i).add(e);
-    for (const t of this[bn](e[Gn])) {
+    for (const t of this[kn](e[Mn])) {
       this[t] = e[t];
-      this[Gn] && this[Gn].add(t);
+      this[Mn] && this[Mn].add(t);
     }
     for (const a of Object.getOwnPropertyNames(this)) {
-      if (this[dn].has(a)) continue;
+      if (this[mn].has(a)) continue;
       const s = this[a],
         r = e[a];
       if (s instanceof XFAObjectArray) {
-        for (const e of s[fn]) e[Nn](t, i);
-        for (let a = s[fn].length, n = r[fn].length; a < n; a++) {
-          const r = e[fn][a][$s]();
+        for (const e of s[yn]) e[Un](t, i);
+        for (let a = s[yn].length, n = r[yn].length; a < n; a++) {
+          const r = e[yn][a][tr]();
           if (!s.push(r)) break;
-          r[Rn] = this;
-          this[fn].push(r);
-          r[Nn](t, i);
+          r[xn] = this;
+          this[yn].push(r);
+          r[Un](t, i);
         }
       } else if (null === s) {
         if (null !== r) {
-          const e = r[$s]();
-          e[Rn] = this;
+          const e = r[tr]();
+          e[xn] = this;
           this[a] = e;
-          this[fn].push(e);
-          e[Nn](t, i);
+          this[yn].push(e);
+          e[Un](t, i);
         }
       } else {
-        s[Zr](t, i);
-        r && s[En](r, t, i);
+        s[_r](t, i);
+        r && s[fn](r, t, i);
       }
     }
   }
-  static [pn](e) {
+  static [wn](e) {
     return Array.isArray(e)
-      ? e.map((e) => XFAObject[pn](e))
+      ? e.map((e) => XFAObject[wn](e))
       : "object" == typeof e && null !== e
         ? Object.assign({}, e)
         : e;
   }
-  [$s]() {
+  [tr]() {
     const e = Object.create(Object.getPrototypeOf(this));
     for (const t of Object.getOwnPropertySymbols(this))
       try {
@@ -42174,49 +42533,49 @@ class XFAObject {
       } catch {
         shadow(e, t, this[t]);
       }
-    e[nn] = `${e[Yr]}${Un++}`;
-    e[fn] = [];
+    e[In] = `${e[Tr]}${Hn++}`;
+    e[yn] = [];
     for (const t of Object.getOwnPropertyNames(this)) {
-      if (this[dn].has(t)) {
-        e[t] = XFAObject[pn](this[t]);
+      if (this[mn].has(t)) {
+        e[t] = XFAObject[wn](this[t]);
         continue;
       }
       const i = this[t];
-      e[t] = i instanceof XFAObjectArray ? new XFAObjectArray(i[Sn]) : null;
+      e[t] = i instanceof XFAObjectArray ? new XFAObjectArray(i[Nn]) : null;
     }
-    for (const t of this[fn]) {
-      const i = t[Yr],
-        a = t[$s]();
-      e[fn].push(a);
-      a[Rn] = e;
-      null === e[i] ? (e[i] = a) : e[i][fn].push(a);
+    for (const t of this[yn]) {
+      const i = t[Tr],
+        a = t[tr]();
+      e[yn].push(a);
+      a[xn] = e;
+      null === e[i] ? (e[i] = a) : e[i][yn].push(a);
     }
     return e;
   }
-  [Er](e = null) {
-    return e ? this[fn].filter((t) => t[Yr] === e) : this[fn];
+  [fr](e = null) {
+    return e ? this[yn].filter((t) => t[Tr] === e) : this[yn];
   }
-  [Ir](e) {
+  [hr](e) {
     return this[e];
   }
-  [cr](e, t, i = !0) {
-    return Array.from(this[Cr](e, t, i));
+  [lr](e, t, i = !0) {
+    return Array.from(this[Qr](e, t, i));
   }
-  *[Cr](e, t, i = !0) {
+  *[Qr](e, t, i = !0) {
     if ("parent" !== e) {
-      for (const i of this[fn]) {
-        i[Yr] === e && (yield i);
+      for (const i of this[yn]) {
+        i[Tr] === e && (yield i);
         i.name === e && (yield i);
-        (t || i[Mr]()) && (yield* i[Cr](e, t, !1));
+        (t || i[Jr]()) && (yield* i[Qr](e, t, !1));
       }
-      i && this[dn].has(e) && (yield new XFAAttribute(this, e, this[e]));
-    } else yield this[Rn];
+      i && this[mn].has(e) && (yield new XFAAttribute(this, e, this[e]));
+    } else yield this[xn];
   }
 }
 class XFAObjectArray {
   constructor(e = 1 / 0) {
-    this[Sn] = e;
-    this[fn] = [];
+    this[Nn] = e;
+    this[yn] = [];
   }
   get isXFAObject() {
     return !1;
@@ -42225,242 +42584,242 @@ class XFAObjectArray {
     return !0;
   }
   push(e) {
-    if (this[fn].length <= this[Sn]) {
-      this[fn].push(e);
+    if (this[yn].length <= this[Nn]) {
+      this[yn].push(e);
       return !0;
     }
-    warn(`XFA - node "${e[Yr]}" accepts no more than ${this[Sn]} children`);
+    warn(`XFA - node "${e[Tr]}" accepts no more than ${this[Nn]} children`);
     return !1;
   }
   isEmpty() {
-    return 0 === this[fn].length;
+    return 0 === this[yn].length;
   }
   dump() {
-    return 1 === this[fn].length
-      ? this[fn][0][ir]()
-      : this[fn].map((e) => e[ir]());
+    return 1 === this[yn].length
+      ? this[yn][0][rr]()
+      : this[yn].map((e) => e[rr]());
   }
-  [$s]() {
-    const e = new XFAObjectArray(this[Sn]);
-    e[fn] = this[fn].map((e) => e[$s]());
+  [tr]() {
+    const e = new XFAObjectArray(this[Nn]);
+    e[yn] = this[yn].map((e) => e[tr]());
     return e;
   }
   get children() {
-    return this[fn];
+    return this[yn];
   }
   clear() {
-    this[fn].length = 0;
+    this[yn].length = 0;
   }
 }
 class XFAAttribute {
   constructor(e, t, i) {
-    this[Rn] = e;
-    this[Yr] = t;
-    this[er] = i;
-    this[Ar] = !1;
-    this[nn] = "attribute" + Un++;
+    this[xn] = e;
+    this[Tr] = t;
+    this[ar] = i;
+    this[ir] = !1;
+    this[In] = "attribute" + Hn++;
   }
-  [pr]() {
-    return this[Rn];
+  [wr]() {
+    return this[xn];
   }
-  [Rr]() {
+  [xr]() {
     return !0;
   }
-  [hr]() {
-    return this[er].trim();
+  [Er]() {
+    return this[ar].trim();
   }
-  [$r](e) {
+  [tn](e) {
     e = e.value || "";
-    this[er] = e.toString();
+    this[ar] = e.toString();
   }
-  [en]() {
-    return this[er];
+  [sn]() {
+    return this[ar];
   }
-  [Nr](e) {
-    return this[Rn] === e || this[Rn][Nr](e);
+  [Ur](e) {
+    return this[xn] === e || this[xn][Ur](e);
   }
 }
 class XmlObject extends XFAObject {
   constructor(e, t, i = {}) {
     super(e, t);
-    this[er] = "";
-    this[mn] = null;
+    this[ar] = "";
+    this[Dn] = null;
     if ("#text" !== t) {
       const e = new Map();
-      this[un] = e;
+      this[pn] = e;
       for (const [t, a] of Object.entries(i))
         e.set(t, new XFAAttribute(this, t, a));
-      if (i.hasOwnProperty(vr)) {
-        const e = i[vr].xfa.dataNode;
+      if (i.hasOwnProperty(qr)) {
+        const e = i[qr].xfa.dataNode;
         void 0 !== e &&
           ("dataGroup" === e
-            ? (this[mn] = !1)
-            : "dataValue" === e && (this[mn] = !0));
+            ? (this[Dn] = !1)
+            : "dataValue" === e && (this[Dn] = !0));
       }
     }
-    this[Ar] = !1;
+    this[ir] = !1;
   }
-  [sn](e) {
-    const t = this[Yr];
+  [gn](e) {
+    const t = this[Tr];
     if ("#text" === t) {
-      e.push(encodeToXmlString(this[er]));
+      e.push(encodeToXmlString(this[ar]));
       return;
     }
     const i = utf8StringToString(t),
-      a = this[Jr] === Mn ? "xfa:" : "";
+      a = this[Kr] === Jn ? "xfa:" : "";
     e.push(`<${a}${i}`);
-    for (const [t, i] of this[un].entries()) {
+    for (const [t, i] of this[pn].entries()) {
       const a = utf8StringToString(t);
-      e.push(` ${a}="${encodeToXmlString(i[er])}"`);
+      e.push(` ${a}="${encodeToXmlString(i[ar])}"`);
     }
-    null !== this[mn] &&
-      (this[mn]
+    null !== this[Dn] &&
+      (this[Dn]
         ? e.push(' xfa:dataNode="dataValue"')
         : e.push(' xfa:dataNode="dataGroup"'));
-    if (this[er] || 0 !== this[fn].length) {
+    if (this[ar] || 0 !== this[yn].length) {
       e.push(">");
-      if (this[er])
-        "string" == typeof this[er]
-          ? e.push(encodeToXmlString(this[er]))
-          : this[er][sn](e);
-      else for (const t of this[fn]) t[sn](e);
+      if (this[ar])
+        "string" == typeof this[ar]
+          ? e.push(encodeToXmlString(this[ar]))
+          : this[ar][gn](e);
+      else for (const t of this[yn]) t[gn](e);
       e.push(`</${a}${i}>`);
     } else e.push("/>");
   }
-  [Kr](e) {
-    if (this[er]) {
-      const e = new XmlObject(this[Jr], "#text");
-      this[Xs](e);
-      e[er] = this[er];
-      this[er] = "";
+  [Or](e) {
+    if (this[ar]) {
+      const e = new XmlObject(this[Kr], "#text");
+      this[zs](e);
+      e[ar] = this[ar];
+      this[ar] = "";
     }
-    this[Xs](e);
+    this[zs](e);
     return !0;
   }
-  [qr](e) {
-    this[er] += e;
-  }
-  [sr]() {
-    if (this[er] && this[fn].length > 0) {
-      const e = new XmlObject(this[Jr], "#text");
-      this[Xs](e);
-      e[er] = this[er];
-      delete this[er];
-    }
-  }
-  [an]() {
-    return "#text" === this[Yr]
-      ? HTMLResult.success({ name: "#text", value: this[er] })
-      : HTMLResult.EMPTY;
-  }
-  [Er](e = null) {
-    return e ? this[fn].filter((t) => t[Yr] === e) : this[fn];
+  [Wr](e) {
+    this[ar] += e;
   }
   [gr]() {
-    return this[un];
+    if (this[ar] && this[yn].length > 0) {
+      const e = new XmlObject(this[Kr], "#text");
+      this[zs](e);
+      e[ar] = this[ar];
+      delete this[ar];
+    }
   }
-  [Ir](e) {
-    const t = this[un].get(e);
-    return void 0 !== t ? t : this[Er](e);
+  [nn]() {
+    return "#text" === this[Tr]
+      ? HTMLResult.success({ name: "#text", value: this[ar] })
+      : HTMLResult.EMPTY;
   }
-  *[Cr](e, t) {
-    const i = this[un].get(e);
+  [fr](e = null) {
+    return e ? this[yn].filter((t) => t[Tr] === e) : this[yn];
+  }
+  [cr]() {
+    return this[pn];
+  }
+  [hr](e) {
+    const t = this[pn].get(e);
+    return void 0 !== t ? t : this[fr](e);
+  }
+  *[Qr](e, t) {
+    const i = this[pn].get(e);
     i && (yield i);
-    for (const i of this[fn]) {
-      i[Yr] === e && (yield i);
-      t && (yield* i[Cr](e, t));
+    for (const i of this[yn]) {
+      i[Tr] === e && (yield i);
+      t && (yield* i[Qr](e, t));
     }
   }
-  *[nr](e, t) {
-    const i = this[un].get(e);
-    !i || (t && i[Ar]) || (yield i);
-    for (const i of this[fn]) yield* i[nr](e, t);
+  *[Ir](e, t) {
+    const i = this[pn].get(e);
+    !i || (t && i[ir]) || (yield i);
+    for (const i of this[yn]) yield* i[Ir](e, t);
   }
-  *[Qr](e, t, i) {
-    for (const a of this[fn]) {
-      a[Yr] !== e || (i && a[Ar]) || (yield a);
-      t && (yield* a[Qr](e, t, i));
+  *[dr](e, t, i) {
+    for (const a of this[yn]) {
+      a[Tr] !== e || (i && a[ir]) || (yield a);
+      t && (yield* a[dr](e, t, i));
     }
   }
-  [Rr]() {
-    return null === this[mn]
-      ? 0 === this[fn].length || this[fn][0][Jr] === on.xhtml.id
-      : this[mn];
+  [xr]() {
+    return null === this[Dn]
+      ? 0 === this[yn].length || this[yn][0][Kr] === Cn.xhtml.id
+      : this[Dn];
   }
-  [hr]() {
-    return null === this[mn]
-      ? 0 === this[fn].length
-        ? this[er].trim()
-        : this[fn][0][Jr] === on.xhtml.id
-          ? this[fn][0][en]().trim()
+  [Er]() {
+    return null === this[Dn]
+      ? 0 === this[yn].length
+        ? this[ar].trim()
+        : this[yn][0][Kr] === Cn.xhtml.id
+          ? this[yn][0][sn]().trim()
           : null
-      : this[er].trim();
+      : this[ar].trim();
   }
-  [$r](e) {
+  [tn](e) {
     e = e.value || "";
-    this[er] = e.toString();
+    this[ar] = e.toString();
   }
-  [ir](e = !1) {
+  [rr](e = !1) {
     const t = Object.create(null);
-    e && (t.$ns = this[Jr]);
-    this[er] && (t.$content = this[er]);
-    t.$name = this[Yr];
+    e && (t.$ns = this[Kr]);
+    this[ar] && (t.$content = this[ar]);
+    t.$name = this[Tr];
     t.children = [];
-    for (const i of this[fn]) t.children.push(i[ir](e));
+    for (const i of this[yn]) t.children.push(i[rr](e));
     t.attributes = Object.create(null);
-    for (const [e, i] of this[un]) t.attributes[e] = i[er];
+    for (const [e, i] of this[pn]) t.attributes[e] = i[ar];
     return t;
   }
 }
 class ContentObject extends XFAObject {
   constructor(e, t) {
     super(e, t);
-    this[er] = "";
+    this[ar] = "";
   }
-  [qr](e) {
-    this[er] += e;
+  [Wr](e) {
+    this[ar] += e;
   }
-  [sr]() {}
+  [gr]() {}
 }
 class OptionObject extends ContentObject {
   constructor(e, t, i) {
     super(e, t);
-    this[kn] = i;
+    this[Gn] = i;
   }
-  [sr]() {
-    this[er] = getKeyword({
-      data: this[er],
-      defaultValue: this[kn][0],
-      validate: (e) => this[kn].includes(e),
+  [gr]() {
+    this[ar] = getKeyword({
+      data: this[ar],
+      defaultValue: this[Gn][0],
+      validate: (e) => this[Gn].includes(e),
     });
   }
-  [Vs](e) {
-    super[Vs](e);
-    delete this[kn];
+  [$s](e) {
+    super[$s](e);
+    delete this[Gn];
   }
 }
 class StringObject extends ContentObject {
-  [sr]() {
-    this[er] = this[er].trim();
+  [gr]() {
+    this[ar] = this[ar].trim();
   }
 }
 class IntegerObject extends ContentObject {
   constructor(e, t, i, a) {
     super(e, t);
-    this[yn] = i;
-    this[xn] = a;
+    this[bn] = i;
+    this[Ln] = a;
   }
-  [sr]() {
-    this[er] = getInteger({
-      data: this[er],
-      defaultValue: this[yn],
-      validate: this[xn],
+  [gr]() {
+    this[ar] = getInteger({
+      data: this[ar],
+      defaultValue: this[bn],
+      validate: this[Ln],
     });
   }
-  [Vs](e) {
-    super[Vs](e);
-    delete this[yn];
-    delete this[xn];
+  [$s](e) {
+    super[$s](e);
+    delete this[bn];
+    delete this[Ln];
   }
 }
 class Option01 extends IntegerObject {
@@ -42480,9 +42839,9 @@ function measureToString(e) {
       ? `${e}px`
       : `${e.toFixed(2)}px`;
 }
-const Ln = {
+const Yn = {
   anchorType(e, t) {
-    const i = e[fr]();
+    const i = e[yr]();
     if (i && (!i.layout || "position" === i.layout)) {
       "transform" in t || (t.transform = "");
       switch (e.anchorType) {
@@ -42513,11 +42872,11 @@ const Ln = {
     }
   },
   dimensions(e, t) {
-    const i = e[fr]();
+    const i = e[yr]();
     let a = e.w;
     const s = e.h;
     if (i.layout?.includes("row")) {
-      const t = i[ar],
+      const t = i[nr],
         s = e.colSpan;
       let r;
       if (-1 === s) {
@@ -42535,7 +42894,7 @@ const Ln = {
     t.height = "" !== s ? measureToString(s) : "auto";
   },
   position(e, t) {
-    const i = e[fr]();
+    const i = e[yr]();
     if (!i?.layout || "position" === i.layout) {
       t.position = "absolute";
       t.left = measureToString(e.x);
@@ -42560,7 +42919,7 @@ const Ln = {
     }
   },
   hAlign(e, t) {
-    if ("para" === e[Yr])
+    if ("para" === e[Tr])
       switch (e.hAlign) {
         case "justifyAll":
           t.textAlign = "justify-all";
@@ -42584,11 +42943,11 @@ const Ln = {
       }
   },
   margin(e, t) {
-    e.margin && (t.margin = e.margin[rn]().margin);
+    e.margin && (t.margin = e.margin[on]().margin);
   },
 };
 function setMinMaxDimensions(e, t) {
-  if ("position" === e[fr]().layout) {
+  if ("position" === e[yr]().layout) {
     e.minW > 0 && (t.minWidth = measureToString(e.minW));
     e.maxW > 0 && (t.maxWidth = measureToString(e.maxW));
     e.minH > 0 && (t.minHeight = measureToString(e.minH));
@@ -42597,7 +42956,7 @@ function setMinMaxDimensions(e, t) {
 }
 function layoutText(e, t, i, a, s, r) {
   const n = new TextMeasure(t, i, a, s);
-  "string" == typeof e ? n.addString(e) : e[Or](n);
+  "string" == typeof e ? n.addString(e) : e[jr](n);
   return n.compute(r);
 }
 function layoutNode(e, t) {
@@ -42623,29 +42982,29 @@ function layoutNode(e, t) {
     }
     let c = e.font;
     if (!c) {
-      const t = e[mr]();
-      let i = e[pr]();
+      const t = e[Dr]();
+      let i = e[wr]();
       for (; i && i !== t; ) {
         if (i.font) {
           c = i.font;
           break;
         }
-        i = i[pr]();
+        i = i[wr]();
       }
     }
     const C = (e.w || t.width) - r,
-      h = e[yr].fontFinder;
+      h = e[br].fontFinder;
     if (
       e.value.exData &&
-      e.value.exData[er] &&
+      e.value.exData[ar] &&
       "text/html" === e.value.exData.contentType
     ) {
-      const t = layoutText(e.value.exData[er], c, o, g, h, C);
+      const t = layoutText(e.value.exData[ar], c, o, g, h, C);
       a = t.width;
       i = t.height;
       s = t.isBroken;
     } else {
-      const t = e.value[en]();
+      const t = e.value[sn]();
       if (t) {
         const e = layoutText(t, c, o, g, h, C);
         a = e.width;
@@ -42666,7 +43025,7 @@ function computeBbox(e, t, i) {
     let s = e.w;
     if ("" === s) {
       if (0 === e.maxW) {
-        const t = e[fr]();
+        const t = e[yr]();
         s = "position" === t.layout && "" !== t.w ? 0 : e.minW;
       } else s = Math.min(e.maxW, i.width);
       t.attributes.style.width = measureToString(s);
@@ -42674,7 +43033,7 @@ function computeBbox(e, t, i) {
     let r = e.h;
     if ("" === r) {
       if (0 === e.maxH) {
-        const t = e[fr]();
+        const t = e[yr]();
         r = "position" === t.layout && "" !== t.h ? 0 : e.minH;
       } else r = Math.min(e.maxH, i.height);
       t.attributes.style.height = measureToString(r);
@@ -42684,9 +43043,9 @@ function computeBbox(e, t, i) {
   return a;
 }
 function fixDimensions(e) {
-  const t = e[fr]();
+  const t = e[yr]();
   if (t.layout?.includes("row")) {
-    const i = t[ar],
+    const i = t[nr],
       a = e.colSpan;
     let s;
     s =
@@ -42727,9 +43086,9 @@ function toStyle(e, ...t) {
   for (const a of t) {
     const t = e[a];
     if (null !== t)
-      if (Ln.hasOwnProperty(a)) Ln[a](e, i);
+      if (Yn.hasOwnProperty(a)) Yn[a](e, i);
       else if (t instanceof XFAObject) {
-        const e = t[rn]();
+        const e = t[on]();
         e
           ? Object.assign(i, e)
           : warn(`(DEBUG) - XFA - style for ${a} not implemented yet`);
@@ -42747,7 +43106,7 @@ function createWrapper(e, t) {
     };
   i.class.push("xfaWrapped");
   if (e.border) {
-    const { widths: i, insets: r } = e.border[ar];
+    const { widths: i, insets: r } = e.border[nr];
     let n,
       g,
       o = r[0],
@@ -42853,7 +43212,7 @@ function isPrintOnly(e) {
   );
 }
 function getCurrentPara(e) {
-  const t = e[mr]()[ar].paraStack;
+  const t = e[Dr]()[nr].paraStack;
   return t.length ? t.at(-1) : null;
 }
 function setPara(e, t, i) {
@@ -42877,7 +43236,7 @@ function setPara(e, t, i) {
         case "middle":
           e.justifyContent = "center";
       }
-      const t = a[rn]();
+      const t = a[on]();
       for (const [i, a] of Object.entries(t)) i in e || (e[i] = a);
     }
   }
@@ -42915,14 +43274,14 @@ function createLine(e, t) {
   };
 }
 function flushHTML(e) {
-  if (!e[ar]) return null;
+  if (!e[nr]) return null;
   const t = {
     name: "div",
-    attributes: e[ar].attributes,
-    children: e[ar].children,
+    attributes: e[nr].attributes,
+    children: e[nr].children,
   };
-  if (e[ar].failingNode) {
-    const i = e[ar].failingNode[rr]();
+  if (e[nr].failingNode) {
+    const i = e[nr].failingNode[or]();
     i &&
       (e.layout.endsWith("-tb")
         ? t.children.push(createLine(e, [i]))
@@ -42931,7 +43290,7 @@ function flushHTML(e) {
   return 0 === t.children.length ? null : t;
 }
 function addHTML(e, t, i) {
-  const a = e[ar],
+  const a = e[nr],
     s = a.availableSpace,
     [r, n, g, o] = i;
   switch (e.layout) {
@@ -42977,38 +43336,38 @@ function addHTML(e, t, i) {
   }
 }
 function getAvailableSpace(e) {
-  const t = e[ar].availableSpace,
+  const t = e[nr].availableSpace,
     i = e.margin ? e.margin.topInset + e.margin.bottomInset : 0,
     a = e.margin ? e.margin.leftInset + e.margin.rightInset : 0;
   switch (e.layout) {
     case "lr-tb":
     case "rl-tb":
-      return 0 === e[ar].attempt
+      return 0 === e[nr].attempt
         ? {
-            width: t.width - a - e[ar].currentWidth,
-            height: t.height - i - e[ar].prevHeight,
+            width: t.width - a - e[nr].currentWidth,
+            height: t.height - i - e[nr].prevHeight,
           }
-        : { width: t.width - a, height: t.height - i - e[ar].height };
+        : { width: t.width - a, height: t.height - i - e[nr].height };
     case "rl-row":
     case "row":
       return {
-        width: e[ar].columnWidths
-          .slice(e[ar].currentColumn)
+        width: e[nr].columnWidths
+          .slice(e[nr].currentColumn)
           .reduce((e, t) => e + t),
         height: t.height - a,
       };
     case "table":
     case "tb":
-      return { width: t.width - a, height: t.height - i - e[ar].height };
+      return { width: t.width - a, height: t.height - i - e[nr].height };
     default:
       return t;
   }
 }
 function checkDimensions(e, t) {
-  if (null === e[mr]()[ar].firstUnsplittable) return !0;
+  if (null === e[Dr]()[nr].firstUnsplittable) return !0;
   if (0 === e.w || 0 === e.h) return !0;
-  const i = e[fr](),
-    a = i[ar]?.attempt || 0,
+  const i = e[yr](),
+    a = i[nr]?.attempt || 0,
     [, s, r, n] = (function getTransformedBBox(e) {
       let t,
         i,
@@ -43067,36 +43426,36 @@ function checkDimensions(e, t) {
     case "lr-tb":
     case "rl-tb":
       return 0 === a
-        ? e[mr]()[ar].noLayoutFailure
+        ? e[Dr]()[nr].noLayoutFailure
           ? "" !== e.w
             ? Math.round(r - t.width) <= 2
             : t.width > 2
           : !("" !== e.h && Math.round(n - t.height) > 2) &&
             ("" !== e.w
               ? Math.round(r - t.width) <= 2 ||
-                (0 === i[ar].numberInLine && t.height > 2)
+                (0 === i[nr].numberInLine && t.height > 2)
               : t.width > 2)
-        : !!e[mr]()[ar].noLayoutFailure ||
+        : !!e[Dr]()[nr].noLayoutFailure ||
             (!("" !== e.h && Math.round(n - t.height) > 2) &&
-              ("" === e.w || Math.round(r - t.width) <= 2 || !i[Ur]()) &&
+              ("" === e.w || Math.round(r - t.width) <= 2 || !i[Hr]()) &&
               t.height > 2);
     case "table":
     case "tb":
       return (
-        !!e[mr]()[ar].noLayoutFailure ||
-        ("" === e.h || e[xr]()
-          ? ("" === e.w || Math.round(r - t.width) <= 2 || !i[Ur]()) &&
+        !!e[Dr]()[nr].noLayoutFailure ||
+        ("" === e.h || e[Lr]()
+          ? ("" === e.w || Math.round(r - t.width) <= 2 || !i[Hr]()) &&
             t.height > 2
           : Math.round(n - t.height) <= 2)
       );
     case "position":
-      if (e[mr]()[ar].noLayoutFailure) return !0;
+      if (e[Dr]()[nr].noLayoutFailure) return !0;
       if ("" === e.h || Math.round(n + s - t.height) <= 2) return !0;
-      return n + s > e[mr]()[ar].currentContentArea.h;
+      return n + s > e[Dr]()[nr].currentContentArea.h;
     case "rl-row":
     case "row":
       return (
-        !!e[mr]()[ar].noLayoutFailure ||
+        !!e[Dr]()[nr].noLayoutFailure ||
         "" === e.h ||
         Math.round(n - t.height) <= 2
       );
@@ -43104,10 +43463,10 @@ function checkDimensions(e, t) {
       return !0;
   }
 }
-const Hn = on.template.id,
-  Jn = "http://www.w3.org/2000/svg",
-  Yn = /^H(\d+)$/,
-  vn = new Set([
+const vn = Cn.template.id,
+  Kn = "http://www.w3.org/2000/svg",
+  Tn = /^H(\d+)$/,
+  qn = new Set([
     "image/gif",
     "image/jpeg",
     "image/jpg",
@@ -43121,7 +43480,7 @@ const Hn = on.template.id,
     "image/tif",
     "application/octet-stream",
   ]),
-  Kn = [
+  On = [
     [[66, 77], "image/bmp"],
     [[255, 216, 255], "image/jpeg"],
     [[73, 73, 42, 0], "image/tiff"],
@@ -43131,7 +43490,7 @@ const Hn = on.template.id,
   ];
 function getBorderDims(e) {
   if (!e || !e.border) return { w: 0, h: 0 };
-  const t = e.border[lr]();
+  const t = e.border[ur]();
   return t
     ? {
         w: t.widths[0] + t.widths[2] + t.insets[0] + t.insets[2],
@@ -43151,13 +43510,13 @@ function hasMargin(e) {
 function _setValue(e, t) {
   if (!e.value) {
     const t = new Value({});
-    e[Xs](t);
+    e[zs](t);
     e.value = t;
   }
-  e.value[$r](t);
+  e.value[tn](t);
 }
 function* getContainedChildren(e) {
-  for (const t of e[Er]()) t instanceof SubformSet ? yield* t[ur]() : yield t;
+  for (const t of e[fr]()) t instanceof SubformSet ? yield* t[pr]() : yield t;
 }
 function isRequired(e) {
   return "error" === e.validate?.nullTest;
@@ -43165,23 +43524,23 @@ function isRequired(e) {
 function setTabIndex(e) {
   for (; e; ) {
     if (!e.traversal) {
-      e[An] = e[pr]()[An];
+      e[an] = e[wr]()[an];
       return;
     }
-    if (e[An]) return;
+    if (e[an]) return;
     let t = null;
-    for (const i of e.traversal[Er]())
+    for (const i of e.traversal[fr]())
       if ("next" === i.operation) {
         t = i;
         break;
       }
     if (!t || !t.ref) {
-      e[An] = e[pr]()[An];
+      e[an] = e[wr]()[an];
       return;
     }
-    const i = e[mr]();
-    e[An] = ++i[An];
-    const a = i[Vr](t.ref, e);
+    const i = e[Dr]();
+    e[an] = ++i[an];
+    const a = i[$r](t.ref, e);
     if (!a) return;
     e = a[0];
   }
@@ -43189,9 +43548,9 @@ function setTabIndex(e) {
 function applyAssist(e, t) {
   const i = e.assist;
   if (i) {
-    const e = i[an]();
+    const e = i[nn]();
     e && (t.title = e);
-    const a = i.role.match(Yn);
+    const a = i.role.match(Tn);
     if (a) {
       const e = "heading",
         i = a[1];
@@ -43202,7 +43561,7 @@ function applyAssist(e, t) {
   if ("table" === e.layout) t.role = "table";
   else if ("row" === e.layout) t.role = "row";
   else {
-    const i = e[pr]();
+    const i = e[wr]();
     "row" === i.layout &&
       (t.role = "TH" === i.assist?.role ? "columnheader" : "cell");
   }
@@ -43210,10 +43569,10 @@ function applyAssist(e, t) {
 function ariaLabel(e) {
   if (!e.assist) return null;
   const t = e.assist;
-  return t.speak && "" !== t.speak[er]
-    ? t.speak[er]
+  return t.speak && "" !== t.speak[ar]
+    ? t.speak[ar]
     : t.toolTip
-      ? t.toolTip[er]
+      ? t.toolTip[ar]
       : null;
 }
 function valueToHtml(e) {
@@ -43226,42 +43585,42 @@ function valueToHtml(e) {
   });
 }
 function setFirstUnsplittable(e) {
-  const t = e[mr]();
-  if (null === t[ar].firstUnsplittable) {
-    t[ar].firstUnsplittable = e;
-    t[ar].noLayoutFailure = !0;
+  const t = e[Dr]();
+  if (null === t[nr].firstUnsplittable) {
+    t[nr].firstUnsplittable = e;
+    t[nr].noLayoutFailure = !0;
   }
 }
 function unsetFirstUnsplittable(e) {
-  const t = e[mr]();
-  t[ar].firstUnsplittable === e && (t[ar].noLayoutFailure = !1);
+  const t = e[Dr]();
+  t[nr].firstUnsplittable === e && (t[nr].noLayoutFailure = !1);
 }
 function handleBreak(e) {
-  if (e[ar]) return !1;
-  e[ar] = Object.create(null);
+  if (e[nr]) return !1;
+  e[nr] = Object.create(null);
   if ("auto" === e.targetType) return !1;
-  const t = e[mr]();
+  const t = e[Dr]();
   let i = null;
   if (e.target) {
-    i = t[Vr](e.target, e[pr]());
+    i = t[$r](e.target, e[wr]());
     if (!i) return !1;
     i = i[0];
   }
-  const { currentPageArea: a, currentContentArea: s } = t[ar];
+  const { currentPageArea: a, currentContentArea: s } = t[nr];
   if ("pageArea" === e.targetType) {
     i instanceof PageArea || (i = null);
     if (e.startNew) {
-      e[ar].target = i || a;
+      e[nr].target = i || a;
       return !0;
     }
     if (i && i !== a) {
-      e[ar].target = i;
+      e[nr].target = i;
       return !0;
     }
     return !1;
   }
   i instanceof ContentArea || (i = null);
-  const r = i && i[pr]();
+  const r = i && i[wr]();
   let n,
     g = r;
   if (e.startNew)
@@ -43277,24 +43636,24 @@ function handleBreak(e) {
     n = r.contentArea.children.indexOf(i) - 1;
     g = r === a ? null : r;
   }
-  e[ar].target = g;
-  e[ar].index = n;
+  e[nr].target = g;
+  e[nr].index = n;
   return !0;
 }
 function handleOverflow(e, t, i) {
-  const a = e[mr](),
-    s = a[ar].noLayoutFailure,
-    r = t[fr];
-  t[fr] = () => e;
-  a[ar].noLayoutFailure = !0;
-  const n = t[an](i);
-  e[js](n.html, n.bbox);
-  a[ar].noLayoutFailure = s;
-  t[fr] = r;
+  const a = e[Dr](),
+    s = a[nr].noLayoutFailure,
+    r = t[yr];
+  t[yr] = () => e;
+  a[nr].noLayoutFailure = !0;
+  const n = t[nn](i);
+  e[Vs](n.html, n.bbox);
+  a[nr].noLayoutFailure = s;
+  t[yr] = r;
 }
 class AppearanceFilter extends StringObject {
   constructor(e) {
-    super(Hn, "appearanceFilter");
+    super(vn, "appearanceFilter");
     this.id = e.id || "";
     this.type = getStringOption(e.type, ["optional", "required"]);
     this.use = e.use || "";
@@ -43303,7 +43662,7 @@ class AppearanceFilter extends StringObject {
 }
 class Arc extends XFAObject {
   constructor(e) {
-    super(Hn, "arc", !0);
+    super(vn, "arc", !0);
     this.circular = getInteger({
       data: e.circular,
       defaultValue: 0,
@@ -43326,25 +43685,25 @@ class Arc extends XFAObject {
     this.edge = null;
     this.fill = null;
   }
-  [an]() {
+  [nn]() {
     const e = this.edge || new Edge({}),
-      t = e[rn](),
+      t = e[on](),
       i = Object.create(null);
     "visible" === this.fill?.presence
-      ? Object.assign(i, this.fill[rn]())
+      ? Object.assign(i, this.fill[on]())
       : (i.fill = "transparent");
     i.strokeWidth = measureToString("visible" === e.presence ? e.thickness : 0);
     i.stroke = t.color;
     let a;
     const s = {
-      xmlns: Jn,
+      xmlns: Kn,
       style: { width: "100%", height: "100%", overflow: "visible" },
     };
     if (360 === this.sweepAngle)
       a = {
         name: "ellipse",
         attributes: {
-          xmlns: Jn,
+          xmlns: Kn,
           cx: "50%",
           cy: "50%",
           rx: "50%",
@@ -43365,7 +43724,7 @@ class Arc extends XFAObject {
       a = {
         name: "path",
         attributes: {
-          xmlns: Jn,
+          xmlns: Kn,
           d: `M ${n} ${g} A 50 50 0 ${r} 0 ${o} ${c}`,
           vectorEffect: "non-scaling-stroke",
           style: i,
@@ -43374,7 +43733,7 @@ class Arc extends XFAObject {
       Object.assign(s, { viewBox: "0 0 100 100", preserveAspectRatio: "none" });
     }
     const r = { name: "svg", children: [a], attributes: s };
-    if (hasMargin(this[pr]()[pr]()))
+    if (hasMargin(this[wr]()[wr]()))
       return HTMLResult.success({
         name: "div",
         attributes: {
@@ -43388,7 +43747,7 @@ class Arc extends XFAObject {
 }
 class Area extends XFAObject {
   constructor(e) {
-    super(Hn, "area", !0);
+    super(vn, "area", !0);
     this.colSpan = getInteger({
       data: e.colSpan,
       defaultValue: 1,
@@ -43411,32 +43770,32 @@ class Area extends XFAObject {
     this.subform = new XFAObjectArray();
     this.subformSet = new XFAObjectArray();
   }
-  *[ur]() {
+  *[pr]() {
     yield* getContainedChildren(this);
   }
-  [Mr]() {
+  [Jr]() {
     return !0;
   }
-  [kr]() {
+  [Gr]() {
     return !0;
   }
-  [js](e, t) {
+  [Vs](e, t) {
     const [i, a, s, r] = t;
-    this[ar].width = Math.max(this[ar].width, i + s);
-    this[ar].height = Math.max(this[ar].height, a + r);
-    this[ar].children.push(e);
+    this[nr].width = Math.max(this[nr].width, i + s);
+    this[nr].height = Math.max(this[nr].height, a + r);
+    this[nr].children.push(e);
   }
-  [or]() {
-    return this[ar].availableSpace;
+  [Cr]() {
+    return this[nr].availableSpace;
   }
-  [an](e) {
+  [nn](e) {
     const t = toStyle(this, "position"),
-      i = { style: t, id: this[nn], class: ["xfaArea"] };
+      i = { style: t, id: this[In], class: ["xfaArea"] };
     isPrintOnly(this) && i.class.push("xfaPrintOnly");
     this.name && (i.xfaName = this.name);
     const a = [];
-    this[ar] = { children: a, width: 0, height: 0, availableSpace: e };
-    const s = this[Zs]({
+    this[nr] = { children: a, width: 0, height: 0, availableSpace: e };
+    const s = this[_s]({
       filter: new Set([
         "area",
         "draw",
@@ -43449,20 +43808,20 @@ class Area extends XFAObject {
     });
     if (!s.success) {
       if (s.isBreak()) return s;
-      delete this[ar];
+      delete this[nr];
       return HTMLResult.FAILURE;
     }
-    t.width = measureToString(this[ar].width);
-    t.height = measureToString(this[ar].height);
+    t.width = measureToString(this[nr].width);
+    t.height = measureToString(this[nr].height);
     const r = { name: "div", attributes: i, children: a },
-      n = [this.x, this.y, this[ar].width, this[ar].height];
-    delete this[ar];
+      n = [this.x, this.y, this[nr].width, this[nr].height];
+    delete this[nr];
     return HTMLResult.success(r, n);
   }
 }
 class Assist extends XFAObject {
   constructor(e) {
-    super(Hn, "assist", !0);
+    super(vn, "assist", !0);
     this.id = e.id || "";
     this.role = e.role || "";
     this.use = e.use || "";
@@ -43470,13 +43829,13 @@ class Assist extends XFAObject {
     this.speak = null;
     this.toolTip = null;
   }
-  [an]() {
-    return this.toolTip?.[er] || null;
+  [nn]() {
+    return this.toolTip?.[ar] || null;
   }
 }
 class Barcode extends XFAObject {
   constructor(e) {
-    super(Hn, "barcode", !0);
+    super(vn, "barcode", !0);
     this.charEncoding = getKeyword({
       data: e.charEncoding ? e.charEncoding.toLowerCase() : "",
       defaultValue: "",
@@ -43625,7 +43984,7 @@ class Barcode extends XFAObject {
 }
 class Bind extends XFAObject {
   constructor(e) {
-    super(Hn, "bind", !0);
+    super(vn, "bind", !0);
     this.match = getStringOption(e.match, [
       "once",
       "dataRef",
@@ -43638,7 +43997,7 @@ class Bind extends XFAObject {
 }
 class BindItems extends XFAObject {
   constructor(e) {
-    super(Hn, "bindItems");
+    super(vn, "bindItems");
     this.connection = e.connection || "";
     this.labelRef = e.labelRef || "";
     this.ref = e.ref || "";
@@ -43647,7 +44006,7 @@ class BindItems extends XFAObject {
 }
 class Bookend extends XFAObject {
   constructor(e) {
-    super(Hn, "bookend");
+    super(vn, "bookend");
     this.id = e.id || "";
     this.leader = e.leader || "";
     this.trailer = e.trailer || "";
@@ -43657,19 +44016,19 @@ class Bookend extends XFAObject {
 }
 class BooleanElement extends Option01 {
   constructor(e) {
-    super(Hn, "boolean");
+    super(vn, "boolean");
     this.id = e.id || "";
     this.name = e.name || "";
     this.use = e.use || "";
     this.usehref = e.usehref || "";
   }
-  [an](e) {
-    return valueToHtml(1 === this[er] ? "1" : "0");
+  [nn](e) {
+    return valueToHtml(1 === this[ar] ? "1" : "0");
   }
 }
 class Border extends XFAObject {
   constructor(e) {
-    super(Hn, "border", !0);
+    super(vn, "border", !0);
     this.break = getStringOption(e.break, ["close", "open"]);
     this.hand = getStringOption(e.hand, ["even", "left", "right"]);
     this.id = e.id || "";
@@ -43688,8 +44047,8 @@ class Border extends XFAObject {
     this.fill = null;
     this.margin = null;
   }
-  [lr]() {
-    if (!this[ar]) {
+  [ur]() {
+    if (!this[nr]) {
       const e = this.edge.children.slice();
       if (e.length < 4) {
         const t = e.at(-1) || new Edge({});
@@ -43703,22 +44062,22 @@ class Border extends XFAObject {
         i[2] = this.margin.bottomInset;
         i[3] = this.margin.leftInset;
       }
-      this[ar] = { widths: t, insets: i, edges: e };
+      this[nr] = { widths: t, insets: i, edges: e };
     }
-    return this[ar];
+    return this[nr];
   }
-  [rn]() {
-    const { edges: e } = this[lr](),
+  [on]() {
+    const { edges: e } = this[ur](),
       t = e.map((e) => {
-        const t = e[rn]();
+        const t = e[on]();
         t.color ||= "#000000";
         return t;
       }),
       i = Object.create(null);
-    this.margin && Object.assign(i, this.margin[rn]());
-    "visible" === this.fill?.presence && Object.assign(i, this.fill[rn]());
+    this.margin && Object.assign(i, this.margin[on]());
+    "visible" === this.fill?.presence && Object.assign(i, this.fill[on]());
     if (this.corner.children.some((e) => 0 !== e.radius)) {
-      const e = this.corner.children.map((e) => e[rn]());
+      const e = this.corner.children.map((e) => e[on]());
       if (2 === e.length || 3 === e.length) {
         const t = e.at(-1);
         for (let i = e.length; i < 4; i++) e.push(t);
@@ -43743,7 +44102,7 @@ class Border extends XFAObject {
 }
 class Break extends XFAObject {
   constructor(e) {
-    super(Hn, "break", !0);
+    super(vn, "break", !0);
     this.after = getStringOption(e.after, [
       "auto",
       "contentArea",
@@ -43778,7 +44137,7 @@ class Break extends XFAObject {
 }
 class BreakAfter extends XFAObject {
   constructor(e) {
-    super(Hn, "breakAfter", !0);
+    super(vn, "breakAfter", !0);
     this.id = e.id || "";
     this.leader = e.leader || "";
     this.startNew = getInteger({
@@ -43800,7 +44159,7 @@ class BreakAfter extends XFAObject {
 }
 class BreakBefore extends XFAObject {
   constructor(e) {
-    super(Hn, "breakBefore", !0);
+    super(vn, "breakBefore", !0);
     this.id = e.id || "";
     this.leader = e.leader || "";
     this.startNew = getInteger({
@@ -43819,14 +44178,14 @@ class BreakBefore extends XFAObject {
     this.usehref = e.usehref || "";
     this.script = null;
   }
-  [an](e) {
-    this[ar] = {};
+  [nn](e) {
+    this[nr] = {};
     return HTMLResult.FAILURE;
   }
 }
 class Button extends XFAObject {
   constructor(e) {
-    super(Hn, "button", !0);
+    super(vn, "button", !0);
     this.highlight = getStringOption(e.highlight, [
       "inverted",
       "none",
@@ -43838,23 +44197,23 @@ class Button extends XFAObject {
     this.usehref = e.usehref || "";
     this.extras = null;
   }
-  [an](e) {
-    const t = this[pr]()[pr](),
+  [nn](e) {
+    const t = this[wr]()[wr](),
       i = {
         name: "button",
-        attributes: { id: this[nn], class: ["xfaButton"], style: {} },
+        attributes: { id: this[In], class: ["xfaButton"], style: {} },
         children: [],
       };
     for (const e of t.event.children) {
       if ("click" !== e.activity || !e.script) continue;
-      const t = recoverJsURL(e.script[er]);
+      const t = recoverJsURL(e.script[ar]);
       if (!t) continue;
       const a = fixURL(t.url);
       a &&
         i.children.push({
           name: "a",
           attributes: {
-            id: "link" + this[nn],
+            id: "link" + this[In],
             href: a,
             newWindow: t.newWindow,
             class: ["xfaLink"],
@@ -43868,7 +44227,7 @@ class Button extends XFAObject {
 }
 class Calculate extends XFAObject {
   constructor(e) {
-    super(Hn, "calculate", !0);
+    super(vn, "calculate", !0);
     this.id = e.id || "";
     this.override = getStringOption(e.override, [
       "disabled",
@@ -43885,7 +44244,7 @@ class Calculate extends XFAObject {
 }
 class Caption extends XFAObject {
   constructor(e) {
-    super(Hn, "caption", !0);
+    super(vn, "caption", !0);
     this.id = e.id || "";
     this.placement = getStringOption(e.placement, [
       "left",
@@ -43909,11 +44268,11 @@ class Caption extends XFAObject {
     this.para = null;
     this.value = null;
   }
-  [$r](e) {
+  [tn](e) {
     _setValue(this, e);
   }
-  [lr](e) {
-    if (!this[ar]) {
+  [ur](e) {
+    if (!this[nr]) {
       let { width: t, height: i } = e;
       switch (this.placement) {
         case "left":
@@ -43925,21 +44284,21 @@ class Caption extends XFAObject {
         case "bottom":
           i = this.reserve <= 0 ? i : this.reserve;
       }
-      this[ar] = layoutNode(this, { width: t, height: i });
+      this[nr] = layoutNode(this, { width: t, height: i });
     }
-    return this[ar];
+    return this[nr];
   }
-  [an](e) {
+  [nn](e) {
     if (!this.value) return HTMLResult.EMPTY;
-    this[Wr]();
-    const t = this.value[an](e).html;
+    this[Zr]();
+    const t = this.value[nn](e).html;
     if (!t) {
-      this[Pr]();
+      this[Xr]();
       return HTMLResult.EMPTY;
     }
     const i = this.reserve;
     if (this.reserve <= 0) {
-      const { w: t, h: i } = this[lr](e);
+      const { w: t, h: i } = this[ur](e);
       switch (this.placement) {
         case "left":
         case "right":
@@ -43964,7 +44323,7 @@ class Caption extends XFAObject {
         this.reserve > 0 && (s.height = measureToString(this.reserve));
     }
     setPara(this, null, t);
-    this[Pr]();
+    this[Xr]();
     this.reserve = i;
     return HTMLResult.success({
       name: "div",
@@ -43975,7 +44334,7 @@ class Caption extends XFAObject {
 }
 class Certificate extends StringObject {
   constructor(e) {
-    super(Hn, "certificate");
+    super(vn, "certificate");
     this.id = e.id || "";
     this.name = e.name || "";
     this.use = e.use || "";
@@ -43984,7 +44343,7 @@ class Certificate extends StringObject {
 }
 class Certificates extends XFAObject {
   constructor(e) {
-    super(Hn, "certificates", !0);
+    super(vn, "certificates", !0);
     this.credentialServerPolicy = getStringOption(e.credentialServerPolicy, [
       "optional",
       "required",
@@ -44004,7 +44363,7 @@ class Certificates extends XFAObject {
 }
 class CheckButton extends XFAObject {
   constructor(e) {
-    super(Hn, "checkButton", !0);
+    super(vn, "checkButton", !0);
     this.id = e.id || "";
     this.mark = getStringOption(e.mark, [
       "default",
@@ -44023,30 +44382,30 @@ class CheckButton extends XFAObject {
     this.extras = null;
     this.margin = null;
   }
-  [an](e) {
+  [nn](e) {
     const t = toStyle("margin"),
       i = measureToString(this.size);
     t.width = t.height = i;
     let a, s, r;
-    const n = this[pr]()[pr](),
-      g = (n.items.children.length && n.items.children[0][an]().html) || [],
+    const n = this[wr]()[wr](),
+      g = (n.items.children.length && n.items.children[0][nn]().html) || [],
       o = {
         on: (void 0 !== g[0] ? g[0] : "on").toString(),
         off: (void 0 !== g[1] ? g[1] : "off").toString(),
       },
-      c = (n.value?.[en]() || "off") === o.on || void 0,
-      C = n[fr](),
-      h = n[nn];
+      c = (n.value?.[sn]() || "off") === o.on || void 0,
+      C = n[yr](),
+      h = n[In];
     let l;
     if (C instanceof ExclGroup) {
-      r = C[nn];
+      r = C[In];
       a = "radio";
       s = "xfaRadio";
-      l = C[tr]?.[nn] || C[nn];
+      l = C[sr]?.[In] || C[In];
     } else {
       a = "checkbox";
       s = "xfaCheckbox";
-      l = n[tr]?.[nn] || n[nn];
+      l = n[sr]?.[In] || n[In];
     }
     const Q = {
       name: "input",
@@ -44077,7 +44436,7 @@ class CheckButton extends XFAObject {
 }
 class ChoiceList extends XFAObject {
   constructor(e) {
-    super(Hn, "choiceList", !0);
+    super(vn, "choiceList", !0);
     this.commitOn = getStringOption(e.commitOn, ["select", "exit"]);
     this.id = e.id || "";
     this.open = getStringOption(e.open, [
@@ -44097,9 +44456,9 @@ class ChoiceList extends XFAObject {
     this.extras = null;
     this.margin = null;
   }
-  [an](e) {
+  [nn](e) {
     const t = toStyle(this, "border", "margin"),
-      i = this[pr]()[pr](),
+      i = this[wr]()[wr](),
       a = { fontSize: `calc(${i.font?.size || 10}px * var(--scale-factor))` },
       s = [];
     if (i.items.children.length > 0) {
@@ -44110,10 +44469,10 @@ class ChoiceList extends XFAObject {
         t = e.children[0].save;
         r = 1 - t;
       }
-      const n = e.children[t][an]().html,
-        g = e.children[r][an]().html;
+      const n = e.children[t][nn]().html,
+        g = e.children[r][nn]().html;
       let o = !1;
-      const c = i.value?.[en]() || "";
+      const c = i.value?.[sn]() || "";
       for (let e = 0, t = n.length; e < t; e++) {
         const t = {
           name: "option",
@@ -44132,8 +44491,8 @@ class ChoiceList extends XFAObject {
     }
     const r = {
       class: ["xfaSelect"],
-      fieldId: i[nn],
-      dataId: i[tr]?.[nn] || i[nn],
+      fieldId: i[In],
+      dataId: i[sr]?.[In] || i[In],
       style: t,
       "aria-label": ariaLabel(i),
       "aria-required": !1,
@@ -44152,7 +44511,7 @@ class ChoiceList extends XFAObject {
 }
 class Color extends XFAObject {
   constructor(e) {
-    super(Hn, "color", !0);
+    super(vn, "color", !0);
     this.cSpace = getStringOption(e.cSpace, ["SRGB"]);
     this.id = e.id || "";
     this.use = e.use || "";
@@ -44173,10 +44532,10 @@ class Color extends XFAObject {
       : "";
     this.extras = null;
   }
-  [wr]() {
+  [Fr]() {
     return !1;
   }
-  [rn]() {
+  [on]() {
     return this.value
       ? Util.makeHexColor(this.value.r, this.value.g, this.value.b)
       : null;
@@ -44184,7 +44543,7 @@ class Color extends XFAObject {
 }
 class Comb extends XFAObject {
   constructor(e) {
-    super(Hn, "comb");
+    super(vn, "comb");
     this.id = e.id || "";
     this.numberOfCells = getInteger({
       data: e.numberOfCells,
@@ -44197,7 +44556,7 @@ class Comb extends XFAObject {
 }
 class Connect extends XFAObject {
   constructor(e) {
-    super(Hn, "connect", !0);
+    super(vn, "connect", !0);
     this.connection = e.connection || "";
     this.id = e.id || "";
     this.ref = e.ref || "";
@@ -44213,7 +44572,7 @@ class Connect extends XFAObject {
 }
 class ContentArea extends XFAObject {
   constructor(e) {
-    super(Hn, "contentArea", !0);
+    super(vn, "contentArea", !0);
     this.h = getMeasurement(e.h);
     this.id = e.id || "";
     this.name = e.name || "";
@@ -44226,7 +44585,7 @@ class ContentArea extends XFAObject {
     this.desc = null;
     this.extras = null;
   }
-  [an](e) {
+  [nn](e) {
     const t = {
         left: measureToString(this.x),
         top: measureToString(this.y),
@@ -44238,13 +44597,13 @@ class ContentArea extends XFAObject {
     return HTMLResult.success({
       name: "div",
       children: [],
-      attributes: { style: t, class: i, id: this[nn] },
+      attributes: { style: t, class: i, id: this[In] },
     });
   }
 }
 class Corner extends XFAObject {
   constructor(e) {
-    super(Hn, "corner", !0);
+    super(vn, "corner", !0);
     this.id = e.id || "";
     this.inverted = getInteger({
       data: e.inverted,
@@ -44276,7 +44635,7 @@ class Corner extends XFAObject {
     this.color = null;
     this.extras = null;
   }
-  [rn]() {
+  [on]() {
     const e = toStyle(this, "visibility");
     e.radius = measureToString("square" === this.join ? 0 : this.radius);
     return e;
@@ -44284,39 +44643,39 @@ class Corner extends XFAObject {
 }
 class DateElement extends ContentObject {
   constructor(e) {
-    super(Hn, "date");
+    super(vn, "date");
     this.id = e.id || "";
     this.name = e.name || "";
     this.use = e.use || "";
     this.usehref = e.usehref || "";
   }
-  [sr]() {
-    const e = this[er].trim();
-    this[er] = e ? new Date(e) : null;
+  [gr]() {
+    const e = this[ar].trim();
+    this[ar] = e ? new Date(e) : null;
   }
-  [an](e) {
-    return valueToHtml(this[er] ? this[er].toString() : "");
+  [nn](e) {
+    return valueToHtml(this[ar] ? this[ar].toString() : "");
   }
 }
 class DateTime extends ContentObject {
   constructor(e) {
-    super(Hn, "dateTime");
+    super(vn, "dateTime");
     this.id = e.id || "";
     this.name = e.name || "";
     this.use = e.use || "";
     this.usehref = e.usehref || "";
   }
-  [sr]() {
-    const e = this[er].trim();
-    this[er] = e ? new Date(e) : null;
+  [gr]() {
+    const e = this[ar].trim();
+    this[ar] = e ? new Date(e) : null;
   }
-  [an](e) {
-    return valueToHtml(this[er] ? this[er].toString() : "");
+  [nn](e) {
+    return valueToHtml(this[ar] ? this[ar].toString() : "");
   }
 }
 class DateTimeEdit extends XFAObject {
   constructor(e) {
-    super(Hn, "dateTimeEdit", !0);
+    super(vn, "dateTimeEdit", !0);
     this.hScrollPolicy = getStringOption(e.hScrollPolicy, [
       "auto",
       "off",
@@ -44331,15 +44690,15 @@ class DateTimeEdit extends XFAObject {
     this.extras = null;
     this.margin = null;
   }
-  [an](e) {
+  [nn](e) {
     const t = toStyle(this, "border", "font", "margin"),
-      i = this[pr]()[pr](),
+      i = this[wr]()[wr](),
       a = {
         name: "input",
         attributes: {
           type: "text",
-          fieldId: i[nn],
-          dataId: i[tr]?.[nn] || i[nn],
+          fieldId: i[In],
+          dataId: i[sr]?.[In] || i[In],
           class: ["xfaTextfield"],
           style: t,
           "aria-label": ariaLabel(i),
@@ -44359,7 +44718,7 @@ class DateTimeEdit extends XFAObject {
 }
 class Decimal extends ContentObject {
   constructor(e) {
-    super(Hn, "decimal");
+    super(vn, "decimal");
     this.fracDigits = getInteger({
       data: e.fracDigits,
       defaultValue: 2,
@@ -44375,17 +44734,17 @@ class Decimal extends ContentObject {
     this.use = e.use || "";
     this.usehref = e.usehref || "";
   }
-  [sr]() {
-    const e = parseFloat(this[er].trim());
-    this[er] = isNaN(e) ? null : e;
+  [gr]() {
+    const e = parseFloat(this[ar].trim());
+    this[ar] = isNaN(e) ? null : e;
   }
-  [an](e) {
-    return valueToHtml(null !== this[er] ? this[er].toString() : "");
+  [nn](e) {
+    return valueToHtml(null !== this[ar] ? this[ar].toString() : "");
   }
 }
 class DefaultUi extends XFAObject {
   constructor(e) {
-    super(Hn, "defaultUi", !0);
+    super(vn, "defaultUi", !0);
     this.id = e.id || "";
     this.use = e.use || "";
     this.usehref = e.usehref || "";
@@ -44394,7 +44753,7 @@ class DefaultUi extends XFAObject {
 }
 class Desc extends XFAObject {
   constructor(e) {
-    super(Hn, "desc", !0);
+    super(vn, "desc", !0);
     this.id = e.id || "";
     this.use = e.use || "";
     this.usehref = e.usehref || "";
@@ -44412,7 +44771,7 @@ class Desc extends XFAObject {
 }
 class DigestMethod extends OptionObject {
   constructor(e) {
-    super(Hn, "digestMethod", ["", "SHA1", "SHA256", "SHA512", "RIPEMD160"]);
+    super(vn, "digestMethod", ["", "SHA1", "SHA256", "SHA512", "RIPEMD160"]);
     this.id = e.id || "";
     this.use = e.use || "";
     this.usehref = e.usehref || "";
@@ -44420,7 +44779,7 @@ class DigestMethod extends OptionObject {
 }
 class DigestMethods extends XFAObject {
   constructor(e) {
-    super(Hn, "digestMethods", !0);
+    super(vn, "digestMethods", !0);
     this.id = e.id || "";
     this.type = getStringOption(e.type, ["optional", "required"]);
     this.use = e.use || "";
@@ -44430,7 +44789,7 @@ class DigestMethods extends XFAObject {
 }
 class Draw extends XFAObject {
   constructor(e) {
-    super(Hn, "draw", !0);
+    super(vn, "draw", !0);
     this.anchorType = getStringOption(e.anchorType, [
       "topLeft",
       "bottomCenter",
@@ -44494,21 +44853,21 @@ class Draw extends XFAObject {
     this.value = null;
     this.setProperty = new XFAObjectArray();
   }
-  [$r](e) {
+  [tn](e) {
     _setValue(this, e);
   }
-  [an](e) {
+  [nn](e) {
     setTabIndex(this);
     if ("hidden" === this.presence || "inactive" === this.presence)
       return HTMLResult.EMPTY;
     fixDimensions(this);
-    this[Wr]();
+    this[Zr]();
     const t = this.w,
       i = this.h,
       { w: a, h: s, isBroken: r } = layoutNode(this, e);
     if (a && "" === this.w) {
-      if (r && this[fr]()[Ur]()) {
-        this[Pr]();
+      if (r && this[yr]()[Hr]()) {
+        this[Xr]();
         return HTMLResult.FAILURE;
       }
       this.w = a;
@@ -44518,7 +44877,7 @@ class Draw extends XFAObject {
     if (!checkDimensions(this, e)) {
       this.w = t;
       this.h = i;
-      this[Pr]();
+      this[Xr]();
       return HTMLResult.FAILURE;
     }
     unsetFirstUnsplittable(this);
@@ -44542,29 +44901,29 @@ class Draw extends XFAObject {
     const g = ["xfaDraw"];
     this.font && g.push("xfaFont");
     isPrintOnly(this) && g.push("xfaPrintOnly");
-    const o = { style: n, id: this[nn], class: g };
+    const o = { style: n, id: this[In], class: g };
     this.name && (o.xfaName = this.name);
     const c = { name: "div", attributes: o, children: [] };
     applyAssist(this, o);
     const C = computeBbox(this, c, e),
-      h = this.value ? this.value[an](e).html : null;
+      h = this.value ? this.value[nn](e).html : null;
     if (null === h) {
       this.w = t;
       this.h = i;
-      this[Pr]();
+      this[Xr]();
       return HTMLResult.success(createWrapper(this, c), C);
     }
     c.children.push(h);
     setPara(this, n, h);
     this.w = t;
     this.h = i;
-    this[Pr]();
+    this[Xr]();
     return HTMLResult.success(createWrapper(this, c), C);
   }
 }
 class Edge extends XFAObject {
   constructor(e) {
-    super(Hn, "edge", !0);
+    super(vn, "edge", !0);
     this.cap = getStringOption(e.cap, ["square", "butt", "round"]);
     this.id = e.id || "";
     this.presence = getStringOption(e.presence, [
@@ -44590,12 +44949,12 @@ class Edge extends XFAObject {
     this.color = null;
     this.extras = null;
   }
-  [rn]() {
+  [on]() {
     const e = toStyle(this, "visibility");
     Object.assign(e, {
       linecap: this.cap,
       width: measureToString(this.thickness),
-      color: this.color ? this.color[rn]() : "#000000",
+      color: this.color ? this.color[on]() : "#000000",
       style: "",
     });
     if ("visible" !== this.presence) e.style = "none";
@@ -44629,7 +44988,7 @@ class Edge extends XFAObject {
 }
 class Encoding extends OptionObject {
   constructor(e) {
-    super(Hn, "encoding", [
+    super(vn, "encoding", [
       "adbe.x509.rsa_sha1",
       "adbe.pkcs7.detached",
       "adbe.pkcs7.sha1",
@@ -44641,7 +45000,7 @@ class Encoding extends OptionObject {
 }
 class Encodings extends XFAObject {
   constructor(e) {
-    super(Hn, "encodings", !0);
+    super(vn, "encodings", !0);
     this.id = e.id || "";
     this.type = getStringOption(e.type, ["optional", "required"]);
     this.use = e.use || "";
@@ -44651,7 +45010,7 @@ class Encodings extends XFAObject {
 }
 class Encrypt extends XFAObject {
   constructor(e) {
-    super(Hn, "encrypt", !0);
+    super(vn, "encrypt", !0);
     this.id = e.id || "";
     this.use = e.use || "";
     this.usehref = e.usehref || "";
@@ -44660,7 +45019,7 @@ class Encrypt extends XFAObject {
 }
 class EncryptData extends XFAObject {
   constructor(e) {
-    super(Hn, "encryptData", !0);
+    super(vn, "encryptData", !0);
     this.id = e.id || "";
     this.operation = getStringOption(e.operation, ["encrypt", "decrypt"]);
     this.target = e.target || "";
@@ -44672,7 +45031,7 @@ class EncryptData extends XFAObject {
 }
 class Encryption extends XFAObject {
   constructor(e) {
-    super(Hn, "encryption", !0);
+    super(vn, "encryption", !0);
     this.id = e.id || "";
     this.type = getStringOption(e.type, ["optional", "required"]);
     this.use = e.use || "";
@@ -44682,7 +45041,7 @@ class Encryption extends XFAObject {
 }
 class EncryptionMethod extends OptionObject {
   constructor(e) {
-    super(Hn, "encryptionMethod", [
+    super(vn, "encryptionMethod", [
       "",
       "AES256-CBC",
       "TRIPLEDES-CBC",
@@ -44696,7 +45055,7 @@ class EncryptionMethod extends OptionObject {
 }
 class EncryptionMethods extends XFAObject {
   constructor(e) {
-    super(Hn, "encryptionMethods", !0);
+    super(vn, "encryptionMethods", !0);
     this.id = e.id || "";
     this.type = getStringOption(e.type, ["optional", "required"]);
     this.use = e.use || "";
@@ -44706,7 +45065,7 @@ class EncryptionMethods extends XFAObject {
 }
 class Event extends XFAObject {
   constructor(e) {
-    super(Hn, "event", !0);
+    super(vn, "event", !0);
     this.activity = getStringOption(e.activity, [
       "click",
       "change",
@@ -44752,7 +45111,7 @@ class Event extends XFAObject {
 }
 class ExData extends ContentObject {
   constructor(e) {
-    super(Hn, "exData");
+    super(vn, "exData");
     this.contentType = e.contentType || "";
     this.href = e.href || "";
     this.id = e.id || "";
@@ -44771,29 +45130,29 @@ class ExData extends ContentObject {
     this.use = e.use || "";
     this.usehref = e.usehref || "";
   }
-  [Sr]() {
+  [Nr]() {
     return "text/html" === this.contentType;
   }
-  [Kr](e) {
-    if ("text/html" === this.contentType && e[Jr] === on.xhtml.id) {
-      this[er] = e;
+  [Or](e) {
+    if ("text/html" === this.contentType && e[Kr] === Cn.xhtml.id) {
+      this[ar] = e;
       return !0;
     }
     if ("text/xml" === this.contentType) {
-      this[er] = e;
+      this[ar] = e;
       return !0;
     }
     return !1;
   }
-  [an](e) {
-    return "text/html" === this.contentType && this[er]
-      ? this[er][an](e)
+  [nn](e) {
+    return "text/html" === this.contentType && this[ar]
+      ? this[ar][nn](e)
       : HTMLResult.EMPTY;
   }
 }
 class ExObject extends XFAObject {
   constructor(e) {
-    super(Hn, "exObject", !0);
+    super(vn, "exObject", !0);
     this.archive = e.archive || "";
     this.classId = e.classId || "";
     this.codeBase = e.codeBase || "";
@@ -44818,7 +45177,7 @@ class ExObject extends XFAObject {
 }
 class ExclGroup extends XFAObject {
   constructor(e) {
-    super(Hn, "exclGroup", !0);
+    super(vn, "exclGroup", !0);
     this.access = getStringOption(e.access, [
       "open",
       "nonInteractive",
@@ -44894,52 +45253,52 @@ class ExclGroup extends XFAObject {
     this.field = new XFAObjectArray();
     this.setProperty = new XFAObjectArray();
   }
-  [kr]() {
+  [Gr]() {
     return !0;
   }
-  [wr]() {
+  [Fr]() {
     return !0;
   }
-  [$r](e) {
+  [tn](e) {
     for (const t of this.field.children) {
       if (!t.value) {
         const e = new Value({});
-        t[Xs](e);
+        t[zs](e);
         t.value = e;
       }
-      t.value[$r](e);
+      t.value[tn](e);
     }
   }
-  [Ur]() {
+  [Hr]() {
     return (
       (this.layout.endsWith("-tb") &&
-        0 === this[ar].attempt &&
-        this[ar].numberInLine > 0) ||
-      this[pr]()[Ur]()
+        0 === this[nr].attempt &&
+        this[nr].numberInLine > 0) ||
+      this[wr]()[Hr]()
     );
   }
-  [xr]() {
-    const e = this[fr]();
-    if (!e[xr]()) return !1;
-    if (void 0 !== this[ar]._isSplittable) return this[ar]._isSplittable;
+  [Lr]() {
+    const e = this[yr]();
+    if (!e[Lr]()) return !1;
+    if (void 0 !== this[nr]._isSplittable) return this[nr]._isSplittable;
     if ("position" === this.layout || this.layout.includes("row")) {
-      this[ar]._isSplittable = !1;
+      this[nr]._isSplittable = !1;
       return !1;
     }
-    if (e.layout?.endsWith("-tb") && 0 !== e[ar].numberInLine) return !1;
-    this[ar]._isSplittable = !0;
+    if (e.layout?.endsWith("-tb") && 0 !== e[nr].numberInLine) return !1;
+    this[nr]._isSplittable = !0;
     return !0;
   }
-  [rr]() {
+  [or]() {
     return flushHTML(this);
   }
-  [js](e, t) {
+  [Vs](e, t) {
     addHTML(this, e, t);
   }
-  [or]() {
+  [Cr]() {
     return getAvailableSpace(this);
   }
-  [an](e) {
+  [nn](e) {
     setTabIndex(this);
     if (
       "hidden" === this.presence ||
@@ -44950,10 +45309,10 @@ class ExclGroup extends XFAObject {
       return HTMLResult.EMPTY;
     fixDimensions(this);
     const t = [],
-      i = { id: this[nn], class: [] };
+      i = { id: this[In], class: [] };
     setAccess(this, i.class);
-    this[ar] || (this[ar] = Object.create(null));
-    Object.assign(this[ar], {
+    this[nr] || (this[nr] = Object.create(null));
+    Object.assign(this[nr], {
       children: t,
       attributes: i,
       attempt: 0,
@@ -44968,15 +45327,15 @@ class ExclGroup extends XFAObject {
       prevHeight: 0,
       currentWidth: 0,
     });
-    const a = this[xr]();
+    const a = this[Lr]();
     a || setFirstUnsplittable(this);
     if (!checkDimensions(this, e)) return HTMLResult.FAILURE;
     const s = new Set(["field"]);
     if (this.layout.includes("row")) {
-      const e = this[fr]().columnWidths;
+      const e = this[yr]().columnWidths;
       if (Array.isArray(e) && e.length > 0) {
-        this[ar].columnWidths = e;
-        this[ar].currentColumn = 0;
+        this[nr].columnWidths = e;
+        this[nr].currentColumn = 0;
       }
     }
     const r = toStyle(
@@ -44996,31 +45355,31 @@ class ExclGroup extends XFAObject {
     i.style = r;
     i.class = n;
     this.name && (i.xfaName = this.name);
-    this[Wr]();
+    this[Zr]();
     const o = "lr-tb" === this.layout || "rl-tb" === this.layout,
       c = o ? 2 : 1;
-    for (; this[ar].attempt < c; this[ar].attempt++) {
-      o && 1 === this[ar].attempt && (this[ar].numberInLine = 0);
-      const e = this[Zs]({ filter: s, include: !0 });
+    for (; this[nr].attempt < c; this[nr].attempt++) {
+      o && 1 === this[nr].attempt && (this[nr].numberInLine = 0);
+      const e = this[_s]({ filter: s, include: !0 });
       if (e.success) break;
       if (e.isBreak()) {
-        this[Pr]();
+        this[Xr]();
         return e;
       }
       if (
         o &&
-        0 === this[ar].attempt &&
-        0 === this[ar].numberInLine &&
-        !this[mr]()[ar].noLayoutFailure
+        0 === this[nr].attempt &&
+        0 === this[nr].numberInLine &&
+        !this[Dr]()[nr].noLayoutFailure
       ) {
-        this[ar].attempt = c;
+        this[nr].attempt = c;
         break;
       }
     }
-    this[Pr]();
+    this[Xr]();
     a || unsetFirstUnsplittable(this);
-    if (this[ar].attempt === c) {
-      a || delete this[ar];
+    if (this[nr].attempt === c) {
+      a || delete this[nr];
       return HTMLResult.FAILURE;
     }
     let C = 0,
@@ -45029,20 +45388,20 @@ class ExclGroup extends XFAObject {
       C = this.margin.leftInset + this.margin.rightInset;
       h = this.margin.topInset + this.margin.bottomInset;
     }
-    const l = Math.max(this[ar].width + C, this.w || 0),
-      Q = Math.max(this[ar].height + h, this.h || 0),
+    const l = Math.max(this[nr].width + C, this.w || 0),
+      Q = Math.max(this[nr].height + h, this.h || 0),
       E = [this.x, this.y, l, Q];
     "" === this.w && (r.width = measureToString(l));
     "" === this.h && (r.height = measureToString(Q));
     const u = { name: "div", attributes: i, children: t };
     applyAssist(this, i);
-    delete this[ar];
+    delete this[nr];
     return HTMLResult.success(createWrapper(this, u), E);
   }
 }
 class Execute extends XFAObject {
   constructor(e) {
-    super(Hn, "execute");
+    super(vn, "execute");
     this.connection = e.connection || "";
     this.executeType = getStringOption(e.executeType, ["import", "remerge"]);
     this.id = e.id || "";
@@ -45053,7 +45412,7 @@ class Execute extends XFAObject {
 }
 class Extras extends XFAObject {
   constructor(e) {
-    super(Hn, "extras", !0);
+    super(vn, "extras", !0);
     this.id = e.id || "";
     this.name = e.name || "";
     this.use = e.use || "";
@@ -45073,7 +45432,7 @@ class Extras extends XFAObject {
 }
 class Field extends XFAObject {
   constructor(e) {
-    super(Hn, "field", !0);
+    super(vn, "field", !0);
     this.access = getStringOption(e.access, [
       "open",
       "nonInteractive",
@@ -45152,18 +45511,18 @@ class Field extends XFAObject {
     this.event = new XFAObjectArray();
     this.setProperty = new XFAObjectArray();
   }
-  [kr]() {
+  [Gr]() {
     return !0;
   }
-  [$r](e) {
+  [tn](e) {
     _setValue(this, e);
   }
-  [an](e) {
+  [nn](e) {
     setTabIndex(this);
     if (!this.ui) {
       this.ui = new Ui({});
-      this.ui[yr] = this[yr];
-      this[Xs](this.ui);
+      this.ui[br] = this[br];
+      this[zs](this.ui);
       let e;
       switch (this.items.children.length) {
         case 0:
@@ -45178,7 +45537,7 @@ class Field extends XFAObject {
           e = new ChoiceList({});
           this.ui.choiceList = e;
       }
-      this.ui[Xs](e);
+      this.ui[zs](e);
     }
     if (
       !this.ui ||
@@ -45188,9 +45547,9 @@ class Field extends XFAObject {
       0 === this.w
     )
       return HTMLResult.EMPTY;
-    this.caption && delete this.caption[ar];
-    this[Wr]();
-    const t = this.caption ? this.caption[an](e).html : null,
+    this.caption && delete this.caption[nr];
+    this[Zr]();
+    const t = this.caption ? this.caption[nn](e).html : null,
       i = this.w,
       a = this.h;
     let s = 0,
@@ -45216,7 +45575,7 @@ class Field extends XFAObject {
             let i = null;
             if (e) {
               const t = stripQuotes(e.typeface),
-                a = e[yr].fontFinder.find(t);
+                a = e[br].fontFinder.find(t);
               i = selectFont(e, a);
             }
             if (!i) return { lineHeight: 12, lineGap: 2, lineNoGap: 10 };
@@ -45230,13 +45589,13 @@ class Field extends XFAObject {
             };
           })(this.font, !0).lineNoGap;
       }
-      n = getBorderDims(this.ui[lr]());
+      n = getBorderDims(this.ui[ur]());
       a += n.w;
       g += n.h;
       if (this.caption) {
-        const { w: s, h: r, isBroken: n } = this.caption[lr](e);
-        if (n && this[fr]()[Ur]()) {
-          this[Pr]();
+        const { w: s, h: r, isBroken: n } = this.caption[ur](e);
+        if (n && this[yr]()[Hr]()) {
+          this[Xr]();
           return HTMLResult.FAILURE;
         }
         t = s;
@@ -45270,13 +45629,13 @@ class Field extends XFAObject {
         );
       }
     }
-    this[Pr]();
+    this[Xr]();
     fixDimensions(this);
     setFirstUnsplittable(this);
     if (!checkDimensions(this, e)) {
       this.w = i;
       this.h = a;
-      this[Pr]();
+      this[Xr]();
       return HTMLResult.FAILURE;
     }
     unsetFirstUnsplittable(this);
@@ -45295,7 +45654,7 @@ class Field extends XFAObject {
     const o = ["xfaField"];
     this.font && o.push("xfaFont");
     isPrintOnly(this) && o.push("xfaPrintOnly");
-    const c = { style: g, id: this[nn], class: o };
+    const c = { style: g, id: this[In], class: o };
     if (g.margin) {
       g.padding = g.margin;
       delete g.margin;
@@ -45305,17 +45664,17 @@ class Field extends XFAObject {
     const C = [],
       h = { name: "div", attributes: c, children: C };
     applyAssist(this, c);
-    const l = this.border ? this.border[rn]() : null,
+    const l = this.border ? this.border[on]() : null,
       Q = computeBbox(this, h, e),
-      E = this.ui[an]().html;
+      E = this.ui[nn]().html;
     if (!E) {
       Object.assign(g, l);
       return HTMLResult.success(createWrapper(this, h), Q);
     }
-    this[An] &&
+    this[an] &&
       (E.children?.[0]
-        ? (E.children[0].attributes.tabindex = this[An])
-        : (E.attributes.tabindex = this[An]));
+        ? (E.children[0].attributes.tabindex = this[an])
+        : (E.attributes.tabindex = this[an]));
     E.attributes.style || (E.attributes.style = Object.create(null));
     let u = null;
     if (this.ui.button) {
@@ -45324,13 +45683,13 @@ class Field extends XFAObject {
     } else Object.assign(g, l);
     C.push(E);
     if (this.value)
-      if (this.ui.imageEdit) E.children.push(this.value[an]().html);
+      if (this.ui.imageEdit) E.children.push(this.value[nn]().html);
       else if (!this.ui.button) {
         let e = "";
-        if (this.value.exData) e = this.value.exData[en]();
-        else if (this.value.text) e = this.value.text[lr]();
+        if (this.value.exData) e = this.value.exData[sn]();
+        else if (this.value.text) e = this.value.text[ur]();
         else {
-          const t = this.value[an]().html;
+          const t = this.value[nn]().html;
           null !== t && (e = t.children[0].value);
         }
         this.ui.textEdit &&
@@ -45347,11 +45706,11 @@ class Field extends XFAObject {
         }
       }
     if (!this.ui.imageEdit && E.children?.[0] && this.h) {
-      n = n || getBorderDims(this.ui[lr]());
+      n = n || getBorderDims(this.ui[ur]());
       let t = 0;
       if (this.caption && ["top", "bottom"].includes(this.caption.placement)) {
         t = this.caption.reserve;
-        t <= 0 && (t = this.caption[lr](e).h);
+        t <= 0 && (t = this.caption[ur](e).h);
         const i = this.h - t - r - n.h;
         E.children[0].attributes.style.height = measureToString(i);
       } else E.children[0].attributes.style.height = "100%";
@@ -45393,7 +45752,7 @@ class Field extends XFAObject {
 }
 class Fill extends XFAObject {
   constructor(e) {
-    super(Hn, "fill", !0);
+    super(vn, "fill", !0);
     this.id = e.id || "";
     this.presence = getStringOption(e.presence, [
       "visible",
@@ -45411,9 +45770,9 @@ class Fill extends XFAObject {
     this.solid = null;
     this.stipple = null;
   }
-  [rn]() {
-    const e = this[pr](),
-      t = e[pr]()[pr](),
+  [on]() {
+    const e = this[wr](),
+      t = e[wr]()[wr](),
       i = Object.create(null);
     let a = "color",
       s = a;
@@ -45430,12 +45789,12 @@ class Fill extends XFAObject {
       if ("extras" === e || "color" === e) continue;
       const t = this[e];
       if (!(t instanceof XFAObject)) continue;
-      const r = t[rn](this.color);
+      const r = t[on](this.color);
       r && (i[r.startsWith("#") ? a : s] = r);
       return i;
     }
     if (this.color?.value) {
-      const e = this.color[rn]();
+      const e = this.color[on]();
       i[e.startsWith("#") ? a : s] = e;
     }
     return i;
@@ -45443,7 +45802,7 @@ class Fill extends XFAObject {
 }
 class Filter extends XFAObject {
   constructor(e) {
-    super(Hn, "filter", !0);
+    super(vn, "filter", !0);
     this.addRevocationInfo = getStringOption(e.addRevocationInfo, [
       "",
       "required",
@@ -45473,23 +45832,23 @@ class Filter extends XFAObject {
 }
 class Float extends ContentObject {
   constructor(e) {
-    super(Hn, "float");
+    super(vn, "float");
     this.id = e.id || "";
     this.name = e.name || "";
     this.use = e.use || "";
     this.usehref = e.usehref || "";
   }
-  [sr]() {
-    const e = parseFloat(this[er].trim());
-    this[er] = isNaN(e) ? null : e;
+  [gr]() {
+    const e = parseFloat(this[ar].trim());
+    this[ar] = isNaN(e) ? null : e;
   }
-  [an](e) {
-    return valueToHtml(null !== this[er] ? this[er].toString() : "");
+  [nn](e) {
+    return valueToHtml(null !== this[ar] ? this[ar].toString() : "");
   }
 }
 class template_Font extends XFAObject {
   constructor(e) {
-    super(Hn, "font", !0);
+    super(vn, "font", !0);
     this.baselineShift = getMeasurement(e.baselineShift);
     this.fontHorizontalScale = getFloat({
       data: e.fontHorizontalScale,
@@ -45534,11 +45893,11 @@ class template_Font extends XFAObject {
     this.extras = null;
     this.fill = null;
   }
-  [Vs](e) {
-    super[Vs](e);
-    this[yr].usedTypefaces.add(this.typeface);
+  [$s](e) {
+    super[$s](e);
+    this[br].usedTypefaces.add(this.typeface);
   }
-  [rn]() {
+  [on]() {
     const e = toStyle(this, "fill"),
       t = e.color;
     if (t)
@@ -45562,7 +45921,7 @@ class template_Font extends XFAObject {
     }
     e.fontStyle = this.posture;
     e.fontSize = measureToString(0.99 * this.size);
-    setFontFamily(this, this, this[yr].fontFinder, e);
+    setFontFamily(this, this, this[br].fontFinder, e);
     if (0 !== this.underline) {
       e.textDecoration = "underline";
       2 === this.underline && (e.textDecorationStyle = "double");
@@ -45573,7 +45932,7 @@ class template_Font extends XFAObject {
 }
 class Format extends XFAObject {
   constructor(e) {
-    super(Hn, "format", !0);
+    super(vn, "format", !0);
     this.id = e.id || "";
     this.use = e.use || "";
     this.usehref = e.usehref || "";
@@ -45583,7 +45942,7 @@ class Format extends XFAObject {
 }
 class Handler extends StringObject {
   constructor(e) {
-    super(Hn, "handler");
+    super(vn, "handler");
     this.id = e.id || "";
     this.type = getStringOption(e.type, ["optional", "required"]);
     this.use = e.use || "";
@@ -45592,7 +45951,7 @@ class Handler extends StringObject {
 }
 class Hyphenation extends XFAObject {
   constructor(e) {
-    super(Hn, "hyphenation");
+    super(vn, "hyphenation");
     this.excludeAllCaps = getInteger({
       data: e.excludeAllCaps,
       defaultValue: 0,
@@ -45630,7 +45989,7 @@ class Hyphenation extends XFAObject {
 }
 class Image extends StringObject {
   constructor(e) {
-    super(Hn, "image");
+    super(vn, "image");
     this.aspect = getStringOption(e.aspect, [
       "fit",
       "actual",
@@ -45650,17 +46009,21 @@ class Image extends StringObject {
     this.use = e.use || "";
     this.usehref = e.usehref || "";
   }
-  [an]() {
-    if (this.contentType && !vn.has(this.contentType.toLowerCase()))
+  [nn]() {
+    if (this.contentType && !qn.has(this.contentType.toLowerCase()))
       return HTMLResult.EMPTY;
-    let e = this[yr].images && this[yr].images.get(this.href);
-    if (!e && (this.href || !this[er])) return HTMLResult.EMPTY;
+    let e = this[br].images && this[br].images.get(this.href);
+    if (!e && (this.href || !this[ar])) return HTMLResult.EMPTY;
     e ||
       "base64" !== this.transferEncoding ||
-      (e = stringToBytes(atob(this[er])));
+      (e = (function fromBase64Util(e) {
+        return Uint8Array.fromBase64
+          ? Uint8Array.fromBase64(e)
+          : stringToBytes(atob(e));
+      })(this[ar]));
     if (!e) return HTMLResult.EMPTY;
     if (!this.contentType) {
-      for (const [t, i] of Kn)
+      for (const [t, i] of On)
         if (e.length > t.length && t.every((t, i) => t === e[i])) {
           this.contentType = i;
           break;
@@ -45682,21 +46045,21 @@ class Image extends StringObject {
       case "width":
         i = { width: "100%", objectFit: "fill" };
     }
-    const a = this[pr]();
+    const a = this[wr]();
     return HTMLResult.success({
       name: "img",
       attributes: {
         class: ["xfaImage"],
         style: i,
         src: URL.createObjectURL(t),
-        alt: a ? ariaLabel(a[pr]()) : null,
+        alt: a ? ariaLabel(a[wr]()) : null,
       },
     });
   }
 }
 class ImageEdit extends XFAObject {
   constructor(e) {
-    super(Hn, "imageEdit", !0);
+    super(vn, "imageEdit", !0);
     this.data = getStringOption(e.data, ["link", "embed"]);
     this.id = e.id || "";
     this.use = e.use || "";
@@ -45705,7 +46068,7 @@ class ImageEdit extends XFAObject {
     this.extras = null;
     this.margin = null;
   }
-  [an](e) {
+  [nn](e) {
     return "embed" === this.data
       ? HTMLResult.success({ name: "div", children: [], attributes: {} })
       : HTMLResult.EMPTY;
@@ -45713,23 +46076,23 @@ class ImageEdit extends XFAObject {
 }
 class Integer extends ContentObject {
   constructor(e) {
-    super(Hn, "integer");
+    super(vn, "integer");
     this.id = e.id || "";
     this.name = e.name || "";
     this.use = e.use || "";
     this.usehref = e.usehref || "";
   }
-  [sr]() {
-    const e = parseInt(this[er].trim(), 10);
-    this[er] = isNaN(e) ? null : e;
+  [gr]() {
+    const e = parseInt(this[ar].trim(), 10);
+    this[ar] = isNaN(e) ? null : e;
   }
-  [an](e) {
-    return valueToHtml(null !== this[er] ? this[er].toString() : "");
+  [nn](e) {
+    return valueToHtml(null !== this[ar] ? this[ar].toString() : "");
   }
 }
 class Issuers extends XFAObject {
   constructor(e) {
-    super(Hn, "issuers", !0);
+    super(vn, "issuers", !0);
     this.id = e.id || "";
     this.type = getStringOption(e.type, ["optional", "required"]);
     this.use = e.use || "";
@@ -45739,7 +46102,7 @@ class Issuers extends XFAObject {
 }
 class Items extends XFAObject {
   constructor(e) {
-    super(Hn, "items", !0);
+    super(vn, "items", !0);
     this.id = e.id || "";
     this.name = e.name || "";
     this.presence = getStringOption(e.presence, [
@@ -45767,15 +46130,15 @@ class Items extends XFAObject {
     this.text = new XFAObjectArray();
     this.time = new XFAObjectArray();
   }
-  [an]() {
+  [nn]() {
     const e = [];
-    for (const t of this[Er]()) e.push(t[en]());
+    for (const t of this[fr]()) e.push(t[sn]());
     return HTMLResult.success(e);
   }
 }
 class Keep extends XFAObject {
   constructor(e) {
-    super(Hn, "keep", !0);
+    super(vn, "keep", !0);
     this.id = e.id || "";
     const t = ["none", "contentArea", "pageArea"];
     this.intact = getStringOption(e.intact, t);
@@ -45788,7 +46151,7 @@ class Keep extends XFAObject {
 }
 class KeyUsage extends XFAObject {
   constructor(e) {
-    super(Hn, "keyUsage");
+    super(vn, "keyUsage");
     const t = ["", "yes", "no"];
     this.crlSign = getStringOption(e.crlSign, t);
     this.dataEncipherment = getStringOption(e.dataEncipherment, t);
@@ -45807,7 +46170,7 @@ class KeyUsage extends XFAObject {
 }
 class Line extends XFAObject {
   constructor(e) {
-    super(Hn, "line", !0);
+    super(vn, "line", !0);
     this.hand = getStringOption(e.hand, ["even", "left", "right"]);
     this.id = e.id || "";
     this.slope = getStringOption(e.slope, ["\\", "/"]);
@@ -45815,10 +46178,10 @@ class Line extends XFAObject {
     this.usehref = e.usehref || "";
     this.edge = null;
   }
-  [an]() {
-    const e = this[pr]()[pr](),
+  [nn]() {
+    const e = this[wr]()[wr](),
       t = this.edge || new Edge({}),
-      i = t[rn](),
+      i = t[on](),
       a = Object.create(null),
       s = "visible" === t.presence ? t.thickness : 0;
     a.strokeWidth = measureToString(s);
@@ -45844,11 +46207,11 @@ class Line extends XFAObject {
       children: [
         {
           name: "line",
-          attributes: { xmlns: Jn, x1: r, y1: n, x2: g, y2: o, style: a },
+          attributes: { xmlns: Kn, x1: r, y1: n, x2: g, y2: o, style: a },
         },
       ],
       attributes: {
-        xmlns: Jn,
+        xmlns: Kn,
         width: c,
         height: C,
         style: { overflow: "visible" },
@@ -45868,7 +46231,7 @@ class Line extends XFAObject {
 }
 class Linear extends XFAObject {
   constructor(e) {
-    super(Hn, "linear", !0);
+    super(vn, "linear", !0);
     this.id = e.id || "";
     this.type = getStringOption(e.type, [
       "toRight",
@@ -45881,26 +46244,26 @@ class Linear extends XFAObject {
     this.color = null;
     this.extras = null;
   }
-  [rn](e) {
-    e = e ? e[rn]() : "#FFFFFF";
-    return `linear-gradient(${this.type.replace(/([RBLT])/, " $1").toLowerCase()}, ${e}, ${this.color ? this.color[rn]() : "#000000"})`;
+  [on](e) {
+    e = e ? e[on]() : "#FFFFFF";
+    return `linear-gradient(${this.type.replace(/([RBLT])/, " $1").toLowerCase()}, ${e}, ${this.color ? this.color[on]() : "#000000"})`;
   }
 }
 class LockDocument extends ContentObject {
   constructor(e) {
-    super(Hn, "lockDocument");
+    super(vn, "lockDocument");
     this.id = e.id || "";
     this.type = getStringOption(e.type, ["optional", "required"]);
     this.use = e.use || "";
     this.usehref = e.usehref || "";
   }
-  [sr]() {
-    this[er] = getStringOption(this[er], ["auto", "0", "1"]);
+  [gr]() {
+    this[ar] = getStringOption(this[ar], ["auto", "0", "1"]);
   }
 }
 class Manifest extends XFAObject {
   constructor(e) {
-    super(Hn, "manifest", !0);
+    super(vn, "manifest", !0);
     this.action = getStringOption(e.action, ["include", "all", "exclude"]);
     this.id = e.id || "";
     this.name = e.name || "";
@@ -45912,7 +46275,7 @@ class Manifest extends XFAObject {
 }
 class Margin extends XFAObject {
   constructor(e) {
-    super(Hn, "margin", !0);
+    super(vn, "margin", !0);
     this.bottomInset = getMeasurement(e.bottomInset, "0");
     this.id = e.id || "";
     this.leftInset = getMeasurement(e.leftInset, "0");
@@ -45922,7 +46285,7 @@ class Margin extends XFAObject {
     this.usehref = e.usehref || "";
     this.extras = null;
   }
-  [rn]() {
+  [on]() {
     return {
       margin:
         measureToString(this.topInset) +
@@ -45937,7 +46300,7 @@ class Margin extends XFAObject {
 }
 class Mdp extends XFAObject {
   constructor(e) {
-    super(Hn, "mdp");
+    super(vn, "mdp");
     this.id = e.id || "";
     this.permissions = getInteger({
       data: e.permissions,
@@ -45951,7 +46314,7 @@ class Mdp extends XFAObject {
 }
 class Medium extends XFAObject {
   constructor(e) {
-    super(Hn, "medium");
+    super(vn, "medium");
     this.id = e.id || "";
     this.imagingBBox = (function getBBox(e) {
       const t = -1;
@@ -45980,7 +46343,7 @@ class Medium extends XFAObject {
 }
 class Message extends XFAObject {
   constructor(e) {
-    super(Hn, "message", !0);
+    super(vn, "message", !0);
     this.id = e.id || "";
     this.use = e.use || "";
     this.usehref = e.usehref || "";
@@ -45989,7 +46352,7 @@ class Message extends XFAObject {
 }
 class NumericEdit extends XFAObject {
   constructor(e) {
-    super(Hn, "numericEdit", !0);
+    super(vn, "numericEdit", !0);
     this.hScrollPolicy = getStringOption(e.hScrollPolicy, [
       "auto",
       "off",
@@ -46003,15 +46366,15 @@ class NumericEdit extends XFAObject {
     this.extras = null;
     this.margin = null;
   }
-  [an](e) {
+  [nn](e) {
     const t = toStyle(this, "border", "font", "margin"),
-      i = this[pr]()[pr](),
+      i = this[wr]()[wr](),
       a = {
         name: "input",
         attributes: {
           type: "text",
-          fieldId: i[nn],
-          dataId: i[tr]?.[nn] || i[nn],
+          fieldId: i[In],
+          dataId: i[sr]?.[In] || i[In],
           class: ["xfaTextfield"],
           style: t,
           "aria-label": ariaLabel(i),
@@ -46031,7 +46394,7 @@ class NumericEdit extends XFAObject {
 }
 class Occur extends XFAObject {
   constructor(e) {
-    super(Hn, "occur", !0);
+    super(vn, "occur", !0);
     this.id = e.id || "";
     this.initial =
       "" !== e.initial
@@ -46049,8 +46412,8 @@ class Occur extends XFAObject {
     this.usehref = e.usehref || "";
     this.extras = null;
   }
-  [Vs]() {
-    const e = this[pr](),
+  [$s]() {
+    const e = this[wr](),
       t = this.min;
     "" === this.min &&
       (this.min = e instanceof PageArea || e instanceof PageSet ? 0 : 1);
@@ -46068,7 +46431,7 @@ class Occur extends XFAObject {
 }
 class Oid extends StringObject {
   constructor(e) {
-    super(Hn, "oid");
+    super(vn, "oid");
     this.id = e.id || "";
     this.name = e.name || "";
     this.use = e.use || "";
@@ -46077,7 +46440,7 @@ class Oid extends StringObject {
 }
 class Oids extends XFAObject {
   constructor(e) {
-    super(Hn, "oids", !0);
+    super(vn, "oids", !0);
     this.id = e.id || "";
     this.type = getStringOption(e.type, ["optional", "required"]);
     this.use = e.use || "";
@@ -46087,7 +46450,7 @@ class Oids extends XFAObject {
 }
 class Overflow extends XFAObject {
   constructor(e) {
-    super(Hn, "overflow");
+    super(vn, "overflow");
     this.id = e.id || "";
     this.leader = e.leader || "";
     this.target = e.target || "";
@@ -46095,14 +46458,14 @@ class Overflow extends XFAObject {
     this.use = e.use || "";
     this.usehref = e.usehref || "";
   }
-  [lr]() {
-    if (!this[ar]) {
-      const e = this[pr](),
-        t = this[mr](),
-        i = t[Vr](this.target, e),
-        a = t[Vr](this.leader, e),
-        s = t[Vr](this.trailer, e);
-      this[ar] = {
+  [ur]() {
+    if (!this[nr]) {
+      const e = this[wr](),
+        t = this[Dr](),
+        i = t[$r](this.target, e),
+        a = t[$r](this.leader, e),
+        s = t[$r](this.trailer, e);
+      this[nr] = {
         target: i?.[0] || null,
         leader: a?.[0] || null,
         trailer: s?.[0] || null,
@@ -46110,12 +46473,12 @@ class Overflow extends XFAObject {
         addTrailer: !1,
       };
     }
-    return this[ar];
+    return this[nr];
   }
 }
 class PageArea extends XFAObject {
   constructor(e) {
-    super(Hn, "pageArea", !0);
+    super(vn, "pageArea", !0);
     this.blankOrNotBlank = getStringOption(e.blankOrNotBlank, [
       "any",
       "blank",
@@ -46155,59 +46518,59 @@ class PageArea extends XFAObject {
     this.field = new XFAObjectArray();
     this.subform = new XFAObjectArray();
   }
-  [Lr]() {
-    if (!this[ar]) {
-      this[ar] = { numberOfUse: 0 };
+  [Yr]() {
+    if (!this[nr]) {
+      this[nr] = { numberOfUse: 0 };
       return !0;
     }
     return (
       !this.occur ||
       -1 === this.occur.max ||
-      this[ar].numberOfUse < this.occur.max
+      this[nr].numberOfUse < this.occur.max
     );
   }
-  [zs]() {
-    delete this[ar];
+  [Ar]() {
+    delete this[nr];
   }
-  [dr]() {
-    this[ar] || (this[ar] = { numberOfUse: 0 });
-    const e = this[pr]();
-    if ("orderedOccurrence" === e.relation && this[Lr]()) {
-      this[ar].numberOfUse += 1;
+  [mr]() {
+    this[nr] || (this[nr] = { numberOfUse: 0 });
+    const e = this[wr]();
+    if ("orderedOccurrence" === e.relation && this[Yr]()) {
+      this[nr].numberOfUse += 1;
       return this;
     }
-    return e[dr]();
+    return e[mr]();
   }
-  [or]() {
-    return this[ar].space || { width: 0, height: 0 };
+  [Cr]() {
+    return this[nr].space || { width: 0, height: 0 };
   }
-  [an]() {
-    this[ar] || (this[ar] = { numberOfUse: 1 });
+  [nn]() {
+    this[nr] || (this[nr] = { numberOfUse: 1 });
     const e = [];
-    this[ar].children = e;
+    this[nr].children = e;
     const t = Object.create(null);
     if (this.medium && this.medium.short && this.medium.long) {
       t.width = measureToString(this.medium.short);
       t.height = measureToString(this.medium.long);
-      this[ar].space = { width: this.medium.short, height: this.medium.long };
+      this[nr].space = { width: this.medium.short, height: this.medium.long };
       if ("landscape" === this.medium.orientation) {
         const e = t.width;
         t.width = t.height;
         t.height = e;
-        this[ar].space = { width: this.medium.long, height: this.medium.short };
+        this[nr].space = { width: this.medium.long, height: this.medium.short };
       }
     } else warn("XFA - No medium specified in pageArea: please file a bug.");
-    this[Zs]({
+    this[_s]({
       filter: new Set(["area", "draw", "field", "subform"]),
       include: !0,
     });
-    this[Zs]({ filter: new Set(["contentArea"]), include: !0 });
+    this[_s]({ filter: new Set(["contentArea"]), include: !0 });
     return HTMLResult.success({
       name: "div",
       children: e,
       attributes: {
         class: ["xfaPage"],
-        id: this[nn],
+        id: this[In],
         style: t,
         xfaName: this.name,
       },
@@ -46216,7 +46579,7 @@ class PageArea extends XFAObject {
 }
 class PageSet extends XFAObject {
   constructor(e) {
-    super(Hn, "pageSet", !0);
+    super(vn, "pageSet", !0);
     this.duplexImposition = getStringOption(e.duplexImposition, [
       "longEdge",
       "shortEdge",
@@ -46236,41 +46599,41 @@ class PageSet extends XFAObject {
     this.pageArea = new XFAObjectArray();
     this.pageSet = new XFAObjectArray();
   }
-  [zs]() {
-    for (const e of this.pageArea.children) e[zs]();
-    for (const e of this.pageSet.children) e[zs]();
+  [Ar]() {
+    for (const e of this.pageArea.children) e[Ar]();
+    for (const e of this.pageSet.children) e[Ar]();
   }
-  [Lr]() {
+  [Yr]() {
     return (
       !this.occur ||
       -1 === this.occur.max ||
-      this[ar].numberOfUse < this.occur.max
+      this[nr].numberOfUse < this.occur.max
     );
   }
-  [dr]() {
-    this[ar] ||
-      (this[ar] = { numberOfUse: 1, pageIndex: -1, pageSetIndex: -1 });
+  [mr]() {
+    this[nr] ||
+      (this[nr] = { numberOfUse: 1, pageIndex: -1, pageSetIndex: -1 });
     if ("orderedOccurrence" === this.relation) {
-      if (this[ar].pageIndex + 1 < this.pageArea.children.length) {
-        this[ar].pageIndex += 1;
-        return this.pageArea.children[this[ar].pageIndex][dr]();
+      if (this[nr].pageIndex + 1 < this.pageArea.children.length) {
+        this[nr].pageIndex += 1;
+        return this.pageArea.children[this[nr].pageIndex][mr]();
       }
-      if (this[ar].pageSetIndex + 1 < this.pageSet.children.length) {
-        this[ar].pageSetIndex += 1;
-        return this.pageSet.children[this[ar].pageSetIndex][dr]();
+      if (this[nr].pageSetIndex + 1 < this.pageSet.children.length) {
+        this[nr].pageSetIndex += 1;
+        return this.pageSet.children[this[nr].pageSetIndex][mr]();
       }
-      if (this[Lr]()) {
-        this[ar].numberOfUse += 1;
-        this[ar].pageIndex = -1;
-        this[ar].pageSetIndex = -1;
-        return this[dr]();
+      if (this[Yr]()) {
+        this[nr].numberOfUse += 1;
+        this[nr].pageIndex = -1;
+        this[nr].pageSetIndex = -1;
+        return this[mr]();
       }
-      const e = this[pr]();
-      if (e instanceof PageSet) return e[dr]();
-      this[zs]();
-      return this[dr]();
+      const e = this[wr]();
+      if (e instanceof PageSet) return e[mr]();
+      this[Ar]();
+      return this[mr]();
     }
-    const e = this[mr]()[ar].pageNumber,
+    const e = this[Dr]()[nr].pageNumber,
       t = e % 2 == 0 ? "even" : "odd",
       i = 0 === e ? "first" : "rest";
     let a = this.pageArea.children.find(
@@ -46289,7 +46652,7 @@ class PageSet extends XFAObject {
 }
 class Para extends XFAObject {
   constructor(e) {
-    super(Hn, "para", !0);
+    super(vn, "para", !0);
     this.hAlign = getStringOption(e.hAlign, [
       "left",
       "center",
@@ -46331,7 +46694,7 @@ class Para extends XFAObject {
     });
     this.hyphenation = null;
   }
-  [rn]() {
+  [on]() {
     const e = toStyle(this, "hAlign");
     "" !== this.marginLeft &&
       (e.paddingLeft = measureToString(this.marginLeft));
@@ -46347,13 +46710,13 @@ class Para extends XFAObject {
     this.lineHeight > 0 && (e.lineHeight = measureToString(this.lineHeight));
     "" !== this.tabDefault && (e.tabSize = measureToString(this.tabDefault));
     this.tabStops.length;
-    this.hyphenatation && Object.assign(e, this.hyphenatation[rn]());
+    this.hyphenatation && Object.assign(e, this.hyphenatation[on]());
     return e;
   }
 }
 class PasswordEdit extends XFAObject {
   constructor(e) {
-    super(Hn, "passwordEdit", !0);
+    super(vn, "passwordEdit", !0);
     this.hScrollPolicy = getStringOption(e.hScrollPolicy, [
       "auto",
       "off",
@@ -46370,7 +46733,7 @@ class PasswordEdit extends XFAObject {
 }
 class template_Pattern extends XFAObject {
   constructor(e) {
-    super(Hn, "pattern", !0);
+    super(vn, "pattern", !0);
     this.id = e.id || "";
     this.type = getStringOption(e.type, [
       "crossHatch",
@@ -46385,9 +46748,9 @@ class template_Pattern extends XFAObject {
     this.color = null;
     this.extras = null;
   }
-  [rn](e) {
-    e = e ? e[rn]() : "#FFFFFF";
-    const t = this.color ? this.color[rn]() : "#000000",
+  [on](e) {
+    e = e ? e[on]() : "#FFFFFF";
+    const t = this.color ? this.color[on]() : "#000000",
       i = "repeating-linear-gradient",
       a = `${e},${e} 5px,${t} 5px,${t} 10px`;
     switch (this.type) {
@@ -46409,7 +46772,7 @@ class template_Pattern extends XFAObject {
 }
 class Picture extends StringObject {
   constructor(e) {
-    super(Hn, "picture");
+    super(vn, "picture");
     this.id = e.id || "";
     this.use = e.use || "";
     this.usehref = e.usehref || "";
@@ -46417,7 +46780,7 @@ class Picture extends StringObject {
 }
 class Proto extends XFAObject {
   constructor(e) {
-    super(Hn, "proto", !0);
+    super(vn, "proto", !0);
     this.appearanceFilter = new XFAObjectArray();
     this.arc = new XFAObjectArray();
     this.area = new XFAObjectArray();
@@ -46532,7 +46895,7 @@ class Proto extends XFAObject {
 }
 class Radial extends XFAObject {
   constructor(e) {
-    super(Hn, "radial", !0);
+    super(vn, "radial", !0);
     this.id = e.id || "";
     this.type = getStringOption(e.type, ["toEdge", "toCenter"]);
     this.use = e.use || "";
@@ -46540,15 +46903,15 @@ class Radial extends XFAObject {
     this.color = null;
     this.extras = null;
   }
-  [rn](e) {
-    e = e ? e[rn]() : "#FFFFFF";
-    const t = this.color ? this.color[rn]() : "#000000";
+  [on](e) {
+    e = e ? e[on]() : "#FFFFFF";
+    const t = this.color ? this.color[on]() : "#000000";
     return `radial-gradient(circle at center, ${"toEdge" === this.type ? `${e},${t}` : `${t},${e}`})`;
   }
 }
 class Reason extends StringObject {
   constructor(e) {
-    super(Hn, "reason");
+    super(vn, "reason");
     this.id = e.id || "";
     this.name = e.name || "";
     this.use = e.use || "";
@@ -46557,7 +46920,7 @@ class Reason extends StringObject {
 }
 class Reasons extends XFAObject {
   constructor(e) {
-    super(Hn, "reasons", !0);
+    super(vn, "reasons", !0);
     this.id = e.id || "";
     this.type = getStringOption(e.type, ["optional", "required"]);
     this.use = e.use || "";
@@ -46567,7 +46930,7 @@ class Reasons extends XFAObject {
 }
 class Rectangle extends XFAObject {
   constructor(e) {
-    super(Hn, "rectangle", !0);
+    super(vn, "rectangle", !0);
     this.hand = getStringOption(e.hand, ["even", "left", "right"]);
     this.id = e.id || "";
     this.use = e.use || "";
@@ -46576,25 +46939,25 @@ class Rectangle extends XFAObject {
     this.edge = new XFAObjectArray(4);
     this.fill = null;
   }
-  [an]() {
+  [nn]() {
     const e = this.edge.children.length ? this.edge.children[0] : new Edge({}),
-      t = e[rn](),
+      t = e[on](),
       i = Object.create(null);
     "visible" === this.fill?.presence
-      ? Object.assign(i, this.fill[rn]())
+      ? Object.assign(i, this.fill[on]())
       : (i.fill = "transparent");
     i.strokeWidth = measureToString("visible" === e.presence ? e.thickness : 0);
     i.stroke = t.color;
     const a = (
         this.corner.children.length ? this.corner.children[0] : new Corner({})
-      )[rn](),
+      )[on](),
       s = {
         name: "svg",
         children: [
           {
             name: "rect",
             attributes: {
-              xmlns: Jn,
+              xmlns: Kn,
               width: "100%",
               height: "100%",
               x: 0,
@@ -46606,13 +46969,13 @@ class Rectangle extends XFAObject {
           },
         ],
         attributes: {
-          xmlns: Jn,
+          xmlns: Kn,
           style: { overflow: "visible" },
           width: "100%",
           height: "100%",
         },
       };
-    if (hasMargin(this[pr]()[pr]()))
+    if (hasMargin(this[wr]()[wr]()))
       return HTMLResult.success({
         name: "div",
         attributes: {
@@ -46626,7 +46989,7 @@ class Rectangle extends XFAObject {
 }
 class RefElement extends StringObject {
   constructor(e) {
-    super(Hn, "ref");
+    super(vn, "ref");
     this.id = e.id || "";
     this.use = e.use || "";
     this.usehref = e.usehref || "";
@@ -46634,7 +46997,7 @@ class RefElement extends StringObject {
 }
 class Script extends StringObject {
   constructor(e) {
-    super(Hn, "script");
+    super(vn, "script");
     this.binding = e.binding || "";
     this.contentType = e.contentType || "";
     this.id = e.id || "";
@@ -46646,7 +47009,7 @@ class Script extends StringObject {
 }
 class SetProperty extends XFAObject {
   constructor(e) {
-    super(Hn, "setProperty");
+    super(vn, "setProperty");
     this.connection = e.connection || "";
     this.ref = e.ref || "";
     this.target = e.target || "";
@@ -46654,7 +47017,7 @@ class SetProperty extends XFAObject {
 }
 class SignData extends XFAObject {
   constructor(e) {
-    super(Hn, "signData", !0);
+    super(vn, "signData", !0);
     this.id = e.id || "";
     this.operation = getStringOption(e.operation, ["sign", "clear", "verify"]);
     this.ref = e.ref || "";
@@ -46667,7 +47030,7 @@ class SignData extends XFAObject {
 }
 class Signature extends XFAObject {
   constructor(e) {
-    super(Hn, "signature", !0);
+    super(vn, "signature", !0);
     this.id = e.id || "";
     this.type = getStringOption(e.type, ["PDF1.3", "PDF1.6"]);
     this.use = e.use || "";
@@ -46681,7 +47044,7 @@ class Signature extends XFAObject {
 }
 class Signing extends XFAObject {
   constructor(e) {
-    super(Hn, "signing", !0);
+    super(vn, "signing", !0);
     this.id = e.id || "";
     this.type = getStringOption(e.type, ["optional", "required"]);
     this.use = e.use || "";
@@ -46691,19 +47054,19 @@ class Signing extends XFAObject {
 }
 class Solid extends XFAObject {
   constructor(e) {
-    super(Hn, "solid", !0);
+    super(vn, "solid", !0);
     this.id = e.id || "";
     this.use = e.use || "";
     this.usehref = e.usehref || "";
     this.extras = null;
   }
-  [rn](e) {
-    return e ? e[rn]() : "#FFFFFF";
+  [on](e) {
+    return e ? e[on]() : "#FFFFFF";
   }
 }
 class Speak extends StringObject {
   constructor(e) {
-    super(Hn, "speak");
+    super(vn, "speak");
     this.disable = getInteger({
       data: e.disable,
       defaultValue: 0,
@@ -46723,7 +47086,7 @@ class Speak extends StringObject {
 }
 class Stipple extends XFAObject {
   constructor(e) {
-    super(Hn, "stipple", !0);
+    super(vn, "stipple", !0);
     this.id = e.id || "";
     this.rate = getInteger({
       data: e.rate,
@@ -46735,7 +47098,7 @@ class Stipple extends XFAObject {
     this.color = null;
     this.extras = null;
   }
-  [rn](e) {
+  [on](e) {
     const t = this.rate / 100;
     return Util.makeHexColor(
       Math.round(e.value.r * (1 - t) + this.value.r * t),
@@ -46746,7 +47109,7 @@ class Stipple extends XFAObject {
 }
 class Subform extends XFAObject {
   constructor(e) {
-    super(Hn, "subform", !0);
+    super(vn, "subform", !0);
     this.access = getStringOption(e.access, [
       "open",
       "nonInteractive",
@@ -46852,50 +47215,50 @@ class Subform extends XFAObject {
     this.subform = new XFAObjectArray();
     this.subformSet = new XFAObjectArray();
   }
-  [fr]() {
-    const e = this[pr]();
-    return e instanceof SubformSet ? e[fr]() : e;
+  [yr]() {
+    const e = this[wr]();
+    return e instanceof SubformSet ? e[yr]() : e;
   }
-  [kr]() {
+  [Gr]() {
     return !0;
   }
-  [Ur]() {
+  [Hr]() {
     return (
       (this.layout.endsWith("-tb") &&
-        0 === this[ar].attempt &&
-        this[ar].numberInLine > 0) ||
-      this[pr]()[Ur]()
+        0 === this[nr].attempt &&
+        this[nr].numberInLine > 0) ||
+      this[wr]()[Hr]()
     );
   }
-  *[ur]() {
+  *[pr]() {
     yield* getContainedChildren(this);
   }
-  [rr]() {
+  [or]() {
     return flushHTML(this);
   }
-  [js](e, t) {
+  [Vs](e, t) {
     addHTML(this, e, t);
   }
-  [or]() {
+  [Cr]() {
     return getAvailableSpace(this);
   }
-  [xr]() {
-    const e = this[fr]();
-    if (!e[xr]()) return !1;
-    if (void 0 !== this[ar]._isSplittable) return this[ar]._isSplittable;
+  [Lr]() {
+    const e = this[yr]();
+    if (!e[Lr]()) return !1;
+    if (void 0 !== this[nr]._isSplittable) return this[nr]._isSplittable;
     if ("position" === this.layout || this.layout.includes("row")) {
-      this[ar]._isSplittable = !1;
+      this[nr]._isSplittable = !1;
       return !1;
     }
     if (this.keep && "none" !== this.keep.intact) {
-      this[ar]._isSplittable = !1;
+      this[nr]._isSplittable = !1;
       return !1;
     }
-    if (e.layout?.endsWith("-tb") && 0 !== e[ar].numberInLine) return !1;
-    this[ar]._isSplittable = !0;
+    if (e.layout?.endsWith("-tb") && 0 !== e[nr].numberInLine) return !1;
+    this[nr]._isSplittable = !0;
     return !0;
   }
-  [an](e) {
+  [nn](e) {
     setTabIndex(this);
     if (this.break) {
       if ("auto" !== this.break.after || "" !== this.break.afterTarget) {
@@ -46904,8 +47267,8 @@ class Subform extends XFAObject {
           target: this.break.afterTarget,
           startNew: this.break.startNew.toString(),
         });
-        e[yr] = this[yr];
-        this[Xs](e);
+        e[br] = this[br];
+        this[zs](e);
         this.breakAfter.push(e);
       }
       if ("auto" !== this.break.before || "" !== this.break.beforeTarget) {
@@ -46914,8 +47277,8 @@ class Subform extends XFAObject {
           target: this.break.beforeTarget,
           startNew: this.break.startNew.toString(),
         });
-        e[yr] = this[yr];
-        this[Xs](e);
+        e[br] = this[br];
+        this[zs](e);
         this.breakBefore.push(e);
       }
       if ("" !== this.break.overflowTarget) {
@@ -46924,11 +47287,11 @@ class Subform extends XFAObject {
           leader: this.break.overflowLeader,
           trailer: this.break.overflowTrailer,
         });
-        e[yr] = this[yr];
-        this[Xs](e);
+        e[br] = this[br];
+        this[zs](e);
         this.overflow.push(e);
       }
-      this[jr](this.break);
+      this[Vr](this.break);
       this.break = null;
     }
     if ("hidden" === this.presence || "inactive" === this.presence)
@@ -46942,13 +47305,13 @@ class Subform extends XFAObject {
       const e = this.breakBefore.children[0];
       if (handleBreak(e)) return HTMLResult.breakNode(e);
     }
-    if (this[ar]?.afterBreakAfter) return HTMLResult.EMPTY;
+    if (this[nr]?.afterBreakAfter) return HTMLResult.EMPTY;
     fixDimensions(this);
     const t = [],
-      i = { id: this[nn], class: [] };
+      i = { id: this[In], class: [] };
     setAccess(this, i.class);
-    this[ar] || (this[ar] = Object.create(null));
-    Object.assign(this[ar], {
+    this[nr] || (this[nr] = Object.create(null));
+    Object.assign(this[nr], {
       children: t,
       line: null,
       attributes: i,
@@ -46963,9 +47326,9 @@ class Subform extends XFAObject {
       prevHeight: 0,
       currentWidth: 0,
     });
-    const a = this[mr](),
-      s = a[ar].noLayoutFailure,
-      r = this[xr]();
+    const a = this[Dr](),
+      s = a[nr].noLayoutFailure,
+      r = this[Lr]();
     r || setFirstUnsplittable(this);
     if (!checkDimensions(this, e)) return HTMLResult.FAILURE;
     const n = new Set([
@@ -46977,10 +47340,10 @@ class Subform extends XFAObject {
       "subformSet",
     ]);
     if (this.layout.includes("row")) {
-      const e = this[fr]().columnWidths;
+      const e = this[yr]().columnWidths;
       if (Array.isArray(e) && e.length > 0) {
-        this[ar].columnWidths = e;
-        this[ar].currentColumn = 0;
+        this[nr].columnWidths = e;
+        this[nr].currentColumn = 0;
       }
     }
     const g = toStyle(
@@ -47000,43 +47363,43 @@ class Subform extends XFAObject {
     i.class = o;
     this.name && (i.xfaName = this.name);
     if (this.overflow) {
-      const t = this.overflow[lr]();
+      const t = this.overflow[ur]();
       if (t.addLeader) {
         t.addLeader = !1;
         handleOverflow(this, t.leader, e);
       }
     }
-    this[Wr]();
+    this[Zr]();
     const C = "lr-tb" === this.layout || "rl-tb" === this.layout,
       h = C ? 2 : 1;
-    for (; this[ar].attempt < h; this[ar].attempt++) {
-      C && 1 === this[ar].attempt && (this[ar].numberInLine = 0);
-      const e = this[Zs]({ filter: n, include: !0 });
+    for (; this[nr].attempt < h; this[nr].attempt++) {
+      C && 1 === this[nr].attempt && (this[nr].numberInLine = 0);
+      const e = this[_s]({ filter: n, include: !0 });
       if (e.success) break;
       if (e.isBreak()) {
-        this[Pr]();
+        this[Xr]();
         return e;
       }
       if (
         C &&
-        0 === this[ar].attempt &&
-        0 === this[ar].numberInLine &&
-        !a[ar].noLayoutFailure
+        0 === this[nr].attempt &&
+        0 === this[nr].numberInLine &&
+        !a[nr].noLayoutFailure
       ) {
-        this[ar].attempt = h;
+        this[nr].attempt = h;
         break;
       }
     }
-    this[Pr]();
+    this[Xr]();
     r || unsetFirstUnsplittable(this);
-    a[ar].noLayoutFailure = s;
-    if (this[ar].attempt === h) {
-      this.overflow && (this[mr]()[ar].overflowNode = this.overflow);
-      r || delete this[ar];
+    a[nr].noLayoutFailure = s;
+    if (this[nr].attempt === h) {
+      this.overflow && (this[Dr]()[nr].overflowNode = this.overflow);
+      r || delete this[nr];
       return HTMLResult.FAILURE;
     }
     if (this.overflow) {
-      const t = this.overflow[lr]();
+      const t = this.overflow[ur]();
       if (t.addTrailer) {
         t.addTrailer = !1;
         handleOverflow(this, t.trailer, e);
@@ -47048,8 +47411,8 @@ class Subform extends XFAObject {
       l = this.margin.leftInset + this.margin.rightInset;
       Q = this.margin.topInset + this.margin.bottomInset;
     }
-    const E = Math.max(this[ar].width + l, this.w || 0),
-      u = Math.max(this[ar].height + Q, this.h || 0),
+    const E = Math.max(this[nr].width + l, this.w || 0),
+      u = Math.max(this[nr].height + Q, this.h || 0),
       d = [this.x, this.y, E, u];
     "" === this.w && (g.width = measureToString(E));
     "" === this.h && (g.height = measureToString(u));
@@ -47061,17 +47424,17 @@ class Subform extends XFAObject {
     if (this.breakAfter.children.length >= 1) {
       const e = this.breakAfter.children[0];
       if (handleBreak(e)) {
-        this[ar].afterBreakAfter = p;
+        this[nr].afterBreakAfter = p;
         return HTMLResult.breakNode(e);
       }
     }
-    delete this[ar];
+    delete this[nr];
     return p;
   }
 }
 class SubformSet extends XFAObject {
   constructor(e) {
-    super(Hn, "subformSet", !0);
+    super(vn, "subformSet", !0);
     this.id = e.id || "";
     this.name = e.name || "";
     this.relation = getStringOption(e.relation, [
@@ -47093,30 +47456,30 @@ class SubformSet extends XFAObject {
     this.subform = new XFAObjectArray();
     this.subformSet = new XFAObjectArray();
   }
-  *[ur]() {
+  *[pr]() {
     yield* getContainedChildren(this);
   }
-  [fr]() {
-    let e = this[pr]();
-    for (; !(e instanceof Subform); ) e = e[pr]();
+  [yr]() {
+    let e = this[wr]();
+    for (; !(e instanceof Subform); ) e = e[wr]();
     return e;
   }
-  [kr]() {
+  [Gr]() {
     return !0;
   }
 }
 class SubjectDN extends ContentObject {
   constructor(e) {
-    super(Hn, "subjectDN");
+    super(vn, "subjectDN");
     this.delimiter = e.delimiter || ",";
     this.id = e.id || "";
     this.name = e.name || "";
     this.use = e.use || "";
     this.usehref = e.usehref || "";
   }
-  [sr]() {
-    this[er] = new Map(
-      this[er].split(this.delimiter).map((e) => {
+  [gr]() {
+    this[ar] = new Map(
+      this[ar].split(this.delimiter).map((e) => {
         (e = e.split("=", 2))[0] = e[0].trim();
         return e;
       }),
@@ -47125,7 +47488,7 @@ class SubjectDN extends ContentObject {
 }
 class SubjectDNs extends XFAObject {
   constructor(e) {
-    super(Hn, "subjectDNs", !0);
+    super(vn, "subjectDNs", !0);
     this.id = e.id || "";
     this.type = getStringOption(e.type, ["optional", "required"]);
     this.use = e.use || "";
@@ -47135,7 +47498,7 @@ class SubjectDNs extends XFAObject {
 }
 class Submit extends XFAObject {
   constructor(e) {
-    super(Hn, "submit", !0);
+    super(vn, "submit", !0);
     this.embedPDF = getInteger({
       data: e.embedPDF,
       defaultValue: 0,
@@ -47179,7 +47542,7 @@ class Submit extends XFAObject {
 }
 class Template extends XFAObject {
   constructor(e) {
-    super(Hn, "template", !0);
+    super(vn, "template", !0);
     this.baseProfile = getStringOption(e.baseProfile, [
       "full",
       "interactiveForms",
@@ -47187,25 +47550,25 @@ class Template extends XFAObject {
     this.extras = null;
     this.subform = new XFAObjectArray();
   }
-  [sr]() {
+  [gr]() {
     0 === this.subform.children.length &&
       warn("XFA - No subforms in template node.");
     this.subform.children.length >= 2 &&
       warn("XFA - Several subforms in template node: please file a bug.");
-    this[An] = 5e3;
+    this[an] = 5e3;
   }
-  [xr]() {
+  [Lr]() {
     return !0;
   }
-  [Vr](e, t) {
+  [$r](e, t) {
     return e.startsWith("#")
-      ? [this[Dr].get(e.slice(1))]
+      ? [this[Sr].get(e.slice(1))]
       : searchNode(this, t, e, !0, !0);
   }
-  *[tn]() {
+  *[rn]() {
     if (!this.subform.children.length)
       return HTMLResult.success({ name: "div", children: [] });
-    this[ar] = {
+    this[nr] = {
       overflowNode: null,
       firstUnsplittable: null,
       currentContentArea: null,
@@ -47218,7 +47581,7 @@ class Template extends XFAObject {
       paraStack: [],
     };
     const e = this.subform.children[0];
-    e.pageSet[zs]();
+    e.pageSet[Ar]();
     const t = e.pageSet.pageArea.children,
       i = { name: "div", children: [] };
     let a = null,
@@ -47244,16 +47607,16 @@ class Template extends XFAObject {
       r = s.beforeTarget;
     }
     if (s) {
-      const e = this[Vr](r, s[pr]());
+      const e = this[$r](r, s[wr]());
       if (e instanceof PageArea) {
         a = e;
-        s[ar] = {};
+        s[nr] = {};
       }
     }
     a || (a = t[0]);
-    a[ar] = { numberOfUse: 1 };
-    const n = a[pr]();
-    n[ar] = {
+    a[nr] = { numberOfUse: 1 };
+    const n = a[wr]();
+    n[nr] = {
       numberOfUse: 1,
       pageIndex: n.pageArea.children.indexOf(a),
       pageSetIndex: 0,
@@ -47274,17 +47637,17 @@ class Template extends XFAObject {
         }
       }
       g = null;
-      this[ar].currentPageArea = a;
-      const t = a[an]().html;
+      this[nr].currentPageArea = a;
+      const t = a[nn]().html;
       i.children.push(t);
       if (o) {
-        this[ar].noLayoutFailure = !0;
-        t.children.push(o[an](a[ar].space).html);
+        this[nr].noLayoutFailure = !0;
+        t.children.push(o[nn](a[nr].space).html);
         o = null;
       }
       if (c) {
-        this[ar].noLayoutFailure = !0;
-        t.children.push(c[an](a[ar].space).html);
+        this[nr].noLayoutFailure = !0;
+        t.children.push(c[nn](a[nr].space).html);
         c = null;
       }
       const s = a.contentArea.children,
@@ -47292,28 +47655,28 @@ class Template extends XFAObject {
           e.attributes.class.includes("xfaContentarea"),
         );
       C = !1;
-      this[ar].firstUnsplittable = null;
-      this[ar].noLayoutFailure = !1;
+      this[nr].firstUnsplittable = null;
+      this[nr].noLayoutFailure = !1;
       const flush = (t) => {
-        const i = e[rr]();
+        const i = e[or]();
         if (i) {
           C ||= i.children?.length > 0;
           r[t].children.push(i);
         }
       };
       for (let t = l, a = s.length; t < a; t++) {
-        const a = (this[ar].currentContentArea = s[t]),
+        const a = (this[nr].currentContentArea = s[t]),
           n = { width: a.w, height: a.h };
         l = 0;
         if (o) {
-          r[t].children.push(o[an](n).html);
+          r[t].children.push(o[nn](n).html);
           o = null;
         }
         if (c) {
-          r[t].children.push(c[an](n).html);
+          r[t].children.push(c[nn](n).html);
           c = null;
         }
-        const h = e[an](n);
+        const h = e[nn](n);
         if (h.success) {
           if (h.html) {
             C ||= h.html.children?.length > 0;
@@ -47326,25 +47689,25 @@ class Template extends XFAObject {
           flush(t);
           if ("auto" === e.targetType) continue;
           if (e.leader) {
-            o = this[Vr](e.leader, e[pr]());
+            o = this[$r](e.leader, e[wr]());
             o = o ? o[0] : null;
           }
           if (e.trailer) {
-            c = this[Vr](e.trailer, e[pr]());
+            c = this[$r](e.trailer, e[wr]());
             c = c ? c[0] : null;
           }
           if ("pageArea" === e.targetType) {
-            g = e[ar].target;
+            g = e[nr].target;
             t = 1 / 0;
-          } else if (e[ar].target) {
-            g = e[ar].target;
-            l = e[ar].index + 1;
+          } else if (e[nr].target) {
+            g = e[nr].target;
+            l = e[nr].index + 1;
             t = 1 / 0;
-          } else t = e[ar].index;
-        } else if (this[ar].overflowNode) {
-          const e = this[ar].overflowNode;
-          this[ar].overflowNode = null;
-          const i = e[lr](),
+          } else t = e[nr].index;
+        } else if (this[nr].overflowNode) {
+          const e = this[nr].overflowNode;
+          this[nr].overflowNode = null;
+          const i = e[ur](),
             a = i.target;
           i.addLeader = null !== i.leader;
           i.addTrailer = null !== i.trailer;
@@ -47356,22 +47719,22 @@ class Template extends XFAObject {
             const e = s.indexOf(a);
             if (-1 !== e) e > r ? (t = e - 1) : (l = e);
             else {
-              g = a[pr]();
+              g = a[wr]();
               l = g.contentArea.children.indexOf(a);
             }
           }
         } else flush(t);
       }
-      this[ar].pageNumber += 1;
-      g && (g[Lr]() ? (g[ar].numberOfUse += 1) : (g = null));
-      a = g || a[dr]();
+      this[nr].pageNumber += 1;
+      g && (g[Yr]() ? (g[nr].numberOfUse += 1) : (g = null));
+      a = g || a[mr]();
       yield null;
     }
   }
 }
 class Text extends ContentObject {
   constructor(e) {
-    super(Hn, "text");
+    super(vn, "text");
     this.id = e.id || "";
     this.maxChars = getInteger({
       data: e.maxChars,
@@ -47383,42 +47746,42 @@ class Text extends ContentObject {
     this.use = e.use || "";
     this.usehref = e.usehref || "";
   }
-  [Ws]() {
+  [Zs]() {
     return !0;
   }
-  [Kr](e) {
-    if (e[Jr] === on.xhtml.id) {
-      this[er] = e;
+  [Or](e) {
+    if (e[Kr] === Cn.xhtml.id) {
+      this[ar] = e;
       return !0;
     }
-    warn(`XFA - Invalid content in Text: ${e[Yr]}.`);
+    warn(`XFA - Invalid content in Text: ${e[Tr]}.`);
     return !1;
   }
-  [qr](e) {
-    this[er] instanceof XFAObject || super[qr](e);
+  [Wr](e) {
+    this[ar] instanceof XFAObject || super[Wr](e);
   }
-  [sr]() {
-    "string" == typeof this[er] &&
-      (this[er] = this[er].replaceAll("\r\n", "\n"));
+  [gr]() {
+    "string" == typeof this[ar] &&
+      (this[ar] = this[ar].replaceAll("\r\n", "\n"));
   }
-  [lr]() {
-    return "string" == typeof this[er]
-      ? this[er]
+  [ur]() {
+    return "string" == typeof this[ar]
+      ? this[ar]
           .split(/[\u2029\u2028\n]/)
           .reduce((e, t) => {
             t && e.push(t);
             return e;
           }, [])
           .join("\n")
-      : this[er][en]();
+      : this[ar][sn]();
   }
-  [an](e) {
-    if ("string" == typeof this[er]) {
-      const e = valueToHtml(this[er]).html;
-      if (this[er].includes("\u2029")) {
+  [nn](e) {
+    if ("string" == typeof this[ar]) {
+      const e = valueToHtml(this[ar]).html;
+      if (this[ar].includes("\u2029")) {
         e.name = "div";
         e.children = [];
-        this[er]
+        this[ar]
           .split("\u2029")
           .map((e) =>
             e.split(/[\u2028\n]/).reduce((e, t) => {
@@ -47429,21 +47792,21 @@ class Text extends ContentObject {
           .forEach((t) => {
             e.children.push({ name: "p", children: t });
           });
-      } else if (/[\u2028\n]/.test(this[er])) {
+      } else if (/[\u2028\n]/.test(this[ar])) {
         e.name = "div";
         e.children = [];
-        this[er].split(/[\u2028\n]/).forEach((t) => {
+        this[ar].split(/[\u2028\n]/).forEach((t) => {
           e.children.push({ name: "span", value: t }, { name: "br" });
         });
       }
       return HTMLResult.success(e);
     }
-    return this[er][an](e);
+    return this[ar][nn](e);
   }
 }
 class TextEdit extends XFAObject {
   constructor(e) {
-    super(Hn, "textEdit", !0);
+    super(vn, "textEdit", !0);
     this.allowRichText = getInteger({
       data: e.allowRichText,
       defaultValue: 0,
@@ -47472,18 +47835,18 @@ class TextEdit extends XFAObject {
     this.extras = null;
     this.margin = null;
   }
-  [an](e) {
+  [nn](e) {
     const t = toStyle(this, "border", "font", "margin");
     let i;
-    const a = this[pr]()[pr]();
+    const a = this[wr]()[wr]();
     "" === this.multiLine && (this.multiLine = a instanceof Draw ? 1 : 0);
     i =
       1 === this.multiLine
         ? {
             name: "textarea",
             attributes: {
-              dataId: a[tr]?.[nn] || a[nn],
-              fieldId: a[nn],
+              dataId: a[sr]?.[In] || a[In],
+              fieldId: a[In],
               class: ["xfaTextfield"],
               style: t,
               "aria-label": ariaLabel(a),
@@ -47494,8 +47857,8 @@ class TextEdit extends XFAObject {
             name: "input",
             attributes: {
               type: "text",
-              dataId: a[tr]?.[nn] || a[nn],
-              fieldId: a[nn],
+              dataId: a[sr]?.[In] || a[In],
+              fieldId: a[In],
               class: ["xfaTextfield"],
               style: t,
               "aria-label": ariaLabel(a),
@@ -47515,23 +47878,23 @@ class TextEdit extends XFAObject {
 }
 class Time extends StringObject {
   constructor(e) {
-    super(Hn, "time");
+    super(vn, "time");
     this.id = e.id || "";
     this.name = e.name || "";
     this.use = e.use || "";
     this.usehref = e.usehref || "";
   }
-  [sr]() {
-    const e = this[er].trim();
-    this[er] = e ? new Date(e) : null;
+  [gr]() {
+    const e = this[ar].trim();
+    this[ar] = e ? new Date(e) : null;
   }
-  [an](e) {
-    return valueToHtml(this[er] ? this[er].toString() : "");
+  [nn](e) {
+    return valueToHtml(this[ar] ? this[ar].toString() : "");
   }
 }
 class TimeStamp extends XFAObject {
   constructor(e) {
-    super(Hn, "timeStamp");
+    super(vn, "timeStamp");
     this.id = e.id || "";
     this.server = e.server || "";
     this.type = getStringOption(e.type, ["optional", "required"]);
@@ -47541,7 +47904,7 @@ class TimeStamp extends XFAObject {
 }
 class ToolTip extends StringObject {
   constructor(e) {
-    super(Hn, "toolTip");
+    super(vn, "toolTip");
     this.id = e.id || "";
     this.rid = e.rid || "";
     this.use = e.use || "";
@@ -47550,7 +47913,7 @@ class ToolTip extends StringObject {
 }
 class Traversal extends XFAObject {
   constructor(e) {
-    super(Hn, "traversal", !0);
+    super(vn, "traversal", !0);
     this.id = e.id || "";
     this.use = e.use || "";
     this.usehref = e.usehref || "";
@@ -47560,7 +47923,7 @@ class Traversal extends XFAObject {
 }
 class Traverse extends XFAObject {
   constructor(e) {
-    super(Hn, "traverse", !0);
+    super(vn, "traverse", !0);
     this.id = e.id || "";
     this.operation = getStringOption(e.operation, [
       "next",
@@ -47580,13 +47943,13 @@ class Traverse extends XFAObject {
   get name() {
     return this.operation;
   }
-  [Mr]() {
+  [Jr]() {
     return !1;
   }
 }
 class Ui extends XFAObject {
   constructor(e) {
-    super(Hn, "ui", !0);
+    super(vn, "ui", !0);
     this.id = e.id || "";
     this.use = e.use || "";
     this.usehref = e.usehref || "";
@@ -47604,28 +47967,28 @@ class Ui extends XFAObject {
     this.signature = null;
     this.textEdit = null;
   }
-  [lr]() {
-    if (void 0 === this[ar]) {
+  [ur]() {
+    if (void 0 === this[nr]) {
       for (const e of Object.getOwnPropertyNames(this)) {
         if ("extras" === e || "picture" === e) continue;
         const t = this[e];
         if (t instanceof XFAObject) {
-          this[ar] = t;
+          this[nr] = t;
           return t;
         }
       }
-      this[ar] = null;
+      this[nr] = null;
     }
-    return this[ar];
+    return this[nr];
   }
-  [an](e) {
-    const t = this[lr]();
-    return t ? t[an](e) : HTMLResult.EMPTY;
+  [nn](e) {
+    const t = this[ur]();
+    return t ? t[nn](e) : HTMLResult.EMPTY;
   }
 }
 class Validate extends XFAObject {
   constructor(e) {
-    super(Hn, "validate", !0);
+    super(vn, "validate", !0);
     this.formatTest = getStringOption(e.formatTest, [
       "warning",
       "disabled",
@@ -47652,7 +48015,7 @@ class Validate extends XFAObject {
 }
 class Value extends XFAObject {
   constructor(e) {
-    super(Hn, "value", !0);
+    super(vn, "value", !0);
     this.id = e.id || "";
     this.override = getInteger({
       data: e.override,
@@ -47676,52 +48039,52 @@ class Value extends XFAObject {
     this.text = null;
     this.time = null;
   }
-  [$r](e) {
-    const t = this[pr]();
+  [tn](e) {
+    const t = this[wr]();
     if (t instanceof Field && t.ui?.imageEdit) {
       if (!this.image) {
         this.image = new Image({});
-        this[Xs](this.image);
+        this[zs](this.image);
       }
-      this.image[er] = e[er];
+      this.image[ar] = e[ar];
       return;
     }
-    const i = e[Yr];
+    const i = e[Tr];
     if (null === this[i]) {
       for (const e of Object.getOwnPropertyNames(this)) {
         const t = this[e];
         if (t instanceof XFAObject) {
           this[e] = null;
-          this[jr](t);
+          this[Vr](t);
         }
       }
-      this[e[Yr]] = e;
-      this[Xs](e);
-    } else this[i][er] = e[er];
+      this[e[Tr]] = e;
+      this[zs](e);
+    } else this[i][ar] = e[ar];
   }
-  [en]() {
+  [sn]() {
     if (this.exData)
-      return "string" == typeof this.exData[er]
-        ? this.exData[er].trim()
-        : this.exData[er][en]().trim();
+      return "string" == typeof this.exData[ar]
+        ? this.exData[ar].trim()
+        : this.exData[ar][sn]().trim();
     for (const e of Object.getOwnPropertyNames(this)) {
       if ("image" === e) continue;
       const t = this[e];
-      if (t instanceof XFAObject) return (t[er] || "").toString().trim();
+      if (t instanceof XFAObject) return (t[ar] || "").toString().trim();
     }
     return null;
   }
-  [an](e) {
+  [nn](e) {
     for (const t of Object.getOwnPropertyNames(this)) {
       const i = this[t];
-      if (i instanceof XFAObject) return i[an](e);
+      if (i instanceof XFAObject) return i[nn](e);
     }
     return HTMLResult.EMPTY;
   }
 }
 class Variables extends XFAObject {
   constructor(e) {
-    super(Hn, "variables", !0);
+    super(vn, "variables", !0);
     this.id = e.id || "";
     this.use = e.use || "";
     this.usehref = e.usehref || "";
@@ -47738,15 +48101,15 @@ class Variables extends XFAObject {
     this.text = new XFAObjectArray();
     this.time = new XFAObjectArray();
   }
-  [Mr]() {
+  [Jr]() {
     return !0;
   }
 }
 class TemplateNamespace {
-  static [gn](e, t) {
+  static [cn](e, t) {
     if (TemplateNamespace.hasOwnProperty(e)) {
       const i = TemplateNamespace[e](t);
-      i[_r](t);
+      i[en](t);
       return i;
     }
   }
@@ -48090,19 +48453,19 @@ class TemplateNamespace {
     return new Variables(e);
   }
 }
-const Tn = on.datasets.id;
+const Pn = Cn.datasets.id;
 function createText(e) {
   const t = new Text({});
-  t[er] = e;
+  t[ar] = e;
   return t;
 }
 class Binder {
   constructor(e) {
     this.root = e;
     this.datasets = e.datasets;
-    this.data = e.datasets?.data || new XmlObject(on.datasets.id, "data");
-    this.emptyMerge = 0 === this.data[Er]().length;
-    this.root.form = this.form = e.template[$s]();
+    this.data = e.datasets?.data || new XmlObject(Cn.datasets.id, "data");
+    this.emptyMerge = 0 === this.data[fr]().length;
+    this.root.form = this.form = e.template[tr]();
   }
   _isConsumeData() {
     return !this.emptyMerge && this._mergeMode;
@@ -48118,23 +48481,23 @@ class Binder {
     return this.data;
   }
   _bindValue(e, t, i) {
-    e[tr] = t;
-    if (e[wr]())
-      if (t[Rr]()) {
-        const i = t[hr]();
-        e[$r](createText(i));
+    e[sr] = t;
+    if (e[Fr]())
+      if (t[xr]()) {
+        const i = t[Er]();
+        e[tn](createText(i));
       } else if (
         e instanceof Field &&
         "multiSelect" === e.ui?.choiceList?.open
       ) {
-        const i = t[Er]()
-          .map((e) => e[er].trim())
+        const i = t[fr]()
+          .map((e) => e[ar].trim())
           .join("\n");
-        e[$r](createText(i));
+        e[tn](createText(i));
       } else
         this._isConsumeData() && warn("XFA - Nodes haven't the same type.");
     else
-      !t[Rr]() || this._isMatchTemplate()
+      !t[xr]() || this._isMatchTemplate()
         ? this._bindElement(e, t)
         : warn("XFA - Nodes haven't the same type.");
   }
@@ -48142,22 +48505,22 @@ class Binder {
     if (!e) return null;
     let s, r;
     for (let a = 0; a < 3; a++) {
-      s = i[Qr](e, !1, !0);
+      s = i[dr](e, !1, !0);
       for (;;) {
         r = s.next().value;
         if (!r) break;
-        if (t === r[Rr]()) return r;
+        if (t === r[xr]()) return r;
       }
-      if (i[Jr] === on.datasets.id && "data" === i[Yr]) break;
-      i = i[pr]();
+      if (i[Kr] === Cn.datasets.id && "data" === i[Tr]) break;
+      i = i[wr]();
     }
     if (!a) return null;
-    s = this.data[Qr](e, !0, !1);
+    s = this.data[dr](e, !0, !1);
     r = s.next().value;
     if (r) return r;
-    s = this.data[nr](e, !0);
+    s = this.data[Ir](e, !0);
     r = s.next().value;
-    return r?.[Rr]() ? r : null;
+    return r?.[xr]() ? r : null;
   }
   _setProperties(e, t) {
     if (e.hasOwnProperty("setProperty"))
@@ -48171,7 +48534,7 @@ class Binder {
           continue;
         }
         const [n] = r;
-        if (!n[Nr](this.data)) {
+        if (!n[Ur](this.data)) {
           warn("XFA - Invalid node: must be a data node.");
           continue;
         }
@@ -48181,11 +48544,11 @@ class Binder {
           continue;
         }
         const [o] = g;
-        if (!o[Nr](e)) {
+        if (!o[Ur](e)) {
           warn("XFA - Invalid target: must be a property or subproperty.");
           continue;
         }
-        const c = o[pr]();
+        const c = o[wr]();
         if (o instanceof SetProperty || c instanceof SetProperty) {
           warn(
             "XFA - Invalid target: cannot be a setProperty or one of its properties.",
@@ -48198,8 +48561,8 @@ class Binder {
           );
           continue;
         }
-        const C = n[en](),
-          h = o[Yr];
+        const C = n[sn](),
+          h = o[Tr];
         if (o instanceof XFAAttribute) {
           const e = Object.create(null);
           e[h] = C;
@@ -48207,10 +48570,10 @@ class Binder {
             e,
           ]);
           c[h] = t[h];
-        } else if (o.hasOwnProperty(er)) {
-          o[tr] = n;
-          o[er] = C;
-          o[sr]();
+        } else if (o.hasOwnProperty(ar)) {
+          o[sr] = n;
+          o[ar] = C;
+          o[gr]();
         } else warn("XFA - Invalid node to use in setProperty");
       }
   }
@@ -48221,13 +48584,13 @@ class Binder {
       e.bindItems.isEmpty()
     )
       return;
-    for (const t of e.items.children) e[jr](t);
+    for (const t of e.items.children) e[Vr](t);
     e.items.clear();
     const i = new Items({}),
       a = new Items({});
-    e[Xs](i);
+    e[zs](i);
     e.items.push(i);
-    e[Xs](a);
+    e[zs](a);
     e.items.push(a);
     for (const { ref: s, labelRef: r, valueRef: n, connection: g } of e
       .bindItems.children) {
@@ -48236,7 +48599,7 @@ class Binder {
       const e = searchNode(this.root, t, s, !1, !1);
       if (e)
         for (const t of e) {
-          if (!t[Nr](this.datasets)) {
+          if (!t[Ur](this.datasets)) {
             warn(`XFA - Invalid ref (${s}): must be a datasets child.`);
             continue;
           }
@@ -48246,7 +48609,7 @@ class Binder {
             continue;
           }
           const [g] = e;
-          if (!g[Nr](this.datasets)) {
+          if (!g[Ur](this.datasets)) {
             warn("XFA - Invalid label: must be a datasets child.");
             continue;
           }
@@ -48256,15 +48619,15 @@ class Binder {
             continue;
           }
           const [c] = o;
-          if (!c[Nr](this.datasets)) {
+          if (!c[Ur](this.datasets)) {
             warn("XFA - Invalid value: must be a datasets child.");
             continue;
           }
-          const C = createText(g[en]()),
-            h = createText(c[en]());
-          i[Xs](C);
+          const C = createText(g[sn]()),
+            h = createText(c[sn]());
+          i[zs](C);
           i.text.push(C);
-          a[Xs](h);
+          a[zs](h);
           a.text.push(h);
         }
       else warn(`XFA - Invalid reference: ${s}.`);
@@ -48273,22 +48636,22 @@ class Binder {
   _bindOccurrences(e, t, i) {
     let a;
     if (t.length > 1) {
-      a = e[$s]();
-      a[jr](a.occur);
+      a = e[tr]();
+      a[Vr](a.occur);
       a.occur = null;
     }
     this._bindValue(e, t[0], i);
     this._setProperties(e, t[0]);
     this._bindItems(e, t[0]);
     if (1 === t.length) return;
-    const s = e[pr](),
-      r = e[Yr],
-      n = s[br](e);
+    const s = e[wr](),
+      r = e[Tr],
+      n = s[kr](e);
     for (let e = 1, g = t.length; e < g; e++) {
       const g = t[e],
-        o = a[$s]();
+        o = a[tr]();
       s[r].push(o);
-      s[Fr](n + e, o);
+      s[Rr](n + e, o);
       this._bindValue(o, g, i);
       this._setProperties(o, g);
       this._bindItems(o, g);
@@ -48298,25 +48661,25 @@ class Binder {
     if (!this.emptyMerge) return;
     const { occur: t } = e;
     if (!t || t.initial <= 1) return;
-    const i = e[pr](),
-      a = e[Yr];
+    const i = e[wr](),
+      a = e[Tr];
     if (!(i[a] instanceof XFAObjectArray)) return;
     let s;
     s = e.name
       ? i[a].children.filter((t) => t.name === e.name).length
       : i[a].children.length;
-    const r = i[br](e) + 1,
+    const r = i[kr](e) + 1,
       n = t.initial - s;
     if (n) {
-      const t = e[$s]();
-      t[jr](t.occur);
+      const t = e[tr]();
+      t[Vr](t.occur);
       t.occur = null;
       i[a].push(t);
-      i[Fr](r, t);
+      i[Rr](r, t);
       for (let e = 1; e < n; e++) {
-        const s = t[$s]();
+        const s = t[tr]();
         i[a].push(s);
-        i[Fr](r + e, s);
+        i[Rr](r + e, s);
       }
     }
   }
@@ -48334,21 +48697,21 @@ class Binder {
   _bindElement(e, t) {
     const i = [];
     this._createOccurrences(e);
-    for (const a of e[Er]()) {
-      if (a[tr]) continue;
-      if (void 0 === this._mergeMode && "subform" === a[Yr]) {
+    for (const a of e[fr]()) {
+      if (a[sr]) continue;
+      if (void 0 === this._mergeMode && "subform" === a[Tr]) {
         this._mergeMode = "consumeData" === a.mergeMode;
-        const e = t[Er]();
+        const e = t[fr]();
         if (e.length > 0) this._bindOccurrences(a, [e[0]], null);
         else if (this.emptyMerge) {
-          const e = t[Jr] === Tn ? -1 : t[Jr],
-            i = (a[tr] = new XmlObject(e, a.name || "root"));
-          t[Xs](i);
+          const e = t[Kr] === Pn ? -1 : t[Kr],
+            i = (a[sr] = new XmlObject(e, a.name || "root"));
+          t[zs](i);
           this._bindElement(a, i);
         }
         continue;
       }
-      if (!a[kr]()) continue;
+      if (!a[Gr]()) continue;
       let e = !1,
         s = null,
         r = null,
@@ -48363,13 +48726,13 @@ class Binder {
             break;
           case "dataRef":
             if (!a.bind.ref) {
-              warn(`XFA - ref is empty in node ${a[Yr]}.`);
+              warn(`XFA - ref is empty in node ${a[Tr]}.`);
               this._setAndBind(a, t);
               continue;
             }
             r = a.bind.ref;
         }
-        a.bind.picture && (s = a.bind.picture[er]);
+        a.bind.picture && (s = a.bind.picture[ar]);
       }
       const [g, o] = this._getOccurInfo(a);
       if (r) {
@@ -48377,16 +48740,16 @@ class Binder {
         if (null === n) {
           n = createDataNode(this.data, t, r);
           if (!n) continue;
-          this._isConsumeData() && (n[Ar] = !0);
+          this._isConsumeData() && (n[ir] = !0);
           this._setAndBind(a, n);
           continue;
         }
-        this._isConsumeData() && (n = n.filter((e) => !e[Ar]));
+        this._isConsumeData() && (n = n.filter((e) => !e[ir]));
         n.length > o ? (n = n.slice(0, o)) : 0 === n.length && (n = null);
         n &&
           this._isConsumeData() &&
           n.forEach((e) => {
-            e[Ar] = !0;
+            e[ir] = !0;
           });
       } else {
         if (!a.name) {
@@ -48396,27 +48759,27 @@ class Binder {
         if (this._isConsumeData()) {
           const i = [];
           for (; i.length < o; ) {
-            const s = this._findDataByNameToConsume(a.name, a[wr](), t, e);
+            const s = this._findDataByNameToConsume(a.name, a[Fr](), t, e);
             if (!s) break;
-            s[Ar] = !0;
+            s[ir] = !0;
             i.push(s);
           }
           n = i.length > 0 ? i : null;
         } else {
-          n = t[Qr](a.name, !1, this.emptyMerge).next().value;
+          n = t[dr](a.name, !1, this.emptyMerge).next().value;
           if (!n) {
             if (0 === g) {
               i.push(a);
               continue;
             }
-            const e = t[Jr] === Tn ? -1 : t[Jr];
-            n = a[tr] = new XmlObject(e, a.name);
-            this.emptyMerge && (n[Ar] = !0);
-            t[Xs](n);
+            const e = t[Kr] === Pn ? -1 : t[Kr];
+            n = a[sr] = new XmlObject(e, a.name);
+            this.emptyMerge && (n[ir] = !0);
+            t[zs](n);
             this._setAndBind(a, n);
             continue;
           }
-          this.emptyMerge && (n[Ar] = !0);
+          this.emptyMerge && (n[ir] = !0);
           n = [n];
         }
       }
@@ -48426,7 +48789,7 @@ class Binder {
           ? this._setAndBind(a, t)
           : i.push(a);
     }
-    i.forEach((e) => e[pr]()[jr](e));
+    i.forEach((e) => e[wr]()[Vr](e));
   }
 }
 class DataHandler {
@@ -48435,7 +48798,7 @@ class DataHandler {
     this.dataset = e.datasets || null;
   }
   serialize(e) {
-    const t = [[-1, this.data[Er]()]];
+    const t = [[-1, this.data[fr]()]];
     for (; t.length > 0; ) {
       const i = t.at(-1),
         [a, s] = i;
@@ -48444,35 +48807,35 @@ class DataHandler {
         continue;
       }
       const r = s[++i[0]],
-        n = e.get(r[nn]);
-      if (n) r[$r](n);
+        n = e.get(r[In]);
+      if (n) r[tn](n);
       else {
-        const t = r[gr]();
+        const t = r[cr]();
         for (const i of t.values()) {
-          const t = e.get(i[nn]);
+          const t = e.get(i[In]);
           if (t) {
-            i[$r](t);
+            i[tn](t);
             break;
           }
         }
       }
-      const g = r[Er]();
+      const g = r[fr]();
       g.length > 0 && t.push([-1, g]);
     }
     const i = [
       '<xfa:datasets xmlns:xfa="http://www.xfa.org/schema/xfa-data/1.0/">',
     ];
     if (this.dataset)
-      for (const e of this.dataset[Er]()) "data" !== e[Yr] && e[sn](i);
-    this.data[sn](i);
+      for (const e of this.dataset[fr]()) "data" !== e[Tr] && e[gn](i);
+    this.data[gn](i);
     i.push("</xfa:datasets>");
     return i.join("");
   }
 }
-const qn = on.config.id;
+const Wn = Cn.config.id;
 class Acrobat extends XFAObject {
   constructor(e) {
-    super(qn, "acrobat", !0);
+    super(Wn, "acrobat", !0);
     this.acrobat7 = null;
     this.autoSave = null;
     this.common = null;
@@ -48483,60 +48846,60 @@ class Acrobat extends XFAObject {
 }
 class Acrobat7 extends XFAObject {
   constructor(e) {
-    super(qn, "acrobat7", !0);
+    super(Wn, "acrobat7", !0);
     this.dynamicRender = null;
   }
 }
 class ADBE_JSConsole extends OptionObject {
   constructor(e) {
-    super(qn, "ADBE_JSConsole", ["delegate", "Enable", "Disable"]);
+    super(Wn, "ADBE_JSConsole", ["delegate", "Enable", "Disable"]);
   }
 }
 class ADBE_JSDebugger extends OptionObject {
   constructor(e) {
-    super(qn, "ADBE_JSDebugger", ["delegate", "Enable", "Disable"]);
+    super(Wn, "ADBE_JSDebugger", ["delegate", "Enable", "Disable"]);
   }
 }
 class AddSilentPrint extends Option01 {
   constructor(e) {
-    super(qn, "addSilentPrint");
+    super(Wn, "addSilentPrint");
   }
 }
 class AddViewerPreferences extends Option01 {
   constructor(e) {
-    super(qn, "addViewerPreferences");
+    super(Wn, "addViewerPreferences");
   }
 }
 class AdjustData extends Option10 {
   constructor(e) {
-    super(qn, "adjustData");
+    super(Wn, "adjustData");
   }
 }
 class AdobeExtensionLevel extends IntegerObject {
   constructor(e) {
-    super(qn, "adobeExtensionLevel", 0, (e) => e >= 1 && e <= 8);
+    super(Wn, "adobeExtensionLevel", 0, (e) => e >= 1 && e <= 8);
   }
 }
 class Agent extends XFAObject {
   constructor(e) {
-    super(qn, "agent", !0);
+    super(Wn, "agent", !0);
     this.name = e.name ? e.name.trim() : "";
     this.common = new XFAObjectArray();
   }
 }
 class AlwaysEmbed extends ContentObject {
   constructor(e) {
-    super(qn, "alwaysEmbed");
+    super(Wn, "alwaysEmbed");
   }
 }
 class Amd extends StringObject {
   constructor(e) {
-    super(qn, "amd");
+    super(Wn, "amd");
   }
 }
 class config_Area extends XFAObject {
   constructor(e) {
-    super(qn, "area");
+    super(Wn, "area");
     this.level = getInteger({
       data: e.level,
       defaultValue: 0,
@@ -48560,22 +48923,22 @@ class config_Area extends XFAObject {
 }
 class Attributes extends OptionObject {
   constructor(e) {
-    super(qn, "attributes", ["preserve", "delegate", "ignore"]);
+    super(Wn, "attributes", ["preserve", "delegate", "ignore"]);
   }
 }
 class AutoSave extends OptionObject {
   constructor(e) {
-    super(qn, "autoSave", ["disabled", "enabled"]);
+    super(Wn, "autoSave", ["disabled", "enabled"]);
   }
 }
 class Base extends StringObject {
   constructor(e) {
-    super(qn, "base");
+    super(Wn, "base");
   }
 }
 class BatchOutput extends XFAObject {
   constructor(e) {
-    super(qn, "batchOutput");
+    super(Wn, "batchOutput");
     this.format = getStringOption(e.format, [
       "none",
       "concat",
@@ -48586,11 +48949,11 @@ class BatchOutput extends XFAObject {
 }
 class BehaviorOverride extends ContentObject {
   constructor(e) {
-    super(qn, "behaviorOverride");
+    super(Wn, "behaviorOverride");
   }
-  [sr]() {
-    this[er] = new Map(
-      this[er]
+  [gr]() {
+    this[ar] = new Map(
+      this[ar]
         .trim()
         .split(/\s+/)
         .filter((e) => e.includes(":"))
@@ -48600,18 +48963,18 @@ class BehaviorOverride extends ContentObject {
 }
 class Cache extends XFAObject {
   constructor(e) {
-    super(qn, "cache", !0);
+    super(Wn, "cache", !0);
     this.templateCache = null;
   }
 }
 class Change extends Option01 {
   constructor(e) {
-    super(qn, "change");
+    super(Wn, "change");
   }
 }
 class Common extends XFAObject {
   constructor(e) {
-    super(qn, "common", !0);
+    super(Wn, "common", !0);
     this.data = null;
     this.locale = null;
     this.localeSet = null;
@@ -48625,23 +48988,23 @@ class Common extends XFAObject {
 }
 class Compress extends XFAObject {
   constructor(e) {
-    super(qn, "compress");
+    super(Wn, "compress");
     this.scope = getStringOption(e.scope, ["imageOnly", "document"]);
   }
 }
 class CompressLogicalStructure extends Option01 {
   constructor(e) {
-    super(qn, "compressLogicalStructure");
+    super(Wn, "compressLogicalStructure");
   }
 }
 class CompressObjectStream extends Option10 {
   constructor(e) {
-    super(qn, "compressObjectStream");
+    super(Wn, "compressObjectStream");
   }
 }
 class Compression extends XFAObject {
   constructor(e) {
-    super(qn, "compression", !0);
+    super(Wn, "compression", !0);
     this.compressLogicalStructure = null;
     this.compressObjectStream = null;
     this.level = null;
@@ -48650,7 +49013,7 @@ class Compression extends XFAObject {
 }
 class Config extends XFAObject {
   constructor(e) {
-    super(qn, "config", !0);
+    super(Wn, "config", !0);
     this.acrobat = null;
     this.present = null;
     this.trace = null;
@@ -48659,32 +49022,32 @@ class Config extends XFAObject {
 }
 class Conformance extends OptionObject {
   constructor(e) {
-    super(qn, "conformance", ["A", "B"]);
+    super(Wn, "conformance", ["A", "B"]);
   }
 }
 class ContentCopy extends Option01 {
   constructor(e) {
-    super(qn, "contentCopy");
+    super(Wn, "contentCopy");
   }
 }
 class Copies extends IntegerObject {
   constructor(e) {
-    super(qn, "copies", 1, (e) => e >= 1);
+    super(Wn, "copies", 1, (e) => e >= 1);
   }
 }
 class Creator extends StringObject {
   constructor(e) {
-    super(qn, "creator");
+    super(Wn, "creator");
   }
 }
 class CurrentPage extends IntegerObject {
   constructor(e) {
-    super(qn, "currentPage", 0, (e) => e >= 0);
+    super(Wn, "currentPage", 0, (e) => e >= 0);
   }
 }
 class Data extends XFAObject {
   constructor(e) {
-    super(qn, "data", !0);
+    super(Wn, "data", !0);
     this.adjustData = null;
     this.attributes = null;
     this.incrementalLoad = null;
@@ -48701,13 +49064,13 @@ class Data extends XFAObject {
 }
 class Debug extends XFAObject {
   constructor(e) {
-    super(qn, "debug", !0);
+    super(Wn, "debug", !0);
     this.uri = null;
   }
 }
 class DefaultTypeface extends ContentObject {
   constructor(e) {
-    super(qn, "defaultTypeface");
+    super(Wn, "defaultTypeface");
     this.writingScript = getStringOption(e.writingScript, [
       "*",
       "Arabic",
@@ -48727,17 +49090,17 @@ class DefaultTypeface extends ContentObject {
 }
 class Destination extends OptionObject {
   constructor(e) {
-    super(qn, "destination", ["pdf", "pcl", "ps", "webClient", "zpl"]);
+    super(Wn, "destination", ["pdf", "pcl", "ps", "webClient", "zpl"]);
   }
 }
 class DocumentAssembly extends Option01 {
   constructor(e) {
-    super(qn, "documentAssembly");
+    super(Wn, "documentAssembly");
   }
 }
 class Driver extends XFAObject {
   constructor(e) {
-    super(qn, "driver", !0);
+    super(Wn, "driver", !0);
     this.name = e.name ? e.name.trim() : "";
     this.fontInfo = null;
     this.xdc = null;
@@ -48745,7 +49108,7 @@ class Driver extends XFAObject {
 }
 class DuplexOption extends OptionObject {
   constructor(e) {
-    super(qn, "duplexOption", [
+    super(Wn, "duplexOption", [
       "simplex",
       "duplexFlipLongEdge",
       "duplexFlipShortEdge",
@@ -48754,22 +49117,22 @@ class DuplexOption extends OptionObject {
 }
 class DynamicRender extends OptionObject {
   constructor(e) {
-    super(qn, "dynamicRender", ["forbidden", "required"]);
+    super(Wn, "dynamicRender", ["forbidden", "required"]);
   }
 }
 class Embed extends Option01 {
   constructor(e) {
-    super(qn, "embed");
+    super(Wn, "embed");
   }
 }
 class config_Encrypt extends Option01 {
   constructor(e) {
-    super(qn, "encrypt");
+    super(Wn, "encrypt");
   }
 }
 class config_Encryption extends XFAObject {
   constructor(e) {
-    super(qn, "encryption", !0);
+    super(Wn, "encryption", !0);
     this.encrypt = null;
     this.encryptionLevel = null;
     this.permissions = null;
@@ -48777,17 +49140,17 @@ class config_Encryption extends XFAObject {
 }
 class EncryptionLevel extends OptionObject {
   constructor(e) {
-    super(qn, "encryptionLevel", ["40bit", "128bit"]);
+    super(Wn, "encryptionLevel", ["40bit", "128bit"]);
   }
 }
 class Enforce extends StringObject {
   constructor(e) {
-    super(qn, "enforce");
+    super(Wn, "enforce");
   }
 }
 class Equate extends XFAObject {
   constructor(e) {
-    super(qn, "equate");
+    super(Wn, "equate");
     this.force = getInteger({
       data: e.force,
       defaultValue: 1,
@@ -48799,7 +49162,7 @@ class Equate extends XFAObject {
 }
 class EquateRange extends XFAObject {
   constructor(e) {
-    super(qn, "equateRange");
+    super(Wn, "equateRange");
     this.from = e.from || "";
     this.to = e.to || "";
     this._unicodeRange = e.unicodeRange || "";
@@ -48824,10 +49187,10 @@ class EquateRange extends XFAObject {
 }
 class Exclude extends ContentObject {
   constructor(e) {
-    super(qn, "exclude");
+    super(Wn, "exclude");
   }
-  [sr]() {
-    this[er] = this[er]
+  [gr]() {
+    this[ar] = this[ar]
       .trim()
       .split(/\s+/)
       .filter(
@@ -48847,17 +49210,17 @@ class Exclude extends ContentObject {
 }
 class ExcludeNS extends StringObject {
   constructor(e) {
-    super(qn, "excludeNS");
+    super(Wn, "excludeNS");
   }
 }
 class FlipLabel extends OptionObject {
   constructor(e) {
-    super(qn, "flipLabel", ["usePrinterSetting", "on", "off"]);
+    super(Wn, "flipLabel", ["usePrinterSetting", "on", "off"]);
   }
 }
 class config_FontInfo extends XFAObject {
   constructor(e) {
-    super(qn, "fontInfo", !0);
+    super(Wn, "fontInfo", !0);
     this.embed = null;
     this.map = null;
     this.subsetBelow = null;
@@ -48868,47 +49231,47 @@ class config_FontInfo extends XFAObject {
 }
 class FormFieldFilling extends Option01 {
   constructor(e) {
-    super(qn, "formFieldFilling");
+    super(Wn, "formFieldFilling");
   }
 }
 class GroupParent extends StringObject {
   constructor(e) {
-    super(qn, "groupParent");
+    super(Wn, "groupParent");
   }
 }
 class IfEmpty extends OptionObject {
   constructor(e) {
-    super(qn, "ifEmpty", ["dataValue", "dataGroup", "ignore", "remove"]);
+    super(Wn, "ifEmpty", ["dataValue", "dataGroup", "ignore", "remove"]);
   }
 }
 class IncludeXDPContent extends StringObject {
   constructor(e) {
-    super(qn, "includeXDPContent");
+    super(Wn, "includeXDPContent");
   }
 }
 class IncrementalLoad extends OptionObject {
   constructor(e) {
-    super(qn, "incrementalLoad", ["none", "forwardOnly"]);
+    super(Wn, "incrementalLoad", ["none", "forwardOnly"]);
   }
 }
 class IncrementalMerge extends Option01 {
   constructor(e) {
-    super(qn, "incrementalMerge");
+    super(Wn, "incrementalMerge");
   }
 }
 class Interactive extends Option01 {
   constructor(e) {
-    super(qn, "interactive");
+    super(Wn, "interactive");
   }
 }
 class Jog extends OptionObject {
   constructor(e) {
-    super(qn, "jog", ["usePrinterSetting", "none", "pageSet"]);
+    super(Wn, "jog", ["usePrinterSetting", "none", "pageSet"]);
   }
 }
 class LabelPrinter extends XFAObject {
   constructor(e) {
-    super(qn, "labelPrinter", !0);
+    super(Wn, "labelPrinter", !0);
     this.name = getStringOption(e.name, ["zpl", "dpl", "ipl", "tcpl"]);
     this.batchOutput = null;
     this.flipLabel = null;
@@ -48918,32 +49281,32 @@ class LabelPrinter extends XFAObject {
 }
 class Layout extends OptionObject {
   constructor(e) {
-    super(qn, "layout", ["paginate", "panel"]);
+    super(Wn, "layout", ["paginate", "panel"]);
   }
 }
 class Level extends IntegerObject {
   constructor(e) {
-    super(qn, "level", 0, (e) => e > 0);
+    super(Wn, "level", 0, (e) => e > 0);
   }
 }
 class Linearized extends Option01 {
   constructor(e) {
-    super(qn, "linearized");
+    super(Wn, "linearized");
   }
 }
 class Locale extends StringObject {
   constructor(e) {
-    super(qn, "locale");
+    super(Wn, "locale");
   }
 }
 class LocaleSet extends StringObject {
   constructor(e) {
-    super(qn, "localeSet");
+    super(Wn, "localeSet");
   }
 }
 class Log extends XFAObject {
   constructor(e) {
-    super(qn, "log", !0);
+    super(Wn, "log", !0);
     this.mode = null;
     this.threshold = null;
     this.to = null;
@@ -48952,69 +49315,69 @@ class Log extends XFAObject {
 }
 class MapElement extends XFAObject {
   constructor(e) {
-    super(qn, "map", !0);
+    super(Wn, "map", !0);
     this.equate = new XFAObjectArray();
     this.equateRange = new XFAObjectArray();
   }
 }
 class MediumInfo extends XFAObject {
   constructor(e) {
-    super(qn, "mediumInfo", !0);
+    super(Wn, "mediumInfo", !0);
     this.map = null;
   }
 }
 class config_Message extends XFAObject {
   constructor(e) {
-    super(qn, "message", !0);
+    super(Wn, "message", !0);
     this.msgId = null;
     this.severity = null;
   }
 }
 class Messaging extends XFAObject {
   constructor(e) {
-    super(qn, "messaging", !0);
+    super(Wn, "messaging", !0);
     this.message = new XFAObjectArray();
   }
 }
 class Mode extends OptionObject {
   constructor(e) {
-    super(qn, "mode", ["append", "overwrite"]);
+    super(Wn, "mode", ["append", "overwrite"]);
   }
 }
 class ModifyAnnots extends Option01 {
   constructor(e) {
-    super(qn, "modifyAnnots");
+    super(Wn, "modifyAnnots");
   }
 }
 class MsgId extends IntegerObject {
   constructor(e) {
-    super(qn, "msgId", 1, (e) => e >= 1);
+    super(Wn, "msgId", 1, (e) => e >= 1);
   }
 }
 class NameAttr extends StringObject {
   constructor(e) {
-    super(qn, "nameAttr");
+    super(Wn, "nameAttr");
   }
 }
 class NeverEmbed extends ContentObject {
   constructor(e) {
-    super(qn, "neverEmbed");
+    super(Wn, "neverEmbed");
   }
 }
 class NumberOfCopies extends IntegerObject {
   constructor(e) {
-    super(qn, "numberOfCopies", null, (e) => e >= 2 && e <= 5);
+    super(Wn, "numberOfCopies", null, (e) => e >= 2 && e <= 5);
   }
 }
 class OpenAction extends XFAObject {
   constructor(e) {
-    super(qn, "openAction", !0);
+    super(Wn, "openAction", !0);
     this.destination = null;
   }
 }
 class Output extends XFAObject {
   constructor(e) {
-    super(qn, "output", !0);
+    super(Wn, "output", !0);
     this.to = null;
     this.type = null;
     this.uri = null;
@@ -49022,27 +49385,27 @@ class Output extends XFAObject {
 }
 class OutputBin extends StringObject {
   constructor(e) {
-    super(qn, "outputBin");
+    super(Wn, "outputBin");
   }
 }
 class OutputXSL extends XFAObject {
   constructor(e) {
-    super(qn, "outputXSL", !0);
+    super(Wn, "outputXSL", !0);
     this.uri = null;
   }
 }
 class Overprint extends OptionObject {
   constructor(e) {
-    super(qn, "overprint", ["none", "both", "draw", "field"]);
+    super(Wn, "overprint", ["none", "both", "draw", "field"]);
   }
 }
 class Packets extends StringObject {
   constructor(e) {
-    super(qn, "packets");
+    super(Wn, "packets");
   }
-  [sr]() {
-    "*" !== this[er] &&
-      (this[er] = this[er]
+  [gr]() {
+    "*" !== this[ar] &&
+      (this[ar] = this[ar]
         .trim()
         .split(/\s+/)
         .filter((e) =>
@@ -49052,7 +49415,7 @@ class Packets extends StringObject {
 }
 class PageOffset extends XFAObject {
   constructor(e) {
-    super(qn, "pageOffset");
+    super(Wn, "pageOffset");
     this.x = getInteger({
       data: e.x,
       defaultValue: "useXDCSetting",
@@ -49067,26 +49430,26 @@ class PageOffset extends XFAObject {
 }
 class PageRange extends StringObject {
   constructor(e) {
-    super(qn, "pageRange");
+    super(Wn, "pageRange");
   }
-  [sr]() {
-    const e = this[er]
+  [gr]() {
+    const e = this[ar]
         .trim()
         .split(/\s+/)
         .map((e) => parseInt(e, 10)),
       t = [];
     for (let i = 0, a = e.length; i < a; i += 2) t.push(e.slice(i, i + 2));
-    this[er] = t;
+    this[ar] = t;
   }
 }
 class Pagination extends OptionObject {
   constructor(e) {
-    super(qn, "pagination", ["simplex", "duplexShortEdge", "duplexLongEdge"]);
+    super(Wn, "pagination", ["simplex", "duplexShortEdge", "duplexLongEdge"]);
   }
 }
 class PaginationOverride extends OptionObject {
   constructor(e) {
-    super(qn, "paginationOverride", [
+    super(Wn, "paginationOverride", [
       "none",
       "forceDuplex",
       "forceDuplexLongEdge",
@@ -49097,12 +49460,12 @@ class PaginationOverride extends OptionObject {
 }
 class Part extends IntegerObject {
   constructor(e) {
-    super(qn, "part", 1, (e) => !1);
+    super(Wn, "part", 1, (e) => !1);
   }
 }
 class Pcl extends XFAObject {
   constructor(e) {
-    super(qn, "pcl", !0);
+    super(Wn, "pcl", !0);
     this.name = e.name || "";
     this.batchOutput = null;
     this.fontInfo = null;
@@ -49116,7 +49479,7 @@ class Pcl extends XFAObject {
 }
 class Pdf extends XFAObject {
   constructor(e) {
-    super(qn, "pdf", !0);
+    super(Wn, "pdf", !0);
     this.name = e.name || "";
     this.adobeExtensionLevel = null;
     this.batchOutput = null;
@@ -49141,7 +49504,7 @@ class Pdf extends XFAObject {
 }
 class Pdfa extends XFAObject {
   constructor(e) {
-    super(qn, "pdfa", !0);
+    super(Wn, "pdfa", !0);
     this.amd = null;
     this.conformance = null;
     this.includeXDPContent = null;
@@ -49150,7 +49513,7 @@ class Pdfa extends XFAObject {
 }
 class Permissions extends XFAObject {
   constructor(e) {
-    super(qn, "permissions", !0);
+    super(Wn, "permissions", !0);
     this.accessibleContent = null;
     this.change = null;
     this.contentCopy = null;
@@ -49164,22 +49527,22 @@ class Permissions extends XFAObject {
 }
 class PickTrayByPDFSize extends Option01 {
   constructor(e) {
-    super(qn, "pickTrayByPDFSize");
+    super(Wn, "pickTrayByPDFSize");
   }
 }
 class config_Picture extends StringObject {
   constructor(e) {
-    super(qn, "picture");
+    super(Wn, "picture");
   }
 }
 class PlaintextMetadata extends Option01 {
   constructor(e) {
-    super(qn, "plaintextMetadata");
+    super(Wn, "plaintextMetadata");
   }
 }
 class Presence extends OptionObject {
   constructor(e) {
-    super(qn, "presence", [
+    super(Wn, "presence", [
       "preserve",
       "dissolve",
       "dissolveStructure",
@@ -49190,7 +49553,7 @@ class Presence extends OptionObject {
 }
 class Present extends XFAObject {
   constructor(e) {
-    super(qn, "present", !0);
+    super(Wn, "present", !0);
     this.behaviorOverride = null;
     this.cache = null;
     this.common = null;
@@ -49217,32 +49580,32 @@ class Present extends XFAObject {
 }
 class Print extends Option01 {
   constructor(e) {
-    super(qn, "print");
+    super(Wn, "print");
   }
 }
 class PrintHighQuality extends Option01 {
   constructor(e) {
-    super(qn, "printHighQuality");
+    super(Wn, "printHighQuality");
   }
 }
 class PrintScaling extends OptionObject {
   constructor(e) {
-    super(qn, "printScaling", ["appdefault", "noScaling"]);
+    super(Wn, "printScaling", ["appdefault", "noScaling"]);
   }
 }
 class PrinterName extends StringObject {
   constructor(e) {
-    super(qn, "printerName");
+    super(Wn, "printerName");
   }
 }
 class Producer extends StringObject {
   constructor(e) {
-    super(qn, "producer");
+    super(Wn, "producer");
   }
 }
 class Ps extends XFAObject {
   constructor(e) {
-    super(qn, "ps", !0);
+    super(Wn, "ps", !0);
     this.name = e.name || "";
     this.batchOutput = null;
     this.fontInfo = null;
@@ -49255,10 +49618,10 @@ class Ps extends XFAObject {
 }
 class Range extends ContentObject {
   constructor(e) {
-    super(qn, "range");
+    super(Wn, "range");
   }
-  [sr]() {
-    this[er] = this[er]
+  [gr]() {
+    this[ar] = this[ar]
       .trim()
       .split(/\s*,\s*/, 2)
       .map((e) => e.split("-").map((e) => parseInt(e.trim(), 10)))
@@ -49271,46 +49634,46 @@ class Range extends ContentObject {
 }
 class Record extends ContentObject {
   constructor(e) {
-    super(qn, "record");
+    super(Wn, "record");
   }
-  [sr]() {
-    this[er] = this[er].trim();
-    const e = parseInt(this[er], 10);
-    !isNaN(e) && e >= 0 && (this[er] = e);
+  [gr]() {
+    this[ar] = this[ar].trim();
+    const e = parseInt(this[ar], 10);
+    !isNaN(e) && e >= 0 && (this[ar] = e);
   }
 }
 class Relevant extends ContentObject {
   constructor(e) {
-    super(qn, "relevant");
+    super(Wn, "relevant");
   }
-  [sr]() {
-    this[er] = this[er].trim().split(/\s+/);
+  [gr]() {
+    this[ar] = this[ar].trim().split(/\s+/);
   }
 }
 class Rename extends ContentObject {
   constructor(e) {
-    super(qn, "rename");
+    super(Wn, "rename");
   }
-  [sr]() {
-    this[er] = this[er].trim();
-    (this[er].toLowerCase().startsWith("xml") ||
-      new RegExp("[\\p{L}_][\\p{L}\\d._\\p{M}-]*", "u").test(this[er])) &&
+  [gr]() {
+    this[ar] = this[ar].trim();
+    (this[ar].toLowerCase().startsWith("xml") ||
+      new RegExp("[\\p{L}_][\\p{L}\\d._\\p{M}-]*", "u").test(this[ar])) &&
       warn("XFA - Rename: invalid XFA name");
   }
 }
 class RenderPolicy extends OptionObject {
   constructor(e) {
-    super(qn, "renderPolicy", ["server", "client"]);
+    super(Wn, "renderPolicy", ["server", "client"]);
   }
 }
 class RunScripts extends OptionObject {
   constructor(e) {
-    super(qn, "runScripts", ["both", "client", "none", "server"]);
+    super(Wn, "runScripts", ["both", "client", "none", "server"]);
   }
 }
 class config_Script extends XFAObject {
   constructor(e) {
-    super(qn, "script", !0);
+    super(Wn, "script", !0);
     this.currentPage = null;
     this.exclude = null;
     this.runScripts = null;
@@ -49318,12 +49681,12 @@ class config_Script extends XFAObject {
 }
 class ScriptModel extends OptionObject {
   constructor(e) {
-    super(qn, "scriptModel", ["XFA", "none"]);
+    super(Wn, "scriptModel", ["XFA", "none"]);
   }
 }
 class Severity extends OptionObject {
   constructor(e) {
-    super(qn, "severity", [
+    super(Wn, "severity", [
       "ignore",
       "error",
       "information",
@@ -49334,55 +49697,55 @@ class Severity extends OptionObject {
 }
 class SilentPrint extends XFAObject {
   constructor(e) {
-    super(qn, "silentPrint", !0);
+    super(Wn, "silentPrint", !0);
     this.addSilentPrint = null;
     this.printerName = null;
   }
 }
 class Staple extends XFAObject {
   constructor(e) {
-    super(qn, "staple");
+    super(Wn, "staple");
     this.mode = getStringOption(e.mode, ["usePrinterSetting", "on", "off"]);
   }
 }
 class StartNode extends StringObject {
   constructor(e) {
-    super(qn, "startNode");
+    super(Wn, "startNode");
   }
 }
 class StartPage extends IntegerObject {
   constructor(e) {
-    super(qn, "startPage", 0, (e) => !0);
+    super(Wn, "startPage", 0, (e) => !0);
   }
 }
 class SubmitFormat extends OptionObject {
   constructor(e) {
-    super(qn, "submitFormat", ["html", "delegate", "fdf", "xml", "pdf"]);
+    super(Wn, "submitFormat", ["html", "delegate", "fdf", "xml", "pdf"]);
   }
 }
 class SubmitUrl extends StringObject {
   constructor(e) {
-    super(qn, "submitUrl");
+    super(Wn, "submitUrl");
   }
 }
 class SubsetBelow extends IntegerObject {
   constructor(e) {
-    super(qn, "subsetBelow", 100, (e) => e >= 0 && e <= 100);
+    super(Wn, "subsetBelow", 100, (e) => e >= 0 && e <= 100);
   }
 }
 class SuppressBanner extends Option01 {
   constructor(e) {
-    super(qn, "suppressBanner");
+    super(Wn, "suppressBanner");
   }
 }
 class Tagged extends Option01 {
   constructor(e) {
-    super(qn, "tagged");
+    super(Wn, "tagged");
   }
 }
 class config_Template extends XFAObject {
   constructor(e) {
-    super(qn, "template", !0);
+    super(Wn, "template", !0);
     this.base = null;
     this.relevant = null;
     this.startPage = null;
@@ -49392,17 +49755,17 @@ class config_Template extends XFAObject {
 }
 class Threshold extends OptionObject {
   constructor(e) {
-    super(qn, "threshold", ["trace", "error", "information", "warning"]);
+    super(Wn, "threshold", ["trace", "error", "information", "warning"]);
   }
 }
 class To extends OptionObject {
   constructor(e) {
-    super(qn, "to", ["null", "memory", "stderr", "stdout", "system", "uri"]);
+    super(Wn, "to", ["null", "memory", "stderr", "stdout", "system", "uri"]);
   }
 }
 class TemplateCache extends XFAObject {
   constructor(e) {
-    super(qn, "templateCache");
+    super(Wn, "templateCache");
     this.maxEntries = getInteger({
       data: e.maxEntries,
       defaultValue: 5,
@@ -49412,13 +49775,13 @@ class TemplateCache extends XFAObject {
 }
 class Trace extends XFAObject {
   constructor(e) {
-    super(qn, "trace", !0);
+    super(Wn, "trace", !0);
     this.area = new XFAObjectArray();
   }
 }
 class Transform extends XFAObject {
   constructor(e) {
-    super(qn, "transform", !0);
+    super(Wn, "transform", !0);
     this.groupParent = null;
     this.ifEmpty = null;
     this.nameAttr = null;
@@ -49430,7 +49793,7 @@ class Transform extends XFAObject {
 }
 class Type extends OptionObject {
   constructor(e) {
-    super(qn, "type", [
+    super(Wn, "type", [
       "none",
       "ascii85",
       "asciiHex",
@@ -49446,20 +49809,20 @@ class Type extends OptionObject {
 }
 class Uri extends StringObject {
   constructor(e) {
-    super(qn, "uri");
+    super(Wn, "uri");
   }
 }
 class config_Validate extends OptionObject {
   constructor(e) {
-    super(qn, "validate", ["preSubmit", "prePrint", "preExecute", "preSave"]);
+    super(Wn, "validate", ["preSubmit", "prePrint", "preExecute", "preSave"]);
   }
 }
 class ValidateApprovalSignatures extends ContentObject {
   constructor(e) {
-    super(qn, "validateApprovalSignatures");
+    super(Wn, "validateApprovalSignatures");
   }
-  [sr]() {
-    this[er] = this[er]
+  [gr]() {
+    this[ar] = this[ar]
       .trim()
       .split(/\s+/)
       .filter((e) => ["docReady", "postSign"].includes(e));
@@ -49467,7 +49830,7 @@ class ValidateApprovalSignatures extends ContentObject {
 }
 class ValidationMessaging extends OptionObject {
   constructor(e) {
-    super(qn, "validationMessaging", [
+    super(Wn, "validationMessaging", [
       "allMessagesIndividually",
       "allMessagesTogether",
       "firstMessageOnly",
@@ -49477,12 +49840,12 @@ class ValidationMessaging extends OptionObject {
 }
 class Version extends OptionObject {
   constructor(e) {
-    super(qn, "version", ["1.7", "1.6", "1.5", "1.4", "1.3", "1.2"]);
+    super(Wn, "version", ["1.7", "1.6", "1.5", "1.4", "1.3", "1.2"]);
   }
 }
 class VersionControl extends XFAObject {
   constructor(e) {
-    super(qn, "VersionControl");
+    super(Wn, "VersionControl");
     this.outputBelow = getStringOption(e.outputBelow, [
       "warn",
       "error",
@@ -49494,7 +49857,7 @@ class VersionControl extends XFAObject {
 }
 class ViewerPreferences extends XFAObject {
   constructor(e) {
-    super(qn, "viewerPreferences", !0);
+    super(Wn, "viewerPreferences", !0);
     this.ADBE_JSConsole = null;
     this.ADBE_JSDebugger = null;
     this.addViewerPreferences = null;
@@ -49508,7 +49871,7 @@ class ViewerPreferences extends XFAObject {
 }
 class WebClient extends XFAObject {
   constructor(e) {
-    super(qn, "webClient", !0);
+    super(Wn, "webClient", !0);
     this.name = e.name ? e.name.trim() : "";
     this.fontInfo = null;
     this.xdc = null;
@@ -49516,7 +49879,7 @@ class WebClient extends XFAObject {
 }
 class Whitespace extends OptionObject {
   constructor(e) {
-    super(qn, "whitespace", [
+    super(Wn, "whitespace", [
       "preserve",
       "ltrim",
       "normalize",
@@ -49527,43 +49890,43 @@ class Whitespace extends OptionObject {
 }
 class Window extends ContentObject {
   constructor(e) {
-    super(qn, "window");
+    super(Wn, "window");
   }
-  [sr]() {
-    const e = this[er]
+  [gr]() {
+    const e = this[ar]
       .trim()
       .split(/\s*,\s*/, 2)
       .map((e) => parseInt(e, 10));
-    if (e.some((e) => isNaN(e))) this[er] = [0, 0];
+    if (e.some((e) => isNaN(e))) this[ar] = [0, 0];
     else {
       1 === e.length && e.push(e[0]);
-      this[er] = e;
+      this[ar] = e;
     }
   }
 }
 class Xdc extends XFAObject {
   constructor(e) {
-    super(qn, "xdc", !0);
+    super(Wn, "xdc", !0);
     this.uri = new XFAObjectArray();
     this.xsl = new XFAObjectArray();
   }
 }
 class Xdp extends XFAObject {
   constructor(e) {
-    super(qn, "xdp", !0);
+    super(Wn, "xdp", !0);
     this.packets = null;
   }
 }
 class Xsl extends XFAObject {
   constructor(e) {
-    super(qn, "xsl", !0);
+    super(Wn, "xsl", !0);
     this.debug = null;
     this.uri = null;
   }
 }
 class Zpl extends XFAObject {
   constructor(e) {
-    super(qn, "zpl", !0);
+    super(Wn, "zpl", !0);
     this.name = e.name ? e.name.trim() : "";
     this.batchOutput = null;
     this.flipLabel = null;
@@ -49572,7 +49935,7 @@ class Zpl extends XFAObject {
   }
 }
 class ConfigNamespace {
-  static [gn](e, t) {
+  static [cn](e, t) {
     if (ConfigNamespace.hasOwnProperty(e)) return ConfigNamespace[e](t);
   }
   static acrobat(e) {
@@ -49993,10 +50356,10 @@ class ConfigNamespace {
     return new Zpl(e);
   }
 }
-const On = on.connectionSet.id;
+const jn = Cn.connectionSet.id;
 class ConnectionSet extends XFAObject {
   constructor(e) {
-    super(On, "connectionSet", !0);
+    super(jn, "connectionSet", !0);
     this.wsdlConnection = new XFAObjectArray();
     this.xmlConnection = new XFAObjectArray();
     this.xsdConnection = new XFAObjectArray();
@@ -50004,7 +50367,7 @@ class ConnectionSet extends XFAObject {
 }
 class EffectiveInputPolicy extends XFAObject {
   constructor(e) {
-    super(On, "effectiveInputPolicy");
+    super(jn, "effectiveInputPolicy");
     this.id = e.id || "";
     this.name = e.name || "";
     this.use = e.use || "";
@@ -50013,7 +50376,7 @@ class EffectiveInputPolicy extends XFAObject {
 }
 class EffectiveOutputPolicy extends XFAObject {
   constructor(e) {
-    super(On, "effectiveOutputPolicy");
+    super(jn, "effectiveOutputPolicy");
     this.id = e.id || "";
     this.name = e.name || "";
     this.use = e.use || "";
@@ -50022,7 +50385,7 @@ class EffectiveOutputPolicy extends XFAObject {
 }
 class Operation extends StringObject {
   constructor(e) {
-    super(On, "operation");
+    super(jn, "operation");
     this.id = e.id || "";
     this.input = e.input || "";
     this.name = e.name || "";
@@ -50033,7 +50396,7 @@ class Operation extends StringObject {
 }
 class RootElement extends StringObject {
   constructor(e) {
-    super(On, "rootElement");
+    super(jn, "rootElement");
     this.id = e.id || "";
     this.name = e.name || "";
     this.use = e.use || "";
@@ -50042,7 +50405,7 @@ class RootElement extends StringObject {
 }
 class SoapAction extends StringObject {
   constructor(e) {
-    super(On, "soapAction");
+    super(jn, "soapAction");
     this.id = e.id || "";
     this.name = e.name || "";
     this.use = e.use || "";
@@ -50051,7 +50414,7 @@ class SoapAction extends StringObject {
 }
 class SoapAddress extends StringObject {
   constructor(e) {
-    super(On, "soapAddress");
+    super(jn, "soapAddress");
     this.id = e.id || "";
     this.name = e.name || "";
     this.use = e.use || "";
@@ -50060,7 +50423,7 @@ class SoapAddress extends StringObject {
 }
 class connection_set_Uri extends StringObject {
   constructor(e) {
-    super(On, "uri");
+    super(jn, "uri");
     this.id = e.id || "";
     this.name = e.name || "";
     this.use = e.use || "";
@@ -50069,7 +50432,7 @@ class connection_set_Uri extends StringObject {
 }
 class WsdlAddress extends StringObject {
   constructor(e) {
-    super(On, "wsdlAddress");
+    super(jn, "wsdlAddress");
     this.id = e.id || "";
     this.name = e.name || "";
     this.use = e.use || "";
@@ -50078,7 +50441,7 @@ class WsdlAddress extends StringObject {
 }
 class WsdlConnection extends XFAObject {
   constructor(e) {
-    super(On, "wsdlConnection", !0);
+    super(jn, "wsdlConnection", !0);
     this.dataDescription = e.dataDescription || "";
     this.name = e.name || "";
     this.effectiveInputPolicy = null;
@@ -50091,7 +50454,7 @@ class WsdlConnection extends XFAObject {
 }
 class XmlConnection extends XFAObject {
   constructor(e) {
-    super(On, "xmlConnection", !0);
+    super(jn, "xmlConnection", !0);
     this.dataDescription = e.dataDescription || "";
     this.name = e.name || "";
     this.uri = null;
@@ -50099,7 +50462,7 @@ class XmlConnection extends XFAObject {
 }
 class XsdConnection extends XFAObject {
   constructor(e) {
-    super(On, "xsdConnection", !0);
+    super(jn, "xsdConnection", !0);
     this.dataDescription = e.dataDescription || "";
     this.name = e.name || "";
     this.rootElement = null;
@@ -50107,7 +50470,7 @@ class XsdConnection extends XFAObject {
   }
 }
 class ConnectionSetNamespace {
-  static [gn](e, t) {
+  static [cn](e, t) {
     if (ConnectionSetNamespace.hasOwnProperty(e))
       return ConnectionSetNamespace[e](t);
   }
@@ -50148,31 +50511,31 @@ class ConnectionSetNamespace {
     return new XsdConnection(e);
   }
 }
-const Pn = on.datasets.id;
+const Xn = Cn.datasets.id;
 class datasets_Data extends XmlObject {
   constructor(e) {
-    super(Pn, "data", e);
+    super(Xn, "data", e);
   }
-  [Gr]() {
+  [Mr]() {
     return !0;
   }
 }
 class Datasets extends XFAObject {
   constructor(e) {
-    super(Pn, "datasets", !0);
+    super(Xn, "datasets", !0);
     this.data = null;
     this.Signature = null;
   }
-  [Kr](e) {
-    const t = e[Yr];
-    (("data" === t && e[Jr] === Pn) ||
-      ("Signature" === t && e[Jr] === on.signature.id)) &&
+  [Or](e) {
+    const t = e[Tr];
+    (("data" === t && e[Kr] === Xn) ||
+      ("Signature" === t && e[Kr] === Cn.signature.id)) &&
       (this[t] = e);
-    this[Xs](e);
+    this[zs](e);
   }
 }
 class DatasetsNamespace {
-  static [gn](e, t) {
+  static [cn](e, t) {
     if (DatasetsNamespace.hasOwnProperty(e)) return DatasetsNamespace[e](t);
   }
   static datasets(e) {
@@ -50182,10 +50545,10 @@ class DatasetsNamespace {
     return new datasets_Data(e);
   }
 }
-const Wn = on.localeSet.id;
+const Zn = Cn.localeSet.id;
 class CalendarSymbols extends XFAObject {
   constructor(e) {
-    super(Wn, "calendarSymbols", !0);
+    super(Zn, "calendarSymbols", !0);
     this.name = "gregorian";
     this.dayNames = new XFAObjectArray(2);
     this.eraNames = null;
@@ -50195,41 +50558,41 @@ class CalendarSymbols extends XFAObject {
 }
 class CurrencySymbol extends StringObject {
   constructor(e) {
-    super(Wn, "currencySymbol");
+    super(Zn, "currencySymbol");
     this.name = getStringOption(e.name, ["symbol", "isoname", "decimal"]);
   }
 }
 class CurrencySymbols extends XFAObject {
   constructor(e) {
-    super(Wn, "currencySymbols", !0);
+    super(Zn, "currencySymbols", !0);
     this.currencySymbol = new XFAObjectArray(3);
   }
 }
 class DatePattern extends StringObject {
   constructor(e) {
-    super(Wn, "datePattern");
+    super(Zn, "datePattern");
     this.name = getStringOption(e.name, ["full", "long", "med", "short"]);
   }
 }
 class DatePatterns extends XFAObject {
   constructor(e) {
-    super(Wn, "datePatterns", !0);
+    super(Zn, "datePatterns", !0);
     this.datePattern = new XFAObjectArray(4);
   }
 }
 class DateTimeSymbols extends ContentObject {
   constructor(e) {
-    super(Wn, "dateTimeSymbols");
+    super(Zn, "dateTimeSymbols");
   }
 }
 class Day extends StringObject {
   constructor(e) {
-    super(Wn, "day");
+    super(Zn, "day");
   }
 }
 class DayNames extends XFAObject {
   constructor(e) {
-    super(Wn, "dayNames", !0);
+    super(Zn, "dayNames", !0);
     this.abbr = getInteger({
       data: e.abbr,
       defaultValue: 0,
@@ -50240,18 +50603,18 @@ class DayNames extends XFAObject {
 }
 class Era extends StringObject {
   constructor(e) {
-    super(Wn, "era");
+    super(Zn, "era");
   }
 }
 class EraNames extends XFAObject {
   constructor(e) {
-    super(Wn, "eraNames", !0);
+    super(Zn, "eraNames", !0);
     this.era = new XFAObjectArray(2);
   }
 }
 class locale_set_Locale extends XFAObject {
   constructor(e) {
-    super(Wn, "locale", !0);
+    super(Zn, "locale", !0);
     this.desc = e.desc || "";
     this.name = "isoname";
     this.calendarSymbols = null;
@@ -50266,29 +50629,29 @@ class locale_set_Locale extends XFAObject {
 }
 class locale_set_LocaleSet extends XFAObject {
   constructor(e) {
-    super(Wn, "localeSet", !0);
+    super(Zn, "localeSet", !0);
     this.locale = new XFAObjectArray();
   }
 }
 class Meridiem extends StringObject {
   constructor(e) {
-    super(Wn, "meridiem");
+    super(Zn, "meridiem");
   }
 }
 class MeridiemNames extends XFAObject {
   constructor(e) {
-    super(Wn, "meridiemNames", !0);
+    super(Zn, "meridiemNames", !0);
     this.meridiem = new XFAObjectArray(2);
   }
 }
 class Month extends StringObject {
   constructor(e) {
-    super(Wn, "month");
+    super(Zn, "month");
   }
 }
 class MonthNames extends XFAObject {
   constructor(e) {
-    super(Wn, "monthNames", !0);
+    super(Zn, "monthNames", !0);
     this.abbr = getInteger({
       data: e.abbr,
       defaultValue: 0,
@@ -50299,19 +50662,19 @@ class MonthNames extends XFAObject {
 }
 class NumberPattern extends StringObject {
   constructor(e) {
-    super(Wn, "numberPattern");
+    super(Zn, "numberPattern");
     this.name = getStringOption(e.name, ["full", "long", "med", "short"]);
   }
 }
 class NumberPatterns extends XFAObject {
   constructor(e) {
-    super(Wn, "numberPatterns", !0);
+    super(Zn, "numberPatterns", !0);
     this.numberPattern = new XFAObjectArray(4);
   }
 }
 class NumberSymbol extends StringObject {
   constructor(e) {
-    super(Wn, "numberSymbol");
+    super(Zn, "numberSymbol");
     this.name = getStringOption(e.name, [
       "decimal",
       "grouping",
@@ -50323,36 +50686,36 @@ class NumberSymbol extends StringObject {
 }
 class NumberSymbols extends XFAObject {
   constructor(e) {
-    super(Wn, "numberSymbols", !0);
+    super(Zn, "numberSymbols", !0);
     this.numberSymbol = new XFAObjectArray(5);
   }
 }
 class TimePattern extends StringObject {
   constructor(e) {
-    super(Wn, "timePattern");
+    super(Zn, "timePattern");
     this.name = getStringOption(e.name, ["full", "long", "med", "short"]);
   }
 }
 class TimePatterns extends XFAObject {
   constructor(e) {
-    super(Wn, "timePatterns", !0);
+    super(Zn, "timePatterns", !0);
     this.timePattern = new XFAObjectArray(4);
   }
 }
 class TypeFace extends XFAObject {
   constructor(e) {
-    super(Wn, "typeFace", !0);
+    super(Zn, "typeFace", !0);
     this.name = "" | e.name;
   }
 }
 class TypeFaces extends XFAObject {
   constructor(e) {
-    super(Wn, "typeFaces", !0);
+    super(Zn, "typeFaces", !0);
     this.typeFace = new XFAObjectArray();
   }
 }
 class LocaleSetNamespace {
-  static [gn](e, t) {
+  static [cn](e, t) {
     if (LocaleSetNamespace.hasOwnProperty(e)) return LocaleSetNamespace[e](t);
   }
   static calendarSymbols(e) {
@@ -50428,38 +50791,38 @@ class LocaleSetNamespace {
     return new TypeFaces(e);
   }
 }
-const jn = on.signature.id;
+const Vn = Cn.signature.id;
 class signature_Signature extends XFAObject {
   constructor(e) {
-    super(jn, "signature", !0);
+    super(Vn, "signature", !0);
   }
 }
 class SignatureNamespace {
-  static [gn](e, t) {
+  static [cn](e, t) {
     if (SignatureNamespace.hasOwnProperty(e)) return SignatureNamespace[e](t);
   }
   static signature(e) {
     return new signature_Signature(e);
   }
 }
-const Xn = on.stylesheet.id;
+const zn = Cn.stylesheet.id;
 class Stylesheet extends XFAObject {
   constructor(e) {
-    super(Xn, "stylesheet", !0);
+    super(zn, "stylesheet", !0);
   }
 }
 class StylesheetNamespace {
-  static [gn](e, t) {
+  static [cn](e, t) {
     if (StylesheetNamespace.hasOwnProperty(e)) return StylesheetNamespace[e](t);
   }
   static stylesheet(e) {
     return new Stylesheet(e);
   }
 }
-const Zn = on.xdp.id;
+const _n = Cn.xdp.id;
 class xdp_Xdp extends XFAObject {
   constructor(e) {
-    super(Zn, "xdp", !0);
+    super(_n, "xdp", !0);
     this.uuid = e.uuid || "";
     this.timeStamp = e.timeStamp || "";
     this.config = null;
@@ -50469,22 +50832,22 @@ class xdp_Xdp extends XFAObject {
     this.stylesheet = new XFAObjectArray();
     this.template = null;
   }
-  [Tr](e) {
-    const t = on[e[Yr]];
-    return t && e[Jr] === t.id;
+  [Pr](e) {
+    const t = Cn[e[Tr]];
+    return t && e[Kr] === t.id;
   }
 }
 class XdpNamespace {
-  static [gn](e, t) {
+  static [cn](e, t) {
     if (XdpNamespace.hasOwnProperty(e)) return XdpNamespace[e](t);
   }
   static xdp(e) {
     return new xdp_Xdp(e);
   }
 }
-const Vn = on.xhtml.id,
-  zn = Symbol(),
-  _n = new Set([
+const $n = Cn.xhtml.id,
+  Ag = Symbol(),
+  eg = new Set([
     "color",
     "font",
     "font-family",
@@ -50516,7 +50879,7 @@ const Vn = on.xhtml.id,
     "xfa-spacerun",
     "xfa-tab-stops",
   ]),
-  $n = new Map([
+  tg = new Map([
     ["page-break-after", "breakAfter"],
     ["page-break-before", "breakBefore"],
     ["page-break-inside", "breakInside"],
@@ -50546,15 +50909,15 @@ const Vn = on.xhtml.id,
     ["font-family", (e) => e],
     ["vertical-align", (e) => measureToString(getMeasurement(e))],
   ]),
-  Ag = /\s+/g,
-  eg = /[\r\n]+/g,
-  tg = /\r\n?/g;
+  ig = /\s+/g,
+  ag = /[\r\n]+/g,
+  sg = /\r\n?/g;
 function mapStyle(e, t, i) {
   const a = Object.create(null);
   if (!e) return a;
   const s = Object.create(null);
   for (const [t, i] of e.split(";").map((e) => e.split(":", 2))) {
-    const e = $n.get(t);
+    const e = tg.get(t);
     if ("" === e) continue;
     let r = i;
     e && (r = "string" == typeof e ? e : e(i, s));
@@ -50571,7 +50934,7 @@ function mapStyle(e, t, i) {
         size: s.fontSize || 0,
       },
       t,
-      t[yr].fontFinder,
+      t[br].fontFinder,
       a,
     );
   if (i && a.verticalAlign && "0px" !== a.verticalAlign && a.fontSize) {
@@ -50587,15 +50950,15 @@ function mapStyle(e, t, i) {
   fixTextIndent(a);
   return a;
 }
-const ig = new Set(["body", "html"]);
+const rg = new Set(["body", "html"]);
 class XhtmlObject extends XmlObject {
   constructor(e, t) {
-    super(Vn, t);
-    this[zn] = !1;
+    super($n, t);
+    this[Ag] = !1;
     this.style = e.style || "";
   }
-  [Vs](e) {
-    super[Vs](e);
+  [$s](e) {
+    super[$s](e);
     this.style = (function checkStyle(e) {
       return e.style
         ? e.style
@@ -50604,26 +50967,26 @@ class XhtmlObject extends XmlObject {
             .filter((e) => !!e)
             .map((e) => e.split(/\s*:\s*/, 2))
             .filter(([t, i]) => {
-              "font-family" === t && e[yr].usedTypefaces.add(i);
-              return _n.has(t);
+              "font-family" === t && e[br].usedTypefaces.add(i);
+              return eg.has(t);
             })
             .map((e) => e.join(":"))
             .join(";")
         : "";
     })(this);
   }
-  [Ws]() {
-    return !ig.has(this[Yr]);
+  [Zs]() {
+    return !rg.has(this[Tr]);
   }
-  [qr](e, t = !1) {
-    if (t) this[zn] = !0;
+  [Wr](e, t = !1) {
+    if (t) this[Ag] = !0;
     else {
-      e = e.replaceAll(eg, "");
-      this.style.includes("xfa-spacerun:yes") || (e = e.replaceAll(Ag, " "));
+      e = e.replaceAll(ag, "");
+      this.style.includes("xfa-spacerun:yes") || (e = e.replaceAll(ig, " "));
     }
-    e && (this[er] += e);
+    e && (this[ar] += e);
   }
-  [Or](e, t = !0) {
+  [jr](e, t = !0) {
     const i = Object.create(null),
       a = { top: NaN, bottom: NaN, left: NaN, right: NaN };
     let s = null;
@@ -50682,28 +51045,28 @@ class XhtmlObject extends XmlObject {
           s = getMeasurement(t);
       }
     e.pushData(i, a, s);
-    if (this[er]) e.addString(this[er]);
+    if (this[ar]) e.addString(this[ar]);
     else
-      for (const t of this[Er]())
-        "#text" !== t[Yr] ? t[Or](e) : e.addString(t[er]);
+      for (const t of this[fr]())
+        "#text" !== t[Tr] ? t[jr](e) : e.addString(t[ar]);
     t && e.popFont();
   }
-  [an](e) {
+  [nn](e) {
     const t = [];
-    this[ar] = { children: t };
-    this[Zs]({});
-    if (0 === t.length && !this[er]) return HTMLResult.EMPTY;
+    this[nr] = { children: t };
+    this[_s]({});
+    if (0 === t.length && !this[ar]) return HTMLResult.EMPTY;
     let i;
-    i = this[zn]
-      ? this[er]
-        ? this[er].replaceAll(tg, "\n")
+    i = this[Ag]
+      ? this[ar]
+        ? this[ar].replaceAll(sg, "\n")
         : void 0
-      : this[er] || void 0;
+      : this[ar] || void 0;
     return HTMLResult.success({
-      name: this[Yr],
+      name: this[Tr],
       attributes: {
         href: this.href,
-        style: mapStyle(this.style, this, this[zn]),
+        style: mapStyle(this.style, this, this[Ag]),
       },
       children: t,
       value: i,
@@ -50720,9 +51083,9 @@ class B extends XhtmlObject {
   constructor(e) {
     super(e, "b");
   }
-  [Or](e) {
+  [jr](e) {
     e.pushFont({ weight: "bold" });
-    super[Or](e);
+    super[jr](e);
     e.popFont();
   }
 }
@@ -50730,8 +51093,8 @@ class Body extends XhtmlObject {
   constructor(e) {
     super(e, "body");
   }
-  [an](e) {
-    const t = super[an](e),
+  [nn](e) {
+    const t = super[nn](e),
       { html: i } = t;
     if (!i) return HTMLResult.EMPTY;
     i.name = "div";
@@ -50743,13 +51106,13 @@ class Br extends XhtmlObject {
   constructor(e) {
     super(e, "br");
   }
-  [en]() {
+  [sn]() {
     return "\n";
   }
-  [Or](e) {
+  [jr](e) {
     e.addString("\n");
   }
-  [an](e) {
+  [nn](e) {
     return HTMLResult.success({ name: "br" });
   }
 }
@@ -50757,15 +51120,15 @@ class Html extends XhtmlObject {
   constructor(e) {
     super(e, "html");
   }
-  [an](e) {
+  [nn](e) {
     const t = [];
-    this[ar] = { children: t };
-    this[Zs]({});
+    this[nr] = { children: t };
+    this[_s]({});
     if (0 === t.length)
       return HTMLResult.success({
         name: "div",
         attributes: { class: ["xfaRich"], style: {} },
-        value: this[er] || "",
+        value: this[ar] || "",
       });
     if (1 === t.length) {
       const e = t[0];
@@ -50782,9 +51145,9 @@ class I extends XhtmlObject {
   constructor(e) {
     super(e, "i");
   }
-  [Or](e) {
+  [jr](e) {
     e.pushFont({ posture: "italic" });
-    super[Or](e);
+    super[jr](e);
     e.popFont();
   }
 }
@@ -50802,14 +51165,14 @@ class P extends XhtmlObject {
   constructor(e) {
     super(e, "p");
   }
-  [Or](e) {
-    super[Or](e, !1);
+  [jr](e) {
+    super[jr](e, !1);
     e.addString("\n");
     e.addPara();
     e.popFont();
   }
-  [en]() {
-    return this[pr]()[Er]().at(-1) === this ? super[en]() : super[en]() + "\n";
+  [sn]() {
+    return this[wr]()[fr]().at(-1) === this ? super[sn]() : super[sn]() + "\n";
   }
 }
 class Span extends XhtmlObject {
@@ -50833,7 +51196,7 @@ class Ul extends XhtmlObject {
   }
 }
 class XhtmlNamespace {
-  static [gn](e, t) {
+  static [cn](e, t) {
     if (XhtmlNamespace.hasOwnProperty(e)) return XhtmlNamespace[e](t);
   }
   static a(e) {
@@ -50876,7 +51239,7 @@ class XhtmlNamespace {
     return new Ul(e);
   }
 }
-const ag = {
+const ng = {
   config: ConfigNamespace,
   connection: ConnectionSetNamespace,
   datasets: DatasetsNamespace,
@@ -50891,7 +51254,7 @@ class UnknownNamespace {
   constructor(e) {
     this.namespaceId = e;
   }
-  [gn](e, t) {
+  [cn](e, t) {
     return new XmlObject(this.namespaceId, e, t);
   }
 }
@@ -50899,18 +51262,18 @@ class Root extends XFAObject {
   constructor(e) {
     super(-1, "root", Object.create(null));
     this.element = null;
-    this[Dr] = e;
+    this[Sr] = e;
   }
-  [Kr](e) {
+  [Or](e) {
     this.element = e;
     return !0;
   }
-  [sr]() {
-    super[sr]();
+  [gr]() {
+    super[gr]();
     if (this.element.template instanceof Template) {
-      this[Dr].set(Xr, this.element);
-      this.element.template[Zr](this[Dr]);
-      this.element.template[Dr] = this[Dr];
+      this[Sr].set(zr, this.element);
+      this.element.template[_r](this[Sr]);
+      this.element.template[Sr] = this[Sr];
     }
   }
 }
@@ -50918,7 +51281,7 @@ class Empty extends XFAObject {
   constructor() {
     super(-1, "", Object.create(null));
   }
-  [Kr](e) {
+  [Or](e) {
     return !1;
   }
 }
@@ -50928,7 +51291,7 @@ class Builder {
     this._nsAgnosticLevel = 0;
     this._namespacePrefixes = new Map();
     this._namespaces = new Map();
-    this._nextNsId = Math.max(...Object.values(on).map(({ id: e }) => e));
+    this._nextNsId = Math.max(...Object.values(Cn).map(({ id: e }) => e));
     this._currentNamespace = e || new UnknownNamespace(++this._nextNsId);
   }
   buildRoot(e) {
@@ -50941,9 +51304,9 @@ class Builder {
       this._currentNamespace = this._searchNamespace(a);
     }
     s && this._addNamespacePrefix(s);
-    if (i.hasOwnProperty(vr)) {
-      const e = ag.datasets,
-        t = i[vr];
+    if (i.hasOwnProperty(qr)) {
+      const e = ng.datasets,
+        t = i[qr];
       let a = null;
       for (const [i, s] of Object.entries(t)) {
         if (this._getNamespaceToUse(i) === e) {
@@ -50951,13 +51314,13 @@ class Builder {
           break;
         }
       }
-      a ? (i[vr] = a) : delete i[vr];
+      a ? (i[qr] = a) : delete i[qr];
     }
     const n = this._getNamespaceToUse(e),
-      g = n?.[gn](t, i) || new Empty();
-    g[Gr]() && this._nsAgnosticLevel++;
-    (r || s || g[Gr]()) &&
-      (g[_s] = { hasNamespace: r, prefixes: s, nsAgnostic: g[Gr]() });
+      g = n?.[cn](t, i) || new Empty();
+    g[Mr]() && this._nsAgnosticLevel++;
+    (r || s || g[Mr]()) &&
+      (g[er] = { hasNamespace: r, prefixes: s, nsAgnostic: g[Mr]() });
     return g;
   }
   isNsAgnostic() {
@@ -50966,9 +51329,9 @@ class Builder {
   _searchNamespace(e) {
     let t = this._namespaces.get(e);
     if (t) return t;
-    for (const [i, { check: a }] of Object.entries(on))
+    for (const [i, { check: a }] of Object.entries(Cn))
       if (a(e)) {
-        t = ag[i];
+        t = ng[i];
         if (t) {
           this._namespaces.set(e, t);
           return t;
@@ -51015,26 +51378,26 @@ class XFAParser extends XMLParserBase {
     this._globalData = { usedTypefaces: new Set() };
     this._ids = new Map();
     this._current = this._builder.buildRoot(this._ids);
-    this._errorCode = Rs;
+    this._errorCode = xs;
     this._whiteRegex = /^\s+$/;
     this._nbsps = /\xa0+/g;
     this._richText = t;
   }
   parse(e) {
     this.parseXml(e);
-    if (this._errorCode === Rs) {
-      this._current[sr]();
+    if (this._errorCode === xs) {
+      this._current[gr]();
       return this._current.element;
     }
   }
   onText(e) {
     e = e.replace(this._nbsps, (e) => e.slice(1) + " ");
-    this._richText || this._current[Ws]()
-      ? this._current[qr](e, this._richText)
-      : this._whiteRegex.test(e) || this._current[qr](e.trim());
+    this._richText || this._current[Zs]()
+      ? this._current[Wr](e, this._richText)
+      : this._whiteRegex.test(e) || this._current[Wr](e.trim());
   }
   onCdata(e) {
-    this._current[qr](e);
+    this._current[Wr](e);
   }
   _mkAttributes(e, t) {
     let i = null,
@@ -51051,8 +51414,8 @@ class XFAParser extends XMLParserBase {
         const e = r.indexOf(":");
         if (-1 === e) s[r] = n;
         else {
-          let t = s[vr];
-          t || (t = s[vr] = Object.create(null));
+          let t = s[qr];
+          t || (t = s[qr] = Object.create(null));
           const [i, a] = [r.slice(0, e), r.slice(e + 1)];
           (t[i] ||= Object.create(null))[a] = n;
         }
@@ -51075,11 +51438,11 @@ class XFAParser extends XMLParserBase {
         namespace: a,
         prefixes: s,
       });
-    o[yr] = this._globalData;
+    o[br] = this._globalData;
     if (i) {
-      o[sr]();
-      this._current[Kr](o) && o[zr](this._ids);
-      o[Vs](this._builder);
+      o[gr]();
+      this._current[Or](o) && o[An](this._ids);
+      o[$s](this._builder);
     } else {
       this._stack.push(this._current);
       this._current = o;
@@ -51087,17 +51450,17 @@ class XFAParser extends XMLParserBase {
   }
   onEndElement(e) {
     const t = this._current;
-    if (t[Sr]() && "string" == typeof t[er]) {
+    if (t[Nr]() && "string" == typeof t[ar]) {
       const e = new XFAParser();
       e._globalData = this._globalData;
-      const i = e.parse(t[er]);
-      t[er] = null;
-      t[Kr](i);
+      const i = e.parse(t[ar]);
+      t[ar] = null;
+      t[Or](i);
     }
-    t[sr]();
+    t[gr]();
     this._current = this._stack.pop();
-    this._current[Kr](t) && t[zr](this._ids);
-    t[Vs](this._builder);
+    this._current[Or](t) && t[An](this._ids);
+    t[$s](this._builder);
   }
   onError(e) {
     this._errorCode = e;
@@ -51110,7 +51473,7 @@ class XFAFactory {
       const t = new Binder(this.root);
       this.form = t.bind();
       this.dataHandler = new DataHandler(this.root, t.getData());
-      this.form[yr].template = this.form;
+      this.form[br].template = this.form;
     } catch (e) {
       warn(`XFA - an error occurred during parsing and binding: ${e}`);
     }
@@ -51119,7 +51482,7 @@ class XFAFactory {
     return this.root && this.form;
   }
   _createPagesHelper() {
-    const e = this.form[tn]();
+    const e = this.form[rn]();
     return new Promise((t, i) => {
       const nextIteration = () => {
         try {
@@ -51151,19 +51514,19 @@ class XFAFactory {
     return this.dims.length;
   }
   setImages(e) {
-    this.form[yr].images = e;
+    this.form[br].images = e;
   }
   setFonts(e) {
-    this.form[yr].fontFinder = new FontFinder(e);
+    this.form[br].fontFinder = new FontFinder(e);
     const t = [];
-    for (let e of this.form[yr].usedTypefaces) {
+    for (let e of this.form[br].usedTypefaces) {
       e = stripQuotes(e);
-      this.form[yr].fontFinder.find(e) || t.push(e);
+      this.form[br].fontFinder.find(e) || t.push(e);
     }
     return t.length > 0 ? t : null;
   }
   appendFonts(e, t) {
-    this.form[yr].fontFinder.add(e, t);
+    this.form[br].fontFinder.add(e, t);
   }
   async getPages() {
     this.pages || (await this._createPages());
@@ -51181,12 +51544,12 @@ class XFAFactory {
     if (!e || "string" != typeof e) return null;
     try {
       let t = new XFAParser(XhtmlNamespace, !0).parse(e);
-      if (!["body", "xhtml"].includes(t[Yr])) {
+      if (!["body", "xhtml"].includes(t[Tr])) {
         const e = XhtmlNamespace.body({});
-        e[Xs](t);
+        e[zs](t);
         t = e;
       }
-      const i = t[an]();
+      const i = t[nn]();
       if (!i.success) return null;
       const { html: a } = i,
         { attributes: s } = a;
@@ -51194,7 +51557,7 @@ class XFAFactory {
         s.class && (s.class = s.class.filter((e) => !e.startsWith("xfa")));
         s.dir = "auto";
       }
-      return { html: a, str: t[en]() };
+      return { html: a, str: t[sn]() };
     } catch (e) {
       warn(`XFA - an error occurred during parsing of rich text: ${e}`);
     }
@@ -51224,90 +51587,91 @@ class AnnotationFactory {
       },
     );
   }
-  static async create(e, t, i, a, s, r) {
-    const n = s ? await this._getPageIndex(e, t, i.pdfManager) : null;
-    return i.pdfManager.ensure(this, "_create", [e, t, i, a, s, n, r]);
+  static async create(e, t, i, a, s, r, n) {
+    const g = s ? await this._getPageIndex(e, t, i.pdfManager) : null;
+    return i.pdfManager.ensure(this, "_create", [e, t, i, a, s, r, g, n]);
   }
-  static _create(e, t, i, a, s = !1, r = null, n = null) {
-    const g = e.fetchIfRef(t);
-    if (!(g instanceof Dict)) return;
-    const { acroForm: o, pdfManager: c } = i,
-      C = t instanceof Ref ? t.toString() : `annot_${a.createObjId()}`;
-    let h = g.get("Subtype");
-    h = h instanceof Name ? h.name : null;
-    const l = {
+  static _create(e, t, i, a, s = !1, r = null, n = null, g = null) {
+    const o = e.fetchIfRef(t);
+    if (!(o instanceof Dict)) return;
+    const { acroForm: c, pdfManager: C } = i,
+      h = t instanceof Ref ? t.toString() : `annot_${a.createObjId()}`;
+    let l = o.get("Subtype");
+    l = l instanceof Name ? l.name : null;
+    const Q = {
       xref: e,
       ref: t,
-      dict: g,
-      subtype: h,
-      id: C,
+      dict: o,
+      subtype: l,
+      id: h,
       annotationGlobals: i,
       collectFields: s,
-      needAppearances: !s && !0 === o.get("NeedAppearances"),
-      pageIndex: r,
-      evaluatorOptions: c.evaluatorOptions,
-      pageRef: n,
+      orphanFields: r,
+      needAppearances: !s && !0 === c.get("NeedAppearances"),
+      pageIndex: n,
+      evaluatorOptions: C.evaluatorOptions,
+      pageRef: g,
     };
-    switch (h) {
+    switch (l) {
       case "Link":
-        return new LinkAnnotation(l);
+        return new LinkAnnotation(Q);
       case "Text":
-        return new TextAnnotation(l);
+        return new TextAnnotation(Q);
       case "Widget":
-        let e = getInheritableProperty({ dict: g, key: "FT" });
+        let e = getInheritableProperty({ dict: o, key: "FT" });
         e = e instanceof Name ? e.name : null;
         switch (e) {
           case "Tx":
-            return new TextWidgetAnnotation(l);
+            return new TextWidgetAnnotation(Q);
           case "Btn":
-            return new ButtonWidgetAnnotation(l);
+            return new ButtonWidgetAnnotation(Q);
           case "Ch":
-            return new ChoiceWidgetAnnotation(l);
+            return new ChoiceWidgetAnnotation(Q);
           case "Sig":
-            return new SignatureWidgetAnnotation(l);
+            return new SignatureWidgetAnnotation(Q);
         }
         warn(
           `Unimplemented widget field type "${e}", falling back to base field type.`,
         );
-        return new WidgetAnnotation(l);
+        return new WidgetAnnotation(Q);
       case "Popup":
-        return new PopupAnnotation(l);
+        return new PopupAnnotation(Q);
       case "FreeText":
-        return new FreeTextAnnotation(l);
+        return new FreeTextAnnotation(Q);
       case "Line":
-        return new LineAnnotation(l);
+        return new LineAnnotation(Q);
       case "Square":
-        return new SquareAnnotation(l);
+        return new SquareAnnotation(Q);
       case "Circle":
-        return new CircleAnnotation(l);
+        return new CircleAnnotation(Q);
       case "PolyLine":
-        return new PolylineAnnotation(l);
+        return new PolylineAnnotation(Q);
       case "Polygon":
-        return new PolygonAnnotation(l);
+        return new PolygonAnnotation(Q);
       case "Caret":
-        return new CaretAnnotation(l);
+        return new CaretAnnotation(Q);
       case "Ink":
-        return new InkAnnotation(l);
+        return new InkAnnotation(Q);
       case "Highlight":
-        return new HighlightAnnotation(l);
+        return new HighlightAnnotation(Q);
       case "Underline":
-        return new UnderlineAnnotation(l);
+        return new UnderlineAnnotation(Q);
       case "Squiggly":
-        return new SquigglyAnnotation(l);
+        return new SquigglyAnnotation(Q);
       case "StrikeOut":
-        return new StrikeOutAnnotation(l);
+        return new StrikeOutAnnotation(Q);
       case "Stamp":
-        return new StampAnnotation(l);
+        return new StampAnnotation(Q);
       case "FileAttachment":
-        return new FileAttachmentAnnotation(l);
+        return new FileAttachmentAnnotation(Q);
       default:
         s ||
           warn(
-            h
-              ? `Unimplemented annotation type "${h}", falling back to base annotation.`
+            l
+              ? `Unimplemented annotation type "${l}", falling back to base annotation.`
               : "Annotation is missing the required /Subtype.",
           );
-        return new Annotation(l);
+        return new Annotation(Q);
     }
   }
   static async _getPageIndex(e, t, i) {
@@ -51357,7 +51721,7 @@ class AnnotationFactory {
     for (const c of i)
       if (!c.deleted)
         switch (c.annotationType) {
-          case u:
+          case d:
             if (!r) {
               const e = new Dict(s);
               e.set("BaseFont", Name.get("Helvetica"));
@@ -51377,18 +51741,17 @@ class AnnotationFactory {
               }),
             );
             break;
-          case d:
+          case f:
             c.quadPoints
               ? g.push(HighlightAnnotation.createNewAnnotation(s, c, n))
               : g.push(InkAnnotation.createNewAnnotation(s, c, n));
             break;
-          case p:
+          case m:
             g.push(InkAnnotation.createNewAnnotation(s, c, n));
             break;
-          case f:
-            if (!o) break;
-            const i = await a.get(c.bitmapId);
-            if (i.imageStream) {
+          case p:
+            const i = o ? await a?.get(c.bitmapId) : null;
+            if (i?.imageStream) {
               const { imageStream: e, smaskStream: t } = i,
                 a = [];
               if (t) {
@@ -51414,7 +51777,7 @@ class AnnotationFactory {
     for (const o of a)
       if (!o.deleted)
         switch (o.annotationType) {
-          case u:
+          case d:
             g.push(
               FreeTextAnnotation.createNewPrintAnnotation(e, n, o, {
                 evaluator: t,
@@ -51423,7 +51786,7 @@ class AnnotationFactory {
               }),
             );
             break;
-          case d:
+          case f:
             o.quadPoints
               ? g.push(
                   HighlightAnnotation.createNewPrintAnnotation(e, n, o, {
@@ -51436,17 +51799,18 @@ class AnnotationFactory {
                   }),
                 );
             break;
-          case p:
+          case m:
             g.push(
               InkAnnotation.createNewPrintAnnotation(e, n, o, {
                 evaluatorOptions: r,
               }),
             );
             break;
-          case f:
-            if (!r.isOffscreenCanvasSupported) break;
-            const a = await s.get(o.bitmapId);
-            if (a.imageStream) {
+          case p:
+            const a = r.isOffscreenCanvasSupported
+              ? await s?.get(o.bitmapId)
+              : null;
+            if (a?.imageStream) {
               const { imageStream: e, smaskStream: t } = a;
               t && e.dict.set("SMask", t);
               a.imageRef = new JpegStream(e, e.length);
@@ -51510,7 +51874,15 @@ function getTransformMatrix(e, t, i) {
 }
 class Annotation {
   constructor(e) {
-    const { dict: t, xref: i, annotationGlobals: a } = e;
+    const {
+        dict: t,
+        xref: i,
+        annotationGlobals: a,
+        ref: s,
+        orphanFields: r,
+      } = e,
+      n = r?.get(s);
+    n && t.set("Parent", n);
     this.setTitle(t.get("T"));
     this.setContents(t.get("Contents"));
     this.setModificationDate(t.get("M"));
@@ -51520,19 +51892,14 @@ class Annotation {
     this.setBorderStyle(t);
     this.setAppearance(t);
     this.setOptionalContent(t);
-    const s = t.get("MK");
-    this.setBorderAndBackgroundColors(s);
-    this.setRotation(s, t);
+    const g = t.get("MK");
+    this.setBorderAndBackgroundColors(g);
+    this.setRotation(g, t);
     this.ref = e.ref instanceof Ref ? e.ref : null;
     this._streams = [];
     this.appearance && this._streams.push(this.appearance);
-    const r = !!(this.flags & AA),
-      n = !!(this.flags & eA);
-    if (a.structTreeRoot) {
-      let i = t.get("StructParent");
-      i = Number.isInteger(i) && i >= 0 ? i : -1;
-      a.structTreeRoot.addAnnotationIdToPage(e.pageRef, i);
-    }
+    const o = !!(this.flags & eA),
+      c = !!(this.flags & tA);
     this.data = {
       annotationFlags: this.flags,
       borderStyle: this.borderStyle,
@@ -51547,9 +51914,16 @@ class Annotation {
       rect: this.rectangle,
       subtype: e.subtype,
       hasOwnCanvas: !1,
-      noRotate: !!(this.flags & _),
-      noHTML: r && n,
+      noRotate: !!(this.flags & $),
+      noHTML: o && c,
+      isEditable: !1,
+      structParent: -1,
     };
+    if (a.structTreeRoot) {
+      let i = t.get("StructParent");
+      this.data.structParent = i = Number.isInteger(i) && i >= 0 ? i : -1;
+      a.structTreeRoot.addAnnotationIdToPage(e.pageRef, i);
+    }
     if (e.collectFields) {
       const a = t.get("Kids");
       if (Array.isArray(a)) {
@@ -51557,10 +51931,12 @@ class Annotation {
         for (const t of a) t instanceof Ref && e.push(t.toString());
         0 !== e.length && (this.data.kidIds = e);
       }
-      this.data.actions = collectActions(i, t, uA);
+      this.data.actions = collectActions(i, t, dA);
       this.data.fieldName = this._constructFieldName(t);
       this.data.pageIndex = e.pageIndex;
     }
+    const C = t.get("IT");
+    C instanceof Name && (this.data.it = C.name);
     this._isOffscreenCanvasSupported =
       e.evaluatorOptions.isOffscreenCanvasSupported;
     this._fallbackFontDict = null;
@@ -51569,19 +51945,35 @@ class Annotation {
   _hasFlag(e, t) {
     return !!(e & t);
   }
+  _buildFlags(e, t) {
+    let { flags: i } = this;
+    if (void 0 === e) {
+      if (void 0 === t) return;
+      return t ? i & ~_ : (i & ~z) | _;
+    }
+    if (e) {
+      i |= _;
+      return t ? (i & ~AA) | z : (i & ~z) | AA;
+    }
+    i &= ~(z | AA);
+    return t ? i & ~_ : i | _;
+  }
   _isViewable(e) {
-    return !this._hasFlag(e, Z) && !this._hasFlag(e, $);
+    return !this._hasFlag(e, V) && !this._hasFlag(e, AA);
   }
   _isPrintable(e) {
-    return this._hasFlag(e, z) && !this._hasFlag(e, V) && !this._hasFlag(e, Z);
+    return this._hasFlag(e, _) && !this._hasFlag(e, z) && !this._hasFlag(e, V);
   }
   mustBeViewed(e, t) {
     const i = e?.get(this.data.id)?.noView;
-    return void 0 !== i ? !i : this.viewable && !this._hasFlag(this.flags, V);
+    return void 0 !== i ? !i : this.viewable && !this._hasFlag(this.flags, z);
   }
   mustBePrinted(e) {
     const t = e?.get(this.data.id)?.noPrint;
     return void 0 !== t ? !t : this.printable;
+  }
+  mustBeViewedWhenEditing(e, t = null) {
+    return e ? !this.data.isEditable : !t?.has(this.data.id);
   }
   get viewable() {
     return (
@@ -51620,9 +52012,9 @@ class Annotation {
   }
   setFlags(e) {
     this.flags = Number.isInteger(e) && e > 0 ? e : 0;
-    this.flags & Z &&
+    this.flags & V &&
       "Annotation" !== this.constructor.name &&
-      (this.flags ^= Z);
+      (this.flags ^= V);
   }
   hasFlag(e) {
     return this._hasFlag(this.flags, e);
@@ -51725,11 +52117,11 @@ class Annotation {
       });
     });
   }
-  async getOperatorList(e, t, a, s, r) {
-    const { hasOwnCanvas: n, id: g, rect: c } = this.data;
-    let C = this.appearance;
-    const h = !!(n && a & o);
-    if (h && (c[0] === c[2] || c[1] === c[3])) {
+  async getOperatorList(e, t, a, s) {
+    const { hasOwnCanvas: r, id: n, rect: g } = this.data;
+    let c = this.appearance;
+    const C = !!(r && a & o);
+    if (C && (g[0] === g[2] || g[1] === g[3])) {
       this.data.hasOwnCanvas = !1;
       return {
         opList: new OperatorList(),
@@ -51737,40 +52129,40 @@ class Annotation {
         separateCanvas: !1,
       };
     }
-    if (!C) {
-      if (!h)
+    if (!c) {
+      if (!C)
         return {
           opList: new OperatorList(),
           separateForm: !1,
           separateCanvas: !1,
         };
-      C = new StringStream("");
-      C.dict = new Dict();
+      c = new StringStream("");
+      c.dict = new Dict();
     }
-    const l = C.dict,
-      Q = await this.loadResources(
+    const h = c.dict,
+      l = await this.loadResources(
         ["ExtGState", "ColorSpace", "Pattern", "Shading", "XObject", "Font"],
-        C,
+        c,
       ),
-      E = lookupRect(l.getArray("BBox"), [0, 0, 1, 1]),
-      u = lookupMatrix(l.getArray("Matrix"), i),
-      d = getTransformMatrix(c, E, u),
-      f = new OperatorList();
-    let p;
-    this.oc && (p = await e.parseMarkedContentProps(this.oc, null));
-    void 0 !== p && f.addOp(Je, ["OC", p]);
-    f.addOp(We, [g, c, d, u, h]);
+      Q = lookupRect(h.getArray("BBox"), [0, 0, 1, 1]),
+      E = lookupMatrix(h.getArray("Matrix"), i),
+      u = getTransformMatrix(g, Q, E),
+      d = new OperatorList();
+    let f;
+    this.oc && (f = await e.parseMarkedContentProps(this.oc, null));
+    void 0 !== f && d.addOp(Je, ["OC", f]);
+    d.addOp(We, [n, g, u, E, C]);
     await e.getOperatorList({
-      stream: C,
+      stream: c,
       task: t,
-      resources: Q,
-      operatorList: f,
+      resources: l,
+      operatorList: d,
       fallbackFontDict: this._fallbackFontDict,
     });
-    f.addOp(je, []);
-    void 0 !== p && f.addOp(Ye, []);
+    d.addOp(je, []);
+    void 0 !== f && d.addOp(Ye, []);
     this.reset();
-    return { opList: f, separateForm: !1, separateCanvas: h };
+    return { opList: d, separateForm: !1, separateCanvas: C };
   }
   async save(e, t, i) {
     return null;
@@ -51872,7 +52264,8 @@ class Annotation {
 class AnnotationBorderStyle {
   constructor() {
     this.width = 1;
-    this.style = hA;
+    this.rawWidth = 1;
+    this.style = lA;
     this.dashArray = [3];
     this.horizontalCornerRadius = 0;
     this.verticalCornerRadius = 0;
@@ -51881,6 +52274,7 @@ class AnnotationBorderStyle {
     if (e instanceof Name) this.width = 0;
     else if ("number" == typeof e) {
       if (e > 0) {
+        this.rawWidth = e;
         const i = (t[2] - t[0]) / 2,
           a = (t[3] - t[1]) / 2;
         if (i > 0 && a > 0 && (e > i || e > a)) {
@@ -51895,19 +52289,19 @@ class AnnotationBorderStyle {
     if (e instanceof Name)
       switch (e.name) {
         case "S":
-          this.style = hA;
+          this.style = lA;
           break;
         case "D":
           this.style = BA;
           break;
         case "B":
-          this.style = lA;
-          break;
-        case "I":
           this.style = QA;
           break;
-        case "U":
+        case "I":
           this.style = EA;
+          break;
+        case "U":
+          this.style = uA;
       }
   }
   setDashArray(e, t = !1) {
@@ -51942,10 +52336,10 @@ class MarkupAnnotation extends Annotation {
       const e = t.getRaw("IRT");
       this.data.inReplyTo = e instanceof Ref ? e.toString() : null;
       const i = t.get("RT");
-      this.data.replyType = i instanceof Name ? i.name : X;
+      this.data.replyType = i instanceof Name ? i.name : Z;
     }
     let i = null;
-    if (this.data.replyType === j) {
+    if (this.data.replyType === X) {
       const e = t.get("IRT");
       this.setTitle(e.get("T"));
       this.data.titleObj = this._title;
@@ -52040,7 +52434,8 @@ class MarkupAnnotation extends Annotation {
     this._streams.push(this.appearance, d);
   }
   static async createNewAnnotation(e, t, i, a) {
-    const s = (t.ref ||= e.getNewTemporaryRef()),
+    t.ref || (t.ref = e.getNewTemporaryRef());
+    const s = t.ref,
       r = await this.createNewAppearanceStream(t, e, a),
       n = [];
     let g;
@@ -52057,7 +52452,7 @@ class MarkupAnnotation extends Annotation {
   }
   static async createNewPrintAnnotation(e, t, i, a) {
     const s = await this.createNewAppearanceStream(i, t, a),
-      r = this.createNewDict(i, t, { ap: s }),
+      r = this.createNewDict(i, t, s ? { ap: s } : {}),
       n = new this.prototype.constructor({
         dict: r,
         xref: t,
@@ -52074,9 +52469,9 @@ class WidgetAnnotation extends Annotation {
     const { dict: t, xref: i, annotationGlobals: a } = e,
       s = this.data;
     this._needAppearances = e.needAppearances;
-    s.annotationType = W;
+    s.annotationType = j;
     void 0 === s.fieldName && (s.fieldName = this._constructFieldName(t));
-    void 0 === s.actions && (s.actions = collectActions(i, t, uA));
+    void 0 === s.actions && (s.actions = collectActions(i, t, dA));
     let r = getInheritableProperty({ dict: t, key: "V", getArray: !0 });
     s.fieldValue = this._decodeFormValue(r);
     const n = getInheritableProperty({ dict: t, key: "DV", getArray: !0 });
@@ -52112,11 +52507,11 @@ class WidgetAnnotation extends Annotation {
     };
     s.fieldFlags = getInheritableProperty({ dict: t, key: "Ff" });
     (!Number.isInteger(s.fieldFlags) || s.fieldFlags < 0) && (s.fieldFlags = 0);
-    s.readOnly = this.hasFieldFlag(tA);
-    s.required = this.hasFieldFlag(iA);
+    s.readOnly = this.hasFieldFlag(iA);
+    s.required = this.hasFieldFlag(aA);
     s.hidden =
-      this._hasFlag(s.annotationFlags, V) ||
-      this._hasFlag(s.annotationFlags, $);
+      this._hasFlag(s.annotationFlags, z) ||
+      this._hasFlag(s.annotationFlags, AA);
   }
   _decodeFormValue(e) {
     return Array.isArray(e)
@@ -52136,7 +52531,7 @@ class WidgetAnnotation extends Annotation {
   mustBeViewed(e, t) {
     return t
       ? this.viewable
-      : super.mustBeViewed(e, t) && !this._hasFlag(this.flags, $);
+      : super.mustBeViewed(e, t) && !this._hasFlag(this.flags, AA);
   }
   getRotationMatrix(e) {
     let t = e?.get(this.data.id)?.rotation;
@@ -52163,9 +52558,9 @@ class WidgetAnnotation extends Annotation {
     }
     return r;
   }
-  async getOperatorList(e, t, i, a, s) {
+  async getOperatorList(e, t, i, a) {
     if (
-      a &&
+      i & h &&
       !(this instanceof SignatureWidgetAnnotation) &&
       !this.data.noHTML &&
       !this.data.hasOwnCanvas
@@ -52175,41 +52570,40 @@ class WidgetAnnotation extends Annotation {
         separateForm: !0,
         separateCanvas: !1,
       };
-    if (!this._hasText) return super.getOperatorList(e, t, i, a, s);
-    const r = await this._getAppearance(e, t, i, s);
-    if (this.appearance && null === r)
-      return super.getOperatorList(e, t, i, a, s);
-    const n = new OperatorList();
-    if (!this._defaultAppearance || null === r)
-      return { opList: n, separateForm: !1, separateCanvas: !1 };
-    const g = !!(this.data.hasOwnCanvas && i & o),
-      c = [
+    if (!this._hasText) return super.getOperatorList(e, t, i, a);
+    const s = await this._getAppearance(e, t, i, a);
+    if (this.appearance && null === s) return super.getOperatorList(e, t, i, a);
+    const r = new OperatorList();
+    if (!this._defaultAppearance || null === s)
+      return { opList: r, separateForm: !1, separateCanvas: !1 };
+    const n = !!(this.data.hasOwnCanvas && i & o),
+      g = [
         0,
         0,
         this.data.rect[2] - this.data.rect[0],
         this.data.rect[3] - this.data.rect[1],
       ],
-      C = getTransformMatrix(this.data.rect, c, [1, 0, 0, 1, 0, 0]);
-    let h;
-    this.oc && (h = await e.parseMarkedContentProps(this.oc, null));
-    void 0 !== h && n.addOp(Je, ["OC", h]);
-    n.addOp(We, [
+      c = getTransformMatrix(this.data.rect, g, [1, 0, 0, 1, 0, 0]);
+    let C;
+    this.oc && (C = await e.parseMarkedContentProps(this.oc, null));
+    void 0 !== C && r.addOp(Je, ["OC", C]);
+    r.addOp(We, [
       this.data.id,
       this.data.rect,
-      C,
-      this.getRotationMatrix(s),
-      g,
+      c,
+      this.getRotationMatrix(a),
+      n,
     ]);
-    const l = new StringStream(r);
+    const l = new StringStream(s);
     await e.getOperatorList({
       stream: l,
       task: t,
       resources: this._fieldResources.mergedResources,
-      operatorList: n,
+      operatorList: r,
     });
-    n.addOp(je, []);
-    void 0 !== h && n.addOp(Ye, []);
-    return { opList: n, separateForm: !1, separateCanvas: g };
+    r.addOp(je, []);
+    void 0 !== C && r.addOp(Ye, []);
+    return { opList: r, separateForm: !1, separateCanvas: n };
   }
   _getMKDict(e) {
     const t = new Dict(null);
@@ -52220,54 +52614,66 @@ class WidgetAnnotation extends Annotation {
   }
   amendSavedDict(e, t) {}
   async save(e, t, a) {
-    const s = a?.get(this.data.id);
-    let r = s?.value,
-      n = s?.rotation;
-    if (r === this.data.fieldValue || void 0 === r) {
-      if (!this._hasValueFromXFA && void 0 === n) return null;
-      r ||= this.data.fieldValue;
+    const s = a?.get(this.data.id),
+      r = this._buildFlags(s?.noView, s?.noPrint);
+    let n = s?.value,
+      g = s?.rotation;
+    if (n === this.data.fieldValue || void 0 === n) {
+      if (!this._hasValueFromXFA && void 0 === g && void 0 === r) return null;
+      n ||= this.data.fieldValue;
     }
     if (
-      void 0 === n &&
+      void 0 === g &&
       !this._hasValueFromXFA &&
-      Array.isArray(r) &&
+      Array.isArray(n) &&
       Array.isArray(this.data.fieldValue) &&
-      r.length === this.data.fieldValue.length &&
-      r.every((e, t) => e === this.data.fieldValue[t])
+      isArrayEqual(n, this.data.fieldValue) &&
+      void 0 === r
     )
       return null;
-    void 0 === n && (n = this.rotation);
-    let g = null;
+    void 0 === g && (g = this.rotation);
+    let o = null;
     if (!this._needAppearances) {
-      g = await this._getAppearance(e, t, C, a);
-      if (null === g) return null;
+      o = await this._getAppearance(e, t, C, a);
+      if (null === o && void 0 === r) return null;
     }
-    let o = !1;
-    if (g?.needAppearances) {
-      o = !0;
-      g = null;
+    let c = !1;
+    if (o?.needAppearances) {
+      c = !0;
+      o = null;
     }
-    const { xref: c } = e,
-      h = c.fetchIfRef(this.ref);
-    if (!(h instanceof Dict)) return null;
-    const l = new Dict(c);
-    for (const e of h.getKeys()) "AP" !== e && l.set(e, h.getRaw(e));
-    const Q = { path: this.data.fieldName, value: r },
-      encoder = (e) => (isAscii(e) ? e : stringToUTF16String(e, !0));
-    l.set("V", Array.isArray(r) ? r.map(encoder) : encoder(r));
-    this.amendSavedDict(a, l);
-    const E = this._getMKDict(n);
-    E && l.set("MK", E);
-    const u = [],
-      d = [{ ref: this.ref, data: "", xfa: Q, needAppearances: o }];
-    if (null !== g) {
-      const e = c.getNewTemporaryRef(),
-        t = new Dict(c);
-      l.set("AP", t);
+    const { xref: h } = e,
+      l = h.fetchIfRef(this.ref);
+    if (!(l instanceof Dict)) return null;
+    const Q = new Dict(h);
+    for (const e of l.getKeys()) "AP" !== e && Q.set(e, l.getRaw(e));
+    if (void 0 !== r) {
+      Q.set("F", r);
+      if (null === o && !c) {
+        const e = l.getRaw("AP");
+        e && Q.set("AP", e);
+      }
+    }
+    const E = { path: this.data.fieldName, value: n };
+    Q.set(
+      "V",
+      Array.isArray(n)
+        ? n.map(stringToAsciiOrUTF16BE)
+        : stringToAsciiOrUTF16BE(n),
+    );
+    this.amendSavedDict(a, Q);
+    const u = this._getMKDict(g);
+    u && Q.set("MK", u);
+    const d = [],
+      f = [{ ref: this.ref, data: "", xfa: E, needAppearances: c }];
+    if (null !== o) {
+      const e = h.getNewTemporaryRef(),
+        t = new Dict(h);
+      Q.set("AP", t);
       t.set("N", e);
-      const s = this._getSaveFieldResources(c),
-        r = new StringStream(g),
-        n = (r.dict = new Dict(c));
+      const s = this._getSaveFieldResources(h),
+        r = new StringStream(o),
+        n = (r.dict = new Dict(h));
       n.set("Subtype", Name.get("Form"));
       n.set("Resources", s);
       n.set("BBox", [
@@ -52276,19 +52682,19 @@ class WidgetAnnotation extends Annotation {
         this.data.rect[2] - this.data.rect[0],
         this.data.rect[3] - this.data.rect[1],
       ]);
-      const o = this.getRotationMatrix(a);
-      o !== i && n.set("Matrix", o);
-      await writeObject(e, r, u, c);
-      d.push({ ref: e, data: u.join(""), xfa: null, needAppearances: !1 });
-      u.length = 0;
+      const g = this.getRotationMatrix(a);
+      g !== i && n.set("Matrix", g);
+      await writeObject(e, r, d, h);
+      f.push({ ref: e, data: d.join(""), xfa: null, needAppearances: !1 });
+      d.length = 0;
     }
-    l.set("M", `D:${getModificationDate()}`);
-    await writeObject(this.ref, l, u, c);
-    d[0].data = u.join("");
-    return d;
+    Q.set("M", `D:${getModificationDate()}`);
+    await writeObject(this.ref, Q, d, h);
+    f[0].data = d.join("");
+    return f;
   }
   async _getAppearance(e, t, i, a) {
-    if (this.hasFieldFlag(sA)) return null;
+    if (this.hasFieldFlag(rA)) return null;
     const s = a?.get(this.data.id);
     let r, g;
     if (s) {
@@ -52309,7 +52715,7 @@ class WidgetAnnotation extends Annotation {
     }
     Array.isArray(r) && 1 === r.length && (r = r[0]);
     assert("string" == typeof r, "Expected `value` to be a string.");
-    r = r.trim();
+    r = r.trimEnd();
     if (this.data.combo) {
       const e = this.data.options.find(({ exportValue: e }) => r === e);
       r = e?.displayValue || r;
@@ -52423,7 +52829,7 @@ class WidgetAnnotation extends Annotation {
       const roundWithTwoDigits = (e) => Math.floor(100 * e) / 100;
       if (-1 === r) {
         const r = this._getTextWidth(i, a);
-        n = roundWithTwoDigits(Math.min(e / s, r > t ? t / r : 1 / 0));
+        n = roundWithTwoDigits(Math.min(e / s, t / r));
         o = 1;
       } else {
         const c = i.split(/\r\n?|\n/),
@@ -52506,7 +52912,7 @@ class TextWidgetAnnotation extends WidgetAnnotation {
     super(e);
     const { dict: t } = e;
     if (t.has("PMD")) {
-      this.flags |= V;
+      this.flags |= z;
       this.data.hidden = !0;
       warn("Barcodes are not supported");
     }
@@ -52519,14 +52925,14 @@ class TextWidgetAnnotation extends WidgetAnnotation {
     let a = getInheritableProperty({ dict: t, key: "MaxLen" });
     (!Number.isInteger(a) || a < 0) && (a = 0);
     this.data.maxLen = a;
-    this.data.multiLine = this.hasFieldFlag(aA);
+    this.data.multiLine = this.hasFieldFlag(sA);
     this.data.comb =
-      this.hasFieldFlag(CA) &&
-      !this.hasFieldFlag(aA) &&
+      this.hasFieldFlag(hA) &&
       !this.hasFieldFlag(sA) &&
-      !this.hasFieldFlag(oA) &&
+      !this.hasFieldFlag(rA) &&
+      !this.hasFieldFlag(IA) &&
       0 !== this.data.maxLen;
-    this.data.doNotScroll = this.hasFieldFlag(cA);
+    this.data.doNotScroll = this.hasFieldFlag(CA);
   }
   get hasTextContent() {
     return !!this.appearance && !this._needAppearances;
@@ -52611,13 +53017,25 @@ class TextWidgetAnnotation extends WidgetAnnotation {
     l < e.length && o.push(e.substring(l, e.length));
     return o;
   }
+  async extractTextContent(e, t, i) {
+    await super.extractTextContent(e, t, i);
+    const a = this.data.textContent;
+    if (!a) return;
+    const s = a.join("\n");
+    if (s === this.data.fieldValue) return;
+    const r = s.replaceAll(/([.*+?^${}()|[\]\\])|(\s+)/g, (e, t) =>
+      t ? `\\${t}` : "\\s+",
+    );
+    new RegExp(`^\\s*${r}\\s*$`).test(this.data.fieldValue) &&
+      (this.data.textContent = this.data.fieldValue.split("\n"));
+  }
   getFieldObject() {
     return {
       id: this.data.id,
       value: this.data.fieldValue,
       defaultValue: this.data.defaultFieldValue || "",
       multiline: this.data.multiLine,
-      password: this.hasFieldFlag(sA),
+      password: this.hasFieldFlag(rA),
       charLimit: this.data.maxLen,
       comb: this.data.comb,
       editable: !this.data.readOnly,
@@ -52638,9 +53056,9 @@ class ButtonWidgetAnnotation extends WidgetAnnotation {
     super(e);
     this.checkedAppearance = null;
     this.uncheckedAppearance = null;
-    this.data.checkBox = !this.hasFieldFlag(rA) && !this.hasFieldFlag(nA);
-    this.data.radioButton = this.hasFieldFlag(rA) && !this.hasFieldFlag(nA);
-    this.data.pushButton = this.hasFieldFlag(nA);
+    this.data.checkBox = !this.hasFieldFlag(nA) && !this.hasFieldFlag(gA);
+    this.data.radioButton = this.hasFieldFlag(nA) && !this.hasFieldFlag(gA);
+    this.data.pushButton = this.hasFieldFlag(gA);
     this.data.isTooltipOnly = !1;
     if (this.data.checkBox) this._processCheckBox(e);
     else if (this.data.radioButton) this._processRadioButton(e);
@@ -52650,31 +53068,30 @@ class ButtonWidgetAnnotation extends WidgetAnnotation {
       this._processPushButton(e);
     } else warn("Invalid field flags for button widget annotation");
   }
-  async getOperatorList(e, t, a, s, r) {
-    if (this.data.pushButton) return super.getOperatorList(e, t, a, !1, r);
-    let n = null,
-      g = null;
-    if (r) {
-      const e = r.get(this.data.id);
-      n = e ? e.value : null;
-      g = e ? e.rotation : null;
+  async getOperatorList(e, t, a, s) {
+    if (this.data.pushButton) return super.getOperatorList(e, t, a, !1, s);
+    let r = null,
+      n = null;
+    if (s) {
+      const e = s.get(this.data.id);
+      r = e ? e.value : null;
+      n = e ? e.rotation : null;
     }
-    if (null === n && this.appearance)
-      return super.getOperatorList(e, t, a, s, r);
-    null == n &&
-      (n = this.data.checkBox
+    if (null === r && this.appearance) return super.getOperatorList(e, t, a, s);
+    null == r &&
+      (r = this.data.checkBox
         ? this.data.fieldValue === this.data.exportValue
         : this.data.fieldValue === this.data.buttonValue);
-    const o = n ? this.checkedAppearance : this.uncheckedAppearance;
-    if (o) {
-      const n = this.appearance,
-        c = lookupMatrix(o.dict.getArray("Matrix"), i);
-      g && o.dict.set("Matrix", this.getRotationMatrix(r));
-      this.appearance = o;
-      const C = super.getOperatorList(e, t, a, s, r);
-      this.appearance = n;
-      o.dict.set("Matrix", c);
-      return C;
+    const g = r ? this.checkedAppearance : this.uncheckedAppearance;
+    if (g) {
+      const r = this.appearance,
+        o = lookupMatrix(g.dict.getArray("Matrix"), i);
+      n && g.dict.set("Matrix", this.getRotationMatrix(s));
+      this.appearance = g;
+      const c = super.getOperatorList(e, t, a, s);
+      this.appearance = r;
+      g.dict.set("Matrix", o);
+      return c;
     }
     return { opList: new OperatorList(), separateForm: !1, separateCanvas: !1 };
   }
@@ -52687,67 +53104,74 @@ class ButtonWidgetAnnotation extends WidgetAnnotation {
   }
   async _saveCheckbox(e, t, i) {
     if (!i) return null;
-    const a = i.get(this.data.id);
-    let s = a?.rotation,
-      r = a?.value;
-    if (void 0 === s) {
-      if (void 0 === r) return null;
-      if ((this.data.fieldValue === this.data.exportValue) === r) return null;
+    const a = i.get(this.data.id),
+      s = this._buildFlags(a?.noView, a?.noPrint);
+    let r = a?.rotation,
+      n = a?.value;
+    if (void 0 === r && void 0 === s) {
+      if (void 0 === n) return null;
+      if ((this.data.fieldValue === this.data.exportValue) === n) return null;
     }
-    const n = e.xref.fetchIfRef(this.ref);
-    if (!(n instanceof Dict)) return null;
-    void 0 === s && (s = this.rotation);
-    void 0 === r && (r = this.data.fieldValue === this.data.exportValue);
-    const g = {
+    let g = e.xref.fetchIfRef(this.ref);
+    if (!(g instanceof Dict)) return null;
+    g = g.clone();
+    void 0 === r && (r = this.rotation);
+    void 0 === n && (n = this.data.fieldValue === this.data.exportValue);
+    const o = {
         path: this.data.fieldName,
-        value: r ? this.data.exportValue : "",
+        value: n ? this.data.exportValue : "",
       },
-      o = Name.get(r ? this.data.exportValue : "Off");
-    n.set("V", o);
-    n.set("AS", o);
-    n.set("M", `D:${getModificationDate()}`);
-    const c = this._getMKDict(s);
-    c && n.set("MK", c);
-    const C = [];
-    await writeObject(this.ref, n, C, e.xref);
-    return [{ ref: this.ref, data: C.join(""), xfa: g }];
+      c = Name.get(n ? this.data.exportValue : "Off");
+    g.set("V", c);
+    g.set("AS", c);
+    g.set("M", `D:${getModificationDate()}`);
+    void 0 !== s && g.set("F", s);
+    const C = this._getMKDict(r);
+    C && g.set("MK", C);
+    const h = [];
+    await writeObject(this.ref, g, h, e.xref);
+    return [{ ref: this.ref, data: h.join(""), xfa: o }];
   }
   async _saveRadioButton(e, t, i) {
     if (!i) return null;
-    const a = i.get(this.data.id);
-    let s = a?.rotation,
-      r = a?.value;
-    if (void 0 === s) {
-      if (void 0 === r) return null;
-      if ((this.data.fieldValue === this.data.buttonValue) === r) return null;
+    const a = i.get(this.data.id),
+      s = this._buildFlags(a?.noView, a?.noPrint);
+    let r = a?.rotation,
+      n = a?.value;
+    if (void 0 === r && void 0 === s) {
+      if (void 0 === n) return null;
+      if ((this.data.fieldValue === this.data.buttonValue) === n) return null;
     }
-    const n = e.xref.fetchIfRef(this.ref);
-    if (!(n instanceof Dict)) return null;
-    void 0 === r && (r = this.data.fieldValue === this.data.buttonValue);
-    void 0 === s && (s = this.rotation);
-    const g = {
+    let g = e.xref.fetchIfRef(this.ref);
+    if (!(g instanceof Dict)) return null;
+    g = g.clone();
+    void 0 === n && (n = this.data.fieldValue === this.data.buttonValue);
+    void 0 === r && (r = this.rotation);
+    const o = {
         path: this.data.fieldName,
-        value: r ? this.data.buttonValue : "",
+        value: n ? this.data.buttonValue : "",
       },
-      o = Name.get(r ? this.data.buttonValue : "Off"),
-      c = [];
-    let C = null;
-    if (r)
+      c = Name.get(n ? this.data.buttonValue : "Off"),
+      C = [];
+    let h = null;
+    if (n)
       if (this.parent instanceof Ref) {
         const t = e.xref.fetch(this.parent);
-        t.set("V", o);
-        await writeObject(this.parent, t, c, e.xref);
-        C = c.join("");
-        c.length = 0;
-      } else this.parent instanceof Dict && this.parent.set("V", o);
-    n.set("AS", o);
-    n.set("M", `D:${getModificationDate()}`);
-    const h = this._getMKDict(s);
-    h && n.set("MK", h);
-    await writeObject(this.ref, n, c, e.xref);
-    const l = [{ ref: this.ref, data: c.join(""), xfa: g }];
-    C && l.push({ ref: this.parent, data: C, xfa: null });
-    return l;
+        t.set("V", c);
+        await writeObject(this.parent, t, C, e.xref);
+        h = C.join("");
+        C.length = 0;
+      } else this.parent instanceof Dict && this.parent.set("V", c);
+    this.parent || g.set("V", c);
+    g.set("AS", c);
+    g.set("M", `D:${getModificationDate()}`);
+    void 0 !== s && g.set("F", s);
+    const l = this._getMKDict(r);
+    l && g.set("MK", l);
+    await writeObject(this.ref, g, C, e.xref);
+    const Q = [{ ref: this.ref, data: C.join(""), xfa: o }];
+    h && Q.push({ ref: this.parent, data: h, xfa: null });
+    return Q;
   }
   _getDefaultCheckedAppearance(e, t) {
     const i = this.data.rect[2] - this.data.rect[0],
@@ -52921,8 +53345,8 @@ class ChoiceWidgetAnnotation extends WidgetAnnotation {
       "string" == typeof this.data.fieldValue
         ? (this.data.fieldValue = [this.data.fieldValue])
         : this.data.fieldValue || (this.data.fieldValue = []);
-    this.data.combo = this.hasFieldFlag(gA);
-    this.data.multiSelect = this.hasFieldFlag(IA);
+    this.data.combo = this.hasFieldFlag(oA);
+    this.data.multiSelect = this.hasFieldFlag(cA);
     this._hasText = !0;
   }
   getFieldObject() {
@@ -53056,7 +53480,7 @@ class TextAnnotation extends MarkupAnnotation {
     this.data.hasOwnCanvas = this.data.noRotate;
     this.data.noHTML = !1;
     const { dict: t } = e;
-    this.data.annotationType = S;
+    this.data.annotationType = k;
     if (this.data.hasAppearance) this.data.name = "NoIcon";
     else {
       this.data.rect[1] = this.data.rect[3] - 22;
@@ -53076,7 +53500,7 @@ class LinkAnnotation extends Annotation {
   constructor(e) {
     super(e);
     const { dict: t, annotationGlobals: i } = e;
-    this.data.annotationType = k;
+    this.data.annotationType = R;
     this.data.noHTML = !1;
     const a = getQuadPoints(t, this.rectangle);
     a && (this.data.quadPoints = a);
@@ -53093,7 +53517,7 @@ class PopupAnnotation extends Annotation {
   constructor(e) {
     super(e);
     const { dict: t } = e;
-    this.data.annotationType = q;
+    this.data.annotationType = O;
     this.data.noHTML = !1;
     (this.data.rect[0] !== this.data.rect[2] &&
       this.data.rect[1] !== this.data.rect[3]) ||
@@ -53104,7 +53528,7 @@ class PopupAnnotation extends Annotation {
       return;
     }
     this.data.parentRect = lookupNormalRect(i.getArray("Rect"), null);
-    isName(i.get("RT"), j) && (i = i.get("IRT"));
+    isName(i.get("RT"), X) && (i = i.get("IRT"));
     if (i.has("M")) {
       this.setModificationDate(i.get("M"));
       this.data.modificationDate = this.modificationDate;
@@ -53129,10 +53553,11 @@ class PopupAnnotation extends Annotation {
 class FreeTextAnnotation extends MarkupAnnotation {
   constructor(e) {
     super(e);
-    this.data.hasOwnCanvas = !this.data.noHTML;
+    this.data.hasOwnCanvas = this.data.noRotate;
+    this.data.isEditable = !this.data.noHTML;
     this.data.noHTML = !1;
     const { evaluatorOptions: t, xref: i } = e;
-    this.data.annotationType = R;
+    this.data.annotationType = N;
     this.setDefaultAppearance(e);
     this._hasAppearance = !!this.appearance;
     if (this._hasAppearance) {
@@ -53188,29 +53613,33 @@ class FreeTextAnnotation extends MarkupAnnotation {
     const {
         color: s,
         fontSize: r,
-        rect: n,
-        rotation: g,
-        user: o,
-        value: c,
+        oldAnnotation: n,
+        rect: g,
+        rotation: o,
+        user: c,
+        value: C,
       } = e,
-      C = new Dict(t);
-    C.set("Type", Name.get("Annot"));
-    C.set("Subtype", Name.get("FreeText"));
-    C.set("CreationDate", `D:${getModificationDate()}`);
-    C.set("Rect", n);
-    const h = `/Helv ${r} Tf ${getPdfColor(s, !0)}`;
-    C.set("DA", h);
-    C.set("Contents", isAscii(c) ? c : stringToUTF16String(c, !0));
-    C.set("F", 4);
-    C.set("Border", [0, 0, 0]);
-    C.set("Rotate", g);
-    o && C.set("T", isAscii(o) ? o : stringToUTF16String(o, !0));
+      h = n || new Dict(t);
+    h.set("Type", Name.get("Annot"));
+    h.set("Subtype", Name.get("FreeText"));
+    if (n) {
+      h.set("M", `D:${getModificationDate()}`);
+      h.delete("RC");
+    } else h.set("CreationDate", `D:${getModificationDate()}`);
+    h.set("Rect", g);
+    const l = `/Helv ${r} Tf ${getPdfColor(s, !0)}`;
+    h.set("DA", l);
+    h.set("Contents", stringToAsciiOrUTF16BE(C));
+    h.set("F", 4);
+    h.set("Border", [0, 0, 0]);
+    h.set("Rotate", o);
+    c && h.set("T", stringToAsciiOrUTF16BE(c));
     if (i || a) {
       const e = new Dict(t);
-      C.set("AP", e);
+      h.set("AP", e);
       i ? e.set("N", i) : e.set("N", a);
     }
-    return C;
+    return h;
   }
   static async createNewAppearanceStream(e, t, i) {
     const { baseFontRef: a, evaluator: r, task: n } = i,
@@ -53313,7 +53742,7 @@ class LineAnnotation extends MarkupAnnotation {
   constructor(e) {
     super(e);
     const { dict: t, xref: i } = e;
-    this.data.annotationType = N;
+    this.data.annotationType = G;
     this.data.hasOwnCanvas = this.data.noRotate;
     this.data.noHTML = !1;
     const a = lookupRect(t.getArray("L"), [0, 0, 0, 0]);
@@ -53354,7 +53783,7 @@ class SquareAnnotation extends MarkupAnnotation {
   constructor(e) {
     super(e);
     const { dict: t, xref: i } = e;
-    this.data.annotationType = G;
+    this.data.annotationType = x;
     this.data.hasOwnCanvas = this.data.noRotate;
     this.data.noHTML = !1;
     if (!this.appearance) {
@@ -53388,7 +53817,7 @@ class CircleAnnotation extends MarkupAnnotation {
   constructor(e) {
     super(e);
     const { dict: t, xref: i } = e;
-    this.data.annotationType = x;
+    this.data.annotationType = U;
     if (!this.appearance) {
       const e = this.color ? getPdfColorArray(this.color) : [0, 0, 0],
         a = t.get("CA"),
@@ -53432,7 +53861,7 @@ class PolylineAnnotation extends MarkupAnnotation {
   constructor(e) {
     super(e);
     const { dict: t, xref: i } = e;
-    this.data.annotationType = M;
+    this.data.annotationType = L;
     this.data.hasOwnCanvas = this.data.noRotate;
     this.data.noHTML = !1;
     this.data.vertices = null;
@@ -53474,13 +53903,13 @@ class PolylineAnnotation extends MarkupAnnotation {
 class PolygonAnnotation extends PolylineAnnotation {
   constructor(e) {
     super(e);
-    this.data.annotationType = U;
+    this.data.annotationType = M;
   }
 }
 class CaretAnnotation extends MarkupAnnotation {
   constructor(e) {
     super(e);
-    this.data.annotationType = K;
+    this.data.annotationType = T;
   }
 }
 class InkAnnotation extends MarkupAnnotation {
@@ -53489,8 +53918,11 @@ class InkAnnotation extends MarkupAnnotation {
     this.data.hasOwnCanvas = this.data.noRotate;
     this.data.noHTML = !1;
     const { dict: t, xref: i } = e;
-    this.data.annotationType = T;
+    this.data.annotationType = q;
     this.data.inkLists = [];
+    this.data.isEditable = !this.data.noHTML && "InkHighlight" === this.data.it;
+    this.data.noHTML = !1;
+    this.data.opacity = t.get("CA") || 1;
     const a = t.getArray("InkList");
     if (Array.isArray(a)) {
       for (let e = 0, t = a.length; e < t; ++e) {
@@ -53660,7 +54092,10 @@ class HighlightAnnotation extends MarkupAnnotation {
   constructor(e) {
     super(e);
     const { dict: t, xref: i } = e;
-    this.data.annotationType = L;
+    this.data.annotationType = H;
+    this.data.isEditable = !this.data.noHTML;
+    this.data.noHTML = !1;
+    this.data.opacity = t.get("CA") || 1;
     if ((this.data.quadPoints = getQuadPoints(t, null))) {
       const e = this.appearance?.dict.get("Resources");
       if (!this.appearance || !e?.has("ExtGState")) {
@@ -53690,33 +54125,35 @@ class HighlightAnnotation extends MarkupAnnotation {
   static createNewDict(e, t, { apRef: i, ap: a }) {
     const {
         color: s,
-        opacity: r,
-        rect: n,
-        rotation: g,
-        user: o,
-        quadPoints: c,
+        oldAnnotation: r,
+        opacity: n,
+        rect: g,
+        rotation: o,
+        user: c,
+        quadPoints: C,
       } = e,
-      C = new Dict(t);
-    C.set("Type", Name.get("Annot"));
-    C.set("Subtype", Name.get("Highlight"));
-    C.set("CreationDate", `D:${getModificationDate()}`);
-    C.set("Rect", n);
-    C.set("F", 4);
-    C.set("Border", [0, 0, 0]);
-    C.set("Rotate", g);
-    C.set("QuadPoints", c);
-    C.set(
+      h = r || new Dict(t);
+    h.set("Type", Name.get("Annot"));
+    h.set("Subtype", Name.get("Highlight"));
+    h.set(r ? "M" : "CreationDate", `D:${getModificationDate()}`);
+    h.set("CreationDate", `D:${getModificationDate()}`);
+    h.set("Rect", g);
+    h.set("F", 4);
+    h.set("Border", [0, 0, 0]);
+    h.set("Rotate", o);
+    h.set("QuadPoints", C);
+    h.set(
       "C",
       Array.from(s, (e) => e / 255),
     );
-    C.set("CA", r);
-    o && C.set("T", isAscii(o) ? o : stringToUTF16String(o, !0));
+    h.set("CA", n);
+    c && h.set("T", stringToAsciiOrUTF16BE(c));
     if (i || a) {
       const e = new Dict(t);
-      C.set("AP", e);
+      h.set("AP", e);
       e.set("N", i || a);
     }
-    return C;
+    return h;
   }
   static async createNewAppearanceStream(e, t, i) {
     const { color: a, rect: s, outlines: r, opacity: n } = e,
@@ -53758,7 +54195,7 @@ class UnderlineAnnotation extends MarkupAnnotation {
   constructor(e) {
     super(e);
     const { dict: t, xref: i } = e;
-    this.data.annotationType = H;
+    this.data.annotationType = J;
     if ((this.data.quadPoints = getQuadPoints(t, null))) {
       if (!this.appearance) {
         const e = this.color ? getPdfColorArray(this.color) : [0, 0, 0],
@@ -53781,7 +54218,7 @@ class SquigglyAnnotation extends MarkupAnnotation {
   constructor(e) {
     super(e);
     const { dict: t, xref: i } = e;
-    this.data.annotationType = J;
+    this.data.annotationType = Y;
     if ((this.data.quadPoints = getQuadPoints(t, null))) {
       if (!this.appearance) {
         const e = this.color ? getPdfColorArray(this.color) : [0, 0, 0],
@@ -53815,7 +54252,7 @@ class StrikeOutAnnotation extends MarkupAnnotation {
   constructor(e) {
     super(e);
     const { dict: t, xref: i } = e;
-    this.data.annotationType = Y;
+    this.data.annotationType = v;
     if ((this.data.quadPoints = getQuadPoints(t, null))) {
       if (!this.appearance) {
         const e = this.color ? getPdfColorArray(this.color) : [0, 0, 0],
@@ -53839,11 +54276,23 @@ class StrikeOutAnnotation extends MarkupAnnotation {
   }
 }
 class StampAnnotation extends MarkupAnnotation {
+  #W;
   constructor(e) {
     super(e);
-    this.data.annotationType = v;
-    this.data.hasOwnCanvas = this.data.noRotate;
+    this.data.annotationType = K;
+    this.#W = this.data.hasOwnCanvas = this.data.noRotate;
+    this.data.isEditable = !this.data.noHTML;
     this.data.noHTML = !1;
+  }
+  mustBeViewedWhenEditing(e, t = null) {
+    if (e) {
+      if (!this.data.isEditable) return !1;
+      this.#W = this.data.hasOwnCanvas;
+      this.data.hasOwnCanvas = !0;
+      return !0;
+    }
+    this.data.hasOwnCanvas = this.#W;
+    return !t?.has(this.data.id);
   }
   static async createImage(e, t) {
     const { width: i, height: a } = e,
@@ -53899,24 +54348,26 @@ class StampAnnotation extends MarkupAnnotation {
     };
   }
   static createNewDict(e, t, { apRef: i, ap: a }) {
-    const { rect: s, rotation: r, user: n } = e,
-      g = new Dict(t);
-    g.set("Type", Name.get("Annot"));
-    g.set("Subtype", Name.get("Stamp"));
-    g.set("CreationDate", `D:${getModificationDate()}`);
-    g.set("Rect", s);
-    g.set("F", 4);
-    g.set("Border", [0, 0, 0]);
-    g.set("Rotate", r);
-    n && g.set("T", isAscii(n) ? n : stringToUTF16String(n, !0));
+    const { oldAnnotation: s, rect: r, rotation: n, user: g } = e,
+      o = s || new Dict(t);
+    o.set("Type", Name.get("Annot"));
+    o.set("Subtype", Name.get("Stamp"));
+    o.set(s ? "M" : "CreationDate", `D:${getModificationDate()}`);
+    o.set("CreationDate", `D:${getModificationDate()}`);
+    o.set("Rect", r);
+    o.set("F", 4);
+    o.set("Border", [0, 0, 0]);
+    o.set("Rotate", n);
+    g && o.set("T", stringToAsciiOrUTF16BE(g));
     if (i || a) {
       const e = new Dict(t);
-      g.set("AP", e);
+      o.set("AP", e);
       i ? e.set("N", i) : e.set("N", a);
     }
-    return g;
+    return o;
   }
   static async createNewAppearanceStream(e, t, i) {
+    if (e.oldAnnotation) return null;
     const { rotation: a } = e,
       { imageRef: s, width: r, height: n } = i.image,
       g = new Dict(t),
@@ -53944,7 +54395,7 @@ class FileAttachmentAnnotation extends MarkupAnnotation {
     super(e);
     const { dict: t, xref: i } = e,
       a = new FileSpec(t.get("FS"), i);
-    this.data.annotationType = O;
+    this.data.annotationType = W;
     this.data.hasOwnCanvas = this.data.noRotate;
     this.data.noHTML = !1;
     this.data.file = a.serializable;
@@ -54000,7 +54451,7 @@ class DatasetReader {
   }
 }
 class XRef {
-  #K = null;
+  #j = null;
   constructor(e, t) {
     this.stream = e;
     this.pdfManager = t;
@@ -54428,7 +54879,7 @@ class XRef {
           if (Number.isInteger(r) && !this._xrefStms.has(r)) {
             this._xrefStms.add(r);
             this.startXRefQueue.push(r);
-            this.#K ??= r;
+            this.#j ??= r;
           }
         } else {
           if (!Number.isInteger(r))
@@ -54460,7 +54911,7 @@ class XRef {
   }
   get lastXRefStreamPos() {
     return (
-      this.#K ?? (this._xrefStms.size > 0 ? Math.max(...this._xrefStms) : null)
+      this.#j ?? (this._xrefStms.size > 0 ? Math.max(...this._xrefStms) : null)
     );
   }
   getEntry(e) {
@@ -54486,7 +54937,7 @@ class XRef {
     if (this._pendingRefs.has(e)) {
       this._pendingRefs.remove(e);
       warn(`Ignoring circular reference: ${e}.`);
-      return ft;
+      return mt;
     }
     this._pendingRefs.put(e);
     try {
@@ -54596,7 +55047,7 @@ class XRef {
     return this.root;
   }
 }
-const sg = [0, 0, 612, 792];
+const gg = [0, 0, 612, 792];
 class Page {
   constructor({
     pdfManager: e,
@@ -54667,7 +55118,7 @@ class Page {
     return null;
   }
   get mediaBox() {
-    return shadow(this, "mediaBox", this._getBoundingBox("MediaBox") || sg);
+    return shadow(this, "mediaBox", this._getBoundingBox("MediaBox") || gg);
   }
   get cropBox() {
     return shadow(
@@ -54724,22 +55175,38 @@ class Page {
         : null,
     );
   }
-  #T(e, t, i) {
-    for (const a of e)
-      if (a.id) {
-        const e = Ref.fromString(a.id);
+  async #X(e, t, i) {
+    const a = [];
+    for (const s of e)
+      if (s.id) {
+        const e = Ref.fromString(s.id);
         if (!e) {
-          warn(`A non-linked annotation cannot be modified: ${a.id}`);
+          warn(`A non-linked annotation cannot be modified: ${s.id}`);
           continue;
         }
-        if (a.deleted) {
+        if (s.deleted) {
           t.put(e, e);
+          if (s.popupRef) {
+            const e = Ref.fromString(s.popupRef);
+            e && t.put(e, e);
+          }
           continue;
         }
         i?.put(e);
-        a.ref = e;
-        delete a.id;
+        s.ref = e;
+        a.push(
+          this.xref.fetchAsync(e).then(
+            (e) => {
+              e instanceof Dict && (s.oldAnnotation = e.clone());
+            },
+            () => {
+              warn(`Cannot fetch \`oldAnnotation\` for: ${e}.`);
+            },
+          ),
+        );
+        delete s.id;
       }
+    await Promise.all(a);
   }
   async saveNewAnnotations(e, t, i, a) {
     if (this.xfaFactory) throw new Error("XFA: Cannot save new annotations.");
@@ -54757,7 +55224,7 @@ class Page {
       }),
       r = new RefSetCache(),
       n = new RefSet();
-    this.#T(i, r, n);
+    await this.#X(i, r, n);
     const g = this.pageDict,
       o = this.annotations.filter((e) => !(e instanceof Ref && r.has(e))),
       c = await AnnotationFactory.saveNewAnnotations(s, t, i, a);
@@ -54789,15 +55256,14 @@ class Page {
     return this._parsedAnnotations.then(function (e) {
       const s = [];
       for (const r of e)
-        r.mustBePrinted(i) &&
-          s.push(
-            r.save(a, t, i).catch(function (e) {
-              warn(
-                `save - ignoring annotation data during "${t.name}" task: "${e}".`,
-              );
-              return null;
-            }),
-          );
+        s.push(
+          r.save(a, t, i).catch(function (e) {
+            warn(
+              `save - ignoring annotation data during "${t.name}" task: "${e}".`,
+            );
+            return null;
+          }),
+        );
       return Promise.all(s).then(function (e) {
         return e.filter((e) => !!e);
       });
@@ -54816,9 +55282,10 @@ class Page {
     intent: a,
     cacheKey: s,
     annotationStorage: r = null,
+    modifiedIds: n = null,
   }) {
-    const n = this.getContentStream(),
-      C = this.loadResources([
+    const C = this.getContentStream(),
+      E = this.loadResources([
         "ColorSpace",
         "ExtGState",
         "Font",
@@ -54827,7 +55294,7 @@ class Page {
         "Shading",
         "XObject",
       ]),
-      Q = new PartialEvaluator({
+      d = new PartialEvaluator({
         xref: this.xref,
         handler: e,
         pageIndex: this.pageIndex,
@@ -54839,52 +55306,53 @@ class Page {
         systemFontCache: this.systemFontCache,
         options: this.evaluatorOptions,
       }),
-      u = this.xfaFactory ? null : getNewAnnotationsMap(r),
-      d = u?.get(this.pageIndex);
-    let f = Promise.resolve(null),
-      p = null;
-    if (d) {
+      f = this.xfaFactory ? null : getNewAnnotationsMap(r),
+      p = f?.get(this.pageIndex);
+    let m = Promise.resolve(null),
+      y = null;
+    if (p) {
       const e = this.pdfManager.ensureDoc("annotationGlobals");
       let t;
       const a = new Set();
-      for (const { bitmapId: e, bitmap: t } of d)
+      for (const { bitmapId: e, bitmap: t } of p)
         !e || t || a.has(e) || a.add(e);
       const { isOffscreenCanvasSupported: s } = this.evaluatorOptions;
       if (a.size > 0) {
-        const e = d.slice();
+        const e = p.slice();
         for (const [t, i] of r)
-          t.startsWith(E) && i.bitmap && a.has(i.bitmapId) && e.push(i);
+          t.startsWith(u) && i.bitmap && a.has(i.bitmapId) && e.push(i);
         t = AnnotationFactory.generateImages(e, this.xref, s);
-      } else t = AnnotationFactory.generateImages(d, this.xref, s);
-      p = new RefSet();
-      this.#T(d, p, null);
-      f = e.then((e) =>
-        e ? AnnotationFactory.printNewAnnotations(e, Q, i, d, t) : null,
+      } else t = AnnotationFactory.generateImages(p, this.xref, s);
+      y = new RefSet();
+      m = Promise.all([e, this.#X(p, y, null)]).then(([e]) =>
+        e ? AnnotationFactory.printNewAnnotations(e, d, i, p, t) : null,
       );
     }
-    const m = Promise.all([n, C]).then(([r]) => {
+    const w = Promise.all([C, E]).then(([r]) => {
       const n = new OperatorList(a, t);
       e.send("StartRenderPage", {
-        transparency: Q.hasBlendModes(this.resources, this.nonBlendModesSet),
+        transparency: d.hasBlendModes(this.resources, this.nonBlendModesSet),
         pageIndex: this.pageIndex,
         cacheKey: s,
       });
-      return Q.getOperatorList({
-        stream: r,
-        task: i,
-        resources: this.resources,
-        operatorList: n,
-      }).then(function () {
-        return n;
-      });
+      return d
+        .getOperatorList({
+          stream: r,
+          task: i,
+          resources: this.resources,
+          operatorList: n,
+        })
+        .then(function () {
+          return n;
+        });
     });
-    return Promise.all([m, this._parsedAnnotations, f]).then(function ([
+    return Promise.all([w, this._parsedAnnotations, m]).then(function ([
       e,
       t,
       s,
     ]) {
       if (s) {
-        t = t.filter((e) => !(e.ref && p.has(e.ref)));
+        t = t.filter((e) => !(e.ref && y.has(e.ref)));
         for (let e = 0, i = s.length; e < i; e++) {
           const a = s[e];
           if (a.refToReplace) {
@@ -54904,22 +55372,25 @@ class Page {
         e.flush(!0);
         return { length: e.totalLength };
       }
-      const n = !!(a & h),
-        C = !!(a & g),
-        E = !!(a & o),
-        u = !!(a & c),
-        d = [];
+      const C = !!(a & h),
+        E = !!(a & Q),
+        u = !!(a & g),
+        f = !!(a & o),
+        p = !!(a & c),
+        m = [];
       for (const e of t)
-        (C || (E && e.mustBeViewed(r, n)) || (u && e.mustBePrinted(r))) &&
-          d.push(
-            e.getOperatorList(Q, i, a, n, r).catch(function (e) {
+        (u ||
+          (f && e.mustBeViewed(r, C) && e.mustBeViewedWhenEditing(E, n)) ||
+          (p && e.mustBePrinted(r))) &&
+          m.push(
+            e.getOperatorList(d, i, a, r).catch(function (e) {
               warn(
                 `getOperatorList - ignoring annotation data during "${i.name}" task: "${e}".`,
               );
               return { opList: null, separateForm: !1, separateCanvas: !1 };
             }),
           );
-      return Promise.all(d).then(function (t) {
+      return Promise.all(m).then(function (t) {
         let i = !1,
           a = !1;
         for (const { opList: s, separateForm: r, separateCanvas: n } of t) {
@@ -54969,8 +55440,8 @@ class Page {
     const e = await this.pdfManager.ensureCatalog("structTreeRoot");
     if (!e) return null;
     await this._parsedAnnotations;
-    return (await this.pdfManager.ensure(this, "_parseStructTree", [e]))
-      .serializable;
+    const t = await this.pdfManager.ensure(this, "_parseStructTree", [e]);
+    return this.pdfManager.ensure(t, "serializable");
   }
   _parseStructTree(e) {
     const t = new StructTreePage(e, this.pageDict);
@@ -55026,35 +55497,40 @@ class Page {
       "_parsedAnnotations",
       this.pdfManager.ensure(this, "annotations").then(async (e) => {
         if (0 === e.length) return e;
-        const t = await this.pdfManager.ensureDoc("annotationGlobals");
+        const [t, i] = await Promise.all([
+          this.pdfManager.ensureDoc("annotationGlobals"),
+          this.pdfManager.ensureDoc("fieldObjects"),
+        ]);
         if (!t) return [];
-        const i = [];
-        for (const a of e)
-          i.push(
+        const a = i?.orphanFields,
+          s = [];
+        for (const i of e)
+          s.push(
             AnnotationFactory.create(
               this.xref,
-              a,
+              i,
               t,
               this._localIdFactory,
               !1,
+              a,
               this.ref,
             ).catch(function (e) {
               warn(`_parsedAnnotations: "${e}".`);
               return null;
             }),
           );
-        const a = [];
-        let s, r;
-        for (const e of await Promise.all(i))
+        const r = [];
+        let n, g;
+        for (const e of await Promise.all(s))
           e &&
             (e instanceof WidgetAnnotation
-              ? (r ||= []).push(e)
+              ? (g ||= []).push(e)
               : e instanceof PopupAnnotation
-                ? (s ||= []).push(e)
-                : a.push(e));
-        r && a.push(...r);
-        s && a.push(...s);
-        return a;
+                ? (n ||= []).push(e)
+                : r.push(e));
+        g && r.push(...g);
+        n && r.push(...n);
+        return r;
       }),
     );
   }
@@ -55062,13 +55538,13 @@ class Page {
     return shadow(
       this,
       "jsActions",
-      collectActions(this.xref, this.pageDict, fA),
+      collectActions(this.xref, this.pageDict, pA),
     );
   }
 }
-const rg = new Uint8Array([37, 80, 68, 70, 45]),
-  ng = new Uint8Array([115, 116, 97, 114, 116, 120, 114, 101, 102]),
-  gg = new Uint8Array([101, 110, 100, 111, 98, 106]);
+const og = new Uint8Array([37, 80, 68, 70, 45]),
+  Ig = new Uint8Array([115, 116, 97, 114, 116, 120, 114, 101, 102]),
+  cg = new Uint8Array([101, 110, 100, 111, 98, 106]);
 function find(e, t, i = 1024, a = !1) {
   const s = t.length,
     r = e.peekBytes(i),
@@ -55146,7 +55622,7 @@ class PDFDocument {
     let t = 0;
     if (this.linearization) {
       e.reset();
-      if (find(e, gg)) {
+      if (find(e, cg)) {
         e.skip(6);
         let i = e.peekByte();
         for (; isWhiteSpace(i); ) {
@@ -55157,14 +55633,14 @@ class PDFDocument {
       }
     } else {
       const i = 1024,
-        a = ng.length;
+        a = Ig.length;
       let s = !1,
         r = e.end;
       for (; !s && r > 0; ) {
         r -= i - a;
         r < 0 && (r = 0);
         e.pos = r;
-        s = find(e, ng, i, !0);
+        s = find(e, Ig, i, !0);
       }
       if (s) {
         e.skip(9);
@@ -55186,14 +55662,14 @@ class PDFDocument {
   checkHeader() {
     const e = this.stream;
     e.reset();
-    if (!find(e, rg)) return;
+    if (!find(e, og)) return;
     e.moveStart();
-    e.skip(rg.length);
+    e.skip(og.length);
     let t,
       i = "";
     for (; (t = e.getByte()) > 32 && i.length < 7; )
       i += String.fromCharCode(t);
-    bt.test(i) ? (this._version = i) : warn(`Invalid PDF header version: ${i}`);
+    St.test(i) ? (this._version = i) : warn(`Invalid PDF header version: ${i}`);
   }
   parseStartXRef() {
     this.xref.setStartXRef(this.startXRef);
@@ -55508,30 +55984,19 @@ class PDFDocument {
     return shadow(this, "documentInfo", e);
   }
   get fingerprints() {
-    function validate(e) {
-      return (
-        "string" == typeof e &&
-        e.length > 0 &&
-        "\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0" !== e
-      );
+    const e = "\0".repeat(16);
+    function validate(t) {
+      return "string" == typeof t && 16 === t.length && t !== e;
     }
-    function hexString(e) {
-      const t = [];
-      for (const i of e) {
-        const e = i.toString(16);
-        t.push(e.padStart(2, "0"));
-      }
-      return t.join("");
-    }
-    const e = this.xref.trailer.get("ID");
-    let t, i;
-    if (Array.isArray(e) && validate(e[0])) {
-      t = stringToBytes(e[0]);
-      e[1] !== e[0] && validate(e[1]) && (i = stringToBytes(e[1]));
-    } else t = Hs(this.stream.getByteRange(0, 1024), 0, 1024);
+    const t = this.xref.trailer.get("ID");
+    let i, a;
+    if (Array.isArray(t) && validate(t[0])) {
+      i = stringToBytes(t[0]);
+      t[1] !== t[0] && validate(t[1]) && (a = stringToBytes(t[1]));
+    } else i = vs(this.stream.getByteRange(0, 1024), 0, 1024);
     return shadow(this, "fingerprints", [
-      hexString(t),
-      i ? hexString(i) : null,
+      toHexUtil(i),
+      a ? toHexUtil(a) : null,
     ]);
   }
   async _getLinearizationPage(e) {
@@ -55666,69 +56131,71 @@ class PDFDocument {
   async cleanup(e = !1) {
     return this.catalog ? this.catalog.cleanup(e) : clearGlobalCaches();
   }
-  async #q(e, t, i, a, s) {
-    const { xref: r } = this;
-    if (!(t instanceof Ref) || s.has(t)) return;
-    s.put(t);
-    const n = await r.fetchAsync(t);
-    if (!(n instanceof Dict)) return;
-    if (n.has("T")) {
-      const t = stringToPDFString(await n.getAsync("T"));
+  async #Z(e, t, i, a, s, r, n) {
+    const { xref: g } = this;
+    if (!(i instanceof Ref) || r.has(i)) return;
+    r.put(i);
+    const o = await g.fetchAsync(i);
+    if (!(o instanceof Dict)) return;
+    if (o.has("T")) {
+      const t = stringToPDFString(await o.getAsync("T"));
       e = "" === e ? t : `${e}.${t}`;
     } else {
-      let t = n;
+      let i = o;
       for (;;) {
-        t = t.getRaw("Parent");
-        if (t instanceof Ref) {
-          if (s.has(t)) break;
-          t = await r.fetchAsync(t);
+        i = i.getRaw("Parent") || t;
+        if (i instanceof Ref) {
+          if (r.has(i)) break;
+          i = await g.fetchAsync(i);
         }
-        if (!(t instanceof Dict)) break;
-        if (t.has("T")) {
-          const i = stringToPDFString(await t.getAsync("T"));
-          e = "" === e ? i : `${e}.${i}`;
+        if (!(i instanceof Dict)) break;
+        if (i.has("T")) {
+          const t = stringToPDFString(await i.getAsync("T"));
+          e = "" === e ? t : `${e}.${t}`;
           break;
         }
       }
     }
-    i.has(e) || i.set(e, []);
-    i.get(e).push(
-      AnnotationFactory.create(r, t, a, null, !0, null)
+    t && !o.has("Parent") && isName(o.get("Subtype"), "Widget") && n.put(i, t);
+    a.has(e) || a.set(e, []);
+    a.get(e).push(
+      AnnotationFactory.create(g, i, s, null, !0, n, null)
         .then((e) => e?.getFieldObject())
         .catch(function (e) {
           warn(`#collectFieldObjects: "${e}".`);
           return null;
         }),
     );
-    if (!n.has("Kids")) return;
-    const g = await n.getAsync("Kids");
-    if (Array.isArray(g)) for (const t of g) await this.#q(e, t, i, a, s);
+    if (!o.has("Kids")) return;
+    const c = await o.getAsync("Kids");
+    if (Array.isArray(c)) for (const t of c) await this.#Z(e, i, t, a, s, r, n);
   }
   get fieldObjects() {
-    if (!this.formInfo.hasFields)
-      return shadow(this, "fieldObjects", Promise.resolve(null));
     return shadow(
       this,
       "fieldObjects",
-      Promise.all([
-        this.pdfManager.ensureDoc("annotationGlobals"),
-        this.pdfManager.ensureCatalog("acroForm"),
-      ]).then(async ([e, t]) => {
-        if (!e) return null;
-        const i = new RefSet(),
-          a = Object.create(null),
-          s = new Map();
-        for (const a of await t.getAsync("Fields"))
-          await this.#q("", a, s, e, i);
-        const r = [];
-        for (const [e, t] of s)
-          r.push(
+      this.pdfManager.ensureDoc("formInfo").then(async (e) => {
+        if (!e.hasFields) return null;
+        const [t, i] = await Promise.all([
+          this.pdfManager.ensureDoc("annotationGlobals"),
+          this.pdfManager.ensureCatalog("acroForm"),
+        ]);
+        if (!t) return null;
+        const a = new RefSet(),
+          s = Object.create(null),
+          r = new Map(),
+          n = new RefSetCache();
+        for (const e of await i.getAsync("Fields"))
+          await this.#Z("", null, e, r, t, a, n);
+        const g = [];
+        for (const [e, t] of r)
+          g.push(
             Promise.all(t).then((t) => {
-              (t = t.filter((e) => !!e)).length > 0 && (a[e] = t);
+              (t = t.filter((e) => !!e)).length > 0 && (s[e] = t);
             }),
           );
-        await Promise.all(r);
-        return a;
+        await Promise.all(g);
+        return { allFields: s, orphanFields: n };
       }),
     );
   }
@@ -55746,20 +56213,19 @@ class PDFDocument {
     ]);
     return (
       !!e ||
-      (!!t && Object.values(t).some((e) => e.some((e) => null !== e.actions)))
+      (!!t &&
+        Object.values(t.allFields).some((e) =>
+          e.some((e) => null !== e.actions),
+        ))
     );
   }
   get calculationOrderIds() {
-    const e = this.catalog.acroForm;
-    if (!e?.has("CO")) return shadow(this, "calculationOrderIds", null);
-    const t = e.get("CO");
-    if (!Array.isArray(t) || 0 === t.length)
+    const e = this.catalog.acroForm?.get("CO");
+    if (!Array.isArray(e) || 0 === e.length)
       return shadow(this, "calculationOrderIds", null);
-    const i = [];
-    for (const e of t) e instanceof Ref && i.push(e.toString());
-    return 0 === i.length
-      ? shadow(this, "calculationOrderIds", null)
-      : shadow(this, "calculationOrderIds", i);
+    const t = [];
+    for (const i of e) i instanceof Ref && t.push(i.toString());
+    return shadow(this, "calculationOrderIds", t.length ? t : null);
   }
   get annotationGlobals() {
     return shadow(
@@ -55771,8 +56237,6 @@ class PDFDocument {
 }
 class BasePdfManager {
   constructor(e) {
-    this.constructor === BasePdfManager &&
-      unreachable("Cannot initialize BasePdfManager.");
     this._docBaseUrl = (function parseDocBaseUrl(e) {
       if (e) {
         const t = createValidAbsoluteUrl(e);
@@ -55899,16 +56363,16 @@ class NetworkPdfManager extends BasePdfManager {
     this.streamManager.abort(e);
   }
 }
-const og = 1,
-  Ig = 2,
-  cg = 1,
-  Cg = 2,
-  hg = 3,
-  Bg = 4,
-  lg = 5,
-  Qg = 6,
-  Eg = 7,
-  ug = 8;
+const Cg = 1,
+  hg = 2,
+  lg = 1,
+  Bg = 2,
+  Qg = 3,
+  Eg = 4,
+  ug = 5,
+  dg = 6,
+  fg = 7,
+  pg = 8;
 function wrapReason(e) {
   e instanceof Error ||
     ("object" == typeof e && null !== e) ||
@@ -55931,6 +56395,7 @@ function wrapReason(e) {
   }
 }
 class MessageHandler {
+  #V = new AbortController();
   constructor(e, t, i) {
     this.sourceName = e;
     this.targetName = t;
@@ -55941,55 +56406,57 @@ class MessageHandler {
     this.streamControllers = Object.create(null);
     this.callbackCapabilities = Object.create(null);
     this.actionHandler = Object.create(null);
-    this._onComObjOnMessage = (e) => {
-      const t = e.data;
-      if (t.targetName !== this.sourceName) return;
-      if (t.stream) {
-        this.#O(t);
-        return;
+    i.addEventListener("message", this.#z.bind(this), {
+      signal: this.#V.signal,
+    });
+  }
+  #z({ data: e }) {
+    if (e.targetName !== this.sourceName) return;
+    if (e.stream) {
+      this.#_(e);
+      return;
+    }
+    if (e.callback) {
+      const t = e.callbackId,
+        i = this.callbackCapabilities[t];
+      if (!i) throw new Error(`Cannot resolve callback ${t}`);
+      delete this.callbackCapabilities[t];
+      if (e.callback === Cg) i.resolve(e.data);
+      else {
+        if (e.callback !== hg) throw new Error("Unexpected callback case");
+        i.reject(wrapReason(e.reason));
       }
-      if (t.callback) {
-        const e = t.callbackId,
-          i = this.callbackCapabilities[e];
-        if (!i) throw new Error(`Cannot resolve callback ${e}`);
-        delete this.callbackCapabilities[e];
-        if (t.callback === og) i.resolve(t.data);
-        else {
-          if (t.callback !== Ig) throw new Error("Unexpected callback case");
-          i.reject(wrapReason(t.reason));
-        }
-        return;
-      }
-      const a = this.actionHandler[t.action];
-      if (!a) throw new Error(`Unknown action from worker: ${t.action}`);
-      if (t.callbackId) {
-        const e = this.sourceName,
-          s = t.sourceName;
-        new Promise(function (e) {
-          e(a(t.data));
-        }).then(
-          function (a) {
-            i.postMessage({
-              sourceName: e,
-              targetName: s,
-              callback: og,
-              callbackId: t.callbackId,
-              data: a,
-            });
-          },
-          function (a) {
-            i.postMessage({
-              sourceName: e,
-              targetName: s,
-              callback: Ig,
-              callbackId: t.callbackId,
-              reason: wrapReason(a),
-            });
-          },
-        );
-      } else t.streamId ? this.#P(t) : a(t.data);
-    };
-    i.addEventListener("message", this._onComObjOnMessage);
+      return;
+    }
+    const t = this.actionHandler[e.action];
+    if (!t) throw new Error(`Unknown action from worker: ${e.action}`);
+    if (e.callbackId) {
+      const i = this.sourceName,
+        a = e.sourceName,
+        s = this.comObj;
+      new Promise(function (i) {
+        i(t(e.data));
+      }).then(
+        function (t) {
+          s.postMessage({
+            sourceName: i,
+            targetName: a,
+            callback: Cg,
+            callbackId: e.callbackId,
+            data: t,
+          });
+        },
+        function (t) {
+          s.postMessage({
+            sourceName: i,
+            targetName: a,
+            callback: hg,
+            callbackId: e.callbackId,
+            reason: wrapReason(t),
+          });
+        },
+      );
+    } else e.streamId ? this.#$(e) : t(e.data);
   }
   on(e, t) {
     const i = this.actionHandler;
@@ -56062,7 +56529,7 @@ class MessageHandler {
           g.postMessage({
             sourceName: r,
             targetName: n,
-            stream: Qg,
+            stream: dg,
             streamId: s,
             desiredSize: e.desiredSize,
           });
@@ -56076,7 +56543,7 @@ class MessageHandler {
           g.postMessage({
             sourceName: r,
             targetName: n,
-            stream: cg,
+            stream: lg,
             streamId: s,
             reason: wrapReason(e),
           });
@@ -56086,7 +56553,7 @@ class MessageHandler {
       i,
     );
   }
-  #P(e) {
+  #$(e) {
     const t = e.streamId,
       i = this.sourceName,
       a = e.sourceName,
@@ -56103,7 +56570,7 @@ class MessageHandler {
             this.ready = this.sinkCapability.promise;
           }
           s.postMessage(
-            { sourceName: i, targetName: a, stream: Bg, streamId: t, chunk: e },
+            { sourceName: i, targetName: a, stream: Eg, streamId: t, chunk: e },
             n,
           );
         },
@@ -56113,7 +56580,7 @@ class MessageHandler {
             s.postMessage({
               sourceName: i,
               targetName: a,
-              stream: hg,
+              stream: Qg,
               streamId: t,
             });
             delete r.streamSinks[t];
@@ -56126,7 +56593,7 @@ class MessageHandler {
             s.postMessage({
               sourceName: i,
               targetName: a,
-              stream: lg,
+              stream: ug,
               streamId: t,
               reason: wrapReason(e),
             });
@@ -56149,7 +56616,7 @@ class MessageHandler {
         s.postMessage({
           sourceName: i,
           targetName: a,
-          stream: ug,
+          stream: pg,
           streamId: t,
           success: !0,
         });
@@ -56158,14 +56625,14 @@ class MessageHandler {
         s.postMessage({
           sourceName: i,
           targetName: a,
-          stream: ug,
+          stream: pg,
           streamId: t,
           reason: wrapReason(e),
         });
       },
     );
   }
-  #O(e) {
+  #_(e) {
     const t = e.streamId,
       i = this.sourceName,
       a = e.sourceName,
@@ -56173,22 +56640,22 @@ class MessageHandler {
       r = this.streamControllers[t],
       n = this.streamSinks[t];
     switch (e.stream) {
-      case ug:
+      case pg:
         e.success
           ? r.startCall.resolve()
           : r.startCall.reject(wrapReason(e.reason));
         break;
-      case Eg:
+      case fg:
         e.success
           ? r.pullCall.resolve()
           : r.pullCall.reject(wrapReason(e.reason));
         break;
-      case Qg:
+      case dg:
         if (!n) {
           s.postMessage({
             sourceName: i,
             targetName: a,
-            stream: Eg,
+            stream: fg,
             streamId: t,
             success: !0,
           });
@@ -56203,7 +56670,7 @@ class MessageHandler {
             s.postMessage({
               sourceName: i,
               targetName: a,
-              stream: Eg,
+              stream: fg,
               streamId: t,
               success: !0,
             });
@@ -56212,37 +56679,37 @@ class MessageHandler {
             s.postMessage({
               sourceName: i,
               targetName: a,
-              stream: Eg,
+              stream: fg,
               streamId: t,
               reason: wrapReason(e),
             });
           },
         );
         break;
-      case Bg:
+      case Eg:
         assert(r, "enqueue should have stream controller");
         if (r.isClosed) break;
         r.controller.enqueue(e.chunk);
         break;
-      case hg:
+      case Qg:
         assert(r, "close should have stream controller");
         if (r.isClosed) break;
         r.isClosed = !0;
         r.controller.close();
-        this.#W(r, t);
+        this.#AA(r, t);
         break;
-      case lg:
+      case ug:
         assert(r, "error should have stream controller");
         r.controller.error(wrapReason(e.reason));
-        this.#W(r, t);
+        this.#AA(r, t);
         break;
-      case Cg:
+      case Bg:
         e.success
           ? r.cancelCall.resolve()
           : r.cancelCall.reject(wrapReason(e.reason));
-        this.#W(r, t);
+        this.#AA(r, t);
         break;
-      case cg:
+      case lg:
         if (!n) break;
         new Promise(function (t) {
           t(n.onCancel?.(wrapReason(e.reason)));
@@ -56251,7 +56718,7 @@ class MessageHandler {
             s.postMessage({
               sourceName: i,
               targetName: a,
-              stream: Cg,
+              stream: Bg,
               streamId: t,
               success: !0,
             });
@@ -56260,7 +56727,7 @@ class MessageHandler {
             s.postMessage({
               sourceName: i,
               targetName: a,
-              stream: Cg,
+              stream: Bg,
               streamId: t,
               reason: wrapReason(e),
             });
@@ -56274,7 +56741,7 @@ class MessageHandler {
         throw new Error("Unexpected stream case");
     }
   }
-  async #W(e, t) {
+  async #AA(e, t) {
     await Promise.allSettled([
       e.startCall?.promise,
       e.pullCall?.promise,
@@ -56283,7 +56750,8 @@ class MessageHandler {
     delete this.streamControllers[t];
   }
   destroy() {
-    this.comObj.removeEventListener("message", this._onComObjOnMessage);
+    this.#V?.abort();
+    this.#V = null;
   }
 }
 class PDFWorkerStream {
@@ -56399,7 +56867,7 @@ class WorkerMessageHandler {
     });
     e.on("configure", function (e) {
       !(function setVerbosityLevel(e) {
-        Number.isInteger(e) && (st = e);
+        Number.isInteger(e) && (nt = e);
       })(e.verbosity);
     });
     e.on("GetDocRequest", function (e) {
@@ -56413,7 +56881,7 @@ class WorkerMessageHandler {
     const r = new Set(),
       n = getVerbosityLevel(),
       { docId: g, apiVersion: o } = e,
-      c = "4.4.168";
+      c = "4.8.69";
     if (o !== c)
       throw new Error(
         `The API version "${o}" does not match the Worker version "${c}".`,
@@ -56466,111 +56934,162 @@ class WorkerMessageHandler {
         htmlForXfa: t ? await i.ensureDoc("htmlForXfa") : null,
       };
     }
-    function getPdfManager({
-      data: e,
-      password: t,
-      disableAutoFetch: i,
-      rangeChunkSize: a,
-      length: r,
-      docBaseUrl: n,
-      enableXfa: o,
-      evaluatorOptions: c,
-    }) {
-      const C = {
-          source: null,
-          disableAutoFetch: i,
-          docBaseUrl: n,
-          docId: g,
-          enableXfa: o,
-          evaluatorOptions: c,
-          handler: l,
-          length: r,
-          password: t,
-          rangeChunkSize: a,
-        },
-        h = Promise.withResolvers();
-      let Q;
-      if (e) {
+    function setupDoc(e) {
+      function onSuccess(e) {
+        ensureNotTerminated();
+        l.send("GetDoc", { pdfInfo: e });
+      }
+      function onFailure(e) {
+        ensureNotTerminated();
+        if (e instanceof PasswordException) {
+          const t = new WorkerTask(`PasswordException: response ${e.code}`);
+          startWorkerTask(t);
+          l.sendWithPromise("PasswordRequest", e)
+            .then(function ({ password: e }) {
+              finishWorkerTask(t);
+              i.updatePassword(e);
+              pdfManagerReady();
+            })
+            .catch(function () {
+              finishWorkerTask(t);
+              l.send("DocException", e);
+            });
+        } else
+          e instanceof InvalidPDFException ||
+          e instanceof MissingPDFException ||
+          e instanceof UnexpectedResponseException ||
+          e instanceof UnknownErrorException
+            ? l.send("DocException", e)
+            : l.send(
+                "DocException",
+                new UnknownErrorException(e.message, e.toString()),
+              );
+      }
+      function pdfManagerReady() {
+        ensureNotTerminated();
+        loadDocument(!1).then(onSuccess, function (e) {
+          ensureNotTerminated();
+          e instanceof XRefParseException
+            ? i.requestLoadedStream().then(function () {
+                ensureNotTerminated();
+                loadDocument(!0).then(onSuccess, onFailure);
+              })
+            : onFailure(e);
+        });
+      }
+      ensureNotTerminated();
+      (function getPdfManager({
+        data: e,
+        password: t,
+        disableAutoFetch: i,
+        rangeChunkSize: a,
+        length: r,
+        docBaseUrl: n,
+        enableXfa: o,
+        evaluatorOptions: c,
+      }) {
+        const C = {
+            source: null,
+            disableAutoFetch: i,
+            docBaseUrl: n,
+            docId: g,
+            enableXfa: o,
+            evaluatorOptions: c,
+            handler: l,
+            length: r,
+            password: t,
+            rangeChunkSize: a,
+          },
+          h = Promise.withResolvers();
+        let Q;
+        if (e) {
+          try {
+            C.source = e;
+            Q = new LocalPdfManager(C);
+            h.resolve(Q);
+          } catch (e) {
+            h.reject(e);
+          }
+          return h.promise;
+        }
+        let E,
+          u = [],
+          d = 0;
         try {
-          C.source = e;
-          Q = new LocalPdfManager(C);
-          h.resolve(Q);
+          E = new PDFWorkerStream(l);
         } catch (e) {
           h.reject(e);
+          return h.promise;
         }
-        return h.promise;
-      }
-      let E,
-        u = [];
-      try {
-        E = new PDFWorkerStream(l);
-      } catch (e) {
-        h.reject(e);
-        return h.promise;
-      }
-      const d = E.getFullReader();
-      d.headersReady
-        .then(function () {
-          if (d.isRangeSupported) {
-            C.source = E;
-            C.length = d.contentLength;
-            C.disableAutoFetch ||= d.isStreamingSupported;
-            Q = new NetworkPdfManager(C);
-            for (const e of u) Q.sendProgressiveData(e);
-            u = [];
-            h.resolve(Q);
+        const f = E.getFullReader();
+        f.headersReady
+          .then(function () {
+            if (f.isRangeSupported) {
+              C.source = E;
+              C.length = f.contentLength;
+              C.disableAutoFetch ||= f.isStreamingSupported;
+              Q = new NetworkPdfManager(C);
+              for (const e of u) Q.sendProgressiveData(e);
+              u = [];
+              h.resolve(Q);
+              s = null;
+            }
+          })
+          .catch(function (e) {
+            h.reject(e);
             s = null;
-          }
-        })
-        .catch(function (e) {
-          h.reject(e);
-          s = null;
-        });
-      let f = 0;
-      new Promise(function (e, t) {
-        const readChunk = function ({ value: e, done: i }) {
-          try {
-            ensureNotTerminated();
-            if (i) {
-              Q ||
-                (function () {
+          });
+        new Promise(function (e, t) {
+          const readChunk = function ({ value: e, done: i }) {
+            try {
+              ensureNotTerminated();
+              if (i) {
+                if (!Q) {
                   const e = arrayBuffersToBytes(u);
+                  u = [];
                   r &&
                     e.length !== r &&
                     warn("reported HTTP length is different from actual");
-                  try {
-                    C.source = e;
-                    Q = new LocalPdfManager(C);
-                    h.resolve(Q);
-                  } catch (e) {
-                    h.reject(e);
-                  }
-                  u = [];
-                })();
-              s = null;
-              return;
+                  C.source = e;
+                  Q = new LocalPdfManager(C);
+                  h.resolve(Q);
+                }
+                s = null;
+                return;
+              }
+              d += e.byteLength;
+              f.isStreamingSupported ||
+                l.send("DocProgress", {
+                  loaded: d,
+                  total: Math.max(d, f.contentLength || 0),
+                });
+              Q ? Q.sendProgressiveData(e) : u.push(e);
+              f.read().then(readChunk, t);
+            } catch (e) {
+              t(e);
             }
-            f += e.byteLength;
-            d.isStreamingSupported ||
-              l.send("DocProgress", {
-                loaded: f,
-                total: Math.max(f, d.contentLength || 0),
-              });
-            Q ? Q.sendProgressiveData(e) : u.push(e);
-            d.read().then(readChunk, t);
-          } catch (e) {
-            t(e);
-          }
+          };
+          f.read().then(readChunk, t);
+        }).catch(function (e) {
+          h.reject(e);
+          s = null;
+        });
+        s = function (e) {
+          E.cancelAllRequests(e);
         };
-        d.read().then(readChunk, t);
-      }).catch(function (e) {
-        h.reject(e);
-        s = null;
-      });
-      s = function (e) {
-        E.cancelAllRequests(e);
-      };
-      return h.promise;
+        return h.promise;
+      })(e)
+        .then(function (e) {
+          if (a) {
+            e.terminate(new AbortException("Worker was terminated."));
+            throw new Error("Worker was terminated");
+          }
+          i = e;
+          i.requestLoadedStream(!0).then((e) => {
+            l.send("DataLoaded", { length: e.bytes.byteLength });
+          });
+        })
+        .then(pdfManagerReady, onFailure);
     }
     l.on("GetPage", function (e) {
       return i.getPage(e.pageIndex).then(function (e) {
@@ -56666,7 +57185,7 @@ class WorkerMessageHandler {
       });
     });
     l.on("GetFieldObjects", function (e) {
-      return i.ensureDoc("fieldObjects");
+      return i.ensureDoc("fieldObjects").then((e) => e?.allFields || null);
     });
     l.on("HasJSActions", function (e) {
       return i.ensureDoc("hasJSActions");
@@ -56823,7 +57342,7 @@ class WorkerMessageHandler {
       i.getPage(a).then(function (i) {
         const s = new WorkerTask(`GetOperatorList: page ${a}`);
         startWorkerTask(s);
-        const r = n >= pA.INFOS ? Date.now() : 0;
+        const r = n >= mA.INFOS ? Date.now() : 0;
         i.getOperatorList({
           handler: l,
           sink: t,
@@ -56831,6 +57350,7 @@ class WorkerMessageHandler {
           intent: e.intent,
           cacheKey: e.cacheKey,
           annotationStorage: e.annotationStorage,
+          modifiedIds: e.modifiedIds,
         }).then(
           function (e) {
             finishWorkerTask(s);
@@ -56856,7 +57376,7 @@ class WorkerMessageHandler {
       i.getPage(a).then(function (e) {
         const i = new WorkerTask("GetTextContent: page " + a);
         startWorkerTask(i);
-        const g = n >= pA.INFOS ? Date.now() : 0;
+        const g = n >= mA.INFOS ? Date.now() : 0;
         e.extractTextContent({
           handler: l,
           task: i,
@@ -56901,7 +57421,7 @@ class WorkerMessageHandler {
         t.push(e);
         i = null;
       } else clearGlobalCaches();
-      s && s(new AbortException("Worker was terminated."));
+      s?.(new AbortException("Worker was terminated."));
       for (const e of r) {
         t.push(e.finished);
         e.terminate();
@@ -56912,63 +57432,7 @@ class WorkerMessageHandler {
       });
     });
     l.on("Ready", function (t) {
-      !(function setupDoc(e) {
-        function onSuccess(e) {
-          ensureNotTerminated();
-          l.send("GetDoc", { pdfInfo: e });
-        }
-        function onFailure(e) {
-          ensureNotTerminated();
-          if (e instanceof PasswordException) {
-            const t = new WorkerTask(`PasswordException: response ${e.code}`);
-            startWorkerTask(t);
-            l.sendWithPromise("PasswordRequest", e)
-              .then(function ({ password: e }) {
-                finishWorkerTask(t);
-                i.updatePassword(e);
-                pdfManagerReady();
-              })
-              .catch(function () {
-                finishWorkerTask(t);
-                l.send("DocException", e);
-              });
-          } else
-            e instanceof InvalidPDFException ||
-            e instanceof MissingPDFException ||
-            e instanceof UnexpectedResponseException ||
-            e instanceof UnknownErrorException
-              ? l.send("DocException", e)
-              : l.send(
-                  "DocException",
-                  new UnknownErrorException(e.message, e.toString()),
-                );
-        }
-        function pdfManagerReady() {
-          ensureNotTerminated();
-          loadDocument(!1).then(onSuccess, function (e) {
-            ensureNotTerminated();
-            e instanceof XRefParseException
-              ? i.requestLoadedStream().then(function () {
-                  ensureNotTerminated();
-                  loadDocument(!0).then(onSuccess, onFailure);
-                })
-              : onFailure(e);
-          });
-        }
-        ensureNotTerminated();
-        getPdfManager(e)
-          .then(function (e) {
-            if (a) {
-              e.terminate(new AbortException("Worker was terminated."));
-              throw new Error("Worker was terminated");
-            }
-            i = e;
-            i.requestLoadedStream(!0).then((e) => {
-              l.send("DataLoaded", { length: e.bytes.byteLength });
-            });
-          })
-          .then(pdfManagerReady, onFailure);
-      })(e);
+      setupDoc(e);
       e = null;
     });
     return h;
@@ -56986,5 +57450,5 @@ class WorkerMessageHandler {
     return "function" == typeof e.postMessage && "onmessage" in e;
   })(self) &&
   WorkerMessageHandler.initializeFromPort(self);
-var dg = __webpack_exports__.WorkerMessageHandler;
-export { dg as WorkerMessageHandler };
+var mg = __webpack_exports__.WorkerMessageHandler;
+export { mg as WorkerMessageHandler };
