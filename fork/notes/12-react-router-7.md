@@ -68,9 +68,14 @@ v7 makes two former v6 "future flags" the default. For a declarative app
 like this one:
 
 - **`v7_relativeSplatPath`:** inside splat routes (`/*`), relative paths
-  resolve from the splat's parent. The console has several splat routes,
-  but its navigation targets are absolute: `IAM_PAGES` constants and
-  literal paths starting with `/`. No literal relative link was found.
+  resolve differently: from the matched URL, not from the route's parent.
+  The console has several splat routes. **Four relative targets were
+  affected and are now absolute**, see "First CI run" below.
+  - **Correction:** the first version of this note said the console's
+    navigation targets were all absolute. The survey behind that claim
+    searched only string forms (`to="…"`, `navigate("…")`). It missed a
+    relative path written as an object with a template literal, and
+    relative values inside `IAM_PAGES` constants.
 - **`v7_startTransition`:** router state updates are wrapped in
   `React.startTransition`. When a lazy page loads, the previous page may
   stay visible a moment longer instead of the loading fallback.
@@ -116,3 +121,51 @@ On Node 26.13.1, yarn 4.18.1:
 | `yarn npm audit --recursive --environment production` | **2 → 0**, "No audit suggestions" |
 
 CI's end-to-end suites are the check for the two runtime defaults above.
+
+## First CI run: a relative-path regression, and its fix
+
+On the first CI run of this PR, "React Code Has No Known Vulnerable Deps"
+was green and every job passed except `playwright`. Its login setup opens
+`/buckets` and never saw the "Username" field.
+
+**Reproduced locally** on a real console binary with MinIO: opening any
+protected page without a session looped
+`/buckets/login/login/login/…`.
+
+- `ProtectedRoutes.tsx` (the element of MainRouter's `/*` route) redirects
+  with `<Navigate to={{ pathname: \`login\` }} />`.
+  - In v6, inside a splat route, `login` resolved against the route's
+    parent and went to `/login`.
+  - In v7 it resolves against the matched URL, giving `/buckets/login`,
+    and then again from there.
+- The normal bundle loops too, not only playwright's Istanbul-instrumented
+  build.
+- The permissions suites passed only because TestCafe opens the login page
+  directly.
+
+**Every navigation target was traced to its value**, this time including
+objects, template literals and variables. Four were relative. Each now uses
+the absolute path v6 went to, so behaviour is unchanged:
+
+| Call site | Runs at | v6 went to | Now |
+|---|---|---|---|
+| `ProtectedRoutes.tsx` login redirect | any URL (`/*`) | `/login` | `"/login"` |
+| `kbar-actions.tsx` "create bucket" | any page (Console's `/*`) | `/add-bucket` | `` `/${IAM_PAGES.ADD_BUCKETS}` `` |
+| `ListBuckets.tsx` (×2) | `/buckets` | `/buckets/add-bucket` | `` `${IAM_PAGES.BUCKETS}/${IAM_PAGES.ADD_BUCKETS}` `` |
+| `OBBucketList.tsx` | `/browser` | `/browser/add-bucket` | `` `${IAM_PAGES.OBJECT_BROWSER_VIEW}/${IAM_PAGES.ADD_BUCKETS}` `` |
+
+- `IAM_PAGES.ADD_BUCKETS` stays `"add-bucket"`. It is also a nested route
+  pattern (in `Buckets.tsx`, `ObjectBrowser.tsx`, `Console.tsx`), where
+  relative is correct.
+- The other variable targets (`tab`, `backLink`, `newPath`, `goTo`,
+  `path`) all trace to absolute paths.
+
+**Verified locally:** the real Playwright suite, run against a console
+built from the fixed tree with MinIO, **6 passed**. Jest 41/41; upstream's
+checks ok; prettier re-wrapped two lengthened lines.
+
+**Also fixed:** the playwright job uploaded `playwright-report/` and
+`coverage/` from the repository root, but the tests run in `web-app/`.
+That is why this failure left no report behind. The paths now point at
+`web-app/playwright-report/`, `web-app/test-results/` (per-test traces) and
+`web-app/coverage/`.
