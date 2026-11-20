@@ -25,7 +25,7 @@ import {
   SectionTitle,
   Switch,
 } from "mds";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { useAppDispatch } from "../../../store";
 import { modalStyleUtils } from "../Common/FormComponents/common/styleLibrary";
 import {

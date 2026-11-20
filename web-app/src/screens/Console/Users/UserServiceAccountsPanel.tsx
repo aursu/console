@@ -15,7 +15,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import React, { Fragment, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { AddIcon, Box, Button, DataTable, DeleteIcon, SectionTitle } from "mds";
 import api from "../../../common/api";
 import { NewServiceAccount } from "../Common/CredentialsPrompt/types";

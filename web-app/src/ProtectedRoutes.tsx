@@ -15,7 +15,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import { useEffect, useState } from "react";
-import { Navigate, useLocation } from "react-router-dom";
+import { Navigate, useLocation } from "react-router";
 import { useSelector } from "react-redux";
 import { AppState, useAppDispatch } from "./store";
 import LoadingComponent from "./common/LoadingComponent";
@@ -39,7 +39,7 @@ const ProtectedRoute = ({ Component }: ProtectedRouteProps) => {
 
   const StorePathAndRedirect = () => {
     localStorage.setItem("redirect-path", pathname);
-    return <Navigate to={{ pathname: `login` }} />;
+    return <Navigate to={{ pathname: "/login" }} />;
   };
 
   useEffect(() => {

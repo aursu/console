@@ -15,7 +15,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import React, { Fragment, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { BackLink, Box, FormLayout, PageLayout } from "mds";
 import { destinationList, DestType } from "./utils";
 import { typesSelection } from "../Common/FormComponents/common/styleLibrary";

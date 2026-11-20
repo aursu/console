@@ -38,7 +38,7 @@ import groupBy from "lodash/groupBy";
 import ServersList from "./ServersList";
 import CounterCard from "./CounterCard";
 import ReportedUsage from "./ReportedUsage";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { IAM_PAGES } from "../../../../common/SecureComponent/permissions";
 import TimeStatItem from "../TimeStatItem";
 import TooltipWrapper from "../../Common/TooltipWrapper/TooltipWrapper";

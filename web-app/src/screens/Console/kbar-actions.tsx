@@ -56,7 +56,7 @@ export const routesAsKbarActions = (
     id: `create-bucket`,
     name: "Create Bucket",
     section: "Buckets",
-    perform: () => navigate(IAM_PAGES.ADD_BUCKETS),
+    perform: () => navigate(`/${IAM_PAGES.ADD_BUCKETS}`),
     icon: <BucketsIcon />,
   };
   initialActions.push(a);

@@ -15,7 +15,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import React, { Fragment, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import {
   AddIcon,
   BucketsIcon,
@@ -300,7 +300,7 @@ const ListBuckets = () => {
                 <Button
                   id={"create-bucket"}
                   onClick={() => {
-                    navigate(IAM_PAGES.ADD_BUCKETS);
+                    navigate(`${IAM_PAGES.BUCKETS}/${IAM_PAGES.ADD_BUCKETS}`);
                   }}
                   icon={<AddIcon />}
                   variant={"callAction"}
@@ -382,7 +382,9 @@ const ListBuckets = () => {
                           To get started,&nbsp;
                           <ActionLink
                             onClick={() => {
-                              navigate(IAM_PAGES.ADD_BUCKETS);
+                              navigate(
+                                `${IAM_PAGES.BUCKETS}/${IAM_PAGES.ADD_BUCKETS}`,
+                              );
                             }}
                           >
                             Create a Bucket.

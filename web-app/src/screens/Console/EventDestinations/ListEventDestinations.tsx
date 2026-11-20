@@ -30,7 +30,7 @@ import {
   RefreshIcon,
 } from "mds";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { api } from "api";
 import { NotificationEndpointItem } from "api/consoleApi";
 import { errorToHandler } from "api/errors";

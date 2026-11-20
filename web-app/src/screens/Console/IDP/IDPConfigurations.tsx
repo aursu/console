@@ -16,7 +16,7 @@
 
 import React, { Fragment, useEffect, useState } from "react";
 import { AddIcon, Button, PageLayout, RefreshIcon, Grid, DataTable } from "mds";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { api } from "api";
 import { errorToHandler } from "api/errors";
 import { useAppDispatch } from "../../../store";

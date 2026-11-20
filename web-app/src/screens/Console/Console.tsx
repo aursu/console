@@ -23,7 +23,7 @@ import React, {
 } from "react";
 import { Box, Button, MainContainer, ProgressBar, Snackbar } from "mds";
 import debounce from "lodash/debounce";
-import { Navigate, Route, Routes, useLocation } from "react-router-dom";
+import { Navigate, Route, Routes, useLocation } from "react-router";
 import { useSelector } from "react-redux";
 import { selFeatures, selSession } from "./consoleSlice";
 import { api } from "api";

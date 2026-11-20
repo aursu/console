@@ -15,7 +15,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import React, { Suspense } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router";
 import ProtectedRoute from "./ProtectedRoutes";
 import LoadingComponent from "./common/LoadingComponent";
 import AppConsole from "./screens/Console/ConsoleKBar";

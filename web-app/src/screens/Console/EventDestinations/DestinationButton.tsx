@@ -16,7 +16,7 @@
 
 import React from "react";
 import get from "lodash/get";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import styled from "styled-components";
 import { IAM_PAGES } from "../../../common/SecureComponent/permissions";
 

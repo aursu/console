@@ -15,7 +15,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import React, { Fragment, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { setErrorSnackMessage } from "../../../systemSlice";
 import { ConfirmDeleteIcon, DataTable, InformativeMessage, Loader } from "mds";
 import { IAM_PAGES } from "../../../common/SecureComponent/permissions";

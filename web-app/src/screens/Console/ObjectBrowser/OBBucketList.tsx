@@ -16,7 +16,7 @@
 
 import React, { Fragment, useEffect, useState } from "react";
 
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import {
   ActionLink,
   BucketsIcon,
@@ -314,7 +314,9 @@ const OBListBuckets = () => {
                           To get started,&nbsp;
                           <ActionLink
                             onClick={() => {
-                              navigate(IAM_PAGES.ADD_BUCKETS);
+                              navigate(
+                                `${IAM_PAGES.OBJECT_BROWSER_VIEW}/${IAM_PAGES.ADD_BUCKETS}`,
+                              );
                             }}
                           >
                             Create a Bucket.

@@ -16,7 +16,7 @@
 
 import React, { Fragment, Suspense } from "react";
 import { ApplicationLogo, Button } from "mds";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router";
 import { IAM_PAGES } from "../../common/SecureComponent/permissions";
 import { resetSession } from "../Console/consoleSlice";
 import { useAppDispatch } from "../../store";

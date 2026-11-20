@@ -26,7 +26,7 @@ import {
   getLogoVar,
   registeredCluster,
 } from "../../../config";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router";
 import { getLicenseConsent } from "../License/utils";
 
 const MenuWrapper = () => {

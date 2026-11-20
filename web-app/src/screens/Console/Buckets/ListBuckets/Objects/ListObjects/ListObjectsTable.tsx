@@ -26,7 +26,7 @@ import {
   setSelectedObjects,
   setSelectedObjectView,
 } from "../../../../ObjectBrowser/objectBrowserSlice";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router";
 import get from "lodash/get";
 import { sortListObjects } from "../utils";
 import { BucketObjectItem } from "./types";

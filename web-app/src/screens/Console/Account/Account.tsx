@@ -28,7 +28,7 @@ import {
   PasswordKeyIcon,
 } from "mds";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { actionsTray } from "../Common/FormComponents/common/styleLibrary";
 
 import ChangePasswordModal from "./ChangePasswordModal";

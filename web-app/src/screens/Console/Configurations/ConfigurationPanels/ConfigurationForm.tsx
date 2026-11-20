@@ -15,7 +15,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import React from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router";
 import { Grid } from "mds";
 import { configurationElements } from "../utils";
 import EditConfiguration from "../../EventDestinations/CustomForms/EditConfiguration";

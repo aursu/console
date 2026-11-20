@@ -27,7 +27,7 @@ import { modalStyleUtils } from "../Common/FormComponents/common/styleLibrary";
 import KMSHelpBox from "./KMSHelpbox";
 import { api } from "api";
 import { useAppDispatch } from "store";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { ApiError, HttpResponse } from "api/consoleApi";
 import { setErrorSnackMessage } from "systemSlice";
 import { errorToHandler } from "api/errors";

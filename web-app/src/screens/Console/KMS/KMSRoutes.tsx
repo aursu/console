@@ -15,7 +15,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import React from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router";
 
 import withSuspense from "../Common/Components/withSuspense";
 import NotFoundPage from "../../NotFoundPage";
