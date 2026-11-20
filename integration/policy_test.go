@@ -27,7 +27,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/go-openapi/swag"
+	"github.com/go-openapi/swag/conv"
 
 	"github.com/stretchr/testify/assert"
 )
@@ -108,7 +108,7 @@ func Test_AddPolicyAPI(t *testing.T) {
 			args: args{
 				api:  "/policies",
 				name: "test",
-				policy: swag.String(`
+				policy: conv.Pointer(`
   {
   "Version": "2012-10-17",
   "Statement": [
@@ -134,7 +134,7 @@ func Test_AddPolicyAPI(t *testing.T) {
 			args: args{
 				api:  "/policies",
 				name: "test2",
-				policy: swag.String(`
+				policy: conv.Pointer(`
   {
   "Version": "2012-10-17",
   "Statement": [
@@ -159,7 +159,7 @@ func Test_AddPolicyAPI(t *testing.T) {
 			args: args{
 				api:  "/policies",
 				name: "space test",
-				policy: swag.String(`
+				policy: conv.Pointer(`
   {
   "Version": "2012-10-17",
   "Statement": [
@@ -184,7 +184,7 @@ func Test_AddPolicyAPI(t *testing.T) {
 			args: args{
 				api:  "/policies",
 				name: "space/test?",
-				policy: swag.String(`
+				policy: conv.Pointer(`
   {
   "Version": "2012-10-17",
   "Statement": [

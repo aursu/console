@@ -24,7 +24,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/go-openapi/swag"
+	"github.com/go-openapi/swag/conv"
 	"github.com/stretchr/testify/assert"
 
 	"github.com/minio/console/models"
@@ -182,7 +182,7 @@ func Test_buildConfig(t *testing.T) {
 		{
 			name: "format correctly",
 			args: args{
-				configName: swag.String("notify_postgres"),
+				configName: conv.Pointer("notify_postgres"),
 				kvs: []*models.ConfigurationKV{
 					{
 						Key:   "enable",
@@ -194,13 +194,13 @@ func Test_buildConfig(t *testing.T) {
 					},
 				},
 			},
-			want: swag.String("notify_postgres enable=\"off\" connection_string=\"\""),
+			want: conv.Pointer("notify_postgres enable=\"off\" connection_string=\"\""),
 		},
 		// Test-2: buildConfig() format correctly configuration as "config_name k=v k2=v2 k2=v3" with duplicate keys
 		{
 			name: "duplicated keys in config",
 			args: args{
-				configName: swag.String("notify_postgres"),
+				configName: conv.Pointer("notify_postgres"),
 				kvs: []*models.ConfigurationKV{
 					{
 						Key:   "enable",
@@ -216,7 +216,7 @@ func Test_buildConfig(t *testing.T) {
 					},
 				},
 			},
-			want: swag.String("notify_postgres enable=\"off\" connection_string=\"\" connection_string=\"x\""),
+			want: conv.Pointer("notify_postgres enable=\"off\" connection_string=\"\" connection_string=\"x\""),
 		},
 	}
 	for _, tt := range tests {
@@ -251,7 +251,7 @@ func Test_setConfigWithARN(t *testing.T) {
 			args: args{
 				ctx:        context.Background(),
 				client:     client,
-				configName: swag.String("notify_kafka"),
+				configName: conv.Pointer("notify_kafka"),
 				kvs: []*models.ConfigurationKV{
 					{
 						Key:   "brokers",
@@ -271,7 +271,7 @@ func Test_setConfigWithARN(t *testing.T) {
 			args: args{
 				ctx:        context.Background(),
 				client:     client,
-				configName: swag.String("notify_kafka"),
+				configName: conv.Pointer("notify_kafka"),
 				kvs: []*models.ConfigurationKV{
 					{
 						Key:   "brokers",
@@ -291,7 +291,7 @@ func Test_setConfigWithARN(t *testing.T) {
 			args: args{
 				ctx:        context.Background(),
 				client:     client,
-				configName: swag.String("region"),
+				configName: conv.Pointer("region"),
 				kvs: []*models.ConfigurationKV{
 					{
 						Key:   "name",
@@ -311,7 +311,7 @@ func Test_setConfigWithARN(t *testing.T) {
 			args: args{
 				ctx:        context.Background(),
 				client:     client,
-				configName: swag.String("oorgle"),
+				configName: conv.Pointer("oorgle"),
 				kvs: []*models.ConfigurationKV{
 					{
 						Key:   "name",

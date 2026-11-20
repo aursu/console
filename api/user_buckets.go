@@ -35,7 +35,7 @@ import (
 	"github.com/minio/minio-go/v7/pkg/tags"
 
 	"github.com/go-openapi/runtime/middleware"
-	"github.com/go-openapi/swag"
+	"github.com/go-openapi/swag/conv"
 	"github.com/minio/console/api/operations"
 	bucketApi "github.com/minio/console/api/operations/bucket"
 	"github.com/minio/console/models"
@@ -392,7 +392,7 @@ func getAccountBuckets(ctx context.Context, client MinioAdmin) ([]*models.Bucket
 				Read:  bucket.Access.Read,
 				Write: bucket.Access.Write,
 			},
-			Name:    swag.String(bucket.Name),
+			Name:    conv.Pointer(bucket.Name),
 			Objects: int64(bucket.Objects),
 			Size:    int64(bucket.Size),
 		}
@@ -1063,7 +1063,7 @@ func getMaxShareLinkExpirationResponse(session *models.Principal, params bucketA
 	if err != nil {
 		return nil, ErrorWithContext(ctx, err)
 	}
-	return &models.MaxShareLinkExpResponse{Exp: swag.Int64(maxShareLinkExpSeconds)}, nil
+	return &models.MaxShareLinkExpResponse{Exp: conv.Pointer(maxShareLinkExpSeconds)}, nil
 }
 
 // getMaxShareLinkExpirationSeconds returns the max share link expiration time in seconds which is the sts token expiration time

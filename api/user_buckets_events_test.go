@@ -22,7 +22,7 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/go-openapi/swag"
+	"github.com/go-openapi/swag/conv"
 	"github.com/minio/console/models"
 	"github.com/minio/mc/pkg/probe"
 	"github.com/minio/minio-go/v7/pkg/notification"
@@ -121,7 +121,7 @@ func TestDeleteBucketNotification(t *testing.T) {
 	mcRemoveNotificationConfigMock = func(_ context.Context, _ string, _ string, _ string, _ string) *probe.Error {
 		return nil
 	}
-	if err := deleteBucketEventNotification(ctx, client, testArn, events, swag.String(prefix), swag.String(suffix)); err != nil {
+	if err := deleteBucketEventNotification(ctx, client, testArn, events, conv.Pointer(prefix), conv.Pointer(suffix)); err != nil {
 		t.Errorf("Failed on %s:, error occurred: %s", function, err.Error())
 	}
 
@@ -129,7 +129,7 @@ func TestDeleteBucketNotification(t *testing.T) {
 	mcRemoveNotificationConfigMock = func(_ context.Context, _ string, _ string, _ string, _ string) *probe.Error {
 		return probe.NewError(errors.New("error"))
 	}
-	if err := deleteBucketEventNotification(ctx, client, testArn, events, swag.String(prefix), swag.String(suffix)); assert.Error(err) {
+	if err := deleteBucketEventNotification(ctx, client, testArn, events, conv.Pointer(prefix), conv.Pointer(suffix)); assert.Error(err) {
 		assert.Equal("error", err.Error())
 	}
 
@@ -180,7 +180,7 @@ func TestListBucketEvents(t *testing.T) {
 	}
 	expectedOutput := []*models.NotificationConfig{
 		{
-			Arn:    swag.String("arn:minio:sqs::test:postgresql"),
+			Arn:    conv.Pointer("arn:minio:sqs::test:postgresql"),
 			ID:     "",
 			Prefix: "file/",
 			Suffix: ".jpg",
@@ -229,7 +229,7 @@ func TestListBucketEvents(t *testing.T) {
 	}
 	expectedOutput = []*models.NotificationConfig{
 		{
-			Arn:    swag.String("arn:minio:sqs::test:postgresql"),
+			Arn:    conv.Pointer("arn:minio:sqs::test:postgresql"),
 			ID:     "",
 			Prefix: "",
 			Suffix: "",
@@ -330,7 +330,7 @@ func TestListBucketEvents(t *testing.T) {
 	// order matters in output: topic,queue then lambda are given respectively
 	expectedOutput = []*models.NotificationConfig{
 		{
-			Arn:    swag.String("topic"),
+			Arn:    conv.Pointer("topic"),
 			ID:     "",
 			Prefix: "topic/",
 			Suffix: ".gif",
@@ -339,7 +339,7 @@ func TestListBucketEvents(t *testing.T) {
 			},
 		},
 		{
-			Arn:    swag.String("arn:minio:sqs::test:postgresql"),
+			Arn:    conv.Pointer("arn:minio:sqs::test:postgresql"),
 			ID:     "",
 			Prefix: "",
 			Suffix: "",
@@ -348,7 +348,7 @@ func TestListBucketEvents(t *testing.T) {
 			},
 		},
 		{
-			Arn:    swag.String("lambda"),
+			Arn:    conv.Pointer("lambda"),
 			ID:     "",
 			Prefix: "lambda/",
 			Suffix: ".png",

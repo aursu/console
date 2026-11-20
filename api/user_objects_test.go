@@ -32,7 +32,7 @@ import (
 	"github.com/go-openapi/runtime/middleware"
 	"github.com/minio/console/api/operations/object"
 
-	"github.com/go-openapi/swag"
+	"github.com/go-openapi/swag/conv"
 	"github.com/minio/console/models"
 	mc "github.com/minio/mc/cmd"
 	"github.com/minio/mc/pkg/probe"
@@ -644,7 +644,7 @@ func Test_listObjects(t *testing.T) {
 				recursive:    true,
 				withVersions: false,
 				withMetadata: false,
-				limit:        swag.Int32(1),
+				limit:        conv.Pointer[int32](1),
 				listFunc: func(_ context.Context, _ string, _ minio.ListObjectsOptions) <-chan minio.ObjectInfo {
 					objectStatCh := make(chan minio.ObjectInfo, 1)
 					go func(objectStatCh chan<- minio.ObjectInfo) {
@@ -1178,7 +1178,7 @@ func Test_putObjectRetention(t *testing.T) {
 				versionID: "someversion",
 				prefix:    "folder/file.txt",
 				opts: &models.PutObjectRetentionRequest{
-					Expires:          swag.String("2006-01-02T15:04:05Z"),
+					Expires:          conv.Pointer("2006-01-02T15:04:05Z"),
 					GovernanceBypass: false,
 					Mode:             models.NewObjectRetentionMode(models.ObjectRetentionModeGovernance),
 				},
@@ -1195,7 +1195,7 @@ func Test_putObjectRetention(t *testing.T) {
 				versionID: "someversion",
 				prefix:    "folder/file.txt",
 				opts: &models.PutObjectRetentionRequest{
-					Expires:          swag.String("2006-01-02T15:04:05Z"),
+					Expires:          conv.Pointer("2006-01-02T15:04:05Z"),
 					GovernanceBypass: false,
 					Mode:             models.NewObjectRetentionMode(models.ObjectRetentionModeCompliance),
 				},
@@ -1242,7 +1242,7 @@ func Test_putObjectRetention(t *testing.T) {
 				versionID: "someversion",
 				prefix:    "folder/file.txt",
 				opts: &models.PutObjectRetentionRequest{
-					Expires:          swag.String("invalidtime"),
+					Expires:          conv.Pointer("invalidtime"),
 					GovernanceBypass: false,
 					Mode:             models.NewObjectRetentionMode(models.ObjectRetentionModeCompliance),
 				},
@@ -1259,7 +1259,7 @@ func Test_putObjectRetention(t *testing.T) {
 				versionID: "someversion",
 				prefix:    "folder/file.txt",
 				opts: &models.PutObjectRetentionRequest{
-					Expires:          swag.String("2006-01-02T15:04:05Z"),
+					Expires:          conv.Pointer("2006-01-02T15:04:05Z"),
 					GovernanceBypass: false,
 					Mode:             models.NewObjectRetentionMode(models.ObjectRetentionModeCompliance),
 				},

@@ -26,7 +26,7 @@ import (
 
 	"github.com/minio/console/pkg/utils"
 
-	"github.com/go-openapi/swag"
+	"github.com/go-openapi/swag/conv"
 	"github.com/minio/console/api/operations"
 	bucketApi "github.com/minio/console/api/operations/bucket"
 	"github.com/minio/console/models"
@@ -61,11 +61,11 @@ func (suite *RemoteBucketsTestSuite) mockObjects() {
 		Total:   0,
 	}
 	suite.mockRemoteBucket = &models.RemoteBucket{
-		AccessKey:    swag.String("accessKey"),
+		AccessKey:    conv.Pointer("accessKey"),
 		SecretKey:    "secretKey",
-		RemoteARN:    swag.String("remoteARN"),
+		RemoteARN:    conv.Pointer("remoteARN"),
 		Service:      "replication",
-		SourceBucket: swag.String("sourceBucket"),
+		SourceBucket: conv.Pointer("sourceBucket"),
 		TargetBucket: "targetBucket",
 		TargetURL:    "targetURL",
 		Status:       "",

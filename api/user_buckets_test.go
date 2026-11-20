@@ -28,7 +28,7 @@ import (
 	"github.com/minio/console/pkg/auth/token"
 	"github.com/minio/console/pkg/utils"
 
-	"github.com/go-openapi/swag"
+	"github.com/go-openapi/swag/conv"
 	"github.com/minio/console/models"
 	"github.com/minio/madmin-go/v3"
 	"github.com/minio/mc/pkg/probe"
@@ -202,7 +202,7 @@ func TestBucketInfo(t *testing.T) {
 	}
 	bucketToSet := "csbucket"
 	outputExpected := &models.Bucket{
-		Name:         swag.String(bucketToSet),
+		Name:         conv.Pointer(bucketToSet),
 		Access:       models.NewBucketAccess(models.BucketAccessPRIVATE),
 		CreationDate: "0001-01-01T00:00:00Z",
 		Size:         0,
@@ -261,7 +261,7 @@ func TestBucketInfo(t *testing.T) {
 	}
 	bucketToSet = "csbucket"
 	outputExpected = &models.Bucket{
-		Name:         swag.String(bucketToSet),
+		Name:         conv.Pointer(bucketToSet),
 		Access:       models.NewBucketAccess(models.BucketAccessPUBLIC),
 		CreationDate: "0001-01-01T00:00:00Z",
 		Size:         0,
@@ -285,7 +285,7 @@ func TestBucketInfo(t *testing.T) {
 	}
 	bucketToSet = "csbucket"
 	outputExpected = &models.Bucket{
-		Name:         swag.String(bucketToSet),
+		Name:         conv.Pointer(bucketToSet),
 		Access:       models.NewBucketAccess(models.BucketAccessPRIVATE),
 		CreationDate: "0001-01-01T00:00:00Z",
 		Size:         0,
@@ -308,7 +308,7 @@ func TestBucketInfo(t *testing.T) {
 	}
 	bucketToSet = "csbucket"
 	outputExpected = &models.Bucket{
-		Name:         swag.String(bucketToSet),
+		Name:         conv.Pointer(bucketToSet),
 		Access:       models.NewBucketAccess(models.BucketAccessCUSTOM),
 		CreationDate: "",
 		Size:         0,
@@ -574,7 +574,7 @@ func Test_SetBucketRetentionConfig(t *testing.T) {
 				bucketName: "test",
 				mode:       models.ObjectRetentionModeCompliance,
 				unit:       models.ObjectRetentionUnitDays,
-				validity:   swag.Int32(2),
+				validity:   conv.Pointer[int32](2),
 				mockBucketRetentionFunc: func(_ context.Context, _ string, _ *minio.RetentionMode, _ *uint, _ *minio.ValidityUnit) error {
 					return nil
 				},
@@ -589,7 +589,7 @@ func Test_SetBucketRetentionConfig(t *testing.T) {
 				bucketName: "test",
 				mode:       models.ObjectRetentionModeGovernance,
 				unit:       models.ObjectRetentionUnitYears,
-				validity:   swag.Int32(2),
+				validity:   conv.Pointer[int32](2),
 				mockBucketRetentionFunc: func(_ context.Context, _ string, _ *minio.RetentionMode, _ *uint, _ *minio.ValidityUnit) error {
 					return nil
 				},
@@ -619,7 +619,7 @@ func Test_SetBucketRetentionConfig(t *testing.T) {
 				bucketName: "test",
 				mode:       models.ObjectRetentionMode("othermode"),
 				unit:       models.ObjectRetentionUnitDays,
-				validity:   swag.Int32(2),
+				validity:   conv.Pointer[int32](2),
 				mockBucketRetentionFunc: func(_ context.Context, _ string, _ *minio.RetentionMode, _ *uint, _ *minio.ValidityUnit) error {
 					return nil
 				},
@@ -634,7 +634,7 @@ func Test_SetBucketRetentionConfig(t *testing.T) {
 				bucketName: "test",
 				mode:       models.ObjectRetentionModeCompliance,
 				unit:       models.ObjectRetentionUnit("otherunit"),
-				validity:   swag.Int32(2),
+				validity:   conv.Pointer[int32](2),
 				mockBucketRetentionFunc: func(_ context.Context, _ string, _ *minio.RetentionMode, _ *uint, _ *minio.ValidityUnit) error {
 					return nil
 				},
@@ -649,7 +649,7 @@ func Test_SetBucketRetentionConfig(t *testing.T) {
 				bucketName: "test",
 				mode:       models.ObjectRetentionModeCompliance,
 				unit:       models.ObjectRetentionUnitDays,
-				validity:   swag.Int32(2),
+				validity:   conv.Pointer[int32](2),
 				mockBucketRetentionFunc: func(_ context.Context, _ string, _ *minio.RetentionMode, _ *uint, _ *minio.ValidityUnit) error {
 					return errors.New("error func")
 				},
@@ -696,7 +696,7 @@ func Test_GetBucketRetentionConfig(t *testing.T) {
 				getRetentionFunc: func(_ context.Context, _ string) (mode *minio.RetentionMode, validity *uint, unit *minio.ValidityUnit, err error) {
 					m := minio.Governance
 					u := minio.Days
-					return &m, swag.Uint(2), &u, nil
+					return &m, conv.Pointer[uint](2), &u, nil
 				},
 			},
 			expectedResponse: &models.GetBucketRetentionConfig{
@@ -715,7 +715,7 @@ func Test_GetBucketRetentionConfig(t *testing.T) {
 				getRetentionFunc: func(_ context.Context, _ string) (mode *minio.RetentionMode, validity *uint, unit *minio.ValidityUnit, err error) {
 					m := minio.Compliance
 					u := minio.Days
-					return &m, swag.Uint(2), &u, nil
+					return &m, conv.Pointer[uint](2), &u, nil
 				},
 			},
 			expectedResponse: &models.GetBucketRetentionConfig{
@@ -765,7 +765,7 @@ func Test_GetBucketRetentionConfig(t *testing.T) {
 				getRetentionFunc: func(_ context.Context, _ string) (mode *minio.RetentionMode, validity *uint, unit *minio.ValidityUnit, err error) {
 					m := minio.RetentionMode("other")
 					u := minio.Days
-					return &m, swag.Uint(2), &u, nil
+					return &m, conv.Pointer[uint](2), &u, nil
 				},
 			},
 			expectedResponse: nil,
@@ -780,7 +780,7 @@ func Test_GetBucketRetentionConfig(t *testing.T) {
 				getRetentionFunc: func(_ context.Context, _ string) (mode *minio.RetentionMode, validity *uint, unit *minio.ValidityUnit, err error) {
 					m := minio.Governance
 					u := minio.ValidityUnit("otherUnit")
-					return &m, swag.Uint(2), &u, nil
+					return &m, conv.Pointer[uint](2), &u, nil
 				},
 			},
 			expectedResponse: nil,
@@ -958,14 +958,14 @@ func Test_getAccountBuckets(t *testing.T) {
 			},
 			want: []*models.Bucket{
 				{
-					Name:         swag.String("bucket-1"),
+					Name:         conv.Pointer("bucket-1"),
 					CreationDate: tm.Format(time.RFC3339),
 					Details:      &models.BucketDetails{},
 					RwAccess:     &models.BucketRwAccess{},
 					Size:         1024,
 				},
 				{
-					Name:         swag.String("bucket-2"),
+					Name:         conv.Pointer("bucket-2"),
 					CreationDate: tm.Format(time.RFC3339),
 					Details:      &models.BucketDetails{},
 					RwAccess:     &models.BucketRwAccess{},
@@ -1019,7 +1019,7 @@ func Test_getAccountBuckets(t *testing.T) {
 			},
 			want: []*models.Bucket{
 				{
-					Name:         swag.String("bucket-1"),
+					Name:         conv.Pointer("bucket-1"),
 					CreationDate: tm.Format(time.RFC3339),
 					Details: &models.BucketDetails{
 						Locking:             false,
@@ -1033,7 +1033,7 @@ func Test_getAccountBuckets(t *testing.T) {
 					Size:     1024,
 				},
 				{
-					Name:         swag.String("bucket-2"),
+					Name:         conv.Pointer("bucket-2"),
 					CreationDate: tm.Format(time.RFC3339),
 					Details:      &models.BucketDetails{},
 					RwAccess:     &models.BucketRwAccess{},
@@ -1089,7 +1089,7 @@ func Test_getAccountBuckets(t *testing.T) {
 			},
 			want: []*models.Bucket{
 				{
-					Name:         swag.String("bucket-1"),
+					Name:         conv.Pointer("bucket-1"),
 					CreationDate: tm.Format(time.RFC3339),
 					Details: &models.BucketDetails{
 						Locking:     false,
@@ -1105,7 +1105,7 @@ func Test_getAccountBuckets(t *testing.T) {
 					Size:     1024,
 				},
 				{
-					Name:         swag.String("bucket-2"),
+					Name:         conv.Pointer("bucket-2"),
 					CreationDate: tm.Format(time.RFC3339),
 					Details:      &models.BucketDetails{},
 					RwAccess:     &models.BucketRwAccess{},
@@ -1162,7 +1162,7 @@ func Test_getAccountBuckets(t *testing.T) {
 			},
 			want: []*models.Bucket{
 				{
-					Name:         swag.String("bucket-1"),
+					Name:         conv.Pointer("bucket-1"),
 					CreationDate: tm.Format(time.RFC3339),
 					Details: &models.BucketDetails{
 						Locking: false,
@@ -1179,7 +1179,7 @@ func Test_getAccountBuckets(t *testing.T) {
 					Size:     1024,
 				},
 				{
-					Name:         swag.String("bucket-2"),
+					Name:         conv.Pointer("bucket-2"),
 					CreationDate: tm.Format(time.RFC3339),
 					Details:      &models.BucketDetails{},
 					RwAccess:     &models.BucketRwAccess{},

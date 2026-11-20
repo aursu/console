@@ -15,6 +15,9 @@ require (
 	github.com/go-openapi/spec v0.22.3
 	github.com/go-openapi/strfmt v0.26.1
 	github.com/go-openapi/swag v0.29.2
+	github.com/go-openapi/swag/cmdutils v0.29.2
+	github.com/go-openapi/swag/conv v0.29.2
+	github.com/go-openapi/swag/netutils v0.29.2
 	github.com/go-openapi/validate v0.25.1
 	github.com/golang-jwt/jwt/v4 v4.5.2
 	github.com/google/uuid v1.6.0
@@ -71,14 +74,11 @@ require (
 	github.com/go-openapi/analysis v0.24.2 // indirect
 	github.com/go-openapi/jsonpointer v1.0.1 // indirect
 	github.com/go-openapi/jsonreference v0.21.4 // indirect
-	github.com/go-openapi/swag/cmdutils v0.29.2 // indirect
-	github.com/go-openapi/swag/conv v0.29.2 // indirect
 	github.com/go-openapi/swag/fileutils v0.29.2 // indirect
 	github.com/go-openapi/swag/jsonname v0.25.5 // indirect
 	github.com/go-openapi/swag/jsonutils v0.29.2 // indirect
 	github.com/go-openapi/swag/loading v0.29.2 // indirect
 	github.com/go-openapi/swag/mangling v0.29.2 // indirect
-	github.com/go-openapi/swag/netutils v0.29.2 // indirect
 	github.com/go-openapi/swag/pools v0.29.2 // indirect
 	github.com/go-openapi/swag/stringutils v0.29.2 // indirect
 	github.com/go-openapi/swag/typeutils v0.29.2 // indirect

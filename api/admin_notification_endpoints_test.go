@@ -22,7 +22,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/go-openapi/swag"
+	"github.com/go-openapi/swag/conv"
 
 	cfgApi "github.com/minio/console/api/operations/configuration"
 	"github.com/minio/console/models"
@@ -51,7 +51,7 @@ func Test_addNotificationEndpoint(t *testing.T) {
 				params: &cfgApi.AddNotificationEndpointParams{
 					HTTPRequest: nil,
 					Body: &models.NotificationEndpoint{
-						AccountID: swag.String("1"),
+						AccountID: conv.Pointer("1"),
 						Properties: map[string]string{
 							"host":     "localhost",
 							"user":     "user",
@@ -65,7 +65,7 @@ func Test_addNotificationEndpoint(t *testing.T) {
 				return false, nil
 			},
 			want: &models.SetNotificationEndpointResponse{
-				AccountID: swag.String("1"),
+				AccountID: conv.Pointer("1"),
 				Properties: map[string]string{
 					"host":     "localhost",
 					"user":     "user",
@@ -84,7 +84,7 @@ func Test_addNotificationEndpoint(t *testing.T) {
 				params: &cfgApi.AddNotificationEndpointParams{
 					HTTPRequest: nil,
 					Body: &models.NotificationEndpoint{
-						AccountID: swag.String("1"),
+						AccountID: conv.Pointer("1"),
 						Properties: map[string]string{
 							"host":     "localhost",
 							"user":     "user",
@@ -108,7 +108,7 @@ func Test_addNotificationEndpoint(t *testing.T) {
 				params: &cfgApi.AddNotificationEndpointParams{
 					HTTPRequest: nil,
 					Body: &models.NotificationEndpoint{
-						AccountID: swag.String("1"),
+						AccountID: conv.Pointer("1"),
 						Properties: map[string]string{
 							"host":     "localhost",
 							"user":     "user",
@@ -122,7 +122,7 @@ func Test_addNotificationEndpoint(t *testing.T) {
 				return false, nil
 			},
 			want: &models.SetNotificationEndpointResponse{
-				AccountID: swag.String("1"),
+				AccountID: conv.Pointer("1"),
 				Properties: map[string]string{
 					"host":     "localhost",
 					"user":     "user",
@@ -141,7 +141,7 @@ func Test_addNotificationEndpoint(t *testing.T) {
 				params: &cfgApi.AddNotificationEndpointParams{
 					HTTPRequest: nil,
 					Body: &models.NotificationEndpoint{
-						AccountID: swag.String("1"),
+						AccountID: conv.Pointer("1"),
 						Properties: map[string]string{
 							"brokers": "http://localhost:8080/broker1",
 						},
@@ -153,7 +153,7 @@ func Test_addNotificationEndpoint(t *testing.T) {
 				return false, nil
 			},
 			want: &models.SetNotificationEndpointResponse{
-				AccountID: swag.String("1"),
+				AccountID: conv.Pointer("1"),
 				Properties: map[string]string{
 					"brokers": "http://localhost:8080/broker1",
 				},
@@ -170,7 +170,7 @@ func Test_addNotificationEndpoint(t *testing.T) {
 				params: &cfgApi.AddNotificationEndpointParams{
 					HTTPRequest: nil,
 					Body: &models.NotificationEndpoint{
-						AccountID: swag.String("1"),
+						AccountID: conv.Pointer("1"),
 						Properties: map[string]string{
 							"url": "http://localhost:8080/broker1",
 						},
@@ -182,7 +182,7 @@ func Test_addNotificationEndpoint(t *testing.T) {
 				return false, nil
 			},
 			want: &models.SetNotificationEndpointResponse{
-				AccountID: swag.String("1"),
+				AccountID: conv.Pointer("1"),
 				Properties: map[string]string{
 					"url": "http://localhost:8080/broker1",
 				},
@@ -199,7 +199,7 @@ func Test_addNotificationEndpoint(t *testing.T) {
 				params: &cfgApi.AddNotificationEndpointParams{
 					HTTPRequest: nil,
 					Body: &models.NotificationEndpoint{
-						AccountID: swag.String("1"),
+						AccountID: conv.Pointer("1"),
 						Properties: map[string]string{
 							"broker": "http://localhost:8080/broker1",
 							"topic":  "minio",
@@ -212,7 +212,7 @@ func Test_addNotificationEndpoint(t *testing.T) {
 				return false, nil
 			},
 			want: &models.SetNotificationEndpointResponse{
-				AccountID: swag.String("1"),
+				AccountID: conv.Pointer("1"),
 				Properties: map[string]string{
 					"broker": "http://localhost:8080/broker1",
 					"topic":  "minio",
@@ -230,7 +230,7 @@ func Test_addNotificationEndpoint(t *testing.T) {
 				params: &cfgApi.AddNotificationEndpointParams{
 					HTTPRequest: nil,
 					Body: &models.NotificationEndpoint{
-						AccountID: swag.String("1"),
+						AccountID: conv.Pointer("1"),
 						Properties: map[string]string{
 							"url":    "http://localhost:8080/broker1",
 							"index":  "minio",
@@ -244,7 +244,7 @@ func Test_addNotificationEndpoint(t *testing.T) {
 				return false, nil
 			},
 			want: &models.SetNotificationEndpointResponse{
-				AccountID: swag.String("1"),
+				AccountID: conv.Pointer("1"),
 				Properties: map[string]string{
 					"url":    "http://localhost:8080/broker1",
 					"index":  "minio",
@@ -263,7 +263,7 @@ func Test_addNotificationEndpoint(t *testing.T) {
 				params: &cfgApi.AddNotificationEndpointParams{
 					HTTPRequest: nil,
 					Body: &models.NotificationEndpoint{
-						AccountID: swag.String("1"),
+						AccountID: conv.Pointer("1"),
 						Properties: map[string]string{
 							"address": "http://localhost:8080/broker1",
 							"key":     "minio",
@@ -277,7 +277,7 @@ func Test_addNotificationEndpoint(t *testing.T) {
 				return false, nil
 			},
 			want: &models.SetNotificationEndpointResponse{
-				AccountID: swag.String("1"),
+				AccountID: conv.Pointer("1"),
 				Properties: map[string]string{
 					"address": "http://localhost:8080/broker1",
 					"key":     "minio",
@@ -296,7 +296,7 @@ func Test_addNotificationEndpoint(t *testing.T) {
 				params: &cfgApi.AddNotificationEndpointParams{
 					HTTPRequest: nil,
 					Body: &models.NotificationEndpoint{
-						AccountID: swag.String("1"),
+						AccountID: conv.Pointer("1"),
 						Properties: map[string]string{
 							"address": "http://localhost:8080/broker1",
 							"subject": "minio",
@@ -309,7 +309,7 @@ func Test_addNotificationEndpoint(t *testing.T) {
 				return false, nil
 			},
 			want: &models.SetNotificationEndpointResponse{
-				AccountID: swag.String("1"),
+				AccountID: conv.Pointer("1"),
 				Properties: map[string]string{
 					"address": "http://localhost:8080/broker1",
 					"subject": "minio",
@@ -327,7 +327,7 @@ func Test_addNotificationEndpoint(t *testing.T) {
 				params: &cfgApi.AddNotificationEndpointParams{
 					HTTPRequest: nil,
 					Body: &models.NotificationEndpoint{
-						AccountID: swag.String("1"),
+						AccountID: conv.Pointer("1"),
 						Properties: map[string]string{
 							"endpoint": "http://localhost:8080/broker1",
 						},
@@ -339,7 +339,7 @@ func Test_addNotificationEndpoint(t *testing.T) {
 				return false, nil
 			},
 			want: &models.SetNotificationEndpointResponse{
-				AccountID: swag.String("1"),
+				AccountID: conv.Pointer("1"),
 				Properties: map[string]string{
 					"endpoint": "http://localhost:8080/broker1",
 				},
@@ -356,7 +356,7 @@ func Test_addNotificationEndpoint(t *testing.T) {
 				params: &cfgApi.AddNotificationEndpointParams{
 					HTTPRequest: nil,
 					Body: &models.NotificationEndpoint{
-						AccountID: swag.String("1"),
+						AccountID: conv.Pointer("1"),
 						Properties: map[string]string{
 							"nsqd_address": "http://localhost:8080/broker1",
 							"topic":        "minio",
@@ -369,7 +369,7 @@ func Test_addNotificationEndpoint(t *testing.T) {
 				return false, nil
 			},
 			want: &models.SetNotificationEndpointResponse{
-				AccountID: swag.String("1"),
+				AccountID: conv.Pointer("1"),
 				Properties: map[string]string{
 					"nsqd_address": "http://localhost:8080/broker1",
 					"topic":        "minio",
@@ -387,7 +387,7 @@ func Test_addNotificationEndpoint(t *testing.T) {
 				params: &cfgApi.AddNotificationEndpointParams{
 					HTTPRequest: nil,
 					Body: &models.NotificationEndpoint{
-						AccountID: swag.String("1"),
+						AccountID: conv.Pointer("1"),
 						Properties: map[string]string{
 							"host":     "localhost",
 							"user":     "user",
@@ -411,7 +411,7 @@ func Test_addNotificationEndpoint(t *testing.T) {
 				params: &cfgApi.AddNotificationEndpointParams{
 					HTTPRequest: nil,
 					Body: &models.NotificationEndpoint{
-						AccountID: swag.String("1"),
+						AccountID: conv.Pointer("1"),
 						Properties: map[string]string{
 							"host":     "localhost",
 							"user":     "user",
@@ -425,7 +425,7 @@ func Test_addNotificationEndpoint(t *testing.T) {
 				return true, nil
 			},
 			want: &models.SetNotificationEndpointResponse{
-				AccountID: swag.String("1"),
+				AccountID: conv.Pointer("1"),
 				Properties: map[string]string{
 					"host":     "localhost",
 					"user":     "user",
