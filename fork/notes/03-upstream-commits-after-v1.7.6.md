@@ -30,7 +30,7 @@ How taken commits are applied:
 | 3 | `33a7fbb` | Fix regex pattern in webhook management | **taken**, #5 (step 1.2) |
 | 4 | `63c6d89` | Implemented AGPL MinIO Object Browser simplified Console | **not taken**: the removal this fork reverses |
 | 5 | `71b1b70` | Clean-up after PR 3509 | not taken: removes admin APIs left after #4 |
-| 6 | `6499469` | Update jwt package | step 1.6 (Go modules); applies cleanly |
+| 6 | `6499469` | Update jwt package | **taken**, #26 (step 1.6): jwt/v4 4.5.1 → 4.5.2, govulncheck 13 → 12 |
 | 7 | `f5ad4de` | Updated Packages & versions | superseded by step 1.5 |
 | 8 | `ff2b72f` | Bump http-proxy-middleware 2.0.7 → 2.0.9 | **taken**, #9 |
 | 9 | `6df2db8` | Bump formidable 3.5.2 → 3.5.4 | **taken**, #9, with our Jest setup fix (note 04) |
