@@ -9,6 +9,11 @@ on:
 permissions:
   contents: read # to fetch code (actions/checkout)
 
+# Node 25+ no longer ships corepack; every job installs this pinned version
+# after setup-node and enables yarn (packageManager in web-app/package.json).
+env:
+  COREPACK_VERSION: "0.36.0"
+
 jobs:
   vulncheck:
     name: Analysis
@@ -41,11 +46,11 @@ jobs:
       - name: Read .nvmrc
         id: node_version
         run: echo "$(cat .nvmrc)" && echo "NVMRC=$(cat .nvmrc)" >> $GITHUB_ENV
-      - name: Enable Corepack
-        run: corepack enable
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NVMRC }}
+      - name: Enable Corepack
+        run: npm install -g "corepack@$COREPACK_VERSION" && corepack enable
       - name: Checks for known security issues with the installed packages
         working-directory: ./web-app
         continue-on-error: false

@@ -21,6 +21,11 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref }}
   cancel-in-progress: true
 
+# Node 25+ no longer ships corepack; every job installs this pinned version
+# after setup-node and enables yarn (packageManager in web-app/package.json).
+env:
+  COREPACK_VERSION: "0.36.0"
+
 jobs:
   bundle:
     name: Bundle matches sources
@@ -40,7 +45,7 @@ jobs:
         with:
           node-version: ${{ env.NVMRC }}
       - name: Enable Corepack
-        run: corepack enable
+        run: npm install -g "corepack@$COREPACK_VERSION" && corepack enable
       - name: Install modules
         working-directory: ./web-app
         run: yarn install --immutable

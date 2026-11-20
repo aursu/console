@@ -16,6 +16,11 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref }}
   cancel-in-progress: true
 
+# Node 25+ no longer ships corepack; every job installs this pinned version
+# after setup-node and enables yarn (packageManager in web-app/package.json).
+env:
+  COREPACK_VERSION: "0.36.0"
+
 jobs:
   lint-job:
     name: Checking Lint
@@ -72,13 +77,11 @@ jobs:
       - name: Read .nvmrc
         id: node_version
         run: echo "$(cat .nvmrc)" && echo "NVMRC=$(cat .nvmrc)" >> $GITHUB_ENV
-      - name: Enable Corepack
-        run: corepack enable
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NVMRC }}
-          cache: "yarn"
-          cache-dependency-path: web-app/yarn.lock
+      - name: Enable Corepack
+        run: npm install -g "corepack@$COREPACK_VERSION" && corepack enable
       - uses: actions/cache@v4
         id: assets-cache
         name: Assets Cache
@@ -198,11 +201,11 @@ jobs:
       - name: Read .nvmrc
         id: node_version
         run: echo "$(cat .nvmrc)" && echo "NVMRC=$(cat .nvmrc)" >> $GITHUB_ENV
-      - name: Enable Corepack
-        run: corepack enable
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NVMRC }}
+      - name: Enable Corepack
+        run: npm install -g "corepack@$COREPACK_VERSION" && corepack enable
       - name: Install MinIO JS
         working-directory: ./
         continue-on-error: false
@@ -252,11 +255,11 @@ jobs:
       - name: Read .nvmrc
         id: node_version
         run: echo "$(cat .nvmrc)" && echo "NVMRC=$(cat .nvmrc)" >> $GITHUB_ENV
-      - name: Enable Corepack
-        run: corepack enable
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NVMRC }}
+      - name: Enable Corepack
+        run: npm install -g "corepack@$COREPACK_VERSION" && corepack enable
       - name: Install MinIO JS
         working-directory: ./
         continue-on-error: false
@@ -305,11 +308,11 @@ jobs:
       - name: Read .nvmrc
         id: node_version
         run: echo "$(cat .nvmrc)" && echo "NVMRC=$(cat .nvmrc)" >> $GITHUB_ENV
-      - name: Enable Corepack
-        run: corepack enable
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NVMRC }}
+      - name: Enable Corepack
+        run: npm install -g "corepack@$COREPACK_VERSION" && corepack enable
       - name: Install MinIO JS
         working-directory: ./
         continue-on-error: false
@@ -357,11 +360,11 @@ jobs:
       - name: Read .nvmrc
         id: node_version
         run: echo "$(cat .nvmrc)" && echo "NVMRC=$(cat .nvmrc)" >> $GITHUB_ENV
-      - name: Enable Corepack
-        run: corepack enable
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NVMRC }}
+      - name: Enable Corepack
+        run: npm install -g "corepack@$COREPACK_VERSION" && corepack enable
       - name: Install MinIO JS
         working-directory: ./
         continue-on-error: false
@@ -409,11 +412,11 @@ jobs:
       - name: Read .nvmrc
         id: node_version
         run: echo "$(cat .nvmrc)" && echo "NVMRC=$(cat .nvmrc)" >> $GITHUB_ENV
-      - name: Enable Corepack
-        run: corepack enable
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NVMRC }}
+      - name: Enable Corepack
+        run: npm install -g "corepack@$COREPACK_VERSION" && corepack enable
       - name: Install MinIO JS
         working-directory: ./
         continue-on-error: false
@@ -457,11 +460,11 @@ jobs:
       - name: Read .nvmrc
         id: node_version
         run: echo "$(cat .nvmrc)" && echo "NVMRC=$(cat .nvmrc)" >> $GITHUB_ENV
-      - name: Enable Corepack
-        run: corepack enable
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NVMRC }}
+      - name: Enable Corepack
+        run: npm install -g "corepack@$COREPACK_VERSION" && corepack enable
       - name: Install MinIO JS
         working-directory: ./
         continue-on-error: false
@@ -505,11 +508,11 @@ jobs:
       - name: Read .nvmrc
         id: node_version
         run: echo "$(cat .nvmrc)" && echo "NVMRC=$(cat .nvmrc)" >> $GITHUB_ENV
-      - name: Enable Corepack
-        run: corepack enable
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NVMRC }}
+      - name: Enable Corepack
+        run: npm install -g "corepack@$COREPACK_VERSION" && corepack enable
       - name: Install MinIO JS
         working-directory: ./
         continue-on-error: false
@@ -553,11 +556,11 @@ jobs:
       - name: Read .nvmrc
         id: node_version
         run: echo "$(cat .nvmrc)" && echo "NVMRC=$(cat .nvmrc)" >> $GITHUB_ENV
-      - name: Enable Corepack
-        run: corepack enable
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NVMRC }}
+      - name: Enable Corepack
+        run: npm install -g "corepack@$COREPACK_VERSION" && corepack enable
       - name: Install MinIO JS
         working-directory: ./
         continue-on-error: false
@@ -604,11 +607,11 @@ jobs:
       - name: Read .nvmrc
         id: node_version
         run: echo "$(cat .nvmrc)" && echo "NVMRC=$(cat .nvmrc)" >> $GITHUB_ENV
-      - name: Enable Corepack
-        run: corepack enable
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NVMRC }}
+      - name: Enable Corepack
+        run: npm install -g "corepack@$COREPACK_VERSION" && corepack enable
       - name: Install MinIO JS
         working-directory: ./
         continue-on-error: false
@@ -803,7 +806,7 @@ jobs:
         with:
           node-version: ${{ env.NVMRC }}
       - name: Enable Corepack
-        run: corepack enable
+        run: npm install -g "corepack@$COREPACK_VERSION" && corepack enable
       - name: Install modules
         working-directory: ./web-app
         run: yarn install --immutable
@@ -996,13 +999,11 @@ jobs:
       - name: Read .nvmrc
         id: node_version
         run: echo "$(cat .nvmrc)" && echo "NVMRC=$(cat .nvmrc)" >> $GITHUB_ENV
-      - name: Enable Corepack
-        run: corepack enable
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NVMRC }}
-          cache: "yarn"
-          cache-dependency-path: web-app/yarn.lock
+      - name: Enable Corepack
+        run: npm install -g "corepack@$COREPACK_VERSION" && corepack enable
       - uses: actions/cache@v4
         id: assets-cache-istanbul-coverage
         name: Assets Cache Istanbul Coverage
@@ -1207,11 +1208,13 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v3
-      - name: Enable Corepack
-        run: corepack enable
+      - name: Read .nvmrc
+        run: echo "NVMRC=$(cat .nvmrc)" >> "$GITHUB_ENV"
       - uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: ${{ env.NVMRC }}
+      - name: Enable Corepack
+        run: npm install -g "corepack@$COREPACK_VERSION" && corepack enable
 
       # Everything the job needs (@playwright/test, nyc, babel-plugin-istanbul,
       # react-app-rewired) is in package.json and yarn.lock. Adding them
