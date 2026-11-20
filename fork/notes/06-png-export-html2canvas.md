@@ -1,8 +1,9 @@
 # 06 — Widget PNG export through html2canvas; react-component-export-image removed
 
 Date: 2026-11-20. PR: aursu/console#13. Plan step 1.5 (aursu/minio
-`fork/reports/04-plan-final-build.md`), first PR of the step. The approach was
-chosen by the project owner from three options (below).
+`fork/reports/04-plan-final-build.md`), first PR of the step. Three options
+were considered (below); `html2canvas` directly was the recommendation, and
+the project owner accepted it.
 
 ## The problem
 
@@ -29,17 +30,40 @@ its own copies of `html2canvas` and **jsPDF 1.5.3**, and it declares
 Upstream removed the package in `63c6d89` together with the whole dashboard.
 The full console keeps the dashboard, so the fix is ours.
 
-## The options and the choice
+## The options, and why `html2canvas` directly was recommended
 
 | Option | Effect |
 |---|---|
-| **`html2canvas` directly** (chosen) | same renderer as now, already in the bundle (1.4.1), no advisories in any version; about 25 lines of our code |
+| **`html2canvas` directly** (recommended, accepted) | same renderer as now, already in the bundle (1.4.1), no advisories in any version; about 25 lines of our code |
 | `html-to-image` | maintained, also no advisories, but a different renderer (SVG `foreignObject`), so the PNG may look different, and a new dependency in the bundle |
 | drop the PNG option | least code, but removes a feature of the full console |
 
-`html2canvas`'s last release is 1.4.1 (2022). That is a risk to watch, not a
-present problem: it has no known advisories, and it is what renders the PNG
-today.
+Why `html2canvas` directly:
+
+- **Nothing the user sees changes.** The PNG has always been drawn by
+  `html2canvas`; the package only wrapped it. The only part removed is a
+  PDF path that was never used.
+  - `html-to-image` works differently. It serialises the DOM into SVG
+    `<foreignObject>` and rasterises that, so web fonts, external CSS, inner
+    SVG (the widgets are recharts SVG) and Safari's handling of
+    `foreignObject` can all give a different image.
+  - That difference would have to be checked visually on a live dashboard
+    with Prometheus data, which this project cannot test.
+- **No new code enters the supply chain.** `html2canvas` 1.4.1 is already in
+  the bundle and the lockfile. The change only removes packages.
+  `html-to-image` would be a new dependency in code shipped to browsers.
+- **The full console keeps its feature.** Restoring the full console is the
+  purpose of this fork, so removing a working feature to fix a dependency
+  problem goes against it.
+- **The attack surface is small.** `html2canvas` runs only when a user
+  clicks the download button, and only on the console's own DOM. It never
+  sees untrusted input.
+
+The cost: `html2canvas` has not been released since 1.4.1 (2022). That is a
+risk to watch, not a present problem; no advisories are known in any
+version. If one appears, `html-to-image` is the fallback. The call sits in
+one file (`exportElementAsPNG.ts`), so switching means changing that file and
+its test.
 
 ## What changed
 
