@@ -302,7 +302,9 @@ func (ac AdminClient) addServiceAccount(ctx context.Context, policy string, user
 		Name:        name,
 		Description: description,
 		Expiration:  expiry,
-		Comment:     comment,
+		// Deprecated in madmin in favor of Description, but still a separate
+		// field of the console API (both are sent); kept for that reason.
+		Comment: comment, //nolint:staticcheck // SA1019, see above
 	})
 }
 

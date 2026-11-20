@@ -41,7 +41,6 @@ func getUpdateTransport(timeout time.Duration) http.RoundTripper {
 		DialContext: (&net.Dialer{
 			Timeout:   timeout,
 			KeepAlive: timeout,
-			DualStack: true,
 		}).DialContext,
 		IdleConnTimeout:       timeout,
 		TLSHandshakeTimeout:   timeout,
