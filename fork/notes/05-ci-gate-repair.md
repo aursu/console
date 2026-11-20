@@ -160,3 +160,32 @@ Each has its own cause, and #11 fixes each in its own commit:
 
 - The permissions jobs still `yarn add minio` at the repository root
   unpinned. That step works today; it moves to the lockfile with step 1.5.
+
+## Test tools pinned (#20, step 1.5)
+
+Both items left open above are closed:
+
+- **`minio` JS (permissions jobs).**
+  - The repository root has no `package.json`, so corepack runs yarn
+    classic 1.22.22 there, and `yarn add minio` installed the newest
+    release, 8.0.7 on 2026-11-20.
+  - The tests use it in `web-app/tests/utils/functions.ts`.
+  - It is now `yarn add "minio@$MINIO_JS_VERSION"`, with 8.0.7, the
+    version that passes today.
+- **TestCafe.**
+  - CI installs `testcafe@$TESTCAFE_VERSION` (3.7.7), and
+    `web-app/package.json` now lists 3.7.7 too (it was 3.6.2), so a
+    local run uses the same version as CI.
+  - The lockfile changes only for testcafe and what it pulls in.
+
+Both versions are defined once, in the `env` block at the top of
+`jobs.yaml`, next to `COREPACK_VERSION`.
+
+**Why not move `minio` into `web-app`'s lockfile.** The permissions jobs do
+not install `web-app`'s dependencies at all. That takes minutes per job,
+across nine jobs, for a single test helper. An exact pin gives the same
+reproducibility.
+
+Checked: `yarn install --immutable` ok; `yarn test` 41/41; prettier and
+dead-code checks ok; bundle unchanged; production audit unchanged;
+actionlint shows no new findings.
