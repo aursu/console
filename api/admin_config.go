@@ -23,7 +23,7 @@ import (
 	"strings"
 
 	"github.com/go-openapi/runtime/middleware"
-	"github.com/go-openapi/swag"
+	"github.com/go-openapi/swag/conv"
 	"github.com/minio/console/api/operations"
 	"github.com/minio/console/models"
 	madmin "github.com/minio/madmin-go/v3"
@@ -204,7 +204,7 @@ func setConfigWithARNAccountID(ctx context.Context, client MinioAdmin, configNam
 	// arnAccountID will be used as an identifier for that specific target
 	// docs: https://min.io/docs/minio/linux/administration/monitoring/bucket-notifications.html
 	if arnAccountID != "" {
-		configName = swag.String(fmt.Sprintf("%s:%s", *configName, arnAccountID))
+		configName = conv.Pointer(fmt.Sprintf("%s:%s", *configName, arnAccountID))
 	}
 	return setConfig(ctx, client, configName, kvs)
 }

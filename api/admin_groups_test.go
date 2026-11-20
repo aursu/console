@@ -22,7 +22,7 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/go-openapi/swag"
+	"github.com/go-openapi/swag/conv"
 	"github.com/minio/console/models"
 	"github.com/minio/madmin-go/v3"
 	"github.com/stretchr/testify/assert"
@@ -208,7 +208,7 @@ func TestUpdateGroup(t *testing.T) {
 	membersDesired = []string{"user1", "user2", "user3"}
 	expectedGroupUpdate := &models.UpdateGroupRequest{
 		Members: membersDesired,
-		Status:  swag.String("disabled"),
+		Status:  conv.Pointer("disabled"),
 	}
 	mockResponseBeforeUpdate := &madmin.GroupDesc{
 		Name:    groupName,

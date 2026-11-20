@@ -29,7 +29,7 @@ import (
 	"github.com/minio/madmin-go/v3"
 
 	"github.com/go-openapi/runtime/middleware"
-	"github.com/go-openapi/swag"
+	"github.com/go-openapi/swag/conv"
 	"github.com/minio/console/api/operations"
 	bucketApi "github.com/minio/console/api/operations/bucket"
 	"github.com/minio/console/models"
@@ -204,11 +204,11 @@ func listRemoteBuckets(ctx context.Context, client MinioAdmin) (*models.ListRemo
 	}
 	for _, bucket := range buckets {
 		remoteBucket := &models.RemoteBucket{
-			AccessKey:         swag.String(bucket.Credentials.AccessKey),
-			RemoteARN:         swag.String(bucket.Arn),
+			AccessKey:         conv.Pointer(bucket.Credentials.AccessKey),
+			RemoteARN:         conv.Pointer(bucket.Arn),
 			SecretKey:         bucket.Credentials.SecretKey,
 			Service:           "replication",
-			SourceBucket:      swag.String(bucket.SourceBucket),
+			SourceBucket:      conv.Pointer(bucket.SourceBucket),
 			Status:            "",
 			TargetBucket:      bucket.TargetBucket,
 			TargetURL:         bucket.Endpoint,

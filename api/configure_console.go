@@ -51,7 +51,7 @@ import (
 	xnet "github.com/minio/pkg/v3/net"
 
 	"github.com/go-openapi/errors"
-	"github.com/go-openapi/swag"
+	"github.com/go-openapi/swag/cmdutils"
 	"github.com/minio/console/api/operations"
 	"github.com/minio/console/models"
 	"github.com/minio/console/pkg/auth"
@@ -74,7 +74,7 @@ var (
 )
 
 func configureFlags(api *operations.ConsoleAPI) {
-	api.CommandLineOptionsGroups = []swag.CommandLineOptionsGroup{
+	api.CommandLineOptionsGroups = []cmdutils.CommandLineOptionsGroup{
 		{
 			ShortDescription: "additional server flags",
 			Options:          &additionalServerFlags,

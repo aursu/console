@@ -26,7 +26,7 @@ import (
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/runtime/middleware"
-	"github.com/go-openapi/swag"
+	"github.com/go-openapi/swag/conv"
 	"github.com/minio/console/api/operations"
 	"github.com/minio/console/api/operations/public"
 	xnet "github.com/minio/pkg/v3/net"
@@ -108,7 +108,7 @@ func decodeMinIOStringURL(inputURL string) (*string, error) {
 	if parsedURL.Host != minIOHost {
 		return nil, ErrForbidden
 	}
-	return swag.String(string(decodedURL)), nil
+	return conv.Pointer(string(decodedURL)), nil
 }
 
 func url2BucketAndObject(u *url.URL) (bucketName, objectName string) {

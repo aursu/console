@@ -21,7 +21,7 @@ import (
 	"strings"
 
 	"github.com/go-openapi/runtime/middleware"
-	"github.com/go-openapi/swag"
+	"github.com/go-openapi/swag/conv"
 	"github.com/minio/console/api/operations"
 	bucketApi "github.com/minio/console/api/operations/bucket"
 	"github.com/minio/console/models"
@@ -108,7 +108,7 @@ func listBucketEvents(client MinioClient, bucketName string) ([]*models.Notifica
 		prefix, suffix := getFilters(embed.Config)
 		configs = append(configs, &models.NotificationConfig{
 			ID:     embed.ID,
-			Arn:    swag.String(embed.Topic),
+			Arn:    conv.Pointer(embed.Topic),
 			Events: prettyEventNames(embed.Events),
 			Prefix: prefix,
 			Suffix: suffix,
@@ -118,7 +118,7 @@ func listBucketEvents(client MinioClient, bucketName string) ([]*models.Notifica
 		prefix, suffix := getFilters(embed.Config)
 		configs = append(configs, &models.NotificationConfig{
 			ID:     embed.ID,
-			Arn:    swag.String(embed.Queue),
+			Arn:    conv.Pointer(embed.Queue),
 			Events: prettyEventNames(embed.Events),
 			Prefix: prefix,
 			Suffix: suffix,
@@ -128,7 +128,7 @@ func listBucketEvents(client MinioClient, bucketName string) ([]*models.Notifica
 		prefix, suffix := getFilters(embed.Config)
 		configs = append(configs, &models.NotificationConfig{
 			ID:     embed.ID,
-			Arn:    swag.String(embed.Lambda),
+			Arn:    conv.Pointer(embed.Lambda),
 			Events: prettyEventNames(embed.Events),
 			Prefix: prefix,
 			Suffix: suffix,

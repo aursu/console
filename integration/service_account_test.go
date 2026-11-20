@@ -26,7 +26,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/go-openapi/swag"
+	"github.com/go-openapi/swag/conv"
 
 	"github.com/stretchr/testify/assert"
 )
@@ -136,7 +136,7 @@ func Test_ServiceAccountsAPI(t *testing.T) {
 			name: "Create Service Account - Valid Policy",
 			args: args{
 				api: "/service-accounts",
-				policy: swag.String(`
+				policy: conv.Pointer(`
   {
   "Version": "2012-10-17",
   "Statement": [
@@ -160,7 +160,7 @@ func Test_ServiceAccountsAPI(t *testing.T) {
 			name: "Create Service Account - Invalid Policy",
 			args: args{
 				api: "/service-accounts",
-				policy: swag.String(`
+				policy: conv.Pointer(`
   {
   "Version": "2012-10-17",
   "Statement": [
