@@ -16,7 +16,7 @@
 
 import React, { useEffect, useState } from "react";
 import { AddIcon, Button, DataTable, Grid, PageLayout, RefreshIcon } from "mds";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import api from "../../../common/api";
 import {
   hasPermission,

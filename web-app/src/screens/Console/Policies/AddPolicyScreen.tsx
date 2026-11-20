@@ -31,7 +31,7 @@ import PageHeaderWrapper from "../Common/PageHeaderWrapper/PageHeaderWrapper";
 import HelpMenu from "../HelpMenu";
 import { IAM_PAGES } from "../../../common/SecureComponent/permissions";
 import { setErrorSnackMessage, setHelpName } from "../../../systemSlice";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { useAppDispatch } from "../../../store";
 import { emptyPolicy } from "./utils";
 import { api } from "../../../api";

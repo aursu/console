@@ -24,7 +24,7 @@ import {
   IAMPoliciesIcon,
   PageLayout,
 } from "mds";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { actionsTray } from "../Common/FormComponents/common/styleLibrary";
 import { ErrorResponseHandler } from "../../../common/types";
 import {

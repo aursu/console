@@ -16,7 +16,7 @@
 
 import React, { Fragment, useEffect, useState } from "react";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import api from "../../common/api";
 import { baseUrl } from "../../history";
 import { Box, Button, LoginWrapper, WarnIcon } from "mds";

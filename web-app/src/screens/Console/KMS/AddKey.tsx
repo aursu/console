@@ -16,7 +16,7 @@
 
 import React, { Fragment, useEffect } from "react";
 import { BackLink, Grid } from "mds";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { IAM_PAGES } from "../../../common/SecureComponent/permissions";
 import { useAppDispatch } from "../../../store";
 import AddKeyForm from "./AddKeyForm";

@@ -18,7 +18,7 @@ import React, { Fragment, useEffect, useState } from "react";
 import styled from "styled-components";
 import get from "lodash/get";
 
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import {
   BackLink,
   Box,

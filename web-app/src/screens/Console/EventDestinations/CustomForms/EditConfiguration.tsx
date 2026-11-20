@@ -17,7 +17,7 @@
 import React, { Fragment, useCallback, useEffect, useState } from "react";
 import get from "lodash/get";
 import { Box, Button, Grid, Loader } from "mds";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router";
 import { useSelector } from "react-redux";
 import { api } from "api";
 import { Configuration, ConfigurationKV } from "api/consoleApi";

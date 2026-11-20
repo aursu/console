@@ -28,7 +28,7 @@ import AutoColorIcon from "../Common/Components/AutoColorIcon";
 import { useSelector } from "react-redux";
 import { selFeatures } from "../consoleSlice";
 import hasPermission from "../../../common/SecureComponent/accessControl";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import SearchBox from "../Common/SearchBox";
 import { setSearchVersions } from "./objectBrowserSlice";
 import { AppState, useAppDispatch } from "../../../store";

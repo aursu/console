@@ -16,7 +16,7 @@
 
 import React, { Fragment, useCallback, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router";
 import { api } from "api";
 import { AppState, useAppDispatch } from "../../../../store";
 import { IAM_SCOPES } from "../../../../common/SecureComponent/permissions";

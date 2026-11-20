@@ -16,7 +16,7 @@
 
 import React, { Fragment, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router";
 import { DataTable, SectionTitle, Tabs, HelpTip } from "mds";
 import { api } from "api";
 import { errorToHandler } from "api/errors";

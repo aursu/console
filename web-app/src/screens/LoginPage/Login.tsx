@@ -15,7 +15,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import React, { Fragment, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { Box, Button, Loader, LoginWrapper, RefreshIcon } from "mds";
 import { loginStrategyType } from "./login.types";
 import MainError from "../Console/Common/MainError/MainError";

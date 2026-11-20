@@ -17,7 +17,7 @@
 import React, { Fragment, useCallback, useEffect, useState } from "react";
 import get from "lodash/get";
 import { BackLink, Button, FormLayout, Grid, InputBox, PageLayout } from "mds";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router";
 import { api } from "api";
 import { errorToHandler } from "api/errors";
 import {

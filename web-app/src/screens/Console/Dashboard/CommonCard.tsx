@@ -18,7 +18,7 @@ import React, { Fragment } from "react";
 import styled from "styled-components";
 import get from "lodash/get";
 import { Box } from "mds";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { widgetCommon } from "../Common/FormComponents/common/styleLibrary";
 
 interface ISubInterface {

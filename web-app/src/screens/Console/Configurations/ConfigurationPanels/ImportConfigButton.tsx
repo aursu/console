@@ -23,7 +23,7 @@ import {
 } from "../../../../systemSlice";
 import TooltipWrapper from "../../Common/TooltipWrapper/TooltipWrapper";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { AppState } from "../../../../store";
 
 const ImportConfigButton = () => {

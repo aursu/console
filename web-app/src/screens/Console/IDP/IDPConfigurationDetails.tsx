@@ -35,7 +35,7 @@ import {
   ValuePair,
   WarnIcon,
 } from "mds";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router";
 import { modalStyleUtils } from "../Common/FormComponents/common/styleLibrary";
 import { useAppDispatch } from "../../../store";
 import {

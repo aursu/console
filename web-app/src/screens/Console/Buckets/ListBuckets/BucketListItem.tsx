@@ -16,7 +16,7 @@
 import React, { Fragment, useState } from "react";
 import get from "lodash/get";
 import styled from "styled-components";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router";
 import {
   Box,
   breakPoints,

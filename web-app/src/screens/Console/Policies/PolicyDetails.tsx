@@ -16,7 +16,7 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { IAMPolicy, IAMStatement } from "./types";
 import { useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router";
 import {
   BackLink,
   Box,

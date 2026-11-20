@@ -28,7 +28,7 @@ import { createUserAsync, resetFormAsync } from "./thunk/AddUsersThunk";
 import { modalStyleUtils } from "../Common/FormComponents/common/styleLibrary";
 
 import { IAM_PAGES } from "../../../common/SecureComponent/permissions";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { setErrorSnackMessage, setHelpName } from "../../../systemSlice";
 import { AppState, useAppDispatch } from "../../../store";
 import { useSelector } from "react-redux";

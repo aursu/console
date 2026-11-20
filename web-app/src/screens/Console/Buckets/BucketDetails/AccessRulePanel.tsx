@@ -17,7 +17,7 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { AddIcon, Button, DataTable, SectionTitle, HelpTip } from "mds";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 import { api } from "api";
 import { AccessRule as IAccessRule } from "api/consoleApi";
 import { errorToHandler } from "api/errors";
