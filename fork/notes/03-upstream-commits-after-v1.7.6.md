@@ -34,7 +34,7 @@ How taken commits are applied:
 | 7 | `f5ad4de` | Updated Packages & versions | superseded by step 1.5 |
 | 8 | `ff2b72f` | Bump http-proxy-middleware 2.0.7 → 2.0.9 | **taken**, #9 |
 | 9 | `6df2db8` | Bump formidable 3.5.2 → 3.5.4 | **taken**, #9, with our Jest setup fix (note 04) |
-| 10 | `28b0801` | Fixed vulnerabilities in go packages | step 1.6 (conflicts in `go.mod`) |
+| 10 | `28b0801` | Fixed vulnerabilities in go packages | superseded by #27 (step 1.6): its x/net 0.38 is still vulnerable; x/net 0.60.0 instead, and its vulncheck Go pin by #23 |
 | 11 | `40c4ce7` | License Comparisson updates | not taken: commercial licence comparison page |
 | 12 | `ee974a5` | Release v2.0.0 | not taken: release commit of the simplified line |
 | 13 | `e2bbf91` | Vacuum Swagger | not taken: removes ~24k lines of API (admin) |
