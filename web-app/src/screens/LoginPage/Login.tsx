@@ -28,18 +28,9 @@ import { getLogoApplicationVariant, getLogoVar } from "../../config";
 import { RedirectRule } from "api/consoleApi";
 import { redirectRules } from "./login.utils";
 import { setHelpName } from "../../systemSlice";
+import { takeRedirectPath } from "./redirectPath";
 
-export const getTargetPath = () => {
-  let targetPath = "/browser";
-  if (
-    localStorage.getItem("redirect-path") &&
-    localStorage.getItem("redirect-path") !== ""
-  ) {
-    targetPath = `${localStorage.getItem("redirect-path")}`;
-    localStorage.setItem("redirect-path", "");
-  }
-  return targetPath;
-};
+export const getTargetPath = () => takeRedirectPath("/browser");
 
 const Login = () => {
   const dispatch = useAppDispatch();
