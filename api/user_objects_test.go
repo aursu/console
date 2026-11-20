@@ -1072,7 +1072,9 @@ func Test_shareObject(t *testing.T) {
 			}
 			url, err := getShareObjectURL(ctx, client, tt.args.r, tt.args.versionID, tt.args.expires)
 			if tt.wantError != nil {
-				if !reflect.DeepEqual(err, tt.wantError) {
+				// Compare messages: since Go 1.27, time.ParseDuration returns its own
+				// error type, which is not DeepEqual to errors.New with the same text.
+				if err == nil || err.Error() != tt.wantError.Error() {
 					t.Errorf("getShareObjectURL() error: `%s`, wantErr: `%s`", err, tt.wantError)
 					return
 				}
