@@ -19,9 +19,10 @@ console:
 	@echo "Building Console binary to './console'"
 	@(GO111MODULE=on CGO_ENABLED=0 go build -trimpath --tags=kqueue --ldflags "-s -w" -o console ./cmd/console)
 
-# Pinned to the last v1 release: .golangci.yml is in the v1 format, which
-# golangci-lint v2 rejects, and install.sh from master installs the newest v2.
-GOLANGCI_VERSION ?= v1.64.8
+# golangci-lint refuses to analyse a module that targets a newer Go than the
+# one it was built with. v2.15.0 is built with Go 1.27, matching go.mod's
+# toolchain; .golangci.yml is in the v2 format (golangci-lint migrate).
+GOLANGCI_VERSION ?= v2.15.0
 
 getdeps:
 	@mkdir -p ${GOPATH}/bin
