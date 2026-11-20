@@ -48,7 +48,7 @@ How taken commits are applied:
 | 21 | `e479c7b` | Decreased Browser direct download threshold to 5GiB | **taken**, #7 |
 | 22 | `7e5f4f3` | Fixed UI security issues and updated project dependencies | superseded by step 1.5 (dependency bumps only) |
 | 23 | `6aee1e0` | Privacy policy | not taken: text in the commercial licence consent modal |
-| 24 | `40bee68` | Fixed Search bucket input interaction | **pending**: needs `mds` 1.1.4 (we ship 1.0.4) |
+| 24 | `40bee68` | Fixed Search bucket input interaction | not taken: fixes the simplified console's sidebar filter, which the full console does not have (see below) |
 | 25 | `2595faf` | Release v2.0.2 | not taken: release commit |
 | 26 | `7d96079` | License modal improvements | not taken: licence modal + dependency bumps |
 | 27 | `3d6c4cb` | Release v2.0.3 | not taken: release commit |
@@ -102,14 +102,39 @@ The fix is ours, see note 04.
 the dashboard; the full console keeps both. Removing the shipped jsPDF 1.5.3
 is our own change, in step 1.5.
 
-## `40bee68` — pending
+## `40bee68` — not taken, nothing to reimplement
 
-"Fixed Search bucket input interaction" changes `BucketFiltering.tsx` and
-`BucketsListing.tsx`, and bumps `mds` from 1.1.3 to 1.1.4. The 1.1.x line of
-the design system belongs to the simplified console; this tree uses `mds`
-1.0.4. Before taking it, it has to be checked whether the fix needs 1.1.x
-components. If it does, it is reimplemented against 1.0.4 as our own commit,
-crediting `40bee68`.
+Decided 2026-11-20. "Fixed Search bucket input interaction" changes
+`Menu/Listing/BucketFiltering.tsx` and `Menu/Listing/BucketsListing.tsx`, and
+bumps `mds` from 1.1.3 to 1.1.4.
+
+**What it fixes.** `63c6d89`, the simplified console, replaced the full
+console's navigation with a left sidebar that lists buckets and has a
+filter input on top. With the sidebar collapsed, that input was hidden and
+could not be used. The fix:
+
+- adds a search icon to the collapsed sidebar, which expands the sidebar and
+  focuses the input;
+- hides the "No Results" box while the sidebar is collapsed.
+
+The bump to `mds` 1.1.4 is for the `ref` on `InputBox` that the focus needs.
+
+**Why it does not apply here.**
+
+- `Menu/Listing/` does not exist in this tree. Upstream created both files
+  in `63c6d89`, and they were never part of v1.7.6.
+- The full console filters buckets on the page, not in the sidebar: a
+  `SearchBox` in the action bar of `Buckets/ListBuckets/ListBuckets.tsx` and
+  of `ObjectBrowser/OBBucketList.tsx`, with local state. It is visible
+  whatever the sidebar's state, so the bug cannot occur.
+- Nothing else in the commit is a fix for code we ship, and nothing here
+  needs `mds` 1.1.x.
+
+With this, every one of the 31 commits has a final decision. Still to do
+from this table:
+
+- the dependency snapshots, superseded by step 1.5;
+- `6499469` and `28b0801`, the Go modules, in step 1.6.
 
 ## Readable diff: a limitation seen here
 
