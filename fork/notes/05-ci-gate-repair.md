@@ -189,3 +189,26 @@ reproducibility.
 Checked: `yarn install --immutable` ok; `yarn test` 41/41; prettier and
 dead-code checks ok; bundle unchanged; production audit unchanged;
 actionlint shows no new findings.
+
+## TestCafe browser start-up (#25)
+
+"Cannot establish one or more browser connections" (1 of 3 browsers) hit
+4 times by 2026-11-20:
+
+- #20 Permissions Part 2;
+- #24 Subpath, twice;
+- #24 Permissions Part 1.
+
+Each time the runner image and the `nginx:latest` digest were identical to
+those of a passing run, so it was not drift in the environment. All four
+were in jobs that start **three Firefox instances at once** (`-c 3`); the
+jobs without `-c` never failed. TestCafe's default limit for a local
+browser to start is 2 minutes.
+
+- Every TestCafe call gets `--browser-init-timeout 360000` (6 minutes).
+- Subpath loses `-c 3`: it has a single test, so the extra browsers only
+  add start-up load.
+
+Why not drop `-c 3` everywhere: Parts 1–3, A and B have 7–29 tests each and
+gain from concurrency; the longer start-up limit addresses the actual
+failure.
