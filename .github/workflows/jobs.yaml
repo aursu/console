@@ -20,6 +20,10 @@ concurrency:
 # after setup-node and enables yarn (packageManager in web-app/package.json).
 env:
   COREPACK_VERSION: "0.36.0"
+  # No automatic toolchain downloads. Jobs with setup-go (v6) run the Go it
+  # installed from go.mod; jobs without it only call "go env GOPATH" (the
+  # Makefile), which otherwise downloaded go1.27.4 just to print a path.
+  GOTOOLCHAIN: "local"
   # Test tools installed outside web-app's lockfile, pinned here.
   MINIO_JS_VERSION: "8.0.7"
   TESTCAFE_VERSION: "3.7.7"
