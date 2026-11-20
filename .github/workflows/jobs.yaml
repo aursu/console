@@ -1207,16 +1207,16 @@ jobs:
         with:
           node-version: 18
 
+      # Everything the job needs (@playwright/test, nyc, babel-plugin-istanbul,
+      # react-app-rewired) is in package.json and yarn.lock. Adding them
+      # unpinned here pulled the latest Playwright, which needs Node 20.
       - name: Install dependencies
-        run: |
-          echo "Install dependencies"
-          cd $GITHUB_WORKSPACE/web-app
-          yarn init -y
-          yarn add -D playwright babel-plugin-istanbul nyc react-app-rewired create-react-app @playwright/test
-          echo "yarn install"
-          yarn install --no-immutable
+        working-directory: ./web-app
+        run: yarn install --immutable
 
+      # From web-app, so the browsers match the locked Playwright version.
       - name: Install Playwright Browsers
+        working-directory: ./web-app
         run: npx playwright install --with-deps
 
       - uses: actions/cache@v4
@@ -1234,8 +1234,6 @@ jobs:
         run: |
           echo "Run tests under playwright folder only"
           cd $GITHUB_WORKSPACE/web-app
-          yarn remove playwright
-          yarn add --dev @playwright/test
           echo "npx playwright test"
           npx playwright test # To run the tests
           echo "npx nyc report"
