@@ -102,3 +102,61 @@ Local:
 | actionlint 1.7.7 | no new findings |
 
 In CI: this PR runs every repaired job. The results are in the PR.
+
+## Result of #10, and the second pass (#11)
+
+#10 was merged before its CI finished, and the repair turned out to be
+partial. The PR description had presented it as complete before any
+repaired job had run. A repair is done only when the jobs it repairs are
+green.
+
+| Job | After #10 |
+|---|---|
+| React Tests | **green** |
+| Permissions 1–6, A, B; Subpath | MinIO and mc setup green (28 policies, all users); then **TestCafe failed**: "Firefox 160 browser disconnected", 13/13 |
+| Integration | builds and runs; **2 tests failed** (`TestAddRemoteBucket`, `TestDeleteRemoteBucket`) |
+| SSO | **`mc alias set`: connection refused** |
+| playwright | **"Playwright requires Node.js 20 or higher"** |
+
+Each has its own cause, and #11 fixes each in its own commit:
+
+1. **TestCafe 3.5.0 does not work with Firefox 160.** Reproduced locally on
+   Ubuntu 24.04 with Mozilla's Firefox 160.0.1 and Node 18.20.8, on a
+   one-line test page: 3.5.0 hangs until killed (exit 124), 3.7.7 passes in
+   3 s. The jobs now install 3.7.7. `web-app/package.json` still pins 3.6.2;
+   aligning it changes `yarn.lock` and is left to step 1.5.
+2. **Playwright was installed unpinned.** The job ran `yarn init -y`, added
+   six packages without versions, and ran `yarn install --no-immutable`, so
+   it got the latest Playwright, which needs Node 20. All six are already
+   locked (`@playwright/test` 1.49.0). The job now runs
+   `yarn install --immutable` and installs browsers from `web-app`.
+   Checked locally: 1.49.0 on Node 18 lists the 6 e2e tests.
+3. **The second integration server embedded the wrong console.** The tests
+   create their replication target bucket through MinIO 2's embedded
+   console (`:9092`). aursu/minio's `go.mod` pins upstream's simplified
+   console. Its `getMakeBucketResponse` calls `makeBucket(..., false)` and
+   drops the versioning and locking the test asks for, so the target never
+   had versioning. The job now uses the same `replace` as SSO, so both
+   servers embed the console under test.
+4. **SSO raced the server.** Pulling `minio/mc` used to take seconds and hid
+   the race. Since #10 the client image is already local and asks before
+   the server listens. The Makefile retries for up to 120 s and prints the
+   server log on failure. Checked locally: MinIO keeps running while the
+   OpenID provider is not reachable yet.
+
+### Why not the alternatives
+
+- **Switch TestCafe to Chrome instead of upgrading it.** That changes the
+  browser the tests were written against. Upgrading TestCafe keeps the
+  environment and was proven on the same Firefox the runner has.
+- **Pin `playwright@1.49.0` in the job's `yarn add`.** It would keep a second
+  dependency list in the workflow, apart from the lockfile, and that is how
+  the job drifted in the first place.
+- **For Integration, set versioning on the target bucket with mc.** It
+  would work around the console instead of testing it. The servers should
+  embed the console under test.
+
+### Not changed
+
+- The permissions jobs still `yarn add minio` at the repository root
+  unpinned. That step works today; it moves to the lockfile with step 1.5.
