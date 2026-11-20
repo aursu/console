@@ -125,3 +125,27 @@ Node 26.13.1, corepack 0.36.0, yarn 4.18.1:
 
 CI runs every job on Node 26 through the new corepack steps; this PR is
 their first run.
+
+## After the merge: playwright hung on Node 26 (fixed in #19)
+
+On #18, every job passed except `playwright`, whose "Install Playwright
+Browsers" step (`npx playwright install --with-deps`) never finished.
+On Node 18 the step took about a minute. #18 was merged with that job
+still running, and the run was then cancelled.
+
+Reproduced outside CI with the locked `@playwright/test` 1.49.0,
+installing Chromium:
+
+| Node | Playwright | `playwright install chromium` |
+|---|---|---|
+| 18.20.8 | 1.49.0 | done in 73 s |
+| 26.13.1 | 1.49.0 | download reaches 100 %, then **hangs**, killed at 180 s |
+| 26.13.1 | 1.65.1 | done in 91 s |
+
+The local checks above had not covered this. They list the e2e tests
+(`playwright test --list`) but do not install browsers, which is where it
+hangs. The tool and the Node version have to be tried together.
+
+#19 moves `@playwright/test` from `^1.45.2` (locked 1.49.0) to `^1.65.1`,
+the latest 1.x, which needs Node 20+. It is a devDependency: the bundle
+does not change. On Node 26, 1.65.1 lists the 6 e2e tests; CI runs them.
