@@ -739,7 +739,11 @@ jobs:
       - name: Set up Go from MinIO's go.mod
         uses: actions/setup-go@v6
         with:
-          go-version-file: minio_repository/go.mod
+          # The console's go.mod, not MinIO's: setup-go v6 sets GOTOOLCHAIN=local,
+          # so this Go also compiles the console's tests and coverage, and must
+          # match the other coverage jobs (gocovmerge rejects mixed profiles).
+          # Go 1.27 builds MinIO (go 1.24) fine.
+          go-version-file: go.mod
         id: go
 
       - name: Build on ${{ matrix.os }}
@@ -820,7 +824,11 @@ jobs:
       - name: Set up Go from MinIO's go.mod
         uses: actions/setup-go@v6
         with:
-          go-version-file: minio_repository/go.mod
+          # The console's go.mod, not MinIO's: setup-go v6 sets GOTOOLCHAIN=local,
+          # so this Go also compiles the console's tests and coverage, and must
+          # match the other coverage jobs (gocovmerge rejects mixed profiles).
+          # Go 1.27 builds MinIO (go 1.24) fine.
+          go-version-file: go.mod
         id: go
       - name: Check-out matching MinIO branch
         env:
