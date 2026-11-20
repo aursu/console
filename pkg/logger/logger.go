@@ -158,8 +158,10 @@ func Init(goPath, goRoot string) {
 	defaultgoPathList = strings.Split(build.Default.GOPATH, pathSeperator)
 	defaultgoRootList = strings.Split(build.Default.GOROOT, pathSeperator)
 
-	// Add trim string "{GOROOT}/src/" into trimStrings
-	trimStrings = []string{filepath.Join(runtime.GOROOT(), "src") + string(filepath.Separator)}
+	// Add trim string "{GOROOT}/src/" into trimStrings. runtime.GOROOT is
+	// deprecated (Go 1.24), but here it is only one more candidate prefix to
+	// trim from stack-trace paths, next to goRoot and build.Default.GOROOT.
+	trimStrings = []string{filepath.Join(runtime.GOROOT(), "src") + string(filepath.Separator)} //nolint:staticcheck // SA1019, see above
 
 	// Add all possible path from GOPATH=path1:path2...:pathN
 	// as "{path#}/src/" into trimStrings
