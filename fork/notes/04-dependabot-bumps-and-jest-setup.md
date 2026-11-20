@@ -99,3 +99,24 @@ Before the setup file existed, formidable 3.5.4 gave 1 failed suite (the
 failure above). `yarn why` confirms both dependency chains:
 `webpack-dev-server` → `http-proxy-middleware` 2.0.9, and `superagent` →
 `formidable` 3.5.4 → `@paralleldrive/cuid2` 2.2.2.
+
+## Closed: http-proxy-middleware 2.0.12 (#22, 2026-11-20)
+
+The item above was planned for step 1.5 but left out of its PRs; noticed
+when marking the step done. `webpack-dev-server`'s range (`^2.0.3`)
+allows the fix, so `yarn up -R http-proxy-middleware` moves 2.0.9 to
+2.0.12, the last 2.x. It is used only by the development server: the bundle
+does not change, and the full (not only production) audit no longer lists
+it.
+
+Seen on the way, not acted on: without `--no-deprecations`, the audit also
+reports two **deprecation** notices. They are not vulnerabilities. Both are
+major upgrades for later:
+
+- recharts 2.x, superseded by v3;
+- superagent 9, superseded by v10.2.2+.
+
+CI's audit runs with `--no-deprecations` and stays clean.
+
+Tests: `yarn install --immutable`; `yarn test` 41/41; prettier and
+dead-code checks ok; build ok with the bundle unchanged.
