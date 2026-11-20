@@ -1256,11 +1256,15 @@ jobs:
         if: always()
         with:
           name: playwright-report
-          path: playwright-report/
+          # The tests run in web-app/; the report and the per-test traces
+          # (test-results/) are written there.
+          path: |
+            web-app/playwright-report/
+            web-app/test-results/
           retention-days: 30
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: coverage
-          path: coverage/
+          path: web-app/coverage/
           retention-days: 30
