@@ -2,7 +2,7 @@ module github.com/minio/console
 
 go 1.23
 
-toolchain go1.23.6
+toolchain go1.27.4
 
 require (
 	github.com/blang/semver/v4 v4.0.0
