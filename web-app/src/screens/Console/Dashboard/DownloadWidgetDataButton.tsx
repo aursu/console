@@ -16,7 +16,7 @@
 
 import React, { Fragment } from "react";
 import { Box, DownloadIcon, DropdownSelector } from "mds";
-import { exportComponentAsPNG } from "react-component-export-image";
+import { exportElementAsPNG } from "./exportElementAsPNG";
 import { ErrorResponseHandler } from "../../../common/types";
 import { useAppDispatch } from "../../../../src/store";
 import { setErrorSnackMessage } from "../../../../src/systemSlice";
@@ -95,10 +95,10 @@ const DownloadWidgetDataButton = ({
         .replace(/\s+/g, "")
         .trim()
         .toLowerCase();
-      exportComponentAsPNG(componentRef, { fileName: pngFileName });
+      exportElementAsPNG(componentRef.current, pngFileName);
     } else {
       const pngFileName = "widgetData_" + Date.now().toString() + ".png";
-      exportComponentAsPNG(componentRef, { fileName: pngFileName });
+      exportElementAsPNG(componentRef.current, pngFileName);
     }
   };
 
