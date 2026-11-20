@@ -226,7 +226,7 @@ jobs:
           (CONSOLE_SUBPATH=/console/subpath ./console server ) & (make test-initialize-minio-nginx)
 
       - name: Install TestCafe
-        run: npm install testcafe@3.5.0
+        run: npm install testcafe@3.7.7
 
       - name: Run TestCafe Tests
         run: npx testcafe "firefox:headless" web-app/tests/subpath-nginx/ -q --skip-js-errors -c 3
@@ -280,7 +280,7 @@ jobs:
           (./console server) & (make initialize-permissions)
 
       - name: Install TestCafe
-        run: npm install testcafe@3.5.0
+        run: npm install testcafe@3.7.7
 
       - name: Run TestCafe Tests
         run: npx testcafe "firefox:headless" web-app/tests/permissions-1/ -q --skip-js-errors -c 3
@@ -332,7 +332,7 @@ jobs:
           (./console server) & (make initialize-permissions)
 
       - name: Install TestCafe
-        run: npm install testcafe@3.5.0
+        run: npm install testcafe@3.7.7
 
       - name: Run TestCafe Tests
         run: npx testcafe "firefox:headless" web-app/tests/permissions-2/ -q --skip-js-errors -c 3
@@ -384,7 +384,7 @@ jobs:
           (./console server) & (make initialize-permissions)
 
       - name: Install TestCafe
-        run: npm install testcafe@3.5.0
+        run: npm install testcafe@3.7.7
 
       - name: Run TestCafe Tests
         run: npx testcafe "firefox:headless" web-app/tests/permissions-3/ -q --skip-js-errors -c 3
@@ -436,7 +436,7 @@ jobs:
           (./console server) & (make initialize-permissions)
 
       - name: Install TestCafe
-        run: npm install testcafe@3.5.0
+        run: npm install testcafe@3.7.7
 
       - name: Run TestCafe Tests
         timeout-minutes: 10
@@ -484,7 +484,7 @@ jobs:
           (./console server) & (make initialize-permissions)
 
       - name: Install TestCafe
-        run: npm install testcafe@3.5.0
+        run: npm install testcafe@3.7.7
 
       - name: Run TestCafe Tests
         timeout-minutes: 5
@@ -532,7 +532,7 @@ jobs:
           (./console server) & (make initialize-permissions)
 
       - name: Install TestCafe
-        run: npm install testcafe@3.5.0
+        run: npm install testcafe@3.7.7
 
       - name: Run TestCafe Tests
         timeout-minutes: 5
@@ -580,7 +580,7 @@ jobs:
           (./console server) & (make initialize-permissions)
 
       - name: Install TestCafe
-        run: npm install testcafe@3.5.0
+        run: npm install testcafe@3.7.7
 
       - name: Run TestCafe Tests
         run: npx testcafe "firefox:headless" web-app/tests/permissions-A/ --skip-js-errors -c 3
@@ -631,7 +631,7 @@ jobs:
           (./console server) & (make initialize-permissions)
 
       - name: Install TestCafe
-        run: npm install testcafe@3.5.0
+        run: npm install testcafe@3.7.7
 
       - name: Run TestCafe Tests
         run: npx testcafe "firefox:headless" web-app/tests/permissions-B/ --skip-js-errors -c 3
@@ -760,6 +760,12 @@ jobs:
         run: |
           echo "The idea is to build minio image from downloaded repository";
           cd $GITHUB_WORKSPACE/minio_repository;
+          # The tests create buckets through the second server's embedded
+          # console (:9092), so it must be this console, as in the SSO job.
+          # aursu/minio's go.mod still pins upstream's simplified console,
+          # which ignores versioning and locking when it creates a bucket.
+          echo "replace github.com/minio/console => ../" >> go.mod
+          go mod tidy -compat=1.23
           echo "Get git version to build MinIO Image";
           VERSION=`git rev-parse HEAD`;
           echo $VERSION;
@@ -1207,16 +1213,16 @@ jobs:
         with:
           node-version: 18
 
+      # Everything the job needs (@playwright/test, nyc, babel-plugin-istanbul,
+      # react-app-rewired) is in package.json and yarn.lock. Adding them
+      # unpinned here pulled the latest Playwright, which needs Node 20.
       - name: Install dependencies
-        run: |
-          echo "Install dependencies"
-          cd $GITHUB_WORKSPACE/web-app
-          yarn init -y
-          yarn add -D playwright babel-plugin-istanbul nyc react-app-rewired create-react-app @playwright/test
-          echo "yarn install"
-          yarn install --no-immutable
+        working-directory: ./web-app
+        run: yarn install --immutable
 
+      # From web-app, so the browsers match the locked Playwright version.
       - name: Install Playwright Browsers
+        working-directory: ./web-app
         run: npx playwright install --with-deps
 
       - uses: actions/cache@v4
@@ -1234,8 +1240,6 @@ jobs:
         run: |
           echo "Run tests under playwright folder only"
           cd $GITHUB_WORKSPACE/web-app
-          yarn remove playwright
-          yarn add --dev @playwright/test
           echo "npx playwright test"
           npx playwright test # To run the tests
           echo "npx nyc report"

@@ -184,7 +184,15 @@ test-sso-integration:
 	-e MINIO_ROOT_PASSWORD=minio123 $(MINIO_VERSION) server /data{1...4} --address :9000 --console-address :9001)
 	@echo "run mc commands to set the policy"
 	@(docker run --name minio-client --network my-net -dit --entrypoint=/bin/sh $(MINIO_VERSION))
-	@(docker exec minio-client mc alias set myminio/ http://minio:9000 minio minio123)
+	@# The client image is already local, so the client is ready long before
+	@# the server is: wait up to 120 s for it to accept the alias.
+	@(for i in $$(seq 1 60); do \
+		docker exec minio-client mc alias set myminio/ http://minio:9000 minio minio123 >/dev/null 2>&1 && exit 0; \
+		sleep 2; \
+	done; \
+	echo "minio did not accept connections within 120 s"; \
+	docker logs minio || echo "the minio container is gone"; \
+	exit 1)
 	@echo "adding policy to Dillon Harper to be able to login:"
 	@(cd sso-integration && docker cp allaccess.json minio-client:/ && docker exec minio-client mc admin policy create myminio "Dillon Harper" allaccess.json)
 	@echo "starting bash script"
