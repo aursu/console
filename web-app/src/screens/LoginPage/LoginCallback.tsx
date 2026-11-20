@@ -22,6 +22,7 @@ import { baseUrl } from "../../history";
 import { Box, Button, LoginWrapper, WarnIcon } from "mds";
 import { getLogoApplicationVariant, getLogoVar } from "../../config";
 import get from "lodash/get";
+import { takeRedirectPath } from "./redirectPath";
 
 const CallBackContainer = styled.div(({ theme }) => ({
   "& .errorDescription": {
@@ -82,14 +83,7 @@ const LoginCallback = () => {
           .invoke("POST", "/api/v1/login/oauth2/auth", { code, state })
           .then(() => {
             // We push to history the new URL.
-            let targetPath = "/";
-            if (
-              localStorage.getItem("redirect-path") &&
-              localStorage.getItem("redirect-path") !== ""
-            ) {
-              targetPath = `${localStorage.getItem("redirect-path")}`;
-              localStorage.setItem("redirect-path", "");
-            }
+            const targetPath = takeRedirectPath("/");
             if (state) {
               localStorage.setItem("auth-state", state);
             }
