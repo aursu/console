@@ -26,13 +26,21 @@ v6.0.0 reworked toolchain handling (actions/setup-go#460).
     `OVERLAP BEFORE: …/api/admin_arns.go`.
   - With the console's go.mod (1.27.4, which builds MinIO fine) the coverage
     check passed again.
-- **Workflow-level `GOTOOLCHAIN: local` in `jobs.yaml`.**
+- **`GOTOOLCHAIN: local` in the jobs without setup-go.**
   - Ten jobs have no setup-go: Permissions ×8, Subpath, playwright. They
     still downloaded go1.27.4, in their "Start Console" step. The cause:
     the Makefile's `GOPATH := $(shell go env GOPATH)` runs the runner's
     preinstalled Go inside the module, which auto-switched to the toolchain
     line just to print a path. This predates v6.
   - With `local`, nothing is downloaded. Those jobs use no other Go.
+  - **Correction: job-level, not workflow-level.** The first version set
+    `GOTOOLCHAIN: local` for the whole workflow. With that set,
+    **setup-go v6 ignores the `toolchain` line and installs the `go` line**.
+    12 jobs then ran Go 1.23, and the tests, lint and build mostly passed,
+    on the wrong Go. Only the MinIO build broke: Go 1.23 cannot parse
+    MinIO's go.mod (`unknown block type: tool`, a Go 1.24 directive). The
+    setting is now on the 10 jobs without setup-go only, and the setup-go
+    jobs install 1.27.4 again.
 - **The `PATH` step in "Analysis" is removed** (added in #23, note 13).
   With v6 the `go` on PATH already is go1.27.4.
 

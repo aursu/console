@@ -20,10 +20,6 @@ concurrency:
 # after setup-node and enables yarn (packageManager in web-app/package.json).
 env:
   COREPACK_VERSION: "0.36.0"
-  # No automatic toolchain downloads. Jobs with setup-go (v6) run the Go it
-  # installed from go.mod; jobs without it only call "go env GOPATH" (the
-  # Makefile), which otherwise downloaded go1.27.4 just to print a path.
-  GOTOOLCHAIN: "local"
   # Test tools installed outside web-app's lockfile, pinned here.
   MINIO_JS_VERSION: "8.0.7"
   TESTCAFE_VERSION: "3.7.7"
@@ -191,6 +187,12 @@ jobs:
     needs:
       - compile-binary
     runs-on: [ubuntu-24.04]
+    # No setup-go here: the Makefile's "go env GOPATH" runs the runner's
+    # Go, which would otherwise download go.mod's toolchain to print a path.
+    # Not workflow-wide: with GOTOOLCHAIN=local, setup-go v6 installs the
+    # go line (1.23) instead of the toolchain line.
+    env:
+      GOTOOLCHAIN: local
     timeout-minutes: 10
     strategy:
       matrix:
@@ -244,6 +246,12 @@ jobs:
     needs:
       - compile-binary
     runs-on: [ubuntu-24.04]
+    # No setup-go here: the Makefile's "go env GOPATH" runs the runner's
+    # Go, which would otherwise download go.mod's toolchain to print a path.
+    # Not workflow-wide: with GOTOOLCHAIN=local, setup-go v6 installs the
+    # go line (1.23) instead of the toolchain line.
+    env:
+      GOTOOLCHAIN: local
     timeout-minutes: 10
     strategy:
       matrix:
@@ -296,6 +304,12 @@ jobs:
     needs:
       - compile-binary
     runs-on: [ubuntu-24.04]
+    # No setup-go here: the Makefile's "go env GOPATH" runs the runner's
+    # Go, which would otherwise download go.mod's toolchain to print a path.
+    # Not workflow-wide: with GOTOOLCHAIN=local, setup-go v6 installs the
+    # go line (1.23) instead of the toolchain line.
+    env:
+      GOTOOLCHAIN: local
     timeout-minutes: 10
     strategy:
       matrix:
@@ -347,6 +361,12 @@ jobs:
     needs:
       - compile-binary
     runs-on: [ubuntu-24.04]
+    # No setup-go here: the Makefile's "go env GOPATH" runs the runner's
+    # Go, which would otherwise download go.mod's toolchain to print a path.
+    # Not workflow-wide: with GOTOOLCHAIN=local, setup-go v6 installs the
+    # go line (1.23) instead of the toolchain line.
+    env:
+      GOTOOLCHAIN: local
     timeout-minutes: 10
     strategy:
       matrix:
@@ -398,6 +418,12 @@ jobs:
     needs:
       - compile-binary
     runs-on: [ubuntu-24.04]
+    # No setup-go here: the Makefile's "go env GOPATH" runs the runner's
+    # Go, which would otherwise download go.mod's toolchain to print a path.
+    # Not workflow-wide: with GOTOOLCHAIN=local, setup-go v6 installs the
+    # go line (1.23) instead of the toolchain line.
+    env:
+      GOTOOLCHAIN: local
     timeout-minutes: 15
     strategy:
       matrix:
@@ -446,6 +472,12 @@ jobs:
     needs:
       - compile-binary
     runs-on: [ubuntu-24.04]
+    # No setup-go here: the Makefile's "go env GOPATH" runs the runner's
+    # Go, which would otherwise download go.mod's toolchain to print a path.
+    # Not workflow-wide: with GOTOOLCHAIN=local, setup-go v6 installs the
+    # go line (1.23) instead of the toolchain line.
+    env:
+      GOTOOLCHAIN: local
     strategy:
       matrix:
         os: [ubuntu-24.04]
@@ -493,6 +525,12 @@ jobs:
     needs:
       - compile-binary
     runs-on: [ubuntu-24.04]
+    # No setup-go here: the Makefile's "go env GOPATH" runs the runner's
+    # Go, which would otherwise download go.mod's toolchain to print a path.
+    # Not workflow-wide: with GOTOOLCHAIN=local, setup-go v6 installs the
+    # go line (1.23) instead of the toolchain line.
+    env:
+      GOTOOLCHAIN: local
     strategy:
       matrix:
         os: [ubuntu-24.04]
@@ -540,6 +578,12 @@ jobs:
     needs:
       - compile-binary
     runs-on: [ubuntu-24.04]
+    # No setup-go here: the Makefile's "go env GOPATH" runs the runner's
+    # Go, which would otherwise download go.mod's toolchain to print a path.
+    # Not workflow-wide: with GOTOOLCHAIN=local, setup-go v6 installs the
+    # go line (1.23) instead of the toolchain line.
+    env:
+      GOTOOLCHAIN: local
     strategy:
       matrix:
         os: [ubuntu-24.04]
@@ -590,6 +634,12 @@ jobs:
     needs:
       - compile-binary
     runs-on: [ubuntu-24.04]
+    # No setup-go here: the Makefile's "go env GOPATH" runs the runner's
+    # Go, which would otherwise download go.mod's toolchain to print a path.
+    # Not workflow-wide: with GOTOOLCHAIN=local, setup-go v6 installs the
+    # go line (1.23) instead of the toolchain line.
+    env:
+      GOTOOLCHAIN: local
     strategy:
       matrix:
         os: [ubuntu-24.04]
@@ -1190,6 +1240,12 @@ jobs:
       - compile-binary-istanbul-coverage
     timeout-minutes: 60
     runs-on: ubuntu-24.04
+    # No setup-go here: the Makefile's "go env GOPATH" runs the runner's
+    # Go, which would otherwise download go.mod's toolchain to print a path.
+    # Not workflow-wide: with GOTOOLCHAIN=local, setup-go v6 installs the
+    # go line (1.23) instead of the toolchain line.
+    env:
+      GOTOOLCHAIN: local
     steps:
       - uses: actions/checkout@v3
       - name: Read .nvmrc
