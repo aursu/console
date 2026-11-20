@@ -114,11 +114,12 @@ jobs:
       matrix:
         go-version: [1.23.x]
     steps:
-      # To build minio image, we need to clone the repository first
-      - name: Clone github.com/minio/minio
+      # To build minio image, we need to clone the repository first.
+      # minio/minio is archived; the fork is the server this console ships in.
+      - name: Clone github.com/aursu/minio
         uses: actions/checkout@v3
         with:
-          repository: minio/minio
+          repository: aursu/minio
       - name: Check-out matching MinIO branch
         env:
           GH_BRANCH: ${{ github.head_ref || github.ref_name }}
@@ -131,10 +132,10 @@ jobs:
             git remote add alt $ALTREPO
             (git fetch alt && git checkout "alt/$GH_BRANCH") || echo "$ALTREPO ($GH_BRANCH) not available, so keeping default repository/branch"
           fi
-      - name: Set up Go ${{ matrix.go-version }} on ${{ matrix.os }}
+      - name: Set up Go from MinIO's go.mod
         uses: actions/setup-go@v5
         with:
-          go-version: ${{ matrix.go-version }}
+          go-version-file: go.mod
         id: go-minio
       - name: Build on ${{ matrix.os }}
         if: steps.minio-latest-cache.outputs.cache-hit != 'true'
@@ -725,10 +726,10 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v3
-      - name: Clone github.com/minio/minio
+      - name: Clone github.com/aursu/minio
         uses: actions/checkout@master
         with:
-          repository: minio/minio
+          repository: aursu/minio
           path: "minio_repository"
       - name: Check-out matching MinIO branch
         env:
@@ -749,10 +750,10 @@ jobs:
           path: |
             ./minio
           key: ${{ runner.os }}-minio-latest-${{ hashFiles('./minio_repository/go.sum') }}
-      - name: Set up Go ${{ matrix.go-version }} on ${{ matrix.os }}
+      - name: Set up Go from MinIO's go.mod
         uses: actions/setup-go@v5
         with:
-          go-version: ${{ matrix.go-version }}
+          go-version-file: minio_repository/go.mod
         id: go
 
       - name: Build on ${{ matrix.os }}
@@ -772,13 +773,6 @@ jobs:
           MINIO_VERSION="minio/minio:$VERSION";
           echo $MINIO_VERSION;
 
-          echo "Create bucket for replication with versioning"
-          echo "Download mc for Ubuntu"
-          wget -q https://dl.min.io/client/mc/release/linux-amd64/mc
-          echo "Change the permissions to execute mc command"
-          chmod +x mc
-
-          echo "Create the folder to put the all.out file"
           make test-integration MINIO_VERSION=$MINIO_VERSION;
 
       - uses: actions/cache@v4
@@ -828,17 +822,17 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v3
 
-      - name: Set up Go ${{ matrix.go-version }} on ${{ matrix.os }}
-        uses: actions/setup-go@v5
-        with:
-          go-version: ${{ matrix.go-version }}
-        id: go
-
-      - name: Clone github.com/minio/minio
+      - name: Clone github.com/aursu/minio
         uses: actions/checkout@master
         with:
-          repository: minio/minio
+          repository: aursu/minio
           path: "minio_repository"
+
+      - name: Set up Go from MinIO's go.mod
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: minio_repository/go.mod
+        id: go
       - name: Check-out matching MinIO branch
         env:
           GH_BRANCH: ${{ github.head_ref || github.ref_name }}
