@@ -314,7 +314,9 @@ const OBListBuckets = () => {
                           To get started,&nbsp;
                           <ActionLink
                             onClick={() => {
-                              navigate(IAM_PAGES.ADD_BUCKETS);
+                              navigate(
+                                `${IAM_PAGES.OBJECT_BROWSER_VIEW}/${IAM_PAGES.ADD_BUCKETS}`,
+                              );
                             }}
                           >
                             Create a Bucket.

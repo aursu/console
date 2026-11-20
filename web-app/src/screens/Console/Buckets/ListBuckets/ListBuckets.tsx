@@ -300,7 +300,7 @@ const ListBuckets = () => {
                 <Button
                   id={"create-bucket"}
                   onClick={() => {
-                    navigate(IAM_PAGES.ADD_BUCKETS);
+                    navigate(`${IAM_PAGES.BUCKETS}/${IAM_PAGES.ADD_BUCKETS}`);
                   }}
                   icon={<AddIcon />}
                   variant={"callAction"}
@@ -382,7 +382,9 @@ const ListBuckets = () => {
                           To get started,&nbsp;
                           <ActionLink
                             onClick={() => {
-                              navigate(IAM_PAGES.ADD_BUCKETS);
+                              navigate(
+                                `${IAM_PAGES.BUCKETS}/${IAM_PAGES.ADD_BUCKETS}`,
+                              );
                             }}
                           >
                             Create a Bucket.
