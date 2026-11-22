@@ -212,3 +212,11 @@ browser to start is 2 minutes.
 Why not drop `-c 3` everywhere: Parts 1–3, A and B have 7–29 tests each and
 gain from concurrency; the longer start-up limit addresses the actual
 failure.
+
+**Seen again with the 6-minute limit:** #29 on 2026-11-22, Permissions
+Part 3 (`-c 3`), "1 of 3 browser connections have not been established:
+firefox:headless" after the full 6 minutes. #29 changes only the two jobs
+that embed the console into MinIO; this job uses the pinned server image.
+So the longer limit made the failure rarer (none from #25 to #28), not
+impossible. If it comes back, the next step is `-c 2` for Parts 1–3, A
+and B, or starting the browsers one after another, not a longer limit.

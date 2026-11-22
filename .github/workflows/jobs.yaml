@@ -805,10 +805,12 @@ jobs:
           echo "The idea is to build minio image from downloaded repository";
           cd $GITHUB_WORKSPACE/minio_repository;
           # The tests create buckets through the second server's embedded
-          # console (:9092), so it must be this console, as in the SSO job.
-          # aursu/minio's go.mod still pins upstream's simplified console,
-          # which ignores versioning and locking when it creates a bucket.
-          echo "replace github.com/minio/console => ../" >> go.mod
+          # console (:9092), so it must be this console, as in the SSO job,
+          # not whatever aursu/minio's go.mod pins (upstream's simplified
+          # console ignores versioning and locking when it creates a bucket).
+          # `go mod edit` overwrites a replace aursu/minio already has; an
+          # appended second one fails with "conflicting replacements".
+          go mod edit -replace github.com/minio/console=../
           go mod tidy -compat=1.23
           echo "Get git version to build MinIO Image";
           VERSION=`git rev-parse HEAD`;
@@ -914,7 +916,9 @@ jobs:
         run: |
           echo "The idea is to build minio image from downloaded repository";
           cd $GITHUB_WORKSPACE/minio_repository;
-          echo "replace github.com/minio/console => ../" >> go.mod
+          # Overwrites a replace aursu/minio already has (see the
+          # integration job).
+          go mod edit -replace github.com/minio/console=../
 
           echo "updates to go.mod needed; to update it: go mod tidy"
           go mod tidy -compat=1.23
